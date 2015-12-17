@@ -13,16 +13,16 @@ import com.medusabookdepot.modelInterface.StandardBook;
  */
 public class ParcelImpl implements Parcel {
 
-    private String trackingnumber;
+    private String trackingNumber;
     private Map<StandardBook,Integer> books;
     
     public ParcelImpl(String trackingnumber, Map<StandardBook,Integer> books) {
-        this.trackingnumber=trackingnumber;
+        this.trackingNumber=trackingnumber;
         this.books=books;
     }
     @Override
     public String getTrackingNumber() {
-        return this.trackingnumber;
+        return this.trackingNumber;
     }
     @Override
     public int getQuantity() {
@@ -38,7 +38,7 @@ public class ParcelImpl implements Parcel {
     public int getQuantityFromBook(StandardBook book) {
         int x=0;
         for(StandardBook libro :this.books.keySet()) {
-            if(libro.getISBN().equals(book.getISBN())) {
+            if(libro.getIsbn().equals(book.getIsbn())) {
                 x+=books.get(libro).intValue();
             }
         }
@@ -58,7 +58,7 @@ public class ParcelImpl implements Parcel {
     
     @Override
     public void setTrackingNumber(String trackingnumber) {
-        this.trackingnumber=trackingnumber;
+        this.trackingNumber=trackingnumber;
     }
 
     

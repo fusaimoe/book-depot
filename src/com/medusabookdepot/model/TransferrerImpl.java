@@ -17,7 +17,8 @@ import com.medusabookdepot.modelInterface.Transferrer;
 public abstract class TransferrerImpl implements Transferrer {
 
     protected Optional<String> name;
-    public static List<Transfer> transfers;
+    protected static List<Transfer> transfers;//List that contains all transfers alive
+    
     public TransferrerImpl(String name) {
         this.name=Optional.of(name);
     }

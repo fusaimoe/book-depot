@@ -5,8 +5,6 @@ package com.medusabookdepot.model;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Optional;
-
 import com.medusabookdepot.modelInterface.Customer;
 import com.medusabookdepot.modelInterface.Parcel;
 import com.medusabookdepot.modelInterface.Transferrer;
@@ -17,41 +15,36 @@ import com.medusabookdepot.modelInterface.Transferrer;
  */
 public class CustomerImpl extends TransferrerImpl implements Customer {
 
-    private Optional<String> address;
-    private Optional<String> telephonenumber;
+    private String address;
+    private String telephoneNumber;
     
-    public CustomerImpl(String name,String address, String telephonenumber) {
+    public CustomerImpl(String name,String address, String telephoneNumber) {
         super(name);
-        this.address=Optional.ofNullable(address);
-        this.telephonenumber=Optional.ofNullable(telephonenumber);
-    }
-    public CustomerImpl(String name,String address) {
-        super(name);
-        this.address=Optional.ofNullable(address);
-        this.telephonenumber=Optional.empty();
+        this.address=address;
+        this.telephoneNumber=telephoneNumber;
     }
     @Override
     public String getAddress() {
-        return this.address.get();
+        return this.address;
     }
 
     @Override
     public String getTelephoneNumber() {
-        return this.telephonenumber.get();
+        return this.telephoneNumber;
     }
 
     @Override
     public void setAddress(String address) {
-        this.address=Optional.ofNullable(address);
+        this.address=address;
     }
 
     @Override
-    public void setTelephoneNumber(String telephonenumber) {
-        this.telephonenumber=Optional.ofNullable(telephonenumber);
+    public void setTelephoneNumber(String telephoneNumber) {
+        this.telephoneNumber=telephoneNumber;
     }
     @Override
-    public void doTransfer(Transferrer transferrer, boolean sender,Parcel parcel) {
-        transfers.add(new TransferImpl(sender? this:transferrer, sender==false? transferrer:this, parcel, Date.valueOf(LocalDate.now())));
+    public void doTransfer(Transferrer opposite, boolean sender,Parcel parcel) {
+        transfers.add(new TransferImpl(sender? this:opposite, sender==false? opposite:this, parcel, Date.valueOf(LocalDate.now())));
     }
 
 }

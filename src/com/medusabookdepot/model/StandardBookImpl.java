@@ -46,7 +46,7 @@ public class StandardBookImpl implements StandardBook{
     }
 
     @Override
-    public String getISBN() {
+    public String getIsbn() {
         return this.isbn;
     }
 
@@ -86,7 +86,7 @@ public class StandardBookImpl implements StandardBook{
     }
 
     @Override
-    public void setISBN(String isbn) {
+    public void setIsbn(String isbn) {
         this.isbn=isbn;
     }
 

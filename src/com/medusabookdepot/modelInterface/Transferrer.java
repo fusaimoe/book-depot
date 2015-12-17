@@ -16,9 +16,11 @@ public interface Transferrer {
     public String getName();
     /**
      * 
-     * @param transfer is the transfer Transferrer object has to do
+     * @param opposite is the transferrer i want to send or receive
+     * @param sender identifies if the objects that does transfer is sender
+     * @param parcel is the parcel of book to receive or send
      */
-    public void doTransfer(Transferrer transferrer, boolean sender,Parcel parcel);
+    public void doTransfer(Transferrer opposite, boolean sender,Parcel parcel);
     /**
      * 
      * @param name is the name I want to give to the Transferrer Object
