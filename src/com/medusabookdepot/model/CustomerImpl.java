@@ -15,8 +15,8 @@ import com.medusabookdepot.modelInterface.Transferrer;
  */
 public class CustomerImpl extends TransferrerImpl implements Customer {
 
-    private String address;
-    private String telephoneNumber;
+    protected String address;
+    protected String telephoneNumber;
     
     public CustomerImpl(String name,String address, String telephoneNumber) {
         super(name);

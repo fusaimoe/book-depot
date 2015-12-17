@@ -6,7 +6,6 @@ package com.medusabookdepot.model;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Map;
-import java.util.Optional;
 import com.medusabookdepot.modelInterface.Depot;
 import com.medusabookdepot.modelInterface.Parcel;
 import com.medusabookdepot.modelInterface.StandardBook;
@@ -25,16 +24,8 @@ public class DepotImpl extends TransferrerImpl implements Depot {
     }
     
     @Override
-    public String getName() {
-        return this.name.get();
-    }
-    @Override
     public void doTransfer(Transferrer transferrer, boolean sender,Parcel parcel) {
         transfers.add(new TransferImpl(sender? this:transferrer, sender==false? transferrer:this, parcel, Date.valueOf(LocalDate.now())));
-    }
-    @Override
-    public void setName(String name) {
-        this.name=Optional.ofNullable(name);
     }
     
     @Override
