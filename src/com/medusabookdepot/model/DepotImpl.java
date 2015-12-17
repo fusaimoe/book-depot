@@ -19,7 +19,6 @@ import com.medusabookdepot.modelInterface.Transferrer;
 public class DepotImpl extends TransferrerImpl implements Depot {
 
     private Map<StandardBook,Integer> books;
-    
     public DepotImpl(String name,Map<StandardBook,Integer> books) {
         super(name);
         this.books=books;
@@ -51,7 +50,7 @@ public class DepotImpl extends TransferrerImpl implements Depot {
     public int getQuantityFromStandardBook(StandardBook book) {
         int x=0;
         for(StandardBook libro :this.books.keySet()) {
-            if(libro.getISBN().equals(book.getISBN())) {
+            if(libro.getIsbn().equals(book.getIsbn())) {
                 x+=books.get(libro);
             }
         }

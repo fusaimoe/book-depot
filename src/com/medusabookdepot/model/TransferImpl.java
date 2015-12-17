@@ -18,13 +18,13 @@ public class TransferImpl implements Transfer {
     private Transferrer sender;
     private Transferrer receiver;
     private Parcel parcel;
-    private Date leavingdate;
+    private Date leavingDate;
     
-    public  TransferImpl(Transferrer sender,Transferrer receiver,Parcel parcel,Date leavingdate) {
+    public  TransferImpl(Transferrer sender,Transferrer receiver,Parcel parcel,Date leavingDate) {
         this.sender=sender;
         this.receiver=receiver;
         this.parcel=parcel;
-        this.leavingdate=leavingdate;
+        this.leavingDate=leavingDate;
     }
     @Override
     public Transferrer getSender() {
@@ -43,7 +43,7 @@ public class TransferImpl implements Transfer {
 
     @Override
     public Date getLeavingDate() {
-        return this.leavingdate;
+        return this.leavingDate;
     }
 
     @Override
@@ -62,8 +62,8 @@ public class TransferImpl implements Transfer {
     }
 
     @Override
-    public void setLeavingDate(Date leavingdate) {
-        this.leavingdate=leavingdate;
+    public void setLeavingDate(Date leavingDate) {
+        this.leavingDate=leavingDate;
     }
 
 }

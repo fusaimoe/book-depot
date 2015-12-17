@@ -14,7 +14,7 @@ public interface StandardBook {
      */
     public String getName();
     
-    public String getISBN();
+    public String getIsbn();
     
     public int getYear();
     
@@ -32,7 +32,7 @@ public interface StandardBook {
     
     public void setName(String name);
     
-    public void setISBN(String isbn);
+    public void setIsbn(String isbn);
     
     public void setYear(int year);
     
