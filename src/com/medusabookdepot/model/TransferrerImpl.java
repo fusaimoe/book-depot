@@ -4,8 +4,6 @@
 package com.medusabookdepot.model;
 
 import java.util.List;
-import java.util.Optional;
-
 import com.medusabookdepot.modelInterface.Parcel;
 import com.medusabookdepot.modelInterface.Transfer;
 import com.medusabookdepot.modelInterface.Transferrer;
@@ -16,15 +14,15 @@ import com.medusabookdepot.modelInterface.Transferrer;
  */
 public abstract class TransferrerImpl implements Transferrer {
 
-    protected Optional<String> name;
+    protected String name;
     protected static List<Transfer> transfers;//List that contains all transfers alive
     
     public TransferrerImpl(String name) {
-        this.name=Optional.of(name);
+        this.name=name;
     }
     @Override
     public String getName() {
-        return this.name.get();
+        return this.name;
     }
 
     @Override
@@ -33,6 +31,6 @@ public abstract class TransferrerImpl implements Transferrer {
 
     @Override
     public void setName(String name) {
-        this.name=Optional.ofNullable(name);
+        this.name=name;
     }
 }
