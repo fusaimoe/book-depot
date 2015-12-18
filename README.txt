@@ -1,5 +1,4 @@
 
-
 Il gruppo si pone come obiettivo quello di realizzare un software adibito alla gestione di uno o più magazzini per una casa editrice realmente esistente.
 
 
