@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.medusabookdepot.model;
+package com.medusabookdepot.modelImpl;
 
 import com.medusabookdepot.modelInterface.Printer;
 
