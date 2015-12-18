@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.medusabookdepot.modelInterface;
+package com.medusabookdepot.model.modelInterface;
 
 /**
  * @author Marcello_Feroce

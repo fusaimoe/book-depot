@@ -1,11 +1,11 @@
 /**
  * 
  */
-package com.medusabookdepot.modelImpl;
+package com.medusabookdepot.model.modelImpl;
 
 import java.util.Optional;
 
-import com.medusabookdepot.modelInterface.StandardBook;
+import com.medusabookdepot.model.modelInterface.StandardBook;
 
 /**
  * @author Marcello_Feroce
