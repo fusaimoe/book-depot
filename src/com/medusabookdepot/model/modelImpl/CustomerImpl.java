@@ -1,13 +1,14 @@
 /**
  * 
  */
-package com.medusabookdepot.modelImpl;
+package com.medusabookdepot.model.modelImpl;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import com.medusabookdepot.modelInterface.Customer;
-import com.medusabookdepot.modelInterface.Parcel;
-import com.medusabookdepot.modelInterface.Transferrer;
+
+import com.medusabookdepot.model.modelInterface.Customer;
+import com.medusabookdepot.model.modelInterface.Parcel;
+import com.medusabookdepot.model.modelInterface.Transferrer;
 
 /**
  * @author Marcello_Feroce

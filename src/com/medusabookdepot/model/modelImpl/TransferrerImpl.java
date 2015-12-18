@@ -1,12 +1,13 @@
 /**
  * 
  */
-package com.medusabookdepot.modelImpl;
+package com.medusabookdepot.model.modelImpl;
 
 import java.util.List;
-import com.medusabookdepot.modelInterface.Parcel;
-import com.medusabookdepot.modelInterface.Transfer;
-import com.medusabookdepot.modelInterface.Transferrer;
+
+import com.medusabookdepot.model.modelInterface.Parcel;
+import com.medusabookdepot.model.modelInterface.Transfer;
+import com.medusabookdepot.model.modelInterface.Transferrer;
 
 /**
  * @author Marcello_Feroce

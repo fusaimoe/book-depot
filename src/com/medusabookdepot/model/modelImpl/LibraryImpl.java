@@ -1,9 +1,9 @@
 /**
  * 
  */
-package com.medusabookdepot.modelImpl;
+package com.medusabookdepot.model.modelImpl;
 
-import com.medusabookdepot.modelInterface.Library;
+import com.medusabookdepot.model.modelInterface.Library;
 
 /**
  * @author Marcello_Feroce
