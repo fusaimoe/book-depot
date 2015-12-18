@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.medusabookdepot.model;
+package com.medusabookdepot.modelImpl;
 
 import java.sql.Date;
 import java.time.LocalDate;

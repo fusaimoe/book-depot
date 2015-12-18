@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.medusabookdepot.model;
+package com.medusabookdepot.modelImpl;
 
 /**
  * A class used to enclose two objects.

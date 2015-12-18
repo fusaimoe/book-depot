@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.medusabookdepot.model;
+package com.medusabookdepot.modelImpl;
 
 import java.util.List;
 import com.medusabookdepot.modelInterface.Parcel;
