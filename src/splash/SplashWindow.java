@@ -79,10 +79,13 @@ class SplashWindow extends JWindow
         
         
     }
-    public static void main(String[] args){
+    public static void main(String[] args) throws InterruptedException{
+        final Integer waitTime=new Integer(2500);
         JFrame frame=new JFrame();
         frame.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2, Toolkit.getDefaultToolkit().getScreenSize().height/2);
         frame.setVisible(true);
-        new SplashWindow(SplashWindow.class.getResource("/medusa.jpg"),frame, 9200);
+        new SplashWindow(SplashWindow.class.getResource("/medusa.jpg"),frame, 2500);
+        Thread.sleep(waitTime);
+        frame.setVisible(false);
     }
 }
