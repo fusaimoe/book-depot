@@ -3,7 +3,7 @@
  */
 package com.medusabookdepot.model.modelImpl;
 
-import java.util.Date;
+import java.sql.Date;
 
 import com.medusabookdepot.model.modelInterface.Parcel;
 import com.medusabookdepot.model.modelInterface.Transfer;

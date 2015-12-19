@@ -11,9 +11,10 @@ import com.medusabookdepot.model.modelInterface.Transferrer;
 
 /**
  * @author Marcello_Feroce
+ * @param <X>
  *
  */
-public abstract class TransferrerImpl implements Transferrer {
+public abstract class TransferrerImpl implements Transferrer{
 
     protected String name;
     protected static List<Transfer> transfers;//List that contains all transfers alive
