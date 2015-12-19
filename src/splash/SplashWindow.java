@@ -81,8 +81,8 @@ class SplashWindow extends JWindow
     }
     public static void main(String[] args){
         JFrame frame=new JFrame();
+        frame.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2, Toolkit.getDefaultToolkit().getScreenSize().height/2);
         frame.setVisible(true);
-        new SplashWindow(SplashWindow.class.getResource("/bar.gif"),frame, 9200);
         new SplashWindow(SplashWindow.class.getResource("/medusa.jpg"),frame, 9200);
     }
 }
