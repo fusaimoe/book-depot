@@ -15,7 +15,7 @@ public interface Transfer {
         
         public Parcel getParcel();
         
-        public Date getLeavingDate();
+        public java.sql.Date getLeavingDate();
         
         // ========================================== \\
         
@@ -25,6 +25,6 @@ public interface Transfer {
         
         public void setParcel(Parcel parcel);
         
-        public void setLeavingDate(Date leavingdate);
+        public void setLeavingDate(java.sql.Date leavingDate);
 
 }

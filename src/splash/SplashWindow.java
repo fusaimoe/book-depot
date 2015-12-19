@@ -25,9 +25,6 @@ import javax.swing.SwingUtilities;
  */
 class SplashWindow extends JWindow
 {
-    /**
-     * 
-     */
     private static final long serialVersionUID = 6414651124233365402L;
     public SplashWindow(URL filename, Frame f, int waitTime)
     {
