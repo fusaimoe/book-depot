@@ -2,7 +2,6 @@
  * 
  */
 package com.medusabookdepot.model.modelInterface;
-import java.util.Date;
 /**
  * @author Marcello_Feroce
  *
