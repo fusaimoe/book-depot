@@ -5,7 +5,7 @@ package com.medusabookdepot.view.viewinterface;
 
 import java.util.List;
 
-import com.medusabookdepot.model.modelInterface.Depot;
+import com.medusabookdepot.model.modelImpl.DepotImpl;
 
 /**
  * @author Marcello_Feroce
@@ -15,6 +15,6 @@ public interface FirstFrameInterface {
 
     void welcome();
 
-    List<Depot> setInizilizationFrame();
+    List<DepotImpl> setInizilizationFrame();
 
 }

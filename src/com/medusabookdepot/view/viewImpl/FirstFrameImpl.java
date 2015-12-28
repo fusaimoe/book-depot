@@ -5,7 +5,7 @@ package com.medusabookdepot.view.viewImpl;
 
 import java.util.List;
 
-import com.medusabookdepot.model.modelInterface.Depot;
+import com.medusabookdepot.model.modelImpl.DepotImpl;
 import com.medusabookdepot.view.viewinterface.FirstFrameInterface;
 
 /**
@@ -21,7 +21,7 @@ public class FirstFrameImpl implements FirstFrameInterface{
     }
 
     @Override
-    public List<Depot> setInizilizationFrame() {
+    public List<DepotImpl> setInizilizationFrame() {
         return null;
         // TODO Auto-generated method stub
         
