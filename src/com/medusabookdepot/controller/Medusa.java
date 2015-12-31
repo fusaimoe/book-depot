@@ -9,6 +9,7 @@ import java.util.Map;
 import com.medusabookdepot.model.modelImpl.DepotImpl;
 import com.medusabookdepot.model.modelImpl.LibraryImpl;
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
+import com.medusabookdepot.model.modelInterface.Depot;
 import com.medusabookdepot.model.modelInterface.StandardBook;
 import com.medusabookdepot.view.viewImpl.FirstFrameImpl;
 import com.medusabookdepot.view.viewinterface.FirstFrameInterface;
@@ -24,10 +25,9 @@ public class Medusa {
             this.depots=firstframe.setInizilizationFrame();
     }
     
-	public DepotImpl DepotImpl(String name,Map<StandardBook,Integer> books){
+	public void addDepot(DepotImpl depot){
 		
-		depots.add(new DepotImpl(name, books)); //Add to depot list a new depot
-		return depots.get(depots.size()); //Return the last element put in list
+		depots.add(depot);
 	}
 	
 	/** Add a new book to the list of all books */
