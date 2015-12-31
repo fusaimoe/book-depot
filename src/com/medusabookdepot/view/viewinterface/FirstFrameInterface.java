@@ -6,6 +6,7 @@ package com.medusabookdepot.view.viewinterface;
 import java.util.List;
 
 import com.medusabookdepot.model.modelImpl.DepotImpl;
+import com.medusabookdepot.model.modelInterface.Depot;
 
 /**
  * @author Marcello_Feroce

@@ -3,9 +3,11 @@
  */
 package com.medusabookdepot.view.viewImpl;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import com.medusabookdepot.model.modelImpl.DepotImpl;
+import com.medusabookdepot.model.modelInterface.Depot;
 import com.medusabookdepot.view.viewinterface.FirstFrameInterface;
 
 /**
@@ -22,7 +24,7 @@ public class FirstFrameImpl implements FirstFrameInterface{
 
     @Override
     public List<DepotImpl> setInizilizationFrame() {
-        return null;
+        return new LinkedList<DepotImpl>();
         // TODO Auto-generated method stub
         
     }
