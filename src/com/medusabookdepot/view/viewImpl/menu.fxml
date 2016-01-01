@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+	<top>
+		<ToolBar centerShape="false" prefHeight="40.0" scaleShape="false" styleClass="toolbar-colored" BorderPane.alignment="CENTER">
+			<items>
+				<Button mnemonicParsing="false" styleClass="button-flat" text="MOVIMENTI" />
+				<Button mnemonicParsing="false" styleClass="button-flat" text="MAGAZZINI" />
+				<Button mnemonicParsing="false" styleClass="button-flat" text="TITOLI" />
+				<Button mnemonicParsing="false" styleClass="button-flat" text="CLIENTI" />
+				<Button mnemonicParsing="false" styleClass="button-flat" text="STATISTICHE" />
+				<Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+				<HBox maxWidth="1.7976931348623157E308" prefHeight="44.0" prefWidth="157.0">
+					<children>
+						<Button cacheShape="false" centerShape="false" contentDisplay="TEXT_ONLY" mnemonicParsing="false" scaleShape="false" styleClass="icon-button" text="" textFill="WHITE">
+							<font>
+								<Font name="Material-Design-Iconic-Font" size="18.0" />
+							</font>
+						</Button>
+						<Button cacheShape="false" centerShape="false" contentDisplay="TEXT_ONLY" mnemonicParsing="false" scaleShape="false" styleClass="icon-button" text="" textFill="WHITE">
+							<font>
+								<Font name="Material-Design-Iconic-Font" size="18.0" />
+							</font>
+						</Button>
+						<Button cacheShape="false" centerShape="false" contentDisplay="TEXT_ONLY" mnemonicParsing="false" scaleShape="false" styleClass="icon-button" text="" textFill="WHITE">
+							<font>
+								<Font name="Material-Design-Iconic-Font" size="18.0" />
+							</font>
+						</Button>
+						<Button cacheShape="false" centerShape="false" contentDisplay="TEXT_ONLY" mnemonicParsing="false" scaleShape="false" styleClass="icon-button" text="" textFill="WHITE">
+							<font>
+								<Font name="Material-Design-Iconic-Font" size="18.0" />
+							</font>
+						</Button>
+					</children>
+				</HBox>
+			</items>
+		</ToolBar>
+	</top>
+	<center>
+		<ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+			<content>
+				<HBox prefWidth="100.0" spacing="15.0" styleClass="card">
+					
+					
+				</HBox>					
+			</content>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+		</ScrollPane>
+	</center>
+</BorderPane>
