@@ -23,8 +23,8 @@ public class FirstFrameImpl implements FirstFrameInterface{
     }
 
     @Override
-    public List<DepotImpl> setInizilizationFrame() {
-        return new LinkedList<DepotImpl>();
+    public List<Depot> setInizilizationFrame() {
+        return new LinkedList<Depot>();
         // TODO Auto-generated method stub
         
     }
