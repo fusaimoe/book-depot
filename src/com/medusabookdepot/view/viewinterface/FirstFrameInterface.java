@@ -16,6 +16,6 @@ public interface FirstFrameInterface {
 
     void welcome();
 
-    List<DepotImpl> setInizilizationFrame();
+    List<Depot> setInizilizationFrame();
 
 }
