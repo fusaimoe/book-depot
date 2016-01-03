@@ -77,5 +77,7 @@ public class ParcelImpl implements Parcel {
         this.books.put(newBook, x);
 
     }
-
+    public String toString() {
+        return this.trackingNumber+"\n"+this.getQuantity();
+    }
 }

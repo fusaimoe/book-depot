@@ -25,5 +25,9 @@ public class PersonImpl extends CustomerImpl implements Person {
         transfers.add(new TransferImpl(opposite, this, parcel, Date.valueOf(LocalDate.now())));
         
     }
+    public String toString() {
+        return this.name+"\n"+this.address+"\n"+this.telephoneNumber+"\n";
+        
+    }
     
 }

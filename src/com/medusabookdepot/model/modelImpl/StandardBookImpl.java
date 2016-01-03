@@ -13,7 +13,7 @@ import com.medusabookdepot.model.modelInterface.StandardBook;
  */
 public class StandardBookImpl implements StandardBook{
 
-    private Optional<String> name;
+    private String name;
     private String isbn;
     private int year;
     private int pages;
@@ -24,7 +24,7 @@ public class StandardBookImpl implements StandardBook{
     
     public StandardBookImpl(String isbn,String name, int year, int pages, String serie, String genre, String author, int price) {
         this.isbn=isbn;
-        this.name=Optional.ofNullable(name);
+        this.name=name;
         this.year=year;
         this.pages=pages;
         this.serie=Optional.ofNullable(serie);
@@ -37,12 +37,12 @@ public class StandardBookImpl implements StandardBook{
     }
     public StandardBookImpl(String isbn,String name,String author) {
         this.isbn=isbn;
-        this.name=Optional.ofNullable(name);
+        this.name=name;
         this.author=Optional.ofNullable(author);
     }
     @Override
     public String getName() {
-        return this.name.get();
+        return this.name;
     }
 
     @Override
@@ -82,7 +82,7 @@ public class StandardBookImpl implements StandardBook{
 
     @Override
     public void setName(String name) {
-        this.name=Optional.ofNullable(name);
+        this.name=name;
     }
 
     @Override
@@ -119,5 +119,7 @@ public class StandardBookImpl implements StandardBook{
     public void setPrice(int price) {
         this.price=price;
     }
-
+    public String toString() {
+        return this.name+"\n"+this.isbn+"\n"+this.pages+"\n"+this.price+"\n"+this.year+"\n"+(this.author.isPresent()?author.get():"n.d") +"\n"+(this.genre.isPresent()?this.genre.get():"n.d")+"\n"+(this.serie.isPresent()?this.serie.get():"n.d");
+    }
 }

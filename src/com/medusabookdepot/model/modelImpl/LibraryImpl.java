@@ -25,5 +25,8 @@ public class LibraryImpl extends CustomerImpl implements Library{
         transfers.add(new TransferImpl(sender? this:opposite, sender==false? opposite:this, parcel, Date.valueOf(LocalDate.now())));
         
     }
-    
+    public String toString() {
+        return this.name+"\n"+this.address+"\n"+this.telephoneNumber;
+        
+    }
 }

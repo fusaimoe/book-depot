@@ -24,5 +24,7 @@ public class PrinterImpl extends CustomerImpl implements Printer {
     public void doTransfer(Transferrer opposite, boolean sender, Parcel parcel) {
         transfers.add(new TransferImpl(this, opposite, parcel, Date.valueOf(LocalDate.now())));
     }
-
+    public String toString() {
+        return this.name+"\n"+this.telephoneNumber+"\n"+this.address;
+    }
 }

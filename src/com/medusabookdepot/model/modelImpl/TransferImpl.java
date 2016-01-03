@@ -65,5 +65,7 @@ public class TransferImpl implements Transfer {
     public void setLeavingDate(Date leavingDate) {
         this.leavingDate=leavingDate;
     }
-
+    public String toString() {
+        return this.leavingDate+"\n"+this.parcel+"\n"+this.receiver+"\n"+this.sender;
+    }
 }
