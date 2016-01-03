@@ -15,7 +15,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 
-public class Main extends Application {
+public class Menu extends Application {
   
 	// Creating a static root to pass to the controller
 	private static BorderPane root = new BorderPane();
@@ -30,12 +30,12 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws IOException {
 		
 		// Loading the custom font before loading the files which use it
-		Font.loadFont(Main.class.getResource("/Roboto-Regular.ttf").toExternalForm(), 10);
-		Font.loadFont(Main.class.getResource("/Roboto-Bold.ttf").toExternalForm(), 10);
-		Font.loadFont(Main.class.getResource("/Roboto-Medium.ttf").toExternalForm(), 10);
-		Font.loadFont(Main.class.getResource("/Roboto-Black.ttf").toExternalForm(), 10);
-		Font.loadFont(Main.class.getResource("/Roboto-Light.ttf").toExternalForm(), 10);
-		Font.loadFont(Main.class.getResource("/Material-Design-Iconic-Font.ttf").toExternalForm(), 10);
+		Font.loadFont(Menu.class.getResource("/Roboto-Regular.ttf").toExternalForm(), 10);
+		Font.loadFont(Menu.class.getResource("/Roboto-Bold.ttf").toExternalForm(), 10);
+		Font.loadFont(Menu.class.getResource("/Roboto-Medium.ttf").toExternalForm(), 10);
+		Font.loadFont(Menu.class.getResource("/Roboto-Black.ttf").toExternalForm(), 10);
+		Font.loadFont(Menu.class.getResource("/Roboto-Light.ttf").toExternalForm(), 10);
+		Font.loadFont(Menu.class.getResource("/Material-Design-Iconic-Font.ttf").toExternalForm(), 10);
 				
 	    // Loading the main pane
 	    URL menuUrl = getClass().getResource("menu.fxml");

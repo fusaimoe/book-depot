@@ -46,7 +46,7 @@ public class MenuControl {
 			URL paneMovementsUrl = getClass().getResource(((Control)event.getSource()).getId()+".fxml"); //*((Control)event.getSource()).getId()* get button name
 			ScrollPane paneMovements = FXMLLoader.load( paneMovementsUrl );
       
-			BorderPane border = Main.getRoot();
+			BorderPane border = Menu.getRoot();
 			border.setCenter(paneMovements);
 			
 		} catch (IOException e) {
