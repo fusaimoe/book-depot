@@ -15,19 +15,19 @@ import com.medusabookdepot.model.modelInterface.Depot;
 import com.medusabookdepot.model.modelInterface.Library;
 import com.medusabookdepot.model.modelInterface.StandardBook;
 import com.medusabookdepot.view.viewImpl.FirstFrameImpl;
+import com.medusabookdepot.view.viewImpl.Menu;
 import com.medusabookdepot.view.viewinterface.FirstFrameInterface;
 
 public class Medusa {
 
-    private final FirstFrameInterface firstframe;
+    private final Menu/*in futuro sarà qualcosa come MenuInterface*/ firstframe;
     private final List<Depot> depots = new ArrayList<Depot>();
     private Map<StandardBook,Integer> booksInDepot = new HashMap<StandardBook,Integer>();
     private final List<StandardBook> books = new ArrayList<StandardBook>();
     private final List<Library> libraries = new ArrayList<Library>();
 
     public Medusa() {
-            this.firstframe=new FirstFrameImpl();
-            firstframe.welcome();
+            this.firstframe.begin();
     }
     
     /*
