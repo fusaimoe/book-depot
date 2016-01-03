@@ -14,20 +14,19 @@ import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 import com.medusabookdepot.model.modelInterface.Depot;
 import com.medusabookdepot.model.modelInterface.Library;
 import com.medusabookdepot.model.modelInterface.StandardBook;
-import com.medusabookdepot.view.viewImpl.FirstFrameImpl;
-import com.medusabookdepot.view.viewImpl.Menu;
-import com.medusabookdepot.view.viewinterface.FirstFrameInterface;
+import com.medusabookdepot.view.viewImpl.*;
 
 public class Medusa {
 
     private final Menu/*in futuro sarà qualcosa come MenuInterface*/ firstframe;
     private final List<Depot> depots = new ArrayList<Depot>();
-    private Map<StandardBook,Integer> booksInDepot = new HashMap<StandardBook,Integer>();
+    private final Map<StandardBook,Integer> booksInDepot = new HashMap<StandardBook,Integer>();
     private final List<StandardBook> books = new ArrayList<StandardBook>();
     private final List<Library> libraries = new ArrayList<Library>();
 
     public Medusa() {
-            this.firstframe.begin();
+            this.firstframe = new Menu();
+            this.firstframe.mainGui(new String[]{"Dio c'è"});
     }
     
     /*
@@ -58,13 +57,13 @@ public class Medusa {
 	 * Con questo modulo ho voluto poter far inserire all'utente più libri alla creazione del deposito
 	 * anzichè inserirne uno solo per poi aggiungerne altri dopo la creazione
 	 */
-	public boolean addDepot(String name, ArrayList<StandardBook> book, ArrayList<Integer> quantity){
+	public boolean addDepot(String name, List<StandardBook> book, int... quantity){
 		
 		//libero la mappa dai vecchi inserimenti
 		booksInDepot.clear();
 		
 		//controllo che il numero di libri passati sia uguale ale quantità, se no ritorno false
-		if(book.size()!=quantity.size() && !book.isEmpty() && !quantity.isEmpty()){
+		if(book.size()!=quantity.length && !book.isEmpty() && quantity.length==0){
 			
 			return false;
 		}
@@ -73,7 +72,7 @@ public class Medusa {
 		for(StandardBook n: book){
 			
 			//aggiungo alla mappa il suddetto libro e la sua quantità corrispondente
-			booksInDepot.put(n, quantity.get(book.indexOf(n)));
+			booksInDepot.put(n, quantity[book.indexOf(n)]);
 		}
 		
 		//dopodiche aggiungo alla lista dei depot un nuovo depot con le caratteristiche appena modellate
@@ -106,6 +105,7 @@ public class Medusa {
 		
 		depots.remove(depot);
 	}
+	
 	
 	/*
 	 * =============== BOOK ===============
@@ -176,7 +176,17 @@ public class Medusa {
 	}
 	
     public static void main(String[] args) {
-        new Medusa();
+        
+        Medusa medusiniDepot = new Medusa();
+        
+        //Creo come test 3 libri
+        medusiniDepot.addBook("9788767547823", "La fabbrica dei bambocci", 1980, 7, "Serie pico", "Avventure", "Feroce Macello", 2);
+        medusiniDepot.addBook("9788712309897", "Cicci posticci", 2002, 290, "", "Romantici", "Croccolino Lorenzo", 15);
+        medusiniDepot.addBook("9788712378922", "The poveracci", 2017, 322, "Serie pocanzi", "Horror", "Colombo Andrea", 22);
+
+        medusiniDepot.addDepot("Medusini", medusiniDepot.books, new int[]{10,2,33});
+        
+        System.out.println(medusiniDepot.toString());
 
     }
 

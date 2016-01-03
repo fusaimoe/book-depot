@@ -63,7 +63,7 @@ public class Menu extends Application {
 
 	}
 
-	public static void main(String[] args) {
+	public void mainGui(String[] args) {
 		launch(args);
 	}
 	
