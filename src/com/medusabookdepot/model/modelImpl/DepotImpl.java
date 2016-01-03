@@ -81,4 +81,7 @@ public class DepotImpl extends TransferrerImpl implements Depot {
         return x;
     }
 
+    public String toString() {
+        return this.name+"\n"+this.getQuantity();
+    }
 }

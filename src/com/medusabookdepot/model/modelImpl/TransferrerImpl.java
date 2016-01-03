@@ -11,7 +11,6 @@ import com.medusabookdepot.model.modelInterface.Transferrer;
 
 /**
  * @author Marcello_Feroce
- * @param <X>
  *
  */
 public abstract class TransferrerImpl implements Transferrer{
