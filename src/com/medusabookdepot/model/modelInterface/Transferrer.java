@@ -29,4 +29,6 @@ public interface Transferrer {
      */
     public void setName(String name);
     
+    public String getNewTrackingNumber();
+    
 }

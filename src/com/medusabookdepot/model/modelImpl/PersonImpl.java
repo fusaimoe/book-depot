@@ -27,16 +27,7 @@ public class PersonImpl extends CustomerImpl implements Person {
     /*can a person just receive?*/
     @Override
     public void doTransfer(Transferrer opposite, boolean sender,Map<StandardBook,Integer> books) {
-        List<String>allTrackings=new ArrayList<>();
-        for(Transfer trans:transfers){
-            allTrackings.add(trans.getTrackingNumber());
-        }
-        Random rm=new Random();
-        String tr=String.valueOf(rm.nextInt(1000000));
-        while(!allTrackings.contains(tr)) {
-            tr=String.valueOf(rm.nextInt(1000000));
-        }
-        transfers.add(new TransferImpl(opposite, this,Date.valueOf(LocalDate.now()),tr,books));
+        transfers.add(new TransferImpl(opposite, this,Date.valueOf(LocalDate.now()),this.getNewTrackingNumber(),books));
         
     }
     public String toString() {

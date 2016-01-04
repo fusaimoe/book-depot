@@ -3,8 +3,10 @@
  */
 package com.medusabookdepot.model.modelImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import com.medusabookdepot.model.modelInterface.StandardBook;
 import com.medusabookdepot.model.modelInterface.Transfer;
@@ -34,5 +36,17 @@ public abstract class TransferrerImpl implements Transferrer{
     @Override
     public void setName(String name) {
         this.name=name;
+    }
+    public String getNewTrackingNumber() {
+        List<String>allTrackings=new ArrayList<>();
+        for(Transfer trans:transfers){
+            allTrackings.add(trans.getTrackingNumber());
+        }
+        Random rm=new Random();
+        String tr=String.valueOf(rm.nextInt(1000000));
+        while(!allTrackings.contains(tr)) {
+            tr=String.valueOf(rm.nextInt(1000000));
+        }
+        return tr;
     }
 }

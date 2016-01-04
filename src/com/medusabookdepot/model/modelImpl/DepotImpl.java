@@ -29,16 +29,7 @@ public class DepotImpl extends TransferrerImpl implements Depot {
     
     @Override
     public void doTransfer(Transferrer transferrer, boolean sender, Map<StandardBook,Integer> books) {
-        List<String>allTrackings=new ArrayList<>();
-        for(Transfer trans:transfers){
-            allTrackings.add(trans.getTrackingNumber());
-        }
-        Random rm=new Random();
-        String tr=String.valueOf(rm.nextInt(1000000));
-        while(!allTrackings.contains(tr)) {
-            tr=String.valueOf(rm.nextInt(1000000));
-        }
-        transfers.add(new TransferImpl(sender? this:transferrer, sender==false? transferrer:this, Date.valueOf(LocalDate.now()),tr,books));
+        transfers.add(new TransferImpl(sender? this:transferrer, sender==false? transferrer:this, Date.valueOf(LocalDate.now()),this.getNewTrackingNumber(),books));
     }
     
     @Override
