@@ -4,8 +4,9 @@
 package com.medusabookdepot.model.modelImpl;
 
 import java.util.List;
+import java.util.Map;
 
-import com.medusabookdepot.model.modelInterface.Parcel;
+import com.medusabookdepot.model.modelInterface.StandardBook;
 import com.medusabookdepot.model.modelInterface.Transfer;
 import com.medusabookdepot.model.modelInterface.Transferrer;
 
@@ -27,7 +28,7 @@ public abstract class TransferrerImpl implements Transferrer{
     }
 
     @Override
-    public abstract void doTransfer(Transferrer transferrer, boolean sender,Parcel parcel);
+    public abstract void doTransfer(Transferrer transferrer, boolean sender, Map<StandardBook,Integer> books);
 
 
     @Override

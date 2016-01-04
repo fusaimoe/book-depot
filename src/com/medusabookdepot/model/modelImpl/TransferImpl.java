@@ -4,8 +4,9 @@
 package com.medusabookdepot.model.modelImpl;
 
 import java.sql.Date;
+import java.util.Map;
 
-import com.medusabookdepot.model.modelInterface.Parcel;
+import com.medusabookdepot.model.modelInterface.StandardBook;
 import com.medusabookdepot.model.modelInterface.Transfer;
 import com.medusabookdepot.model.modelInterface.Transferrer;
 
@@ -17,14 +18,16 @@ public class TransferImpl implements Transfer {
 
     private Transferrer sender;
     private Transferrer receiver;
-    private Parcel parcel;
     private Date leavingDate;
+    private String trackingNumber;
+    private Map<StandardBook,Integer> books;
     
-    public  TransferImpl(Transferrer sender,Transferrer receiver,Parcel parcel,Date leavingDate) {
+    public  TransferImpl(Transferrer sender,Transferrer receiver,Date leavingDate,String trackingnumber, Map<StandardBook,Integer> books) {
         this.sender=sender;
         this.receiver=receiver;
-        this.parcel=parcel;
         this.leavingDate=leavingDate;
+        this.trackingNumber=trackingnumber;
+        this.books=books;
     }
     @Override
     public Transferrer getSender() {
@@ -37,8 +40,8 @@ public class TransferImpl implements Transfer {
     }
 
     @Override
-    public Parcel getParcel() {
-        return this.parcel;
+    public Map<StandardBook,Integer> getBooks() {
+        return this.books;
     }
 
     @Override
@@ -57,15 +60,71 @@ public class TransferImpl implements Transfer {
     }
 
     @Override
-    public void setParcel(Parcel parcel) {
-        this.parcel=parcel;
+    public void setBooks(Map<StandardBook,Integer> books) {
+        this.books=books;
     }
 
     @Override
     public void setLeavingDate(Date leavingDate) {
         this.leavingDate=leavingDate;
     }
+    @Override
+    public String getTrackingNumber() {
+        return this.trackingNumber;
+    }
+    @Override
+    public int getQuantity() {
+        int x=0;
+        for(StandardBook libro :this.books.keySet()) {
+            x+=books.get(libro);
+        }
+        return x;
+    }
+
+    
+    @Override
+    public int getQuantityFromBook(StandardBook book) {
+        int x=0;
+        for(StandardBook libro :this.books.keySet()) {
+            if(libro.getIsbn().equals(book.getIsbn())) {
+                x+=books.get(libro).intValue();
+            }
+        }
+        return x;
+    }
+
+    
+    @Override
+    public int getTotalPrice() {
+        int x=0;
+        for(StandardBook libro :this.books.keySet()) {
+            x+=libro.getPrice();
+        }
+        return x;
+    }
+
+    
+    @Override
+    public void setTrackingNumber(String trackingnumber) {
+        this.trackingNumber=trackingnumber;
+    }
+
+    
+    @Override
+    public void setQuantityFromBook(StandardBook book,int quantity) {
+        this.books.replace(book, books.get(book), Integer.valueOf(quantity));
+
+    }
+
+    
+    @Override
+    public void replaceBook(StandardBook oldBook, StandardBook newBook) {
+        Integer x=books.get(oldBook);
+        this.books.remove(oldBook);
+        this.books.put(newBook, x);
+
+    }
     public String toString() {
-        return this.leavingDate+"\n"+this.parcel+"\n"+this.receiver+"\n"+this.sender;
+        return this.leavingDate+"\n"+this.receiver+"\n"+this.sender+"\n"+this.trackingNumber+"\n"+this.getQuantity();
     }
 }

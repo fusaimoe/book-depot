@@ -3,8 +3,10 @@
  */
 package com.medusabookdepot.model.modelImpl;
 
+import java.util.Map;
+
 import com.medusabookdepot.model.modelInterface.Customer;
-import com.medusabookdepot.model.modelInterface.Parcel;
+import com.medusabookdepot.model.modelInterface.StandardBook;
 import com.medusabookdepot.model.modelInterface.Transferrer;
 
 /**
@@ -41,5 +43,5 @@ public abstract class CustomerImpl extends TransferrerImpl implements Customer {
         this.telephoneNumber=telephoneNumber;
     }
     @Override
-    public abstract void doTransfer(Transferrer opposite, boolean sender,Parcel parcel);
+    public abstract void doTransfer(Transferrer opposite, boolean sender,Map<StandardBook,Integer> books);
 }
