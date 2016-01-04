@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 import com.medusabookdepot.model.modelImpl.DepotImpl;
 import com.medusabookdepot.model.modelImpl.LibraryImpl;
@@ -144,6 +146,57 @@ public class Medusa {
 	}
 	
 	/**
+	 * Multifilter for books search.
+	 * It search in the books list if you don't pass a depot, or in a specific depot if you pass it
+	 * @param depot
+	 * @param isbn
+	 * @param name
+	 * @param year
+	 * @param pages
+	 * @param serie
+	 * @param genre
+	 * @param author
+	 * @return Stream<StandardBook> : all books found with the passed filters
+	 */
+	public Stream<StandardBook> searchBook(Optional<Depot> depot, Optional<String> isbn, Optional<String> name, Optional<Integer> year, Optional<Integer> pages, Optional<String> serie, Optional<String> genre, Optional<String> author){
+		
+		Stream<StandardBook> result = this.books.stream();
+		
+		//General searcher
+		if(isbn.isPresent()){
+			result = result.filter(e -> isbn.get().toString() == e.getIsbn());
+		}
+		if(name.isPresent()){
+			result = result.filter(e -> e.getName().contains(name.get().toString()));
+		}
+		if(year.isPresent()){
+			result = result.filter(e -> year.get() == e.getYear());
+		}
+		if(pages.isPresent()){
+			result = result.filter(e -> pages.get() == e.getPages());
+		}
+		if(serie.isPresent()){
+			result = result.filter(e -> serie.get().toString() == e.getSerie());
+		}
+		if(genre.isPresent()){
+			result = result.filter(e -> genre.get().toString() == e.getGenre());
+		}
+		if(author.isPresent()){
+			result = result.filter(e -> author.get().toString() == e.getAuthor());
+		}
+		
+		//In depot
+		if(depot.isPresent()){
+			
+			result = result.filter(e -> depot.filter(f -> f.getQuantityFromStandardBook(e)<1)!=null);
+		}
+		
+		
+		/* If there are not filters, return all books in one stream */
+		return result;
+	}
+	
+	/**
 	 * Remove a book from the list
 	 * @param book
 	 */
@@ -179,14 +232,50 @@ public class Medusa {
         
         Medusa medusiniDepot = new Medusa();
         
-        //Creo come test 3 libri
+        //Creo 3 titoli con valore dei campi diversi
         medusiniDepot.addBook("9788767547823", "La fabbrica dei bambocci", 1980, 7, "Serie pico", "Avventure", "Feroce Macello", 2);
         medusiniDepot.addBook("9788712309897", "Cicci posticci", 2002, 290, "", "Romantici", "Croccolino Lorenzo", 15);
         medusiniDepot.addBook("9788712378922", "The poveracci", 2017, 322, "Serie pocanzi", "Horror", "Colombo Andrea", 22);
 
+        //Creo un depot con i libri sopra creati assegnando ad ognuno una quantità nel depot
         medusiniDepot.addDepot("Medusini", medusiniDepot.books, new int[]{10,2,33});
         
-        System.out.println(medusiniDepot.toString());
+        //Faccio stampare il toString di tutti i depot esistenti
+        for(int n=0;n<medusiniDepot.depots.size();n++){
+        	System.out.println(medusiniDepot.depots.get(n));
+        }
+        
+        //Cerco se il libro che ha come parte del nome "Cicci" esiste nella nostra lista, se tutto va bene dovrebbe trovarmelo 
+        //Stream<StandardBook> bb =medusiniDepot.searchBook(Optional.empty(), Optional.empty(), Optional.of("Cicci"), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        
+        // <-- DECOMMENTARE I TEST CHE SI DESIDERA ESEGUIRE --> \\
+        
+        /*Filtri: isbn*/
+        //Stream<StandardBook> bb =medusiniDepot.searchBook(Optional.empty(), Optional.of("9788712378922"), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        
+        /*Filtri: name*/
+        //Stream<StandardBook> bb =medusiniDepot.searchBook(Optional.empty(), Optional.empty(), Optional.of("Cicci"), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        
+        /*Filtri: name*/
+        //Stream<StandardBook> bb =medusiniDepot.searchBook(Optional.empty(), Optional.empty(), Optional.of("cci"), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        
+        /*Filtri: year*/
+        //Stream<StandardBook> bb =medusiniDepot.searchBook(Optional.empty(), Optional.empty(), Optional.empty(), Optional.of(1980), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        
+        /*Filtri: year + name*/
+        //Stream<StandardBook> bb =medusiniDepot.searchBook(Optional.empty(), Optional.empty(), Optional.of("cci"), Optional.of(1980), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        
+        /*Filtri: depot + name + year*/
+        Stream<StandardBook> bb =medusiniDepot.searchBook(Optional.of(medusiniDepot.depots.get(0)), Optional.empty(), Optional.empty(), Optional.of(1980), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        
+        //Stampa risultati trovati
+        bb.forEach(e->{
+        	System.out.println(e.getName());
+        });
+        
+        	
+        
+        //Ora invece lo cerco nel depot "Medusini", se tutto va bene dovrebbe trovarmelo 
 
     }
 
