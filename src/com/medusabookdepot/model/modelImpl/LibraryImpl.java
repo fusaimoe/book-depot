@@ -24,12 +24,7 @@ public class LibraryImpl extends CustomerImpl implements Library{
     public LibraryImpl(String name, String address, String telephoneNumber) {
         super(name, address, telephoneNumber);
     }
-
-    @Override
-    public void doTransfer(Transferrer opposite, boolean sender,Map<StandardBook,Integer> books) {
-        transfers.add(new TransferImpl(sender? this:opposite, sender==false? opposite:this, Date.valueOf(LocalDate.now()),this.getNewTrackingNumber(),books));
-        
-    }
+    
     public String toString() {
         return this.name+"\n"+this.address+"\n"+this.telephoneNumber;
         

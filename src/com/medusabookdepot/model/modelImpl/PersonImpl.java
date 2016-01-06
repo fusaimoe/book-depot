@@ -24,12 +24,6 @@ public class PersonImpl extends CustomerImpl implements Person {
     public PersonImpl(String name, String address, String telephoneNumber) {
         super(name, address, telephoneNumber);
     }
-    /*can a person just receive?*/
-    @Override
-    public void doTransfer(Transferrer opposite, boolean sender,Map<StandardBook,Integer> books) {
-        transfers.add(new TransferImpl(opposite, this,Date.valueOf(LocalDate.now()),this.getNewTrackingNumber(),books));
-        
-    }
     public String toString() {
         return this.name+"\n"+this.address+"\n"+this.telephoneNumber+"\n";
         

@@ -24,11 +24,7 @@ public class PrinterImpl extends CustomerImpl implements Printer {
     public PrinterImpl(String name, String address, String telephoneNumber) {
         super(name, address, telephoneNumber);
     }
-
-    @Override
-    public void doTransfer(Transferrer opposite, boolean sender,Map<StandardBook,Integer> books) {
-        transfers.add(new TransferImpl(this, opposite,Date.valueOf(LocalDate.now()),this.getNewTrackingNumber(),books));
-    }
+    
     public String toString() {
         return this.name+"\n"+this.telephoneNumber+"\n"+this.address;
     }

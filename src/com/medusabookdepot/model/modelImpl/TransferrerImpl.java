@@ -3,6 +3,7 @@
  */
 package com.medusabookdepot.model.modelImpl;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,7 @@ import com.medusabookdepot.model.modelInterface.Transferrer;
 public abstract class TransferrerImpl implements Transferrer{
 
     protected String name;
-    protected static ArrayList<Transfer> transfers;//List that contains all transfers alive
+    public static ArrayList<Transfer> transfers;//List that contains all transfers alive
     
     public TransferrerImpl(String name) {
         this.name=name;
@@ -29,29 +30,21 @@ public abstract class TransferrerImpl implements Transferrer{
         return this.name;
     }
     
-    @Override
-    public abstract void doTransfer(Transferrer transferrer, boolean sender, Map<StandardBook,Integer> books);
-    
     
     public static List<? extends Transfer>getAllTransfers(){
         return TransferrerImpl.transfers;
         
     }
-
+    public static void addTransfer(Transfer transfer) {
+        TransferrerImpl.transfers.add(transfer);
+        
+    }
+    public static void addTransfer(Transferrer sender,Transferrer receiver, Date leavingDate,Map<StandardBook,Integer> books) {
+        TransferrerImpl.transfers.add(new TransferImpl(sender, receiver, leavingDate, books));
+        
+    }
     @Override
     public void setName(String name) {
         this.name=name;
-    }
-    public String getNewTrackingNumber() {
-        List<String>allTrackings=new ArrayList<>();
-        for(Transfer trans:transfers){
-            allTrackings.add(trans.getTrackingNumber());
-        }
-        Random rm=new Random();
-        String tr=String.valueOf(rm.nextInt(1000000));
-        while(!allTrackings.contains(tr)) {
-            tr=String.valueOf(rm.nextInt(1000000));
-        }
-        return tr;
     }
 }
