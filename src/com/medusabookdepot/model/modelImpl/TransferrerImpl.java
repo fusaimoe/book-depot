@@ -19,7 +19,7 @@ import com.medusabookdepot.model.modelInterface.Transferrer;
 public abstract class TransferrerImpl implements Transferrer{
 
     protected String name;
-    protected static List<Transfer> transfers;//List that contains all transfers alive
+    protected static ArrayList<Transfer> transfers;//List that contains all transfers alive
     
     public TransferrerImpl(String name) {
         this.name=name;
@@ -28,10 +28,15 @@ public abstract class TransferrerImpl implements Transferrer{
     public String getName() {
         return this.name;
     }
-
+    
     @Override
     public abstract void doTransfer(Transferrer transferrer, boolean sender, Map<StandardBook,Integer> books);
-
+    
+    
+    public static List<? extends Transfer>getAllTransfers(){
+        return TransferrerImpl.transfers;
+        
+    }
 
     @Override
     public void setName(String name) {

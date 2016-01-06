@@ -28,7 +28,7 @@ public class Medusa {
 
     public Medusa() {
             this.firstframe = new Menu();
-            this.firstframe.mainGui(new String[]{"Dio c'è"});
+            this.firstframe.mainGui(new String[]{""});
     }
     
     /*
@@ -254,7 +254,7 @@ public class Medusa {
         //Stream<StandardBook> bb =medusiniDepot.searchBook(Optional.empty(), Optional.of("9788712378922"), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
         
         /*Filtri: name*/
-        //Stream<StandardBook> bb =medusiniDepot.searchBook(Optional.empty(), Optional.empty(), Optional.of("Cicci"), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        Stream<StandardBook> bb =medusiniDepot.searchBook(Optional.empty(), Optional.empty(), Optional.of("Cicci"), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
         
         /*Filtri: name*/
         //Stream<StandardBook> bb =medusiniDepot.searchBook(Optional.empty(), Optional.empty(), Optional.of("cci"), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
@@ -266,7 +266,7 @@ public class Medusa {
         //Stream<StandardBook> bb =medusiniDepot.searchBook(Optional.empty(), Optional.empty(), Optional.of("cci"), Optional.of(1980), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
         
         /*Filtri: depot + name + year*/
-        Stream<StandardBook> bb =medusiniDepot.searchBook(Optional.of(medusiniDepot.depots.get(0)), Optional.empty(), Optional.empty(), Optional.of(1980), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        //Stream<StandardBook> bb =medusiniDepot.searchBook(Optional.of(medusiniDepot.depots.get(0)), Optional.empty(), Optional.empty(), Optional.of(1980), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
         
         //Stampa risultati trovati
         bb.forEach(e->{
