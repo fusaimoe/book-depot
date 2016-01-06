@@ -31,7 +31,6 @@ public class DepotImpl extends TransferrerImpl implements Depot {
     public void doTransfer(Transferrer transferrer, boolean sender, Map<StandardBook,Integer> books) {
         transfers.add(new TransferImpl(sender? this:transferrer, sender==false? transferrer:this, Date.valueOf(LocalDate.now()),this.getNewTrackingNumber(),books));
     }
-    
     @Override
     public int getQuantity() {
         int x=0;
