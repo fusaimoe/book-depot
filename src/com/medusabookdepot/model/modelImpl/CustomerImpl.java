@@ -42,6 +42,4 @@ public abstract class CustomerImpl extends TransferrerImpl implements Customer {
     public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber=telephoneNumber;
     }
-    @Override
-    public abstract void doTransfer(Transferrer opposite, boolean sender,Map<StandardBook,Integer> books);
 }

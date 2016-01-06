@@ -4,7 +4,10 @@
 package com.medusabookdepot.model.modelImpl;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import com.medusabookdepot.model.modelInterface.StandardBook;
 import com.medusabookdepot.model.modelInterface.Transfer;
@@ -22,12 +25,24 @@ public class TransferImpl implements Transfer {
     private String trackingNumber;
     private Map<StandardBook,Integer> books;
     
-    public  TransferImpl(Transferrer sender,Transferrer receiver,Date leavingDate,String trackingnumber, Map<StandardBook,Integer> books) {
+    public  TransferImpl(Transferrer sender,Transferrer receiver,Date leavingDate, Map<StandardBook,Integer> books) {
         this.sender=sender;
         this.receiver=receiver;
         this.leavingDate=leavingDate;
-        this.trackingNumber=trackingnumber;
+        this.trackingNumber=this.getNewTrackingNumber();
         this.books=books;
+    }
+    public String getNewTrackingNumber() {
+        List<String>allTrackings=new ArrayList<>();
+        for(Transfer trans:TransferrerImpl.transfers){
+            allTrackings.add(trans.getTrackingNumber());
+        }
+        Random rm=new Random();
+        String tr=String.valueOf(rm.nextInt(1000000));
+        while(!allTrackings.contains(tr)) {
+            tr=String.valueOf(rm.nextInt(1000000));
+        }
+        return tr;
     }
     @Override
     public Transferrer getSender() {
