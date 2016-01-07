@@ -40,10 +40,13 @@ public class TransferrerImpl implements Transferrer{
     }
     public static void addTransfer(Transfer transfer) {
         TransferrerImpl.transfers.add(transfer);
+        TransferrerImpl.writeTransferOnFile("trasferimenti.txt",transfer);
         
     }
     public static void addTransfer(Transferrer sender,Transferrer receiver, Date leavingDate,Map<StandardBook,Integer> books) {
-        TransferrerImpl.transfers.add(new TransferImpl(sender, receiver, leavingDate, books));
+        Transfer trans=new TransferImpl(sender, receiver, leavingDate, books);
+        TransferrerImpl.transfers.add(trans);
+        TransferrerImpl.writeTransferOnFile("trasferimenti.txt",trans);
         
     }
     @Override
