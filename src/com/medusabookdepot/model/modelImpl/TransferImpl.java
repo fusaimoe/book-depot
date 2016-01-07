@@ -71,7 +71,7 @@ public class TransferImpl implements Transfer {
     public String getBooksAsString(){
         String finale=new String("");
         for(Entry entry:this.books.entrySet()){
-            finale=finale.concat(entry.getKey().toString()+"->"+entry.getValue());
+            finale=finale.concat(entry.getKey().toString()+">"+entry.getValue()+",");
         }
         return finale;
         
