@@ -26,6 +26,6 @@ public class PrinterImpl extends CustomerImpl implements Printer {
     }
     
     public String toString() {
-        return this.name+"\n"+this.telephoneNumber+"\n"+this.address;
+        return this.name+","+this.telephoneNumber+","+this.address;
     }
 }

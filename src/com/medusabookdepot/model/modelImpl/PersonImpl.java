@@ -25,7 +25,7 @@ public class PersonImpl extends CustomerImpl implements Person {
         super(name, address, telephoneNumber);
     }
     public String toString() {
-        return this.name+"\n"+this.address+"\n"+this.telephoneNumber+"\n";
+        return this.name+","+this.address+","+this.telephoneNumber+",";
         
     }
     

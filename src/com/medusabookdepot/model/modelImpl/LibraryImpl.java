@@ -26,7 +26,7 @@ public class LibraryImpl extends CustomerImpl implements Library{
     }
     
     public String toString() {
-        return this.name+"\n"+this.address+"\n"+this.telephoneNumber;
+        return this.name+","+this.address+","+this.telephoneNumber;
         
     }
 }

@@ -120,6 +120,6 @@ public class StandardBookImpl implements StandardBook{
         this.price=price;
     }
     public String toString() {
-        return this.name+"\n"+this.isbn+"\n"+this.pages+"\n"+this.price+"\n"+this.year+"\n"+(this.author.isPresent()?author.get():"n.d") +"\n"+(this.genre.isPresent()?this.genre.get():"n.d")+"\n"+(this.serie.isPresent()?this.serie.get():"n.d");
+        return this.name+","+this.isbn+","+this.pages+","+this.price+","+this.year+","+(this.author.isPresent()?author.get():"n.d") +","+(this.genre.isPresent()?this.genre.get():"n.d")+","+(this.serie.isPresent()?this.serie.get():"n.d");
     }
 }
