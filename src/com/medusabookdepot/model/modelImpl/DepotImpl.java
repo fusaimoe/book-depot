@@ -80,6 +80,6 @@ public class DepotImpl extends TransferrerImpl implements Depot {
     }
 
     public String toString() {
-        return this.name+"\n"+this.getQuantity();
+        return this.name+","+this.getQuantity();
     }
 }
