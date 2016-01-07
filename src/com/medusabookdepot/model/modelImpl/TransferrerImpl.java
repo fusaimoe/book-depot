@@ -3,7 +3,10 @@
  */
 package com.medusabookdepot.model.modelImpl;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Date;
@@ -43,6 +46,45 @@ public class TransferrerImpl implements Transferrer{
         TransferrerImpl.writeTransferOnFile("trasferimenti.txt",transfer);
         
     }
+    public static List<Transfer> getTransfersFromFile(String filePath){
+        List<Transfer> transes=new ArrayList<>();
+        try {
+            FileReader fr=new FileReader(filePath);
+            BufferedReader br=new BufferedReader(fr);
+            try {
+                String str=br.readLine();
+                while(str!=null){
+                    if(str.contains("*")) {
+                        Transfer trans=new TransferImpl(null,null, null,null);
+                        trans.setTrackingNumber(br.readLine());
+                        trans.setBooks(TransferrerImpl.convertStringToBooks(br.readLine()));
+                        trans.setLeavingDate(Date.valueOf(br.readLine()));
+                        trans.setSender(TransferrerImpl.convertStringToTransferrer(br.readLine()));
+                        trans.setSender(TransferrerImpl.convertStringToTransferrer(br.readLine()));
+                        transes.add(trans);
+                    }
+                    str=br.readLine();
+                }
+                br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            
+            
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        
+        return transes;
+    }
+    private static Transferrer convertStringToTransferrer(String string){
+        return null;
+        
+    }
+    private static Map<StandardBook,Integer> convertStringToBooks(String string) {
+        return null;
+        
+    }
     public static void addTransfer(Transferrer sender,Transferrer receiver, Date leavingDate,Map<StandardBook,Integer> books) {
         Transfer trans=new TransferImpl(sender, receiver, leavingDate, books);
         TransferrerImpl.transfers.add(trans);
@@ -66,10 +108,6 @@ public class TransferrerImpl implements Transferrer{
             bw.write(transfer.getTrackingNumber());
             bw.newLine();
             bw.write(transfer.getBooksAsString());
-            bw.newLine();
-            bw.write(transfer.getQuantity());
-            bw.newLine();
-            bw.write(transfer.getTotalPrice());
             bw.newLine();
             bw.write(transfer.getLeavingDate().toString());
             bw.newLine();
