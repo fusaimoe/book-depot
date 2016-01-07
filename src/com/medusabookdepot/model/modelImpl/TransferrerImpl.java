@@ -3,6 +3,9 @@
  */
 package com.medusabookdepot.model.modelImpl;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +20,7 @@ import com.medusabookdepot.model.modelInterface.Transferrer;
  * @author Marcello_Feroce
  *
  */
-public abstract class TransferrerImpl implements Transferrer{
+public class TransferrerImpl implements Transferrer{
 
     protected String name;
     public static ArrayList<Transfer> transfers;//List that contains all transfers alive
@@ -46,5 +49,36 @@ public abstract class TransferrerImpl implements Transferrer{
     @Override
     public void setName(String name) {
         this.name=name;
+    }
+    private static String getFilePath(String fileName){
+        String filepath = System.getProperty("user.home")+System.getProperty("file.separator")+ fileName;
+        return filepath;
+    }
+    private static void writeTransferOnFile(String fileName,Transfer transfer) {
+        try {
+            FileWriter fw=new FileWriter(getFilePath(fileName), true);
+            BufferedWriter bw=new BufferedWriter(fw);
+            bw.write("**********");
+            bw.newLine();
+            bw.write(transfer.getTrackingNumber());
+            bw.newLine();
+            bw.write(transfer.getBooksAsString());
+            bw.newLine();
+            bw.write(transfer.getQuantity());
+            bw.newLine();
+            bw.write(transfer.getTotalPrice());
+            bw.newLine();
+            bw.write(transfer.getLeavingDate().toString());
+            bw.newLine();
+            bw.write(transfer.getSender().toString());
+            bw.newLine();
+            bw.write(transfer.getReceiver().toString());
+            bw.newLine();
+            bw.close();
+            
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }

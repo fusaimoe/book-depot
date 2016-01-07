@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 
 import com.medusabookdepot.model.modelInterface.StandardBook;
@@ -58,7 +59,15 @@ public class TransferImpl implements Transfer {
     public Map<StandardBook,Integer> getBooks() {
         return this.books;
     }
-
+    @Override
+    public String getBooksAsString(){
+        String finale=new String("");
+        for(Entry entry:this.books.entrySet()){
+            finale=finale.concat(entry.getValue().toString()).concat("->"+entry.getKey()+"\n");
+        }
+        return finale;
+        
+    }
     @Override
     public Date getLeavingDate() {
         return this.leavingDate;
