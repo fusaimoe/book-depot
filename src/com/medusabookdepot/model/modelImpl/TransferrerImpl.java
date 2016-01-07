@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -60,7 +61,7 @@ public class TransferrerImpl implements Transferrer{
                         trans.setBooks(TransferrerImpl.convertStringToBooks(br.readLine()));
                         trans.setLeavingDate(Date.valueOf(br.readLine()));
                         trans.setSender(TransferrerImpl.convertStringToTransferrer(br.readLine()));
-                        trans.setSender(TransferrerImpl.convertStringToTransferrer(br.readLine()));
+                        trans.setReceiver(TransferrerImpl.convertStringToTransferrer(br.readLine()));
                         transes.add(trans);
                     }
                     str=br.readLine();
@@ -82,7 +83,42 @@ public class TransferrerImpl implements Transferrer{
         
     }
     private static Map<StandardBook,Integer> convertStringToBooks(String string) {
-        return null;
+        char c=string.charAt(0);
+        Map<StandardBook,Integer> mappa=new HashMap<>();
+        
+        int nBooks=0;
+        for(int y=0;y<string.length();y++) {
+            c=Character.valueOf(string.charAt(0));
+            if(Character.valueOf(c).equals(',')){
+                nBooks++;
+            }
+        }
+
+        int x=0;
+        String bookString;
+        String intString;
+        boolean nowSym=false;
+        boolean nowInt=false;
+        for(int y=0;y<nBooks;y++) {
+            c=string.charAt(x);
+            bookString="";
+            intString="";
+            while(c!=','){
+                if(nowSym)nowInt=true;
+                if(Character.valueOf(c).equals('>')) nowSym=true;
+                if(!nowSym) {
+                    bookString=bookString.concat(String.valueOf(c));
+                }
+                if(nowInt){
+                    intString=intString.concat(String.valueOf(c));
+                }
+                x++;
+                c=Character.valueOf(string.charAt(x));
+            }
+            x++;
+            mappa.put(StandardBookImpl.getStandardBookFromString(bookString), Integer.parseInt(intString));
+        }
+        return mappa;
         
     }
     public static void addTransfer(Transferrer sender,Transferrer receiver, Date leavingDate,Map<StandardBook,Integer> books) {
@@ -118,7 +154,6 @@ public class TransferrerImpl implements Transferrer{
             bw.close();
             
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
