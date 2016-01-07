@@ -33,6 +33,14 @@ public class TransferImpl implements Transfer {
         this.trackingNumber=this.getNewTrackingNumber();
         this.books=books;
     }
+    public  TransferImpl(Transferrer sender,Transferrer receiver,Date leavingDate, Map<StandardBook,Integer> books,String trackingNumber) {
+        this.sender=sender;
+        this.receiver=receiver;
+        this.leavingDate=leavingDate;
+        this.trackingNumber=this.getNewTrackingNumber();
+        this.books=books;
+        this.trackingNumber=trackingNumber;
+    }
     public String getNewTrackingNumber() {
         List<String>allTrackings=new ArrayList<>();
         for(Transfer trans:TransferrerImpl.transfers){
