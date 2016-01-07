@@ -45,4 +45,6 @@ public interface Transfer {
         
         public void replaceBook(StandardBook oldBook, StandardBook newBook);
 
+        public String getBooksAsString();
+
 }
