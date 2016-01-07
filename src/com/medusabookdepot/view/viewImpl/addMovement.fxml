@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+
+<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+	<content>
+		<VBox styleClass="card">
+			<children>
+				<HBox VBox.vgrow="ALWAYS">
+					<children>
+						<VBox prefWidth="300.0">
+							<children> 
+					        	<Label styleClass="card-title" text="Add Movement" />
+					        	<Label styleClass="control-label" text="Sender" />
+				                <ChoiceBox prefHeight="43.0" prefWidth="300.0" />
+				                <Label styleClass="control-label" text="Receiver" />
+				                <ChoiceBox prefHeight="42.0" prefWidth="300.0" />
+					            <Label styleClass="control-label" text="Date" />
+								<DatePicker editable="true" prefHeight="42.0" prefWidth="300.0" showWeekNumbers="true" />       
+								<Label styleClass="control-label" text="Traking" />
+								<TextField prefHeight="42.0" styleClass="control-label">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin></TextField>
+							</children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets right="20.0" />
+                     </padding> 
+						</VBox>
+						<VBox HBox.hgrow="ALWAYS">
+							<children>
+								<TableView editable="true" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
+									<columns>
+			                          	<TableColumn text="Quantity" />
+			                            <TableColumn text="Title" />
+			                            <TableColumn text="ISBN" />
+								    </columns>
+							        <columnResizePolicy>
+							        	<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+							        </columnResizePolicy>
+								</TableView>
+								<HBox spacing="20">
+									<children>
+							        	<TextField prefHeight="42.0" promptText="Quantity" styleClass="control-label" HBox.hgrow="ALWAYS" />
+							        	<TextField prefHeight="42.0" promptText="Title" styleClass="control-label" HBox.hgrow="ALWAYS" />
+							        	<TextField prefHeight="42.0" promptText="ISBN" styleClass="control-label" HBox.hgrow="ALWAYS" />
+							        	<Button defaultButton="true" mnemonicParsing="false" text="ADD" HBox.hgrow="ALWAYS" />
+									</children> 
+								</HBox>
+							</children>
+						</VBox>
+					</children>
+				</HBox>  
+	        </children>	
+		</VBox>					
+	</content>
+	<padding>
+		<Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+	</padding>
+</ScrollPane>

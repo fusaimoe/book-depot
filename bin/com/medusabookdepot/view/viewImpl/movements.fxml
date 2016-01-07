@@ -10,7 +10,7 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.shape.*?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.medusabookdepot.view.viewImpl.ScreenControl">
 	<content>
 		<VBox styleClass="card">
 			<children>
@@ -18,7 +18,7 @@
 	            	<children>
                    		<Label styleClass="card-title" text="Movements" />
                    		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                   		<Button mnemonicParsing="false" styleClass="button-flat" text="ADD NEW" />
+                   		<Button fx:id="addMovement" mnemonicParsing="false" styleClass="button-flat" text="ADD NEW" onAction="#switchScreen" />
                    		<Button mnemonicParsing="false" styleClass="button-flat" text="EDIT" />                           
                         <Button mnemonicParsing="false" styleClass="button-flat" text="DELETE" />
                     </children>

@@ -708,7 +708,7 @@
 	-fx-padding: 0.5em 0.5em 0.5em 0.1em;
 	-fx-border-color: -swatch-grey;
 	-fx-border-width: 0 0 2 0;
-	-fx-prompt-text-fill: derive(-dark, 50.0%);
+	-fx-prompt-text-fill: -swatch-grey;
 	-fx-highlight-fill: rgb(94.0, 203.0, 234.0);
 }
 
