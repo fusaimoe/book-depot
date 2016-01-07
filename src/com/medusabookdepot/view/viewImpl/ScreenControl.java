@@ -25,10 +25,12 @@ import javafx.scene.layout.BorderPane;
  * design, because it is impossible to get lazy
  * and expect the panes to save their own state.
  */
-public class MenuControl {
+public class ScreenControl {
 	
 	@FXML
 	private Button movements;
+	@FXML
+	private Button addMovement;
 	@FXML
 	private Button depots;
 	@FXML
