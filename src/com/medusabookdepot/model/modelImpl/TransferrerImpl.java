@@ -25,6 +25,7 @@ import com.medusabookdepot.model.modelInterface.Transferrer;
 public class TransferrerImpl implements Transferrer{
 
     protected String name;
+    protected boolean isDepot;
     public static ArrayList<Transfer> transfers;//List that contains all transfers alive
     
     public TransferrerImpl(String name) {
@@ -77,7 +78,58 @@ public class TransferrerImpl implements Transferrer{
         return transes;
     }
     private static Transferrer convertStringToTransferrer(String string){
-        return null;
+        char c=string.charAt(0);
+        String name="";
+        Transferrer trans = null;
+        int x=0;
+        
+        while(!Character.valueOf(c).equals(',')){
+            x++;
+            name=name.concat(String.valueOf(c));
+            c=string.charAt(x);
+        }
+        x++;
+        c=string.charAt(x);
+        if(Character.valueOf(c).equals('{')) {
+            String books="";
+            trans=new DepotImpl(name, null);
+            x++;
+            c=string.charAt(x);
+            while(!Character.valueOf(c).equals('}')){
+                x++;
+                books=books.concat(String.valueOf(c));
+                c=string.charAt(x);
+            }
+            trans=new DepotImpl(name, convertStringToBooks(books));
+        }
+        else{
+            String address="";
+            String telephone="";
+            while(!Character.valueOf(c).equals(',')) {
+                x++;
+                address=address.concat(String.valueOf(c));
+                c=string.charAt(x);
+            }
+            x++;
+            c=string.charAt(x);
+            while(!Character.valueOf(c).equals('C')) {
+                x++;
+                telephone=telephone.concat(String.valueOf(c));
+                c=string.charAt(x);
+            }
+            x++;
+            c=string.charAt(x);
+            if(Character.valueOf(c).equals('P')){
+                trans=new PrinterImpl(name, address, telephone);
+            }
+            if(Character.valueOf(c).equals('H')){
+                trans=new PersonImpl(name, address, telephone);
+            }
+            if(Character.valueOf(c).equals('L')){
+                trans=new LibraryImpl(name, address, telephone);
+            }
+        }
+        return trans;
         
     }
     private static Map<StandardBook,Integer> convertStringToBooks(String string) {
