@@ -3,12 +3,9 @@
  */
 package com.medusabookdepot.model.modelImpl;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import com.medusabookdepot.model.modelInterface.StandardBook;
-import com.sun.org.apache.xalan.internal.xsltc.dom.BitArray;
 
 /**
  * @author Marcello_Feroce
@@ -126,63 +123,37 @@ public class StandardBookImpl implements StandardBook{
         char c=stringa.charAt(0);
         int nfields=5;
         StandardBook book=new StandardBookImpl(null, null, 0, 0,null, null,null, 0);
-        List<String>optionals=new ArrayList<>(3);
         if(stringa.contains("@")){
-            optionals.set(0, "1");
             nfields++;
         }
-        else optionals.set(0, "0");
         if(stringa.contains("#")){
-            optionals.set(1, "1");
             nfields++;
         }
-        else optionals.set(1, "0");
         if(stringa.contains("§")){
-            optionals.set(2, "1");
             nfields++;
         }
-        else optionals.set(2, "0");
         int x=0;
         int fieldInt=0;
         boolean nowSym;
         String stringValue;
-        if(!optionals.contains("1")){
+        boolean aut=false;
+        boolean gen=false;
+        boolean ser=false;
             for(int y=0;y<nfields;y++) {
                 stringValue="";
                 nowSym=false;
-                while(c!=','){
-                    if(Character.valueOf(c).equals(',')) nowSym=true;
-                    if(!nowSym) {
-                        stringValue=stringValue.concat(String.valueOf(c));
-                    }
-                    x++;
-                    c=Character.valueOf(stringValue.charAt(x));
-                }
-                if(fieldInt==0) {
-                    book.setName(stringValue);
-                }
-                if(fieldInt==1) {
-                    book.setIsbn(stringValue);
-                }
-                if(fieldInt==2) {
-                    book.setPages(Integer.parseInt(stringValue));
-                }
-                if(fieldInt==3) {
-                    book.setPrice(Integer.parseInt(stringValue));
-                }
-                if(fieldInt==4) {
-                    book.setYear(Integer.parseInt(stringValue));
-                }
-                fieldInt++;
-                x++;
-            }
-        }
-        if(optionals.get(0).equals("1")&&optionals.get(1).equals("1")&&optionals.get(2).equals("1")) {
-            for(int y=0;y<nfields;y++) {
-                stringValue="";
-                nowSym=false;
-                while(c!='@'||c!='§'||c!='#'||c!=','){
+                c=Character.valueOf(stringValue.charAt(x));
+                while(c!='@'&&c!='§'&&c!='#'&&c!=','){
                     if(Character.valueOf(c).equals(',')||Character.valueOf(c).equals('@')||Character.valueOf(c).equals('#')||Character.valueOf(c).equals('§')) nowSym=true;
+                    if(Character.valueOf(c).equals('@')) {
+                        aut=true;
+                    }
+                    if(Character.valueOf(c).equals('#')) {
+                        gen=true;
+                    }
+                    if(Character.valueOf(c).equals('§')) {
+                        ser=true;
+                    }
                     if(!nowSym) {
                         stringValue=stringValue.concat(String.valueOf(c));
                     }
@@ -204,11 +175,20 @@ public class StandardBookImpl implements StandardBook{
                 if(fieldInt==4) {
                     book.setYear(Integer.parseInt(stringValue));
                 }
-                if(fieldInt==5) {
+                if(fieldInt==5&&aut) {
                     book.setAuthor(stringValue);
                 }
-                if(fieldInt==6) {
+                if(fieldInt==5&&gen) {
                     book.setGenre(stringValue);
+                }
+                if(fieldInt==5&&ser) {
+                    book.setSerie(stringValue);
+                }
+                if(fieldInt==6&&aut&&gen) {
+                    book.setGenre(stringValue);
+                }
+                if(fieldInt==6&&aut&&ser) {
+                    book.setSerie(stringValue);
                 }
                 if(fieldInt==7) {
                     book.setSerie(stringValue);
@@ -216,222 +196,7 @@ public class StandardBookImpl implements StandardBook{
                 fieldInt++;
                 x++;
             }
-        }
-        if(optionals.get(0).equals("1")&&optionals.get(1).equals("1")&&optionals.get(2).equals("0")) {
-            for(int y=0;y<nfields;y++) {
-                stringValue="";
-                nowSym=false;
-                while(c!='@'||c!='#'||c!=','){
-                    if(Character.valueOf(c).equals(',')||Character.valueOf(c).equals('@')||Character.valueOf(c).equals('#')) nowSym=true;
-                    if(!nowSym) {
-                        stringValue=stringValue.concat(String.valueOf(c));
-                    }
-                    x++;
-                    c=Character.valueOf(stringValue.charAt(x));
-                }
-                if(fieldInt==0) {
-                    book.setName(stringValue);
-                }
-                if(fieldInt==1) {
-                    book.setIsbn(stringValue);
-                }
-                if(fieldInt==2) {
-                    book.setPages(Integer.parseInt(stringValue));
-                }
-                if(fieldInt==3) {
-                    book.setPrice(Integer.parseInt(stringValue));
-                }
-                if(fieldInt==4) {
-                    book.setYear(Integer.parseInt(stringValue));
-                }
-                if(fieldInt==5) {
-                    book.setAuthor(stringValue);
-                }
-                if(fieldInt==6) {
-                    book.setGenre(stringValue);
-                }
-                fieldInt++;
-                x++;
-            }
-        }
-        if(optionals.get(0).equals("1")&&optionals.get(1).equals("0")&&optionals.get(2).equals("1")) {
-            for(int y=0;y<nfields;y++) {
-                stringValue="";
-                nowSym=false;
-                while(c!='@'||c!='§'||c!=','){
-                    if(Character.valueOf(c).equals(',')||Character.valueOf(c).equals('@')||Character.valueOf(c).equals('§')) nowSym=true;
-                    if(!nowSym) {
-                        stringValue=stringValue.concat(String.valueOf(c));
-                    }
-                    x++;
-                    c=Character.valueOf(stringValue.charAt(x));
-                }
-                if(fieldInt==0) {
-                    book.setName(stringValue);
-                }
-                if(fieldInt==1) {
-                    book.setIsbn(stringValue);
-                }
-                if(fieldInt==2) {
-                    book.setPages(Integer.parseInt(stringValue));
-                }
-                if(fieldInt==3) {
-                    book.setPrice(Integer.parseInt(stringValue));
-                }
-                if(fieldInt==4) {
-                    book.setYear(Integer.parseInt(stringValue));
-                }
-                if(fieldInt==5) {
-                    book.setAuthor(stringValue);
-                }
-                if(fieldInt==6) {
-                    book.setSerie(stringValue);
-                }
-                fieldInt++;
-                x++;
-            }
-        }
-        if(optionals.get(0).equals("0")&&optionals.get(1).equals("1")&&optionals.get(2).equals("1")) {
-            for(int y=0;y<nfields;y++) {
-                stringValue="";
-                nowSym=false;
-                while(c!='#'||c!='§'||c!=','){
-                    if(Character.valueOf(c).equals(',')||Character.valueOf(c).equals('#')||Character.valueOf(c).equals('§')) nowSym=true;
-                    if(!nowSym) {
-                        stringValue=stringValue.concat(String.valueOf(c));
-                    }
-                    x++;
-                    c=Character.valueOf(stringValue.charAt(x));
-                }
-                if(fieldInt==0) {
-                    book.setName(stringValue);
-                }
-                if(fieldInt==1) {
-                    book.setIsbn(stringValue);
-                }
-                if(fieldInt==2) {
-                    book.setPages(Integer.parseInt(stringValue));
-                }
-                if(fieldInt==3) {
-                    book.setPrice(Integer.parseInt(stringValue));
-                }
-                if(fieldInt==4) {
-                    book.setYear(Integer.parseInt(stringValue));
-                }
-                if(fieldInt==5) {
-                    book.setGenre(stringValue);
-                }
-                if(fieldInt==6) {
-                    book.setSerie(stringValue);
-                }
-                fieldInt++;
-                x++;
-            }
-        }
-        if(optionals.get(0).equals("1")&&optionals.get(1).equals("0")&&optionals.get(2).equals("0")) {
-            for(int y=0;y<nfields;y++) {
-                stringValue="";
-                nowSym=false;
-                while(c!='@'||c!=','){
-                    if(Character.valueOf(c).equals(',')||Character.valueOf(c).equals('@')) nowSym=true;
-                    if(!nowSym) {
-                        stringValue=stringValue.concat(String.valueOf(c));
-                    }
-                    x++;
-                    c=Character.valueOf(stringValue.charAt(x));
-                }
-                if(fieldInt==0) {
-                    book.setName(stringValue);
-                }
-                if(fieldInt==1) {
-                    book.setIsbn(stringValue);
-                }
-                if(fieldInt==2) {
-                    book.setPages(Integer.parseInt(stringValue));
-                }
-                if(fieldInt==3) {
-                    book.setPrice(Integer.parseInt(stringValue));
-                }
-                if(fieldInt==4) {
-                    book.setYear(Integer.parseInt(stringValue));
-                }
-                if(fieldInt==5) {
-                    book.setAuthor(stringValue);
-                }
-                fieldInt++;
-                x++;
-            }
-        }
-        if(optionals.get(0).equals("0")&&optionals.get(1).equals("1")&&optionals.get(2).equals("0")) {
-            for(int y=0;y<nfields;y++) {
-                stringValue="";
-                nowSym=false;
-                while(c!='#'||c!=','){
-                    if(Character.valueOf(c).equals(',')||Character.valueOf(c).equals('#')) nowSym=true;
-                    if(!nowSym) {
-                        stringValue=stringValue.concat(String.valueOf(c));
-                    }
-                    x++;
-                    c=Character.valueOf(stringValue.charAt(x));
-                }
-                if(fieldInt==0) {
-                    book.setName(stringValue);
-                }
-                if(fieldInt==1) {
-                    book.setIsbn(stringValue);
-                }
-                if(fieldInt==2) {
-                    book.setPages(Integer.parseInt(stringValue));
-                }
-                if(fieldInt==3) {
-                    book.setPrice(Integer.parseInt(stringValue));
-                }
-                if(fieldInt==4) {
-                    book.setYear(Integer.parseInt(stringValue));
-                }
-                if(fieldInt==5) {
-                    book.setGenre(stringValue);
-                }
-                fieldInt++;
-                x++;
-            }
-        }
-        if(optionals.get(0).equals("0")&&optionals.get(1).equals("0")&&optionals.get(2).equals("1")) {
-            for(int y=0;y<nfields;y++) {
-                stringValue="";
-                nowSym=false;
-                while(c!='§'||c!=','){
-                    if(Character.valueOf(c).equals(',')||Character.valueOf(c).equals('§')) nowSym=true;
-                    if(!nowSym) {
-                        stringValue=stringValue.concat(String.valueOf(c));
-                    }
-                    x++;
-                    c=Character.valueOf(stringValue.charAt(x));
-                }
-                if(fieldInt==0) {
-                    book.setName(stringValue);
-                }
-                if(fieldInt==1) {
-                    book.setIsbn(stringValue);
-                }
-                if(fieldInt==2) {
-                    book.setPages(Integer.parseInt(stringValue));
-                }
-                if(fieldInt==3) {
-                    book.setPrice(Integer.parseInt(stringValue));
-                }
-                if(fieldInt==4) {
-                    book.setYear(Integer.parseInt(stringValue));
-                }
-                if(fieldInt==5) {
-                    book.setSerie(stringValue);
-                }
-                fieldInt++;
-                x++;
-            }
-        }
-        return book;
-        
+        return book;  
     }
     public String toString() {
         return this.name+","+this.isbn+","+this.pages+","+this.price+","+this.year+","+(this.author.isPresent()?author.get():"n.d") +"@"+(this.genre.isPresent()?this.genre.get():"n.d")+"#"+(this.serie.isPresent()?this.serie.get():"n.d")+"§";
