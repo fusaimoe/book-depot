@@ -25,6 +25,7 @@ public class DepotImpl extends TransferrerImpl implements Depot {
     public DepotImpl(String name,Map<StandardBook,Integer> books) {
         super(name);
         this.books=books;
+        this.isDepot=true;
     }
     
     @Override
@@ -80,6 +81,6 @@ public class DepotImpl extends TransferrerImpl implements Depot {
     }
 
     public String toString() {
-        return this.name+","+this.getQuantity();
+        return this.name+","+this.books;
     }
 }
