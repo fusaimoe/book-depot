@@ -190,7 +190,7 @@ public class Medusa {
 			result = result.filter(e -> depot.filter(f -> f.getQuantityFromStandardBook(e)<1)!=null);
 		}
 		
-		
+		 
 		/* If there are not filters, return all books in one stream */
 		return result;
 	}
