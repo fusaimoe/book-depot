@@ -3,28 +3,27 @@
  */
 package com.medusabookdepot.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import com.medusabookdepot.model.modelImpl.DepotImpl;
-import com.medusabookdepot.model.modelImpl.LibraryImpl;
-import com.medusabookdepot.model.modelImpl.StandardBookImpl;
-import com.medusabookdepot.model.modelInterface.Depot;
-import com.medusabookdepot.model.modelInterface.Library;
-import com.medusabookdepot.model.modelInterface.StandardBook;
+import com.medusabookdepot.model.modelImpl.*;
+import com.medusabookdepot.model.modelInterface.*;
 import com.medusabookdepot.view.viewImpl.*;
 
 public class Medusa {
 
     private final Menu/*in futuro sarà qualcosa come MenuInterface*/ firstframe;
-    private final List<Depot> depots = new ArrayList<Depot>();
-    private final Map<StandardBook,Integer> booksInDepot = new HashMap<StandardBook,Integer>();
-    private final List<StandardBook> books = new ArrayList<StandardBook>();
-    private final List<Library> libraries = new ArrayList<Library>();
+    private final List<Depot> depots = new ArrayList<>();
+    private final Map<StandardBook,Integer> booksInDepot = new HashMap<>();
+    private final List<StandardBook> books = new ArrayList<>();
+    private final List<Library> libraries = new ArrayList<>();
+    private final List<Transfer> movements = new ArrayList<>();
 
     public Medusa() {
             this.firstframe = new Menu();
@@ -228,17 +227,62 @@ public class Medusa {
 		libraries.remove(lib);
 	}
 	
+	/*
+	 * =============== MOVEMENTS ===============
+	 */
+	
+	public void addMovements(Transfer transfer){
+		
+		movements.add(transfer);
+	}
+	
+	/*
+	 * Dalla GUI noto che si puo aggiungere solo un libro alla volta, per cui, questo metodo (fino a prossime istruzioni)
+	 * creerà un movimento con una mappa (chiesta da Model) contenente un solo elempento preso in input.
+	 */
+	public void addMovements(Transferrer sender,Transferrer receiver,Date leavingDate, StandardBook book, int quantity){
+		
+		Map<StandardBook,Integer> books = new HashMap<>();
+		books.put(book, quantity);
+		this.addMovements(new TransferImpl(sender, receiver, leavingDate, books));
+	}
+	
+	/**
+	 * Return the list of movements
+	 * @return Movements list
+	 */
+	public List<Transfer> getAllMovements(){
+		
+		return movements;
+	}
+	
+	/**
+	 * Remove one ore more movements from list
+	 * @param One ore more movements
+	 */
+	public void removeMovements(Transfer... mov){
+		
+		for(Transfer t:mov){
+			try {
+				movements.remove(t);
+			} catch (Exception e) {
+				new NoSuchElementException();
+			}
+		}
+	}
+	
     public static void main(String[] args) {
         
         Medusa medusiniDepot = new Medusa();
         
-        //Creo 3 titoli con valore dei campi diversi
+        //Creo 4 titoli con valore dei campi diversi
         medusiniDepot.addBook("9788767547823", "La fabbrica dei bambocci", 1980, 7, "Serie pico", "Avventure", "Feroce Macello", 2);
         medusiniDepot.addBook("9788712309897", "Cicci posticci", 2002, 290, "", "Romantici", "Croccolino Lorenzo", 15);
         medusiniDepot.addBook("9788712378922", "The poveracci", 2017, 322, "Serie pocanzi", "Horror", "Colombo Andrea", 22);
+        medusiniDepot.addBook("9788712378922", "Censurare: una passione", 2017, 322, "Serie rompini", "Fantascienza", "Cecchetti Giulia", 22);
 
         //Creo un depot con i libri sopra creati assegnando ad ognuno una quantità nel depot
-        medusiniDepot.addDepot("Medusini", medusiniDepot.books, new int[]{10,2,33});
+        medusiniDepot.addDepot("Medusini", medusiniDepot.books, new int[]{10,2,33,22});
         
         //Faccio stampare il toString di tutti i depot esistenti
         for(int n=0;n<medusiniDepot.depots.size();n++){
@@ -272,11 +316,6 @@ public class Medusa {
         bb.forEach(e->{
         	System.out.println(e.getName());
         });
-        
-        	
-        
-        //Ora invece lo cerco nel depot "Medusini", se tutto va bene dovrebbe trovarmelo 
-
     }
 
 }
