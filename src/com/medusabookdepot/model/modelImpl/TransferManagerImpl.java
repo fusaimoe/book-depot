@@ -17,22 +17,22 @@ import com.medusabookdepot.model.modelInterface.Transfer;
 import com.medusabookdepot.model.modelInterface.TransferManager;
 import com.medusabookdepot.model.modelInterface.Transferrer;
 
-public class TransferMangerImpl implements TransferManager {
+public class TransferManagerImpl implements TransferManager {
 
     private static TransferManager sing=null;//singleton
     private ArrayList<Transfer> transfers;//List that contains all transfers alive
     
-    public TransferMangerImpl() {
+    public TransferManagerImpl() {
         //costruttore vuoto!
     }
     
     @Override
     public TransferManager getInstanceOfFactoryManger() {
         if(sing==null) {
-            return new TransferMangerImpl();
+            return new TransferManagerImpl();
         }
         else {
-            return TransferMangerImpl.sing;
+            return TransferManagerImpl.sing;
         }
     }
 
