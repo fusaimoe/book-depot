@@ -26,8 +26,7 @@ public class TransferManagerImpl implements TransferManager {
         //costruttore vuoto!
     }
     
-    @Override
-    public TransferManager getInstanceOfFactoryManger() {
+    public static TransferManager getInstanceOfFactoryManger() {
         if(sing==null) {
             return new TransferManagerImpl();
         }

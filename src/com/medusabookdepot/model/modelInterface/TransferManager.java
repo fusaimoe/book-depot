@@ -7,7 +7,6 @@ import java.util.Map;
 public interface TransferManager {
     
     
-    public TransferManager getInstanceOfFactoryManger();
     public List<? extends Transfer>getAllTransfers();
     public void addTransfer(Transfer transfer);
     public void addTransfer(Transferrer sender,Transferrer receiver, Date leavingDate,Map<StandardBook,Integer> books);
