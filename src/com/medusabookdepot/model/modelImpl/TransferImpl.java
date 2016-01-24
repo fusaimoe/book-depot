@@ -12,6 +12,7 @@ import java.util.Random;
 
 import com.medusabookdepot.model.modelInterface.StandardBook;
 import com.medusabookdepot.model.modelInterface.Transfer;
+import com.medusabookdepot.model.modelInterface.TransferManager;
 import com.medusabookdepot.model.modelInterface.Transferrer;
 
 /**
@@ -43,7 +44,7 @@ public class TransferImpl implements Transfer {
     }
     public String getNewTrackingNumber() {
         List<String>allTrackings=new ArrayList<>();
-        for(Transfer trans:TransferrerImpl.transfers){
+        for(Transfer trans:TransferManagerImpl.getInstanceOfFactoryManger().getAllTransfers()){
             allTrackings.add(trans.getTrackingNumber());
         }
         Random rm=new Random();
