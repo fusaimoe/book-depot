@@ -21,6 +21,11 @@ public class TransferMangerImpl implements TransferManager {
 
     private static TransferManager sing=null;//singleton
     private ArrayList<Transfer> transfers;//List that contains all transfers alive
+    
+    public TransferMangerImpl() {
+        //costruttore vuoto!
+    }
+    
     @Override
     public TransferManager getInstanceOfFactoryManger() {
         if(sing==null) {
