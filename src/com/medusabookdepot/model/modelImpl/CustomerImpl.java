@@ -13,7 +13,7 @@ import com.medusabookdepot.model.modelInterface.Transferrer;
  * @author Marcello_Feroce
  *
  */
-public abstract class CustomerImpl extends TransferrerImpl implements Customer {
+public class CustomerImpl extends TransferrerImpl implements Customer {
 
     protected String address;
     protected String telephoneNumber;

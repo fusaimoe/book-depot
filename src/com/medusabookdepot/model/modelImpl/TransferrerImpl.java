@@ -27,7 +27,6 @@ public class TransferrerImpl implements Transferrer{
     protected String name;
     protected boolean isDepot;
     public static ArrayList<Transfer> transfers;//List that contains all transfers alive
-    
     public TransferrerImpl(String name) {
         this.name=name;
     }
