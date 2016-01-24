@@ -7,10 +7,10 @@ import java.util.Map;
 
 import com.medusabookdepot.model.modelImpl.TransferrerImpl;
 
-public interface FactoryManager {
+public interface TransferManager {
     
     
-    public FactoryManager getInstanceOfFactoryManger();
+    public TransferManager getInstanceOfFactoryManger();
     public List<? extends Transfer>getAllTransfers();
     public void addTransfer(Transfer transfer);
     public void addTransfer(Transferrer sender,Transferrer receiver, Date leavingDate,Map<StandardBook,Integer> books);
