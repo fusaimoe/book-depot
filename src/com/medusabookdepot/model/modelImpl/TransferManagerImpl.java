@@ -22,8 +22,8 @@ public class TransferManagerImpl implements TransferManager {
     private static TransferManager sing=null;//singleton
     private ArrayList<Transfer> transfers;//List that contains all transfers alive
     
-    public TransferManagerImpl() {
-        //costruttore vuoto!
+    private TransferManagerImpl() {
+        //costruttore vuoto e privato!
     }
     
     public static TransferManager getInstanceOfFactoryManger() {
