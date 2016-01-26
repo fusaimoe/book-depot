@@ -3,17 +3,9 @@
  */
 package com.medusabookdepot.model.modelImpl;
 
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import java.util.Random;
-
 import com.medusabookdepot.model.modelInterface.Depot;
 import com.medusabookdepot.model.modelInterface.StandardBook;
-import com.medusabookdepot.model.modelInterface.Transfer;
-import com.medusabookdepot.model.modelInterface.Transferrer;
 
 /**
  * @author Marcello_Feroce
