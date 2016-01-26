@@ -3,11 +3,7 @@
  */
 package com.medusabookdepot.model.modelImpl;
 
-import java.util.Map;
-
 import com.medusabookdepot.model.modelInterface.Customer;
-import com.medusabookdepot.model.modelInterface.StandardBook;
-import com.medusabookdepot.model.modelInterface.Transferrer;
 
 /**
  * @author Marcello_Feroce
