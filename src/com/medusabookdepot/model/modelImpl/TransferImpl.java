@@ -43,6 +43,11 @@ public class TransferImpl implements Transfer {
     }
     public String getNewTrackingNumber() {
         List<String>allTrackings=new ArrayList<>();
+        if(TransferManagerImpl.getInstanceOfFactoryManger().getAllTransfers()==null) {
+            Random rm=new Random();
+            String tr=String.valueOf(rm.nextInt(1000000));
+            return tr;
+        }
         for(Transfer trans:TransferManagerImpl.getInstanceOfFactoryManger().getAllTransfers()){
             allTrackings.add(trans.getTrackingNumber());
         }
