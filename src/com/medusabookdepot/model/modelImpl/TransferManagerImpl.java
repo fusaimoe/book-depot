@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,10 +22,11 @@ import com.medusabookdepot.model.modelInterface.Transferrer;
 public class TransferManagerImpl implements TransferManager {
 
     private static TransferManager sing=null;//singleton
-    private ArrayList<Transfer> transfers;//List that contains all transfers alive
+    private List<Transfer> transfers;//List that contains all transfers alive
     
     private TransferManagerImpl() {
         //costruttore vuoto e privato!
+        this.transfers=getTransfersFromFile("trasferimenti.txt");
     }
     
     public static TransferManager getInstanceOfFactoryManger() {
@@ -178,6 +181,14 @@ public class TransferManagerImpl implements TransferManager {
     @Override
     public List<Transfer> getTransfersFromFile(String filePath) {
         List<Transfer> transes=new ArrayList<>();
+        if(!Files.exists(Paths.get(filePath))) {
+            try {
+                Files.createFile(Paths.get(filePath));
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
         try {
             FileReader fr=new FileReader(filePath);
             BufferedReader br=new BufferedReader(fr);
@@ -206,6 +217,13 @@ public class TransferManagerImpl implements TransferManager {
         }
         
         return transes;
+    }
+    public static void main(String ...strings) {
+        Map<StandardBook, Integer>mm=new HashMap<>();
+        mm.put(new StandardBookImpl("iiis", "divina commedia", "dante"), Integer.valueOf(5));
+        Map<StandardBook, Integer>mmq=new HashMap<>();
+        mmq.put(new StandardBookImpl("iiiees", "decamerone", "boccaccio"), Integer.valueOf(7));
+        TransferManagerImpl.getInstanceOfFactoryManger().addTransfer(new TransferImpl(new DepotImpl("mmm",mm ), new PersonImpl("bocc", "via san gavino 4", "333 334 422"), new Date(2012, 10, 27),mmq));
     }
 
 }
