@@ -1,5 +1,5 @@
 /**
- * Sample Skeleton for 'Menu.fxml' Controller Class
+ * Switch Screen Controller Class, inherited by all fxml files
  */
 
 package com.medusabookdepot.view.viewImpl;

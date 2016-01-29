@@ -685,7 +685,8 @@
 }
 
 .table-row-cell, .tree-table-row-cell {
-	-fx-cell-size: 40px;
+	-fx-padding: 6 0 0 0;
+	-fx-cell-size: 40;
 }
 
 .table-cell {
