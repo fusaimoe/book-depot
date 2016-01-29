@@ -1,5 +1,6 @@
 package com.medusabookdepot.model.modelImpl;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -30,19 +31,19 @@ public class TransferManagerImpl2 implements TransferManager {
     
     public static TransferManager getInstanceOfTransferManger() {
         if(sing==null) {
-            
-            return new TransferManagerImpl2();
+            System.out.println("prima volta");
+            sing=new TransferManagerImpl2();
+            return sing;
         }
         else {
-            
+            System.out.println("c'è gia stata una prima volta");
             return TransferManagerImpl2.sing;
         }
     }
 
     @Override
     public List<? extends Transfer> getAllTransfers() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.transfers;
     }
 
     @Override
@@ -52,11 +53,14 @@ public class TransferManagerImpl2 implements TransferManager {
         
     }
 
-    private void writeTransferOnFile(String string, Transfer transfer) {
+    private void writeTransferOnFile(String fileName, Transfer transfer) {
         try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(getFilePath(string)));
-            oos.writeObject(transfer);
+            List<Transfer> trans=getTransfersFromFile(fileName);
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(getFilePath(fileName)));
+            trans.add(transfer);
+            oos.writeObject(trans);
             oos.close();
+            System.out.println("scritto su file");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -73,34 +77,31 @@ public class TransferManagerImpl2 implements TransferManager {
     @Override
     public void addTransfer(Transferrer sender, Transferrer receiver, Date leavingDate,
             Map<StandardBook, Integer> books) {
-        // TODO Auto-generated method stub
         
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public List<Transfer> getTransfersFromFile(String filePath) {
+    public List<Transfer> getTransfersFromFile(String fileName) {
         List<Transfer> trans=new ArrayList<>();
-        if(!Files.exists(Paths.get(filePath))) {
+        File f = new File(getFilePath(fileName));
+        if(!f.exists()) {
+            System.out.println("file non esistente in getTransfersFromFile");
             return new ArrayList<Transfer>();
         }
         else {
             try {
-                ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(getFilePath(filePath)));
+                ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(getFilePath(fileName)));
                 try {
-                    Transfer tr =(Transfer) objectInputStream.readObject();
+                    trans =(ArrayList<Transfer>) objectInputStream.readObject();
                     objectInputStream.close();
-                    trans.add(tr);
-                    
                     
                 } catch (ClassNotFoundException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             return trans;
@@ -114,8 +115,8 @@ public class TransferManagerImpl2 implements TransferManager {
         Transferrer trad=new DepotImpl("D1", mm);
         
         
-        Transfer tr=new TransferImpl(trad, tra, new Date(1993, 12, 11), mm, "883737");
-        System.out.println(tr.toString());
+        Transfer tr=new TransferImpl(trad, tra, new Date(1993, 12,5), mm, "883737");
+        
         TransferManagerImpl2.getInstanceOfTransferManger().addTransfer(tr);
         System.out.println(TransferManagerImpl2.getInstanceOfTransferManger().getTransfersFromFile("trasferimenti.txt"));
     }
