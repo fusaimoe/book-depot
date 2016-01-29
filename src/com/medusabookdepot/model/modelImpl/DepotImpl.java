@@ -3,6 +3,7 @@
  */
 package com.medusabookdepot.model.modelImpl;
 
+import java.io.Serializable;
 import java.util.Map;
 import com.medusabookdepot.model.modelInterface.Depot;
 import com.medusabookdepot.model.modelInterface.StandardBook;
@@ -11,7 +12,7 @@ import com.medusabookdepot.model.modelInterface.StandardBook;
  * @author Marcello_Feroce
  *
  */
-public class DepotImpl extends TransferrerImpl implements Depot {
+public class DepotImpl extends TransferrerImpl implements Depot, Serializable {
 
     private Map<StandardBook,Integer> books;
     public DepotImpl(String name,Map<StandardBook,Integer> books) {

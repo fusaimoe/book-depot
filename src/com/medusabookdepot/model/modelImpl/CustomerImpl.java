@@ -3,14 +3,20 @@
  */
 package com.medusabookdepot.model.modelImpl;
 
+import java.io.Serializable;
+
 import com.medusabookdepot.model.modelInterface.Customer;
 
 /**
  * @author Marcello_Feroce
  *
  */
-public class CustomerImpl extends TransferrerImpl implements Customer {
+public class CustomerImpl extends TransferrerImpl implements Customer,Serializable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -9063812037630746920L;
     protected String address;
     protected String telephoneNumber;
     protected boolean isHuman;
