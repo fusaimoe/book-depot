@@ -11,12 +11,16 @@ import com.medusabookdepot.model.modelInterface.Printer;
  */
 public class PrinterImpl extends CustomerImpl implements Printer {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -8700734085567092049L;
     public PrinterImpl(String name, String address, String telephoneNumber) {
         super(name, address, telephoneNumber);
         this.isHuman=false;
         this.isLibrary=false;
     }
-    
+    @Override
     public String toString() {
         return this.name+","+this.telephoneNumber+","+this.address+"CP";
     }

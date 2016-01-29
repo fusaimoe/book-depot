@@ -11,7 +11,7 @@ import com.medusabookdepot.model.modelInterface.Customer;
  * @author Marcello_Feroce
  *
  */
-public class CustomerImpl extends TransferrerImpl implements Customer,Serializable {
+public abstract class CustomerImpl extends TransferrerImpl implements Customer,Serializable {
 
     /**
      * 
@@ -46,4 +46,7 @@ public class CustomerImpl extends TransferrerImpl implements Customer,Serializab
     public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber=telephoneNumber;
     }
+    
+    @Override
+    abstract public String toString();
 }
