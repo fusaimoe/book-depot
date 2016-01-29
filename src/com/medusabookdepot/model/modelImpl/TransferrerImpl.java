@@ -11,7 +11,7 @@ import com.medusabookdepot.model.modelInterface.Transferrer;
  * @author Marcello_Feroce
  *
  */
-public class TransferrerImpl implements Transferrer,Serializable{
+public abstract class TransferrerImpl implements Transferrer,Serializable{
 
     /**
      * 
@@ -32,4 +32,6 @@ public class TransferrerImpl implements Transferrer,Serializable{
     public void setName(String name) {
         this.name=name;
     }
+    
+    abstract public String toString();
 }

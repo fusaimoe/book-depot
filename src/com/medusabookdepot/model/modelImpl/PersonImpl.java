@@ -22,6 +22,7 @@ public class PersonImpl extends CustomerImpl implements Person , Serializable{
         this.isHuman=true;
         this.isLibrary=false;
     }
+    @Override
     public String toString() {
         return this.name+","+this.address+","+this.telephoneNumber+"CH";
         
