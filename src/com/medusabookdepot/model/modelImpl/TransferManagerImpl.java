@@ -29,7 +29,7 @@ public class TransferManagerImpl implements TransferManager {
         this.transfers=getTransfersFromFile("trasferimenti.txt");
     }
     
-    public static TransferManager getInstanceOfFactoryManger() {
+    public static TransferManager getInstanceOfTransferManger() {
         if(sing==null) {
             return new TransferManagerImpl();
         }
@@ -223,7 +223,7 @@ public class TransferManagerImpl implements TransferManager {
         mm.put(new StandardBookImpl("iiis", "divina commedia", "dante"), Integer.valueOf(5));
         Map<StandardBook, Integer>mmq=new HashMap<>();
         mmq.put(new StandardBookImpl("iiiees", "decamerone", "boccaccio"), Integer.valueOf(7));
-        TransferManagerImpl.getInstanceOfFactoryManger().addTransfer(new TransferImpl(new DepotImpl("mmm",mm ), new PersonImpl("bocc", "via san gavino 4", "333 334 422"), new Date(2012, 10, 27),mmq));
+        TransferManagerImpl.getInstanceOfTransferManger().addTransfer(new TransferImpl(new DepotImpl("mmm",mm ), new PersonImpl("bocc", "via san gavino 4", "333 334 422"), new Date(2012, 10, 27),mmq));
     }
 
 }
