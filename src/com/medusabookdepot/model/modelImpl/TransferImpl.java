@@ -3,6 +3,7 @@
  */
 package com.medusabookdepot.model.modelImpl;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,26 +19,29 @@ import com.medusabookdepot.model.modelInterface.Transferrer;
  * @author Marcello_Feroce
  *
  */
-public class TransferImpl implements Transfer {
+public class TransferImpl implements Transfer, Serializable{
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -1788501318970271441L;
     private Transferrer sender;
     private Transferrer receiver;
     private Date leavingDate;
     private String trackingNumber;
     private Map<StandardBook,Integer> books;
     
-    public  TransferImpl(Transferrer sender,Transferrer receiver,Date leavingDate, Map<StandardBook,Integer> books) {
+    public TransferImpl(Transferrer sender,Transferrer receiver,Date leavingDate, Map<StandardBook,Integer> books) {
         this.sender=sender;
         this.receiver=receiver;
         this.leavingDate=leavingDate;
         this.trackingNumber=this.getNewTrackingNumber();
         this.books=books;
     }
-    public  TransferImpl(Transferrer sender,Transferrer receiver,Date leavingDate, Map<StandardBook,Integer> books,String trackingNumber) {
+    public TransferImpl(Transferrer sender,Transferrer receiver,Date leavingDate, Map<StandardBook,Integer> books,String trackingNumber) {
         this.sender=sender;
         this.receiver=receiver;
         this.leavingDate=leavingDate;
-        this.trackingNumber=this.getNewTrackingNumber();
         this.books=books;
         this.trackingNumber=trackingNumber;
     }
@@ -113,7 +117,7 @@ public class TransferImpl implements Transfer {
     public int getQuantity() {
         int x=0;
         for(StandardBook libro :this.books.keySet()) {
-            x+=books.get(libro);
+            x=x+books.get(libro);
         }
         return x;
     }

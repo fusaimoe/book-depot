@@ -3,6 +3,7 @@
  */
 package com.medusabookdepot.model.modelImpl;
 
+import java.io.Serializable;
 import java.util.Optional;
 
 import com.medusabookdepot.model.modelInterface.StandardBook;
@@ -11,15 +12,19 @@ import com.medusabookdepot.model.modelInterface.StandardBook;
  * @author Marcello_Feroce
  *
  */
-public class StandardBookImpl implements StandardBook{
+public class StandardBookImpl implements StandardBook, Serializable{
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 7759011458602273856L;
     private String name;
     private String isbn;
     private int year;
     private int pages;
-    private Optional<String> serie;
-    private Optional<String> genre;//e.g. "Avventura", or "Thriller, Giallo, Azione"
-    private  Optional<String> author;
+    private String serie;
+    private String genre;//e.g. "Avventura", or "Thriller, Giallo, Azione"
+    private String author;
     private int price;
     
     public StandardBookImpl(String isbn,String name, int year, int pages, String serie, String genre, String author, int price) {
@@ -27,9 +32,9 @@ public class StandardBookImpl implements StandardBook{
         this.name=name;
         this.year=year;
         this.pages=pages;
-        this.serie=Optional.ofNullable(serie);
-        this.genre=Optional.ofNullable(genre);
-        this.author=Optional.ofNullable(author);
+        this.serie=serie;
+        this.genre=genre;
+        this.author=author;
         this.price=price;
     }
     public StandardBookImpl(String isbn) {
@@ -38,7 +43,7 @@ public class StandardBookImpl implements StandardBook{
     public StandardBookImpl(String isbn,String name,String author) {
         this.isbn=isbn;
         this.name=name;
-        this.author=Optional.ofNullable(author);
+        this.author=author;
     }
     @Override
     public String getName() {
@@ -62,17 +67,17 @@ public class StandardBookImpl implements StandardBook{
 
     @Override
     public String getSerie() {
-        return this.serie.get();
+        return this.serie;
     }
 
     @Override
     public String getGenre() {
-        return this.genre.get();
+        return this.genre;
     }
 
     @Override
     public String getAuthor() {
-        return this.author.get();
+        return this.author;
     }
 
     @Override
@@ -102,17 +107,17 @@ public class StandardBookImpl implements StandardBook{
 
     @Override
     public void setSerie(String serie) {
-        this.serie=Optional.ofNullable(serie);
+        this.serie=serie;
     }
 
     @Override
     public void setGenre(String genre) {
-        this.genre=Optional.ofNullable(genre);
+        this.genre=genre;
     }
 
     @Override
     public void setAuthor(String author) {
-        this.author=Optional.ofNullable(author);
+        this.author=author;
     }
 
     @Override
@@ -199,6 +204,6 @@ public class StandardBookImpl implements StandardBook{
         return book;  
     }
     public String toString() {
-        return this.name+","+this.isbn+","+this.pages+","+this.price+","+this.year+","+(this.author.isPresent()?author.get():"n.d") +"@"+(this.genre.isPresent()?this.genre.get():"n.d")+"#"+(this.serie.isPresent()?this.serie.get():"n.d")+"§";
+        return this.name+","+this.isbn+","+this.pages+","+this.price+","+this.year+","+this.author+","+this.genre+","+this.serie;
     }
 }

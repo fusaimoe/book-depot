@@ -2,10 +2,14 @@ package com.medusabookdepot.model.modelImpl;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Date;
@@ -13,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.medusabookdepot.model.modelInterface.StandardBook;
 import com.medusabookdepot.model.modelInterface.Transfer;
@@ -25,15 +30,17 @@ public class TransferManagerImpl implements TransferManager {
     private List<Transfer> transfers;//List that contains all transfers alive
     
     private TransferManagerImpl() {
-        //costruttore vuoto e privato!
+        //costruttore privato!
         this.transfers=getTransfersFromFile("trasferimenti.txt");
     }
     
     public static TransferManager getInstanceOfTransferManger() {
         if(sing==null) {
+            
             return new TransferManagerImpl();
         }
         else {
+            
             return TransferManagerImpl.sing;
         }
     }
@@ -49,11 +56,24 @@ public class TransferManagerImpl implements TransferManager {
         this.writeTransferOnFile("trasferimenti.txt",transfer);
 
     }
+    private void writeTransferOnFile(String name, Transfer transfer) {
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(getFilePath(name)));
+            oos.writeObject(transfer);
+            oos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+    }
+
     private String getFilePath(String fileName){
         String filepath = System.getProperty("user.home")+System.getProperty("file.separator")+ fileName;
         return filepath;
     }
-    private void writeTransferOnFile(String fileName,Transfer transfer) {
+    /*private void writeTransferOnFile(String fileName,Transfer transfer) {
         try {
             FileWriter fw=new FileWriter(getFilePath(fileName), true);
             BufferedWriter bw=new BufferedWriter(fw);
@@ -74,14 +94,14 @@ public class TransferManagerImpl implements TransferManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
     @Override
     public void addTransfer(Transferrer sender, Transferrer receiver, Date leavingDate, Map<StandardBook, Integer> books) {
         Transfer trans=new TransferImpl(sender, receiver, leavingDate, books);
         this.transfers.add(trans);
         this.writeTransferOnFile("trasferimenti.txt",trans);
 
-    }
+    }/*
     private Transferrer convertStringToTransferrer(String string){
         char c=string.charAt(0);
         String name="";
@@ -136,9 +156,9 @@ public class TransferManagerImpl implements TransferManager {
         }
         return trans;
         
-    }
+    }*/
     
-    private Map<StandardBook,Integer> convertStringToBooks(String string) {
+    /*private Map<StandardBook,Integer> convertStringToBooks(String string) {
         char c=string.charAt(0);
         Map<StandardBook,Integer> mappa=new HashMap<>();
         
@@ -176,10 +196,34 @@ public class TransferManagerImpl implements TransferManager {
         }
         return mappa;
         
-    }
+    }*/
     
     @Override
     public List<Transfer> getTransfersFromFile(String filePath) {
+        List<Transfer> trans=new ArrayList<>();
+        if(!Files.exists(Paths.get(filePath))) {
+            return null;
+        }
+        try {
+            ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(getFilePath(filePath)));
+            try {
+                Transfer tr =(Transfer) objectInputStream.readObject();
+                objectInputStream.close();
+                trans.add(tr);
+                
+            } catch (ClassNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        return trans;/*
         List<Transfer> transes=new ArrayList<>();
         if(!Files.exists(Paths.get(filePath))) {
             try {
@@ -216,14 +260,19 @@ public class TransferManagerImpl implements TransferManager {
             e.printStackTrace();
         }
         
-        return transes;
+        return transes;*/
     }
     public static void main(String ...strings) {
         Map<StandardBook, Integer>mm=new HashMap<>();
-        mm.put(new StandardBookImpl("iiis", "divina commedia", "dante"), Integer.valueOf(5));
-        Map<StandardBook, Integer>mmq=new HashMap<>();
-        mmq.put(new StandardBookImpl("iiiees", "decamerone", "boccaccio"), Integer.valueOf(7));
-        TransferManagerImpl.getInstanceOfTransferManger().addTransfer(new TransferImpl(new DepotImpl("mmm",mm ), new PersonImpl("bocc", "via san gavino 4", "333 334 422"), new Date(2012, 10, 27),mmq));
+        mm.put(new StandardBookImpl("iiiinb ", "ghini_merda", 2010, 43,"infoblew", "sisos", "io", 23), Integer.valueOf(5));
+        mm.put(new StandardBookImpl("iiiissnb ", "viroli_merda", 2011, 32,"infoblew", "oopmerd", "io", 40), Integer.valueOf(9));
+        Transferrer tra=new PersonImpl("joy", "via merda 1", "333 332 332");
+        Transferrer trad=new DepotImpl("D1", mm);
+        
+        
+        Transfer tr=new TransferImpl(trad, tra, new Date(1993, 12, 11), mm, "883737");
+        System.out.println(tr.toString());
+        /*TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr);*/
     }
 
 }
