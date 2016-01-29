@@ -26,17 +26,11 @@
 					            <Label styleClass="control-label" text="Date" />
 								<DatePicker editable="true" prefHeight="42.0" prefWidth="300.0" showWeekNumbers="true" />       
 								<Label styleClass="control-label" text="Traking" />
-								<TextField prefHeight="42.0" styleClass="control-label">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin></TextField>
-							</children>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <padding>
-                        <Insets right="20.0" />
-                     </padding> 
+								<TextField prefHeight="42.0" styleClass="control-label" />
+                        	</children>
+		                     <padding>
+		                        <Insets right="20.0" />
+		                     </padding>
 						</VBox>
 						<VBox HBox.hgrow="ALWAYS">
 							<children>

@@ -18,8 +18,7 @@
 	            	<children>
                    		<Label styleClass="card-title" text="Movements" />
                    		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                   		<Button fx:id="addMovement" mnemonicParsing="false" styleClass="button-flat" text="ADD NEW" onAction="#switchScreen" />
-                   		<Button mnemonicParsing="false" styleClass="button-flat" text="EDIT" />                           
+                   		<Button fx:id="addMovement" mnemonicParsing="false" styleClass="button-flat" text="ADD NEW" onAction="#switchScreen" />                           
                         <Button mnemonicParsing="false" styleClass="button-flat" text="DELETE" />
                     </children>
                 </HBox>

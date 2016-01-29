@@ -24,24 +24,18 @@
 				                <Label styleClass="control-label" text="Address" />
 				                <TextField prefHeight="42.0" prefWidth="300.0" />
 					            <Label styleClass="control-label" text="Phone Number" />
-								<TextField prefHeight="42.0" styleClass="control-label">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin></TextField>
-                           	<Pane prefHeight="20.0" prefWidth="200.0"/>
-                           <HBox>
-                           			<children>
-                           				<Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-							        	<Button defaultButton="true" mnemonicParsing="false" text="ADD" HBox.hgrow="ALWAYS" />
+								<TextField prefHeight="42.0" styleClass="control-label" />
+                           		<Pane prefHeight="20.0" />
+                           		<HBox>
+	                           		<children>
+	                           			<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
+								        <Button defaultButton="true" mnemonicParsing="false" text="ADD" HBox.hgrow="ALWAYS" />
 									</children> 
-						   </HBox>
+						   		</HBox>
 							</children>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <padding>
-                        <Insets right="20.0" />
-                     </padding> 
+		                    <padding>
+		                        <Insets right="20.0" />
+		                    </padding> 
 						</VBox>
 						<VBox HBox.hgrow="ALWAYS">
 							<children>
