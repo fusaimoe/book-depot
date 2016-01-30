@@ -7,9 +7,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -118,14 +115,13 @@ public class TransferManagerImpl implements TransferManager {
     }
 
     @Override
-    public void addTransfer(Transferrer sender, Transferrer receiver, Date leavingDate,
+    public void addTransfer(Transferrer sender, Transferrer receiver, java.util.Date leavingDate,
             Map<StandardBook, Integer> books) {
         
     }
 
     @SuppressWarnings("unchecked")
-    @Override
-    public List<Transfer> getTransfersFromFile(String fileName) {
+    private List<Transfer> getTransfersFromFile(String fileName) {
         List<Transfer> trans=new ArrayList<>();
         File f = new File(getFilePath(fileName));
         if(!f.exists()) {
