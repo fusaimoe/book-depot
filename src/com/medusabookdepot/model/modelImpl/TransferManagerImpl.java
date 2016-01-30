@@ -159,10 +159,11 @@ public class TransferManagerImpl implements TransferManager {
         mm2.put(new StandardBookImpl("eerdfs ", "pianini merda", 2051, 50,"labo", "oopmerd", "dio", 400), Integer.valueOf(20));
         Transferrer tra2=new PrinterImpl("printer", "via del vaffa 2", "07184939");
         Transferrer trad2=new DepotImpl("sw", mm2);
+        
         Calendar cal2 =Calendar.getInstance();
         cal2.set(2016, 0, 31);
-        Transfer tr2=new TransferImpl(tra2, trad2, cal2.getTime(), mm2);
         
+        Transfer tr2=new TransferImpl(tra2, trad2, cal2.getTime(), mm2);
         TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr);
         TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr2);
 
@@ -170,7 +171,7 @@ public class TransferManagerImpl implements TransferManager {
         System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().get(0).getLeavingDate());
         System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().get(1).getLeavingDate());
         TransferManagerImpl.getInstanceOfTransferManger().removeTransfer(0);
-        System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().get(0).getQuantity());
+        System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().get(0).getTrackingNumber());
         System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().size());
 
 
