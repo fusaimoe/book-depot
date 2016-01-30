@@ -6,6 +6,7 @@ package com.medusabookdepot.model.modelImpl;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -27,18 +28,19 @@ public class TransferImpl implements Transfer, Serializable{
     private static final long serialVersionUID = -1788501318970271441L;
     private Transferrer sender;
     private Transferrer receiver;
-    private Date leavingDate;
+    private java.util.Date leavingDate;
     private String trackingNumber;
     private Map<StandardBook,Integer> books;
     
-    public TransferImpl(Transferrer sender,Transferrer receiver,Date leavingDate, Map<StandardBook,Integer> books) {
+    public TransferImpl(Transferrer sender,Transferrer receiver,java.util.Date leavingDate, Map<StandardBook,Integer> books) {
         this.sender=sender;
         this.receiver=receiver;
         this.leavingDate=leavingDate;
         this.trackingNumber=this.getNewTrackingNumber();
         this.books=books;
+        
     }
-    public TransferImpl(Transferrer sender,Transferrer receiver,Date leavingDate, Map<StandardBook,Integer> books,String trackingNumber) {
+    public TransferImpl(Transferrer sender,Transferrer receiver,java.util.Date leavingDate, Map<StandardBook,Integer> books,String trackingNumber) {
         this.sender=sender;
         this.receiver=receiver;
         this.leavingDate=leavingDate;
@@ -86,7 +88,7 @@ public class TransferImpl implements Transfer, Serializable{
         
     }
     @Override
-    public Date getLeavingDate() {
+    public java.util.Date getLeavingDate() {
         return this.leavingDate;
     }
 

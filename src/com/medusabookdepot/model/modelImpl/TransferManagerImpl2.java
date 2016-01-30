@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -149,21 +150,25 @@ public class TransferManagerImpl2 implements TransferManager {
         mm.put(new StandardBookImpl("iiiissnb ", "viroli_merda", 2011, 32,"infoblew", "oopmerd", "io", 40), Integer.valueOf(9));
         Transferrer tra=new PersonImpl("joy", "via merda 1", "333 332 332");
         Transferrer trad=new DepotImpl("D1", mm);
-        Transfer tr=new TransferImpl(trad, tra, new Date(1993, 12,5), mm, "883737");
+        Calendar cal =Calendar.getInstance();
+        cal.set(2016, 0, 30);
+        Transfer tr=new TransferImpl(trad, tra,cal.getTime() , mm, "883737");
         
         Map<StandardBook, Integer>mm2=new HashMap<>();
         mm2.put(new StandardBookImpl("evdfb ", "caselli_merda", 2040, 20,"mate", "calcolomer", "gesu", 234), Integer.valueOf(8));
         mm2.put(new StandardBookImpl("eerdfs ", "pianini merda", 2051, 50,"labo", "oopmerd", "dio", 400), Integer.valueOf(20));
         Transferrer tra2=new PrinterImpl("printer", "via del vaffa 2", "07184939");
         Transferrer trad2=new DepotImpl("sw", mm2);
-        Transfer tr2=new TransferImpl(tra2, trad2, new Date(1997, 4,8), mm2);
+        Calendar cal2 =Calendar.getInstance();
+        cal2.set(2016, 0, 31);
+        Transfer tr2=new TransferImpl(tra2, trad2, cal2.getTime(), mm2);
         
         TransferManagerImpl2.getInstanceOfTransferManger().addTransfer(tr);
         TransferManagerImpl2.getInstanceOfTransferManger().addTransfer(tr2);
 
-        System.out.println(TransferManagerImpl2.getInstanceOfTransferManger().getAllTransfers().get(0).getQuantity());
-        System.out.println(TransferManagerImpl2.getInstanceOfTransferManger().getAllTransfers().get(1).getQuantity());
-        System.out.println(TransferManagerImpl2.getInstanceOfTransferManger().getAllTransfers().size());
+        
+        System.out.println(TransferManagerImpl2.getInstanceOfTransferManger().getAllTransfers().get(0).getLeavingDate());
+        System.out.println(TransferManagerImpl2.getInstanceOfTransferManger().getAllTransfers().get(1).getLeavingDate());
         TransferManagerImpl2.getInstanceOfTransferManger().removeTransfer(0);
         System.out.println(TransferManagerImpl2.getInstanceOfTransferManger().getAllTransfers().get(0).getQuantity());
         System.out.println(TransferManagerImpl2.getInstanceOfTransferManger().getAllTransfers().size());

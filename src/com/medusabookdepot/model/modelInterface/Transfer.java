@@ -17,7 +17,7 @@ public interface Transfer {
         
         public Map<StandardBook,Integer> getBooks();
         
-        public java.sql.Date getLeavingDate();
+        public java.util.Date getLeavingDate();
         
         // ========================================== \\
         
