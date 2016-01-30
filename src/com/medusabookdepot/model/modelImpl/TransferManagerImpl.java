@@ -47,6 +47,11 @@ public class TransferManagerImpl implements TransferManager {
 
     @Override
     public void addTransfer(Transfer transfer) {
+        for(Transfer t:this.transfers) {
+            while(transfer.getTrackingNumber().equals(t.getTrackingNumber())) {//assegno un altro tracking number
+                transfer=new TransferImpl(transfer.getSender(), transfer.getReceiver(),transfer.getLeavingDate(), transfer.getBooks());
+            }
+        }
         this.transfers.add(transfer);
         this.writeTransferOnFile("trasferimenti.txt",transfer);
         
