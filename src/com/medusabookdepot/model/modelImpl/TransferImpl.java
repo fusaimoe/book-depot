@@ -166,6 +166,6 @@ public class TransferImpl implements Transfer, Serializable{
 
     }
     public String toString() {
-        return this.leavingDate+"\n"+this.receiver+"\n"+this.sender+"\n"+this.trackingNumber+"\n"+this.getQuantity();
+        return this.leavingDate+"\n"+this.receiver+"\n"+this.sender+"\n"+this.trackingNumber+"\n"+this.getQuantity()+"\n";
     }
 }

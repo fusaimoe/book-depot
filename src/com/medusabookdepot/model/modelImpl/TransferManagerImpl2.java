@@ -31,12 +31,10 @@ public class TransferManagerImpl2 implements TransferManager {
     
     public static TransferManager getInstanceOfTransferManger() {
         if(sing==null) {
-            System.out.println("prima volta");
             sing=new TransferManagerImpl2();
             return sing;
         }
         else {
-            System.out.println("c'è gia stata una prima volta");
             return TransferManagerImpl2.sing;
         }
     }
@@ -60,7 +58,6 @@ public class TransferManagerImpl2 implements TransferManager {
             trans.add(transfer);
             oos.writeObject(trans);
             oos.close();
-            System.out.println("scritto su file");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -86,7 +83,6 @@ public class TransferManagerImpl2 implements TransferManager {
         List<Transfer> trans=new ArrayList<>();
         File f = new File(getFilePath(fileName));
         if(!f.exists()) {
-            System.out.println("file non esistente in getTransfersFromFile");
             return new ArrayList<Transfer>();
         }
         else {
@@ -113,12 +109,19 @@ public class TransferManagerImpl2 implements TransferManager {
         mm.put(new StandardBookImpl("iiiissnb ", "viroli_merda", 2011, 32,"infoblew", "oopmerd", "io", 40), Integer.valueOf(9));
         Transferrer tra=new PersonImpl("joy", "via merda 1", "333 332 332");
         Transferrer trad=new DepotImpl("D1", mm);
-        
-        
         Transfer tr=new TransferImpl(trad, tra, new Date(1993, 12,5), mm, "883737");
         
+        Map<StandardBook, Integer>mm2=new HashMap<>();
+        mm2.put(new StandardBookImpl("evdfb ", "caselli_merda", 2040, 20,"mate", "calcolomer", "gesu", 234), Integer.valueOf(8));
+        mm2.put(new StandardBookImpl("eerdfs ", "pianini merda", 2051, 50,"labo", "oopmerd", "dio", 400), Integer.valueOf(10));
+        Transferrer tra2=new PrinterImpl("printer", "via del vaffa 2", "07184939");
+        Transferrer trad2=new DepotImpl("sw", mm2);
+        Transfer tr2=new TransferImpl(tra2, trad2, new Date(1997, 4,8), mm, "21321");
+        
         TransferManagerImpl2.getInstanceOfTransferManger().addTransfer(tr);
-        System.out.println(TransferManagerImpl2.getInstanceOfTransferManger().getTransfersFromFile("trasferimenti.txt"));
+        TransferManagerImpl2.getInstanceOfTransferManger().addTransfer(tr2);
+
+        System.out.println(TransferManagerImpl2.getInstanceOfTransferManger().getTransfersFromFile("trasferimenti.txt").get(1));
     }
 
 }

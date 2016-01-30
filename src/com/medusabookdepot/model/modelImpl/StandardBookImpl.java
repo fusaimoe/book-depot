@@ -204,6 +204,6 @@ public class StandardBookImpl implements StandardBook, Serializable{
         return book;  
     }
     public String toString() {
-        return this.name+","+this.isbn+","+this.pages+","+this.price+","+this.year+","+this.author+","+this.genre+","+this.serie;
+        return this.name+"\n"+this.isbn+"\n"+this.pages+"\n"+this.price+"\n"+this.year+"\n"+this.author+"\n"+this.genre+"\n"+this.serie+"\n";
     }
 }
