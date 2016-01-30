@@ -275,4 +275,16 @@ public class TransferManagerImpl implements TransferManager {
         /*TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr);*/
     }
 
+    @Override
+    public void removeTransfer(Transfer transfer) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void removeTransfer(int index) {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

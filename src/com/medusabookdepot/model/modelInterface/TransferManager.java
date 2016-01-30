@@ -11,4 +11,6 @@ public interface TransferManager {
     public void addTransfer(Transfer transfer);
     public void addTransfer(Transferrer sender,Transferrer receiver, Date leavingDate,Map<StandardBook,Integer> books);
     public List<Transfer> getTransfersFromFile(String filePath);
+    void removeTransfer(Transfer transfer);
+    void removeTransfer(int index);
 }
