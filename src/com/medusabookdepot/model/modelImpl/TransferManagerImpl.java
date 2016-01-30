@@ -54,6 +54,12 @@ public class TransferManagerImpl implements TransferManager {
         
     }
     @Override
+    public void addTransfer(Transferrer sender, Transferrer receiver, java.util.Date leavingDate,Map<StandardBook, Integer> books) {
+        Transfer t=new TransferImpl(sender, receiver, leavingDate, books);
+        this.transfers.add(t);
+        this.writeTransferOnFile("trasferimenti.txt",t);
+    }
+    @Override
     public void removeTransfer(Transfer transfer) {
         this.transfers.remove(transfer);
         this.removeTransferFromFile("trasferimenti.txt",transfer);
@@ -109,15 +115,9 @@ public class TransferManagerImpl implements TransferManager {
         }
         
     }
-    private String getFilePath(String string) {
-        String filepath = System.getProperty("user.home")+System.getProperty("file.separator")+ string;
+    private String getFilePath(String fileName) {
+        String filepath = System.getProperty("user.home")+System.getProperty("file.separator")+ fileName;
         return filepath;
-    }
-
-    @Override
-    public void addTransfer(Transferrer sender, Transferrer receiver, java.util.Date leavingDate,
-            Map<StandardBook, Integer> books) {
-        
     }
 
     @SuppressWarnings("unchecked")
