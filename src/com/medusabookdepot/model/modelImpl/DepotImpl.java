@@ -14,6 +14,10 @@ import com.medusabookdepot.model.modelInterface.StandardBook;
  */
 public class DepotImpl extends TransferrerImpl implements Depot, Serializable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 47429766209693618L;
     private Map<StandardBook,Integer> books;
     public DepotImpl(String name,Map<StandardBook,Integer> books) {
         super(name);
@@ -74,6 +78,6 @@ public class DepotImpl extends TransferrerImpl implements Depot, Serializable {
     }
 
     public String toString() {
-        return this.name+","+this.books;
+        return this.name+"\n"+this.books+"\n";
     }
 }

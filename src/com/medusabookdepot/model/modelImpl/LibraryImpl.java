@@ -25,7 +25,7 @@ public class LibraryImpl extends CustomerImpl implements Library, Serializable{
     }
     @Override
     public String toString() {
-        return this.name+","+this.address+","+this.telephoneNumber+"CL";
+        return this.name+"\n"+this.address+"\n"+this.telephoneNumber+"\n";
         
     }
 }

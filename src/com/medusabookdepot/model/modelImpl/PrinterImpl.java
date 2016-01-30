@@ -22,6 +22,6 @@ public class PrinterImpl extends CustomerImpl implements Printer {
     }
     @Override
     public String toString() {
-        return this.name+","+this.telephoneNumber+","+this.address+"CP";
+        return this.name+"\n"+this.telephoneNumber+"\n"+this.address+"\n";
     }
 }
