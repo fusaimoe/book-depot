@@ -49,7 +49,8 @@ public class TransferImpl implements Transfer, Serializable{
     }
     public String getNewTrackingNumber() {
         List<String>allTrackings=new ArrayList<>();
-        if(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers()==null) {
+        if(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().isEmpty()) {
+            System.out.println("jb");
             Random rm=new Random();
             String tr=String.valueOf(rm.nextInt(1000000));
             return tr;
