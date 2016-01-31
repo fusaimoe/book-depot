@@ -16,7 +16,6 @@ import com.medusabookdepot.model.modelInterface.Depot;
 import com.medusabookdepot.model.modelInterface.DepotManager;
 import com.medusabookdepot.model.modelInterface.StandardBook;
 import com.medusabookdepot.model.modelInterface.Transfer;
-import com.medusabookdepot.model.modelInterface.Transferrer;
 
 public class DepotManagerImpl implements DepotManager {
 
