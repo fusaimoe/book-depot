@@ -21,10 +21,12 @@ public class DepotManagerImpl implements DepotManager {
 
     private static DepotManager single=null;//singleton
     private List<Depot> depots;//List that contains all depots alive
+    private final String defaultFileName;
     
     private DepotManagerImpl() {
         //costruttore privato!
-        this.depots=getDepotsFromFile("depositi.txt");
+        this.defaultFileName="depositi.dat";
+        this.depots=getDepotsFromFile(this.defaultFileName);
     }
     
     public static DepotManager getInstanceOfDepotManger() {
@@ -47,7 +49,7 @@ public class DepotManagerImpl implements DepotManager {
     @Override
     public void addDepot(Depot depot) {
         this.depots.add(depot);
-        this.writeDepotOnFile("depositi.txt",depot);
+        this.writeDepotOnFile(this.defaultFileName,depot);
     }
 
     
@@ -56,18 +58,18 @@ public class DepotManagerImpl implements DepotManager {
     public void addDepot(String name, Map<StandardBook, Integer> books) {
         Depot depot=new DepotImpl(name, books);
         this.depots.add(depot);
-        this.writeDepotOnFile("depositi.txt",depot);
+        this.writeDepotOnFile(this.defaultFileName,depot);
     }
 
     @Override
     public void removeDepot(Transfer transfer) {
         this.depots.remove(transfer);
-        this.removeDepotFromFile("depositi.txt",transfer);
+        this.removeDepotFromFile(this.defaultFileName,transfer);
     }
     @Override
     public void removeDepot(int index) {
         this.depots.remove(index);
-        this.removeDepotFromFile("depositi.txt",index);
+        this.removeDepotFromFile(this.defaultFileName,index);
     }
     
     private void writeDepotOnFile(String fileName, Depot depot) {
