@@ -153,15 +153,15 @@ public class DepotManagerImpl implements DepotManager {
         Depot trad=new DepotImpl("D1", mm);
         
         Map<StandardBook, Integer>mm2=new HashMap<>();
-        mm2.put(new StandardBookImpl("evdfb ", "caselli_merda", 2040, 20,"mate", "calcolomer", "gesu", 234), Integer.valueOf(8));
-        mm2.put(new StandardBookImpl("eerdfs ", "pianini merda", 2051, 50,"labo", "oopmerd", "dio", 400), Integer.valueOf(20));
+        mm2.put(new StandardBookImpl("evdfb", "caselli_merda", 2040, 20,"mate", "calcolomer", "gesu", 234), Integer.valueOf(8));
+        mm2.put(new StandardBookImpl("eerdfs", "pianini merda", 2051, 50,"labo", "oopmerd", "dio", 400), Integer.valueOf(20));
         Depot trad2=new DepotImpl("sw", mm2);
         
         DepotManagerImpl.getInstanceOfDepotManger().addDepot(trad);
         DepotManagerImpl.getInstanceOfDepotManger().addDepot(trad2);
         System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(1).getQuantityFromAuthor("dio"));
         DepotManagerImpl.getInstanceOfDepotManger().removeDepot(0);
-        System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(0).getQuantityFromAuthor("io"));
+        System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(0).getBooksAsString());
         System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().size());
 
 
