@@ -20,7 +20,7 @@ import com.medusabookdepot.model.modelInterface.Transfer;
 public class DepotManagerImpl implements DepotManager {
 
     private static DepotManager single=null;//singleton
-    private List<Depot> depots;//List that contains all transfers alive
+    private List<Depot> depots;//List that contains all depots alive
     
     private DepotManagerImpl() {
         //costruttore privato!
