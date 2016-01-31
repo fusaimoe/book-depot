@@ -9,6 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -148,6 +149,38 @@ public class TransferManagerImpl implements TransferManager {
             return trans;
         }
     }
+    @Override
+    public void registerTransfersFromFile(File f) {
+        if(f.exists()&&!f.isDirectory()) {
+            try {
+                ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(f));
+                if(f.exists()&&!f.isDirectory()) {
+                    @SuppressWarnings("unchecked")
+                    List<Transfer> trans=(ArrayList<Transfer>) objectInputStream.readObject();
+                    for(Transfer t:trans){
+                        if(!this.getAllTrackings().contains(t.getTrackingNumber())) {
+                            this.addTransfer(t);
+                        }
+                    }
+                }
+                objectInputStream.close();
+                
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        
+    }
+    private List<String> getAllTrackings() {
+        List<String> lis=new ArrayList<>();
+        for(Transfer t:this.getAllTransfers()) {
+            lis.add(t.getTrackingNumber());
+        }
+        return lis;
+    }
+
     public static void main(String ...strings) {
         Map<StandardBook, Integer>mm=new HashMap<>();
         mm.put(new StandardBookImpl("iiiinb ", "ghini_merda", 2010, 43,"infoblew", "sisos", "io", 23), Integer.valueOf(5));
