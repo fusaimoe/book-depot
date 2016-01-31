@@ -39,4 +39,6 @@ public interface Depot extends Transferrer{
      */
     public int getQuantityFromYear(int year);
     
+    public String getBooksAsString();
+    
 }
