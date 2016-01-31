@@ -5,6 +5,8 @@ package com.medusabookdepot.model.modelImpl;
 
 import java.io.Serializable;
 import java.util.Map;
+import java.util.Map.Entry;
+
 import com.medusabookdepot.model.modelInterface.Depot;
 import com.medusabookdepot.model.modelInterface.StandardBook;
 
@@ -79,5 +81,14 @@ public class DepotImpl extends TransferrerImpl implements Depot, Serializable {
 
     public String toString() {
         return this.name+"\n"+this.books+"\n";
+    }
+
+    @Override
+    public String getBooksAsString() {
+        String finale=new String("");
+        for(Entry<StandardBook,Integer> entry:this.books.entrySet()){
+            finale=finale.concat(entry.getKey().toString()+">"+entry.getValue()+",");
+        }
+        return finale;
     }
 }
