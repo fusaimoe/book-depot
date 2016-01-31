@@ -21,10 +21,13 @@ import com.medusabookdepot.model.modelInterface.Transferrer;
 public class TransferManagerImpl implements TransferManager {
     private static TransferManager sing=null;//singleton
     private List<Transfer> transfers;//List that contains all transfers alive
+    private final String defaultFileName;
     
     private TransferManagerImpl() {
         //costruttore privato!
-        this.transfers=getTransfersFromFile("trasferimenti.txt");
+        this.defaultFileName="trasferimenti.dat";
+        this.transfers=getTransfersFromFile(this.defaultFileName);
+        
     }
     
     public static TransferManager getInstanceOfTransferManger() {
@@ -50,25 +53,25 @@ public class TransferManagerImpl implements TransferManager {
             }
         }
         this.transfers.add(transfer);
-        this.writeTransferOnFile("trasferimenti.txt",transfer);
+        this.writeTransferOnFile(this.defaultFileName,transfer);
         
     }
     @Override
     public void addTransfer(Transferrer sender, Transferrer receiver, java.util.Date leavingDate,Map<StandardBook, Integer> books) {
         Transfer t=new TransferImpl(sender, receiver, leavingDate, books);
         this.transfers.add(t);
-        this.writeTransferOnFile("trasferimenti.txt",t);
+        this.writeTransferOnFile(this.defaultFileName,t);
     }
     @Override
     public void removeTransfer(Transfer transfer) {
         this.transfers.remove(transfer);
-        this.removeTransferFromFile("trasferimenti.txt",transfer);
+        this.removeTransferFromFile(this.defaultFileName,transfer);
         
     }
     @Override
     public void removeTransfer(int index) {
         this.transfers.remove(index);
-        this.removeTransferFromFile("trasferimenti.txt",index);
+        this.removeTransferFromFile(this.defaultFileName,index);
         
     }
 
