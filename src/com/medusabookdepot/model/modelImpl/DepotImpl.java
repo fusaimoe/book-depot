@@ -130,4 +130,10 @@ public class DepotImpl extends TransferrerImpl implements Depot, Serializable {
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    public StringProperty getNameProperty() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

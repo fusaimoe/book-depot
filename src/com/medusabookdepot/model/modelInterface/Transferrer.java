@@ -16,6 +16,7 @@ public interface Transferrer {
      * @return the name of the Transferrer object
      */
     public String getName();
+    
     public StringProperty getNameProperty();
     /**
      * 

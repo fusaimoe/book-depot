@@ -7,6 +7,8 @@ import java.io.Serializable;
 
 import com.medusabookdepot.model.modelInterface.Transferrer;
 
+import javafx.beans.property.StringProperty;
+
 /**
  * @author Marcello_Feroce
  *
@@ -26,8 +28,11 @@ public abstract class TransferrerImpl implements Transferrer,Serializable{
     public String getName() {
         return this.name;
     }
-    
-    
+    @Override
+    public StringProperty getNameProperty() {
+        return null;
+        
+    }
     @Override
     public void setName(String name) {
         this.name=name;
