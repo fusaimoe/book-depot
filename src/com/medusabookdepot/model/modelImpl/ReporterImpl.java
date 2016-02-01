@@ -11,6 +11,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -59,25 +67,47 @@ public class ReporterImpl implements Reporter {
             e.printStackTrace();
         }
     }
-    
-    
-    //http://karanbalkar.com/2014/01/convert-text-file-to-pdf-document-in-java/ Karan Balkar
-    public static void main(String[] args) throws Exception {  
+    //http://www.tutorialspoint.com/java/java_sending_email.htm
+    @Override
+    public void sendEmail(final String from, final String to) {
+     // Assuming you are sending email from localhost
+        String host = "localhost";
+
+        // Get system properties
+        Properties properties = System.getProperties();
+
+        // Setup mail server
+        properties.setProperty("mail.smtp.host", host);
+
+        // Get the default Session object.
+        Session session = Session.getDefaultInstance(properties);
         
-        // TODO Auto-generated method stub  
-        File file=new File(System.getProperty("user.home")+System.getProperty("file.separator")+"provaPdf.txt");
- 
-        if(file.getName().endsWith(".txt")){
- 
-            if(convertTextToPDF(file)){
-                System.out.println("Text file successfully converted to PDF");
-            }
-        }
- 
+        try{
+            // Create a default MimeMessage object.
+            MimeMessage message = new MimeMessage(session);
+
+            // Set From: header field of the header.
+            message.setFrom(new InternetAddress(from));
+
+            // Set To: header field of the header.
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+
+            // Set Subject: header field
+            message.setSubject("This is the Subject Line!");
+
+            // Now set the actual message
+            message.setText("This is actual message");
+
+            // Send message
+            Transport.send(message);
+            System.out.println("Sent message successfully....");
+         }catch (MessagingException mex) {
+            mex.printStackTrace();
+         }
     }
-    
-    
-    public static boolean convertTextToPDF(File file) throws Exception  
+    //http://karanbalkar.com/2014/01/convert-text-file-to-pdf-document-in-java/ Karan Balkar
+    @Override
+    public boolean convertTextToPDF(File file) throws Exception  
     {  
  
         FileInputStream fis=null;  
@@ -102,7 +132,7 @@ public class ReporterImpl implements Reporter {
             myfont.setSize(10);  
             pdfDoc.add(new Paragraph("\n"));  
  
-            if(file.exists()){  
+            if(file.exists()&&!file.isDirectory()){  
  
                 fis = new FileInputStream(file);  
                 in = new DataInputStream(fis);  
@@ -150,5 +180,8 @@ public class ReporterImpl implements Reporter {
         }  
  
         return true;  
+    }
+    public static void main(String...args) {
+        ReporterImpl.getInstanceOfReporter().sendEmail("ferocemarcello@virgilio.it", "ferocemarcello@gmail.com");
     }
 }
