@@ -17,6 +17,8 @@ import com.medusabookdepot.model.modelInterface.DepotManager;
 import com.medusabookdepot.model.modelInterface.StandardBook;
 import com.medusabookdepot.model.modelInterface.Transfer;
 
+import javafx.collections.ObservableList;
+
 public class DepotManagerImpl implements DepotManager {
 
     private static DepotManager single=null;//singleton
@@ -166,6 +168,12 @@ public class DepotManagerImpl implements DepotManager {
         System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(0).getBooksAsString());
         System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().size());
 
+    }
+
+    @Override
+    public ObservableList<? extends Depot> getAllDepotsProperty() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

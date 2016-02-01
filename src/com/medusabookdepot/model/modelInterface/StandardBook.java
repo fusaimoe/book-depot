@@ -3,6 +3,9 @@
  */
 package com.medusabookdepot.model.modelInterface;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  * @author marcello
  *
@@ -13,20 +16,28 @@ public interface StandardBook {
      * @return The book's name
      */
     public String getName();
+    public StringProperty getNameProperty();
     
     public String getIsbn();
+    public StringProperty getIsbnProperty();
     
     public int getYear();
+    public IntegerProperty getYearProperty();
     
     public int getPages();
+    public IntegerProperty getPagesProperty();
     
     public String getSerie();
+    public StringProperty getSerieProperty();
     
     public String getGenre();
+    public StringProperty getGenreProperty();
     
     public String getAuthor();
+    public StringProperty getAuthorProperty();
     
     public int getPrice();
+    public IntegerProperty getPriceProperty();
     
     // ====================================== \\
     

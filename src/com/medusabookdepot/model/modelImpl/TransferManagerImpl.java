@@ -9,7 +9,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +17,9 @@ import com.medusabookdepot.model.modelInterface.StandardBook;
 import com.medusabookdepot.model.modelInterface.Transfer;
 import com.medusabookdepot.model.modelInterface.TransferManager;
 import com.medusabookdepot.model.modelInterface.Transferrer;
+
+import javafx.collections.ObservableList;
+
 
 public class TransferManagerImpl implements TransferManager {
     private static TransferManager sing=null;//singleton
@@ -212,6 +214,12 @@ public class TransferManagerImpl implements TransferManager {
         System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().size());
 
 
+    }
+
+    @Override
+    public ObservableList<? extends Transfer> getAllTransfersProperty() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }
