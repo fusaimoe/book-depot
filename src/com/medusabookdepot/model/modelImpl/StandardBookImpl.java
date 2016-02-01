@@ -4,9 +4,10 @@
 package com.medusabookdepot.model.modelImpl;
 
 import java.io.Serializable;
-import java.util.Optional;
-
 import com.medusabookdepot.model.modelInterface.StandardBook;
+
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  * @author Marcello_Feroce
@@ -126,5 +127,45 @@ public class StandardBookImpl implements StandardBook, Serializable{
     }
     public String toString() {
         return this.name+","+this.isbn+","+this.pages+","+this.price+","+this.year+","+this.author+","+this.genre+","+this.serie;
+    }
+    @Override
+    public StringProperty getNameProperty() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    @Override
+    public StringProperty getIsbnProperty() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    @Override
+    public IntegerProperty getYearProperty() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    @Override
+    public IntegerProperty getPagesProperty() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    @Override
+    public StringProperty getSerieProperty() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    @Override
+    public StringProperty getGenreProperty() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    @Override
+    public StringProperty getAuthorProperty() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    @Override
+    public IntegerProperty getPriceProperty() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

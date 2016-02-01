@@ -7,6 +7,8 @@ import java.io.Serializable;
 
 import com.medusabookdepot.model.modelInterface.Customer;
 
+import javafx.beans.property.StringProperty;
+
 /**
  * @author Marcello_Feroce
  *
@@ -45,6 +47,15 @@ public abstract class CustomerImpl extends TransferrerImpl implements Customer,S
     @Override
     public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber=telephoneNumber;
+    }
+    @Override
+    public StringProperty getAddressProperty() {
+        return null;
+        
+    }
+    public StringProperty getTelephoneNumberProperty() {
+        return null;
+        
     }
     
     @Override

@@ -15,6 +15,9 @@ import com.medusabookdepot.model.modelInterface.StandardBook;
 import com.medusabookdepot.model.modelInterface.Transfer;
 import com.medusabookdepot.model.modelInterface.Transferrer;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  * @author Marcello_Feroce
  *
@@ -168,5 +171,30 @@ public class TransferImpl implements Transfer, Serializable{
     }
     public String toString() {
         return this.leavingDate+"\n"+this.receiver+"\n"+this.sender+"\n"+this.trackingNumber+"\n"+this.getQuantity()+"\n";
+    }
+    @Override
+    public Map<StandardBook, IntegerProperty> getBooksProperty() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    @Override
+    public IntegerProperty getQuantityProperty() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    @Override
+    public IntegerProperty getQuantityFromBookProperty() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    @Override
+    public IntegerProperty getTotalPriceProperty() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    @Override
+    public StringProperty getBooksAsStringProperty() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

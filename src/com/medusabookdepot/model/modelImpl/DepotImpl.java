@@ -10,6 +10,9 @@ import java.util.Map.Entry;
 import com.medusabookdepot.model.modelInterface.Depot;
 import com.medusabookdepot.model.modelInterface.StandardBook;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  * @author Marcello_Feroce
  *
@@ -90,5 +93,41 @@ public class DepotImpl extends TransferrerImpl implements Depot, Serializable {
             finale=finale.concat(entry.getKey().toString()+">"+entry.getValue()+",");
         }
         return finale;
+    }
+
+    @Override
+    public IntegerProperty getQuantityProperty() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public IntegerProperty getQuantityFromStandardBookProperty(StandardBook book) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public IntegerProperty getQuantityFromTitleProperty(String title) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public IntegerProperty getQuantityFromAuthorProperty(String author) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public IntegerProperty getQuantityFromYearProperty(int year) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public StringProperty getBooksAsStringProperty() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }
