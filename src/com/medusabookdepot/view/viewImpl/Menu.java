@@ -14,7 +14,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-
 public class Menu extends Application {
   
 	// Creating a static root to pass to the controller
