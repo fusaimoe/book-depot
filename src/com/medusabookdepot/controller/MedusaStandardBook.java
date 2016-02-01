@@ -110,7 +110,7 @@ public class MedusaStandardBook {
 	/**
 	 * @return The list of saved books
 	 */
-	public List<StandardBook> getAllBooks(){
+	public ObservableList<StandardBook> getAllBooks(){
 		
 		return books;
 	}

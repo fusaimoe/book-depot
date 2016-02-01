@@ -5,27 +5,26 @@
 package com.medusabookdepot.view.viewImpl;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 
 import com.medusabookdepot.model.modelInterface.StandardBook;
-import com.medusabookdepot.model.modelImpl.StandardBookImpl;
+import com.medusabookdepot.controller.MedusaStandardBook;
 
 public class BooksControl extends ScreenControl{
 	
+	private MedusaStandardBook booksController = new MedusaStandardBook();
+	
 	public BooksControl(){
 		super();
-		// TODO TEMPORARY TEST LIST - Adding Books
-		tempBooksList.add(new StandardBookImpl("9788767547823", "Harry Potter e il prigioniero di Azkaban", 1998, 250, "HP", "Avventura", "JK Rowling", 15));
-		tempBooksList.add(new StandardBookImpl("9788767547833", "Harry Potter e la camera dei segreti", 1997, 320, "HP", "Avventura", "JK Rowling", 10));
-		tempBooksList.add(new StandardBookImpl("9788767547823", "Harry Potter e la pietra filosofale", 1995, 350, "HP", "Avventura", "JK Rowling", 10));
+		booksController.addBook("9788767547823", "Harry Potter e il prigioniero di Azkaban", 1998, 250, "HP", "Avventura", "JK Rowling", 15);
+		booksController.addBook("9788767547833", "Harry Potter e la camera dei segreti", 1997, 320, "HP", "Avventura", "JK Rowling", 10);
+		booksController.addBook("9788767547823", "Harry Potter e la pietra filosofale", 1995, 350, "HP", "Avventura", "JK Rowling", 10);
 	}
 
 	// TODO TEMPORARY TEST LIST - Creating Observable List
-	private ObservableList<StandardBook> tempBooksList = FXCollections.observableArrayList();
+	//private ObservableList<StandardBook> tempBooksList = FXCollections.observableArrayList();
 	
 	@FXML
 	private TableView<StandardBook> stdBooksTable;
@@ -45,6 +44,24 @@ public class BooksControl extends ScreenControl{
 	private TableColumn<StandardBook, String> authorColumn;
 	@FXML
 	private TableColumn<StandardBook, String> priceColumn;
+	
+	@FXML
+    private TextField isbnField;
+    @FXML
+    private TextField titleField;
+    @FXML
+    private TextField yearField;
+    @FXML
+    private TextField pagesField;
+    @FXML
+    private TextField serieField;
+    @FXML
+    private TextField genreField;
+    @FXML
+    private TextField authorField;
+    @FXML
+    private TextField priceField;
+     
 	@FXML
 	private Button delete;
 	
@@ -65,11 +82,11 @@ public class BooksControl extends ScreenControl{
         //int  priceColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getPrice()));
      
         // Add observable list data to the table
-        stdBooksTable.setItems(tempBooksList);
+        stdBooksTable.setItems(booksController.getAllBooks());
         
         // Make the table columns editable by double clicking
         this.edit();
-        
+ 
         // Listen for selection changes and enable delete button
         delete.setDisable(true);
         stdBooksTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -85,8 +102,9 @@ public class BooksControl extends ScreenControl{
 		// TODO Implement Confirmation Dialog
 	    int selectedIndex = stdBooksTable.getSelectionModel().getSelectedIndex();
 	    stdBooksTable.getItems().remove(selectedIndex);
+	    System.out.println(booksController.getAllBooks().toString());
 	}
-	
+		
 	/**
 	 * Called when the user selects and double click a cell of the table.
 	 * To stop editing the user need to press enter.
@@ -121,7 +139,7 @@ public class BooksControl extends ScreenControl{
 		 *
 		 **/
 		
-		//nameColumn
+		//titleColumn
 		nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 		nameColumn.setOnEditCommit( t -> {
 			((StandardBook)t.getTableView().getItems().get(t.getTablePosition().getRow())).setName(t.getNewValue());
@@ -142,5 +160,11 @@ public class BooksControl extends ScreenControl{
 			((StandardBook)t.getTableView().getItems().get(t.getTablePosition().getRow())).setAuthor(t.getNewValue());
 		});
 	}
-
+	
+	@FXML
+	private void add() {
+    //   if (isInputValid()) {}
+		booksController.addBook(isbnField.getText(), titleField.getText(), Integer.parseInt(yearField.getText()), Integer.parseInt(pagesField.getText()), serieField.getText(), genreField.getText(), authorField.getText(), Integer.parseInt(priceField.getText())); 
+	}
+	
 }
