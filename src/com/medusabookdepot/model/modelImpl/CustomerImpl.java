@@ -53,6 +53,7 @@ public abstract class CustomerImpl extends TransferrerImpl implements Customer,S
         return null;
         
     }
+    @Override
     public StringProperty getTelephoneNumberProperty() {
         return null;
         

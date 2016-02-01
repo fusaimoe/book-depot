@@ -7,6 +7,8 @@ import java.io.Serializable;
 
 import com.medusabookdepot.model.modelInterface.Library;
 
+import javafx.beans.property.StringProperty;
+
 /**
  * @author Marcello_Feroce
  *
