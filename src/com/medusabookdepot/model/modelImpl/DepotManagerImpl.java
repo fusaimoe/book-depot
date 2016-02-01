@@ -166,7 +166,6 @@ public class DepotManagerImpl implements DepotManager {
         System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(0).getBooksAsString());
         System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().size());
 
-
     }
 
 }
