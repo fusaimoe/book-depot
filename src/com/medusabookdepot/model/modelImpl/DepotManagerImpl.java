@@ -17,13 +17,11 @@ import com.medusabookdepot.model.modelInterface.DepotManager;
 import com.medusabookdepot.model.modelInterface.StandardBook;
 import com.medusabookdepot.model.modelInterface.Transfer;
 
-import javafx.collections.ObservableList;
-
 public class DepotManagerImpl implements DepotManager {
 
     private static DepotManager single=null;//singleton
     private List<Depot> depots;//List that contains all depots alive
-    private final String defaultFileName;
+    private String defaultFileName;
     
     private DepotManagerImpl() {
         //costruttore privato!
@@ -47,15 +45,11 @@ public class DepotManagerImpl implements DepotManager {
     public List<? extends Depot> getAllDepots() {
         return this.depots;
     }
-
     @Override
     public void addDepot(Depot depot) {
         this.depots.add(depot);
         this.writeDepotOnFile(this.defaultFileName,depot);
     }
-
-    
-
     @Override
     public void addDepot(String name, Map<StandardBook, Integer> books) {
         Depot depot=new DepotImpl(name, books);
@@ -88,8 +82,6 @@ public class DepotManagerImpl implements DepotManager {
         }
         
     }
-    
-
     private void removeDepotFromFile(String fileName, Transfer transfer) {
         try {
             List<Depot> deps=getDepotsFromFile(fileName);
@@ -124,13 +116,12 @@ public class DepotManagerImpl implements DepotManager {
         String filepath = System.getProperty("user.home")+System.getProperty("file.separator")+ fileName;
         return filepath;
     }
-    
     @SuppressWarnings("unchecked")
     private List<Depot> getDepotsFromFile(String fileName) {
         List<Depot> deps=new ArrayList<>();
         File f = new File(getFilePath(fileName));
         if(!f.exists()) {
-            return new ArrayList<Depot>();
+            return new ArrayList<>();
         }
         else {
             try {
@@ -150,15 +141,26 @@ public class DepotManagerImpl implements DepotManager {
             return deps;
         }
     }
+
+    @Override
+    public void setDefaultFileName(String DefaultFileName) {
+        this.defaultFileName=DefaultFileName;
+        
+    }
+
+    @Override
+    public String getDefaultFileName() {
+        return this.defaultFileName;
+    }
     public static void main(String...args) {
         Map<StandardBook, Integer>mm=new HashMap<>();
-        mm.put(new StandardBookImpl("iiiinb ", "ghini_merda", 2010, 43,"infoblew", "sisos", "io", 23), Integer.valueOf(5));
-        mm.put(new StandardBookImpl("iiiissnb ", "viroli_merda", 2011, 32,"infoblew", "oopmerd", "io", 40), Integer.valueOf(9));
+        mm.put(new StandardBookImpl("iiiinb ", "threads", 2010, 43,"info", "sisos", "io", 23), Integer.valueOf(5));
+        mm.put(new StandardBookImpl("iiiissnb ", "javas", 2011, 32,"info", "oop", "io", 40), Integer.valueOf(9));
         Depot trad=new DepotImpl("D1", mm);
         
         Map<StandardBook, Integer>mm2=new HashMap<>();
-        mm2.put(new StandardBookImpl("evdfb", "caselli_merda", 2040, 20,"mate", "calcolomer", "gesu", 234), Integer.valueOf(8));
-        mm2.put(new StandardBookImpl("eerdfs", "pianini merda", 2051, 50,"labo", "oopmerd", "dio", 400), Integer.valueOf(20));
+        mm2.put(new StandardBookImpl("evdfb", "gauss", 2040, 20,"mate", "calcolo", "fabrizio caselli", 234), Integer.valueOf(8));
+        mm2.put(new StandardBookImpl("eerdfs", "lambdas", 2051, 50,"labo", "oopm", "lionel Ritchie", 400), Integer.valueOf(20));
         Depot trad2=new DepotImpl("sw", mm2);
         
         DepotManagerImpl.getInstanceOfDepotManger().addDepot(trad);
@@ -169,11 +171,4 @@ public class DepotManagerImpl implements DepotManager {
         System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().size());
 
     }
-
-    @Override
-    public ObservableList<? extends Depot> getAllDepotsProperty() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
 }

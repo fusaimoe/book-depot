@@ -17,4 +17,6 @@ public interface TransferManager {
     void removeTransfer(final Transfer transfer);
     void removeTransfer(final int index);
     public void registerTransfersFromFile(final File f);
+    public void setDefaultFileName(String DefaultFileName);
+    public String getDefaultFileName();
 }
