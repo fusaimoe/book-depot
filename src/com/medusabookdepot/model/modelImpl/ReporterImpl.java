@@ -52,7 +52,7 @@ public class ReporterImpl implements Reporter {
         BufferedWriter bw;
         Calendar c1=Calendar.getInstance();c1.set(yearBegin, monthBegin-1, dayBegin, 0, 0, 0);
         Date dateBeg=c1.getTime();
-        Calendar c2=Calendar.getInstance();c2.set(yearEnd, monthEnd-1, dayEnd, 0, 0, 0);
+        Calendar c2=Calendar.getInstance();c2.set(yearEnd, monthEnd-1, dayEnd, 23, 59, 59);
         Date dateEnd=c2.getTime();
         try {
             bw = new BufferedWriter(new FileWriter(System.getProperty("user.home")+System.getProperty("file.separator")+ fileName, false));
@@ -60,15 +60,16 @@ public class ReporterImpl implements Reporter {
             bw.write("trasferimenti da "+dateBeg+" a "+dateEnd);
             bw.newLine();
             for(Transfer t:transes) {
-                if(t.getLeavingDate().after(dateBeg)&&t.getLeavingDate().before(dateEnd)) {
-                    System.out.println(t.getLeavingDate()+" is after "+dateBeg+" and before "+dateEnd);
+                if((t.getLeavingDate().after(dateBeg)||t.getLeavingDate().equals(dateBeg))&&(t.getLeavingDate().before(dateEnd)||t.getLeavingDate().equals(dateBeg))) {                    
                     x++;
-                    bw.write("trasferimento"+x+": tracking number="+t.getTrackingNumber()+",prezzo totale "+t.getTotalPrice()+",data di partenza"+t.getLeavingDate()+", mittente "+t.getSender().getName()+",destinatario "+t.getReceiver().getName());
-                    bw.newLine();
+                    bw.write("trasferimento "+x+":");bw.newLine();
+                    bw.write("          tracking number="+t.getTrackingNumber());bw.newLine();
+                    bw.write("          prezzo totale="+t.getTotalPrice());bw.newLine();
+                    bw.write("          data di partenza="+t.getLeavingDate());bw.newLine();
+                    bw.write("          mittente="+t.getSender().getName());bw.newLine();
+                    bw.write("          destinatario="+t.getReceiver().getName());bw.newLine();
                 }
-                else {
-                    System.out.println(t.getLeavingDate()+" is not after "+dateBeg+" or it is not before "+dateEnd);
-                }
+                bw.newLine();
             }
             bw.close();
         } catch (IOException e) {
@@ -126,7 +127,7 @@ public class ReporterImpl implements Reporter {
         try {  
  
             Document pdfDoc = new Document();  
-            String output_file =file.getParent()+System.getProperty("file.separator")+"provaPdf.pdf";  
+            String output_file =file.getParent()+System.getProperty("file.separator")+file.getName().substring(0, file.getName().length()-3)+"pdf";  
             PdfWriter writer=PdfWriter.getInstance(pdfDoc,new FileOutputStream(output_file));  
             pdfDoc.open();  
             pdfDoc.setMarginMirroring(true);  
@@ -190,6 +191,13 @@ public class ReporterImpl implements Reporter {
         return true;  
     }
     public static void main(String...args) {
-        ReporterImpl.getInstanceOfReporter().buildReport(2,3,2013,2,1,2015,"reso.txt");
+        Reporter r=ReporterImpl.getInstanceOfReporter();
+
+        r.buildReport(2,3,2013,2,1,2015,"reso.txt");
+        try {
+            r.convertTextToPDF(new File(System.getProperty("user.home")+System.getProperty("file.separator")+ "reso.txt"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
