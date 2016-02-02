@@ -3,11 +3,11 @@ package com.medusabookdepot.model.modelInterface;
 import java.util.List;
 import java.util.Map;
 
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 
 public interface DepotManager {
     public List<? extends Depot>getAllDepots();
-    public ObservableList<? extends Depot> getAllDepotsProperty();
     
     public void addDepot(final Depot depot);
     
@@ -16,4 +16,8 @@ public interface DepotManager {
     void removeDepot(final Transfer transfer);
     
     void removeDepot(int index);
+    
+    public void setDefaultFileName(String DefaultFileName);
+    
+    public String getDefaultFileName();
 }

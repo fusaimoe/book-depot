@@ -24,7 +24,7 @@ import javafx.collections.ObservableList;
 public class TransferManagerImpl implements TransferManager {
     private static TransferManager sing=null;//singleton
     private List<Transfer> transfers;//List that contains all transfers alive
-    private final String defaultFileName;
+    private String defaultFileName;
     
     private TransferManagerImpl() {
         //costruttore privato!
@@ -194,9 +194,9 @@ public class TransferManagerImpl implements TransferManager {
         Transfer tr=new TransferImpl(trad, tra,cal.getTime() , mm, "883737");
         
         Map<StandardBook, Integer>mm2=new HashMap<>();
-        mm2.put(new StandardBookImpl("evdfb ", "caselli_merda", 2040, 20,"mate", "calcolomer", "gesu", 234), Integer.valueOf(8));
-        mm2.put(new StandardBookImpl("eerdfs ", "pianini merda", 2051, 50,"labo", "oopmerd", "dio", 400), Integer.valueOf(20));
-        Transferrer tra2=new PrinterImpl("printer", "via del vaffa 2", "07184939");
+        mm2.put(new StandardBookImpl("evdfb ", "gauss", 2040, 20,"mate", "calcolo", "fabrizio caselli", 234), Integer.valueOf(8));
+        mm2.put(new StandardBookImpl("eerdfs ", "lambdas", 2051, 50,"labo", "oop", "lionel Ritchie", 400), Integer.valueOf(20));
+        Transferrer tra2=new PrinterImpl("printer", "via roma 3", "07184939");
         Transferrer trad2=new DepotImpl("sw", mm2);
         
         Calendar cal2 =Calendar.getInstance();
@@ -220,6 +220,17 @@ public class TransferManagerImpl implements TransferManager {
     public ObservableList<? extends Transfer> getAllTransfersProperty() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public void setDefaultFileName(String DefaultFileName) {
+        this.defaultFileName=DefaultFileName;
+        
+    }
+
+    @Override
+    public String getDefaultFileName() {
+        return this.defaultFileName;
     }
 
 }

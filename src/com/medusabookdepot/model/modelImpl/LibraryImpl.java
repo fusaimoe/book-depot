@@ -7,8 +7,6 @@ import java.io.Serializable;
 
 import com.medusabookdepot.model.modelInterface.Library;
 
-import javafx.beans.property.StringProperty;
-
 /**
  * @author Marcello_Feroce
  *
@@ -30,4 +28,5 @@ public class LibraryImpl extends CustomerImpl implements Library, Serializable{
         return this.name+"\n"+this.address+"\n"+this.telephoneNumber+"\n";
         
     }
+   
 }
