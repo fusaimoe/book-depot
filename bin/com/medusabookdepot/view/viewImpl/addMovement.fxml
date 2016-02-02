@@ -14,23 +14,29 @@
 	<content>
 		<VBox styleClass="card">
 			<children>
+				<HBox>
+					<children>
+						<Label styleClass="card-title" text="Add Movement" />
+                   		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />                     
+                        <Button mnemonicParsing="false" styleClass="button-flat" text="DELETE" fx:id="delete"/>
+					</children>
+				</HBox>
 				<HBox VBox.vgrow="ALWAYS">
 					<children>
 						<VBox prefWidth="300.0">
 							<children> 
-					        	<Label styleClass="card-title" text="Add Movement" />
 					        	<Label styleClass="control-label" text="Sender" />
 				                <ChoiceBox prefHeight="43.0" prefWidth="300.0" />
 				                <Label styleClass="control-label" text="Receiver" />
 				                <ChoiceBox prefHeight="42.0" prefWidth="300.0" />
 					            <Label styleClass="control-label" text="Date" />
 								<DatePicker editable="true" prefHeight="42.0" prefWidth="300.0" showWeekNumbers="true" />       
-								<Label styleClass="control-label" text="Traking" />
+								<Label styleClass="control-label" text="Tracking" />
 								<TextField prefHeight="42.0" styleClass="control-label" />
                         	</children>
-		                     <padding>
+		                    <padding>
 		                        <Insets right="20.0" />
-		                     </padding>
+		                    </padding>
 						</VBox>
 						<VBox HBox.hgrow="ALWAYS">
 							<children>

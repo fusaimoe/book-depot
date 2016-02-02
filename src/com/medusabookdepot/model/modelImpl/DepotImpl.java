@@ -71,7 +71,7 @@ public class DepotImpl extends TransferrerImpl implements Depot, Serializable {
     public IntegerProperty getQuantityFromTitleProperty(String title) {
         int x=0;
         for(StandardBook libro :this.books.keySet()) {
-            if(libro.getName().equals(title)) {
+            if(libro.getTitle().equals(title)) {
                 x+=books.get(libro);
             }
         }
