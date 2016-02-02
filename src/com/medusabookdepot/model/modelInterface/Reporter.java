@@ -1,10 +1,9 @@
 package com.medusabookdepot.model.modelInterface;
 
 import java.io.File;
-import java.util.Date;
 
 public interface Reporter {
-    public void buildReport(final Date dateBegin,final Date dateEnd, final String fileName);
+    public void buildReport(int dayBegin,int monthBegin, int yearBegin,int dayEnd,int monthEnd, int yearEnd,String fileName);
 
     void sendEmail(String from, String to);
 
