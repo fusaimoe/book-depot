@@ -69,7 +69,7 @@ public class MedusaStandardBook {
 			result = result.filter(e -> isbn.get().toString() == e.getIsbn());
 		}
 		if(name.isPresent()){
-			result = result.filter(e -> e.getName().contains(name.get().toString()));
+			result = result.filter(e -> e.getTitle().contains(name.get().toString()));
 		}
 		if(year.isPresent()){
 			result = result.filter(e -> year.get() == e.getYear());

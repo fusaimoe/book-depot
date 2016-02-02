@@ -24,7 +24,7 @@
 				                <Label styleClass="control-label" text="Address" />
 				                <TextField prefHeight="42.0" prefWidth="300.0" />
 					            <Label styleClass="control-label" text="Phone Number" />
-								<TextField prefHeight="42.0" styleClass="control-label" />
+								<TextField prefHeight="42.0" prefWidth="300.0" />
                            		<Pane prefHeight="20.0" />
                            		<HBox>
 	                           		<children>

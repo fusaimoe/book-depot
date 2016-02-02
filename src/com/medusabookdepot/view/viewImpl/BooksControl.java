@@ -73,7 +73,7 @@ public class BooksControl extends ScreenControl{
     private void initialize() {
         // Initialize the table
         isbnColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getIsbn()));
-        nameColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getName()));
+        nameColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getTitle()));
         //int  yearColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getYear()));
         //int  pagesColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getPages()));
         serieColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getSerie()));
@@ -142,7 +142,7 @@ public class BooksControl extends ScreenControl{
 		//titleColumn
 		nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 		nameColumn.setOnEditCommit( t -> {
-			((StandardBook)t.getTableView().getItems().get(t.getTablePosition().getRow())).setName(t.getNewValue());
+			((StandardBook)t.getTableView().getItems().get(t.getTablePosition().getRow())).setTitle(t.getNewValue());
 		});
 		//serieColumn
 		serieColumn.setCellFactory(TextFieldTableCell.forTableColumn());

@@ -15,8 +15,8 @@ public interface StandardBook {
     /**
      * @return The book's name
      */
-    public String getName();
-    public StringProperty getNameProperty();
+    public String getTitle();
+    public StringProperty getTitleProperty();
     
     public String getIsbn();
     public StringProperty getIsbnProperty();
@@ -41,7 +41,7 @@ public interface StandardBook {
     
     // ====================================== \\
     
-    public void setName(String name);
+    public void setTitle(String title);
     
     public void setIsbn(String isbn);
     

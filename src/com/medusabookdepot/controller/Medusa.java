@@ -63,13 +63,13 @@ public class Medusa {
         
         System.out.println("All books saved:");
         for(StandardBook e: medusiniBook.getAllBooks()){
-        	System.out.println("# " + e.getName());
+        	System.out.println("# " + e.getTitle());
         }
         
         //Stampa risultati trovati
         System.out.println("\nAll books found:");
         bb.forEach(e->{
-        	System.out.println("F: " + e.getName());
+        	System.out.println("F: " + e.getTitle());
         });
     }
 
