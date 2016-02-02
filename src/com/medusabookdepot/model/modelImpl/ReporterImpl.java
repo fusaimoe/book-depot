@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -31,7 +32,6 @@ import com.medusabookdepot.model.modelInterface.Transfer;
 public class ReporterImpl implements Reporter {
 
     private static ReporterImpl single=null;//singleton
-    
     private ReporterImpl() {
         //costruttore privato!
     }
@@ -47,22 +47,30 @@ public class ReporterImpl implements Reporter {
     }
     @SuppressWarnings("unchecked")
     @Override
-    public void buildReport(Date dateBegin,Date dateEnd, String fileName) {
+    public void buildReport(int dayBegin,int monthBegin, int yearBegin,int dayEnd,int monthEnd, int yearEnd,String fileName) {
         List<Transfer> transes=(List<Transfer>)TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers();
         BufferedWriter bw;
-        
+        Calendar c1=Calendar.getInstance();c1.set(yearBegin, monthBegin-1, dayBegin, 0, 0, 0);
+        Date dateBeg=c1.getTime();
+        Calendar c2=Calendar.getInstance();c2.set(yearEnd, monthEnd-1, dayEnd, 0, 0, 0);
+        Date dateEnd=c2.getTime();
         try {
             bw = new BufferedWriter(new FileWriter(System.getProperty("user.home")+System.getProperty("file.separator")+ fileName, false));
             int x=0;
-            bw.write("trasferimenti da "+dateBegin.toString()+" a "+dateEnd.toString());
+            bw.write("trasferimenti da "+dateBeg+" a "+dateEnd);
             bw.newLine();
             for(Transfer t:transes) {
-                if(t.getLeavingDate().after(dateBegin)&&t.getLeavingDate().before(dateEnd)) {
+                if(t.getLeavingDate().after(dateBeg)&&t.getLeavingDate().before(dateEnd)) {
+                    System.out.println(t.getLeavingDate()+" is after "+dateBeg+" and before "+dateEnd);
                     x++;
-                    bw.write("trasferimento"+" x:"+"tracking number="+t.getTrackingNumber()+",prezzo totale "+t.getTotalPrice()+",data di partenza"+t.getLeavingDate()+", mittente "+t.getSender().getName()+",destinatario "+t.getReceiver().getName());
+                    bw.write("trasferimento"+x+": tracking number="+t.getTrackingNumber()+",prezzo totale "+t.getTotalPrice()+",data di partenza"+t.getLeavingDate()+", mittente "+t.getSender().getName()+",destinatario "+t.getReceiver().getName());
                     bw.newLine();
                 }
+                else {
+                    System.out.println(t.getLeavingDate()+" is not after "+dateBeg+" or it is not before "+dateEnd);
+                }
             }
+            bw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -182,6 +190,6 @@ public class ReporterImpl implements Reporter {
         return true;  
     }
     public static void main(String...args) {
-        ReporterImpl.getInstanceOfReporter().sendEmail("ferocemarcello@virgilio.it", "ferocemarcello@gmail.com");
+        ReporterImpl.getInstanceOfReporter().buildReport(2,3,2013,2,1,2015,"reso.txt");
     }
 }

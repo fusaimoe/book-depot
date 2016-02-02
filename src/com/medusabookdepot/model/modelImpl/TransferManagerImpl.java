@@ -182,40 +182,6 @@ public class TransferManagerImpl implements TransferManager {
         }
         return lis;
     }
-
-    public static void main(String ...strings) {
-        Map<StandardBook, Integer>mm=new HashMap<>();
-        mm.put(new StandardBookImpl("iiiinb ", "ghini_merda", 2010, 43,"infoblew", "sisos", "io", 23), Integer.valueOf(5));
-        mm.put(new StandardBookImpl("iiiissnb ", "viroli_merda", 2011, 32,"infoblew", "oopmerd", "io", 40), Integer.valueOf(9));
-        Transferrer tra=new PersonImpl("joy", "via merda 1", "333 332 332");
-        Transferrer trad=new DepotImpl("D1", mm);
-        Calendar cal =Calendar.getInstance();
-        cal.set(2016, 0, 30);
-        Transfer tr=new TransferImpl(trad, tra,cal.getTime() , mm, "883737");
-        
-        Map<StandardBook, Integer>mm2=new HashMap<>();
-        mm2.put(new StandardBookImpl("evdfb ", "gauss", 2040, 20,"mate", "calcolo", "fabrizio caselli", 234), Integer.valueOf(8));
-        mm2.put(new StandardBookImpl("eerdfs ", "lambdas", 2051, 50,"labo", "oop", "lionel Ritchie", 400), Integer.valueOf(20));
-        Transferrer tra2=new PrinterImpl("printer", "via roma 3", "07184939");
-        Transferrer trad2=new DepotImpl("sw", mm2);
-        
-        Calendar cal2 =Calendar.getInstance();
-        cal2.set(2016, 0, 31);
-        
-        Transfer tr2=new TransferImpl(tra2, trad2, cal2.getTime(), mm2);
-        TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr);
-        TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr2);
-
-        
-        System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().get(0).getLeavingDate());
-        System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().get(1).getLeavingDate());
-        TransferManagerImpl.getInstanceOfTransferManger().removeTransfer(0);
-        System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().get(0).getTrackingNumber());
-        System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().size());
-
-
-    }
-
     @Override
     public ObservableList<? extends Transfer> getAllTransfersProperty() {
         // TODO Auto-generated method stub
@@ -232,5 +198,39 @@ public class TransferManagerImpl implements TransferManager {
     public String getDefaultFileName() {
         return this.defaultFileName;
     }
+    public static void main(String ...strings) {
+        Map<StandardBook, Integer>mm=new HashMap<>();
+        mm.put(new StandardBookImpl("iiiinb ", "eeee", 2010, 43,"infoblew", "sisos", "io", 23), Integer.valueOf(5));
+        mm.put(new StandardBookImpl("iiiissnb ", "fff", 2011, 32,"infoblew", "oop", "io", 40), Integer.valueOf(9));
+        Transferrer tra=new PersonImpl("joy", "via lazio 4", "333 332 332");
+        Transferrer trad=new DepotImpl("D1", mm);
+        Calendar cal =Calendar.getInstance();
+        cal.set(2013, 2, 2);
+        Transfer tr=new TransferImpl(trad, tra,cal.getTime() , mm, "883737");
+        
+        Map<StandardBook, Integer>mm2=new HashMap<>();
+        mm2.put(new StandardBookImpl("evdfb ", "gauss", 2040, 20,"mate", "calcolo", "fabrizio caselli", 234), Integer.valueOf(8));
+        mm2.put(new StandardBookImpl("eerdfs ", "lambdas", 2051, 50,"labo", "oop", "lionel Ritchie", 400), Integer.valueOf(20));
+        Transferrer tra2=new PrinterImpl("printer", "via roma 3", "07184939");
+        Transferrer trad2=new DepotImpl("sw", mm2);
+        
+        Calendar cal2 =Calendar.getInstance();
+        cal2.set(2015, 0, 2);
+        
+        Transfer tr2=new TransferImpl(tra2, trad2, cal2.getTime(), mm2);
+        TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr);
+        TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr2);
+
+        
+        System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().get(0).getLeavingDate());
+        System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().get(1).getLeavingDate());
+        //TransferManagerImpl.getInstanceOfTransferManger().removeTransfer(0);
+        System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().get(0).getTrackingNumber());
+        System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().size());
+
+
+    }
+
+    
 
 }
