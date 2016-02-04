@@ -16,6 +16,7 @@ import java.util.Map;
 import com.medusabookdepot.model.modelInterface.CanSendTransferrer;
 import com.medusabookdepot.model.modelInterface.Depot;
 import com.medusabookdepot.model.modelInterface.DepotManager;
+import com.medusabookdepot.model.modelInterface.Library;
 import com.medusabookdepot.model.modelInterface.Printer;
 import com.medusabookdepot.model.modelInterface.StandardBook;
 import com.medusabookdepot.model.modelInterface.Transfer;
@@ -81,7 +82,7 @@ public class TransferManagerImpl implements TransferManager {
     @Override
     public void addTransfer(CanSendTransferrer sender, Transferrer receiver, java.util.Date leavingDate,Map<StandardBook, Integer> books) {
         Transfer t=new TransferImpl(sender, receiver, leavingDate, books);
-        this.transfers.add(t);
+        this.addTransfer(t);
         this.writeTransferOnFile(this.defaultFileName,t);
     }
     @Override
@@ -239,10 +240,19 @@ public class TransferManagerImpl implements TransferManager {
         cal2.set(2015, 0, 2);
         
         Transfer tr2=new TransferImpl(prin, trad2, cal2.getTime(), mm2);
+        
+        Map<StandardBook, Integer>mm3=new HashMap<>();
+        mm3.put(new StandardBookImpl("eddvdfb ", "bo1", 1933, 202,"chennes", "malvagità", "gente a caso", 214), Integer.valueOf(2));
+        mm3.put(new StandardBookImpl("eerdddfs ", "bo2",1999, 520,"chennes", "ignoranza", "lionel messi", 4020), Integer.valueOf(11));
+        Calendar cal3 =Calendar.getInstance();
+        cal2.set(2015,5, 4);
+        Library l=new LibraryImpl("da rosi", "via mia 3", "07123422");
+        Transfer tr3=new TransferImpl(l, trad2, cal3.getTime(), mm3);
         System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(0));
         System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(1));
         TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr);
         TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr2);
+        TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr3);
         System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(0));
         System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(1));
         System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().size());

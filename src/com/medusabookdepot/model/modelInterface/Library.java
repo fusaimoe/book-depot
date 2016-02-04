@@ -7,6 +7,6 @@ package com.medusabookdepot.model.modelInterface;
  * @author Marcello_Feroce
  *
  */
-public interface Library extends Customer {
+public interface Library extends CanSendTransferrer {
 
 }
