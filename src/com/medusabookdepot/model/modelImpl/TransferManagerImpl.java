@@ -14,6 +14,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.medusabookdepot.model.modelInterface.CanSendTransferrer;
+import com.medusabookdepot.model.modelInterface.Depot;
+import com.medusabookdepot.model.modelInterface.DepotManager;
+import com.medusabookdepot.model.modelInterface.Printer;
 import com.medusabookdepot.model.modelInterface.StandardBook;
 import com.medusabookdepot.model.modelInterface.Transfer;
 import com.medusabookdepot.model.modelInterface.TransferManager;
@@ -56,8 +59,23 @@ public class TransferManagerImpl implements TransferManager {
                 transfer=new TransferImpl(transfer.getSender(), transfer.getReceiver(),transfer.getLeavingDate(), transfer.getBooks());
             }
         }
-        this.transfers.add(transfer);
-        this.writeTransferOnFile(this.defaultFileName,transfer);
+        DepotManager dm=DepotManagerImpl.getInstanceOfDepotManger();
+        if(transfer.getSender().contains(transfer.getBooks())) {
+            if(transfer.getSender() instanceof DepotImpl && dm.getAllDepots().contains(transfer.getSender())) {
+                Depot dep=(Depot) transfer.getSender();
+                dm.removeDepot(dep);
+                dep.removeBooks(transfer.getBooks());
+                dm.addDepot(dep);
+            }
+            if(transfer.getReceiver() instanceof DepotImpl&& dm.getAllDepots().contains(transfer.getReceiver())) {
+                Depot depo=(Depot) transfer.getReceiver();
+                dm.removeDepot(depo);
+                depo.addBooks(transfer.getBooks());
+                dm.addDepot(depo);
+            }
+            this.transfers.add(transfer);
+            this.writeTransferOnFile(this.defaultFileName,transfer);
+        }
         
     }
     @Override
@@ -203,33 +221,31 @@ public class TransferManagerImpl implements TransferManager {
         Map<StandardBook, Integer>mm=new HashMap<>();
         mm.put(new StandardBookImpl("iiiinb ", "eeee", 2010, 43,"infoblew", "sisos", "io", 23), Integer.valueOf(5));
         mm.put(new StandardBookImpl("iiiissnb ", "fff", 2011, 32,"infoblew", "oop", "io", 40), Integer.valueOf(9));
-        Transferrer tra=new PersonImpl("joy", "via lazio 4", "333 332 332");
-        CanSendTransferrer trad=new DepotImpl("D1", mm);
+        Transferrer per=new PersonImpl("joy", "via lazio 4", "333 332 332");
+        Depot trad=new DepotImpl("D1", mm);
+        DepotManagerImpl.getInstanceOfDepotManger().addDepot(trad);
         Calendar cal =Calendar.getInstance();
         cal.set(2013, 2, 2);
-        Transfer tr=new TransferImpl(trad, tra,cal.getTime() , mm, "883737");
+        Transfer tr=new TransferImpl(trad, per,cal.getTime() , mm, "883737");
         
         Map<StandardBook, Integer>mm2=new HashMap<>();
         mm2.put(new StandardBookImpl("evdfb ", "gauss", 2040, 20,"mate", "calcolo", "fabrizio caselli", 234), Integer.valueOf(8));
         mm2.put(new StandardBookImpl("eerdfs ", "lambdas", 2051, 50,"labo", "oop", "lionel Ritchie", 400), Integer.valueOf(20));
-        CanSendTransferrer tra2=new PrinterImpl("printer", "via roma 3", "07184939");
-        CanSendTransferrer trad2=new DepotImpl("sw", mm2);
+        Printer prin=new PrinterImpl("printer", "via roma 3", "07184939");
+        Depot trad2=new DepotImpl("sw", mm2);
+        DepotManagerImpl.getInstanceOfDepotManger().addDepot(trad2);
         
         Calendar cal2 =Calendar.getInstance();
         cal2.set(2015, 0, 2);
         
-        Transfer tr2=new TransferImpl(tra2, trad2, cal2.getTime(), mm2);
+        Transfer tr2=new TransferImpl(prin, trad2, cal2.getTime(), mm2);
+        System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(0));
+        System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(1));
         TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr);
         TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr2);
-
-        
-        System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().get(0).getLeavingDate());
-        System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().get(1).getLeavingDate());
-        //TransferManagerImpl.getInstanceOfTransferManger().removeTransfer(0);
-        System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().get(0).getTrackingNumber());
-        System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().size());
-
-
+        System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(0));
+        System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(1));
+        System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().size());
     }
 
     

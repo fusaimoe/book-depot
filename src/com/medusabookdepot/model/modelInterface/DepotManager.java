@@ -13,7 +13,7 @@ public interface DepotManager {
     
     public void addDepot(final String name,Map<StandardBook,Integer> books);
     
-    void removeDepot(final Transfer transfer);
+    void removeDepot(final Depot depot);
     
     void removeDepot(int index);
     

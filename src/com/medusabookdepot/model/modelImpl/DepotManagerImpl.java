@@ -58,9 +58,9 @@ public class DepotManagerImpl implements DepotManager {
     }
 
     @Override
-    public void removeDepot(Transfer transfer) {
-        this.depots.remove(transfer);
-        this.removeDepotFromFile(this.defaultFileName,transfer);
+    public void removeDepot(Depot depot) {
+        this.depots.remove(depot);
+        this.removeDepotFromFile(this.defaultFileName,depot);
     }
     @Override
     public void removeDepot(int index) {
@@ -82,11 +82,11 @@ public class DepotManagerImpl implements DepotManager {
         }
         
     }
-    private void removeDepotFromFile(String fileName, Transfer transfer) {
+    private void removeDepotFromFile(String fileName, Depot depot) {
         try {
             List<Depot> deps=getDepotsFromFile(fileName);
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(getFilePath(fileName)));
-            deps.remove(transfer);
+            deps.remove(depot);
             oos.writeObject(deps);
             oos.close();
         } catch (FileNotFoundException e) {

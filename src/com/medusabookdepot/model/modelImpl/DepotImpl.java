@@ -4,6 +4,8 @@
 package com.medusabookdepot.model.modelImpl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -139,6 +141,35 @@ public class DepotImpl extends CanSendTransferrerImpl implements Depot, Serializ
             }
         }
         return true;
+    }
+
+    @Override
+    public void removeBooks(Map<StandardBook, Integer> books) {
+        for(Entry<StandardBook,Integer> entry:books.entrySet()) {
+            this.books.put(entry.getKey(), this.books.get(entry.getKey())-entry.getValue());
+        }
+        List<StandardBook>lis=new ArrayList<>();
+        for(Entry<StandardBook,Integer> entry:this.books.entrySet()) {
+            if(entry.getValue()==0) {
+                lis.add(entry.getKey());
+            }
+        }
+        for(StandardBook b:lis) {
+            this.books.remove(b);
+        }
+    }
+
+    @Override
+    public void addBooks(Map<StandardBook, Integer> books) {
+        for(Entry<StandardBook,Integer> entry:books.entrySet()) {
+            if(this.books.containsKey(entry.getKey())) {
+                this.books.put(entry.getKey(), entry.getValue()+this.books.get(entry.getKey()));
+            }
+            else {
+                this.books.put(entry.getKey(), entry.getValue());
+            }
+        }
+        
     }
 
 
