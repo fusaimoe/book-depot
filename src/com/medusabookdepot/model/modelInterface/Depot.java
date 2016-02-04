@@ -3,6 +3,8 @@
  */
 package com.medusabookdepot.model.modelInterface;
 
+import java.util.Map;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 
@@ -55,4 +57,6 @@ public interface Depot extends Transferrer{
     public String getBooksAsString();
     
     public StringProperty getBooksAsStringProperty();
+    
+    public boolean contains(Map<StandardBook,Integer> books);
 }

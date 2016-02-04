@@ -18,6 +18,7 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -75,7 +76,14 @@ public class ReporterImpl implements Reporter {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        try {
+            this.convertTextToPDF(new File(System.getProperty("user.home")+System.getProperty("file.separator")+ fileName));
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
+    
     //http://www.tutorialspoint.com/java/java_sending_email.htm
     @Override
     public void sendEmail(final String from, final String to) {
@@ -91,32 +99,85 @@ public class ReporterImpl implements Reporter {
         // Get the default Session object.
         Session session = Session.getDefaultInstance(properties);
         
-        try{
+        
             // Create a default MimeMessage object.
             MimeMessage message = new MimeMessage(session);
 
             // Set From: header field of the header.
-            message.setFrom(new InternetAddress(from));
+            try {
+                message.setFrom(new InternetAddress(from));
+            } catch (AddressException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (MessagingException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
 
             // Set To: header field of the header.
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            try {
+                message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            } catch (AddressException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (MessagingException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
 
             // Set Subject: header field
-            message.setSubject("This is the Subject Line!");
+            try {
+                message.setSubject("This is the Subject Line!");
+            } catch (MessagingException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
 
             // Now set the actual message
-            message.setText("This is actual message");
+            try {
+                message.setText("This is actual message");
+            } catch (MessagingException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
 
             // Send message
-            Transport.send(message);
+            try {
+                Transport.send(message);
+            } catch (MessagingException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             System.out.println("Sent message successfully....");
-         }catch (MessagingException mex) {
-            mex.printStackTrace();
-         }
+         
     }
-    //http://karanbalkar.com/2014/01/convert-text-file-to-pdf-document-in-java/ Karan Balkar
+    //http://www.javapractices.com/topic/TopicAction.do?Id=144
+    private static Properties fMailServerConfig = new Properties();
     @Override
-    public boolean convertTextToPDF(File file) throws Exception  
+    public void sendEmail2(String aFromEmailAddr, String aToEmailAddr,String aSubject, String aBody) {
+            //Here, no Authenticator argument is used (it is null).
+            //Authenticators are used to prompt the user for user
+            //name and password.
+            Session session = Session.getDefaultInstance(fMailServerConfig, null);
+            MimeMessage message = new MimeMessage(session);
+            try {
+              //the "from" address may be set in code, or set in the
+              //config file under "mail.from" ; here, the latter style is used
+              //message.setFrom(new InternetAddress(aFromEmailAddr));
+              message.addRecipient(
+                Message.RecipientType.TO, new InternetAddress(aToEmailAddr)
+              );
+              message.setSubject(aSubject);
+              message.setText(aBody);
+              Transport.send(message);
+            }
+            catch (MessagingException ex){
+              System.err.println("Cannot send email. " + ex);
+            }
+          }
+
+    //http://karanbalkar.com/2014/01/convert-text-file-to-pdf-document-in-java/ Karan Balkar
+    private boolean convertTextToPDF(File file) throws Exception  
     {  
  
         FileInputStream fis=null;  
@@ -194,10 +255,7 @@ public class ReporterImpl implements Reporter {
         Reporter r=ReporterImpl.getInstanceOfReporter();
 
         r.buildReport(2,3,2013,2,1,2015,"reso.txt");
-        try {
-            r.convertTextToPDF(new File(System.getProperty("user.home")+System.getProperty("file.separator")+ "reso.txt"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        //r.sendEmail("ferocemarcello@gmail.com", "ferocemarcello@virgilio.it");
+        r.sendEmail2("ferocemarcello@gmail.com", "ferocemarcello@virgilio.it", "prova", "messagio di prova");
     }
 }
