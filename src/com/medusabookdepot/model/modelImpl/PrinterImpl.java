@@ -3,7 +3,10 @@
  */
 package com.medusabookdepot.model.modelImpl;
 
+import java.util.Map;
+
 import com.medusabookdepot.model.modelInterface.Printer;
+import com.medusabookdepot.model.modelInterface.StandardBook;
 
 /**
  * @author Marcello_Feroce
@@ -23,5 +26,9 @@ public class PrinterImpl extends CustomerImpl implements Printer {
     @Override
     public String toString() {
         return this.name+"\n"+this.telephoneNumber+"\n"+this.address+"\n";
+    }
+    @Override
+    public boolean contains(Map<StandardBook, Integer> books) {
+        return true;
     }
 }

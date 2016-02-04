@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.medusabookdepot.model.modelInterface.CanSendTransferrer;
 import com.medusabookdepot.model.modelInterface.StandardBook;
 import com.medusabookdepot.model.modelInterface.Transfer;
 import com.medusabookdepot.model.modelInterface.TransferManager;
@@ -60,7 +61,7 @@ public class TransferManagerImpl implements TransferManager {
         
     }
     @Override
-    public void addTransfer(Transferrer sender, Transferrer receiver, java.util.Date leavingDate,Map<StandardBook, Integer> books) {
+    public void addTransfer(CanSendTransferrer sender, Transferrer receiver, java.util.Date leavingDate,Map<StandardBook, Integer> books) {
         Transfer t=new TransferImpl(sender, receiver, leavingDate, books);
         this.transfers.add(t);
         this.writeTransferOnFile(this.defaultFileName,t);
@@ -203,7 +204,7 @@ public class TransferManagerImpl implements TransferManager {
         mm.put(new StandardBookImpl("iiiinb ", "eeee", 2010, 43,"infoblew", "sisos", "io", 23), Integer.valueOf(5));
         mm.put(new StandardBookImpl("iiiissnb ", "fff", 2011, 32,"infoblew", "oop", "io", 40), Integer.valueOf(9));
         Transferrer tra=new PersonImpl("joy", "via lazio 4", "333 332 332");
-        Transferrer trad=new DepotImpl("D1", mm);
+        CanSendTransferrer trad=new DepotImpl("D1", mm);
         Calendar cal =Calendar.getInstance();
         cal.set(2013, 2, 2);
         Transfer tr=new TransferImpl(trad, tra,cal.getTime() , mm, "883737");
@@ -211,8 +212,8 @@ public class TransferManagerImpl implements TransferManager {
         Map<StandardBook, Integer>mm2=new HashMap<>();
         mm2.put(new StandardBookImpl("evdfb ", "gauss", 2040, 20,"mate", "calcolo", "fabrizio caselli", 234), Integer.valueOf(8));
         mm2.put(new StandardBookImpl("eerdfs ", "lambdas", 2051, 50,"labo", "oop", "lionel Ritchie", 400), Integer.valueOf(20));
-        Transferrer tra2=new PrinterImpl("printer", "via roma 3", "07184939");
-        Transferrer trad2=new DepotImpl("sw", mm2);
+        CanSendTransferrer tra2=new PrinterImpl("printer", "via roma 3", "07184939");
+        CanSendTransferrer trad2=new DepotImpl("sw", mm2);
         
         Calendar cal2 =Calendar.getInstance();
         cal2.set(2015, 0, 2);
