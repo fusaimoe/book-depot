@@ -133,4 +133,14 @@ public class DepotImpl extends TransferrerImpl implements Depot, Serializable {
         return null;
     }
 
+    @Override
+    public boolean contains(Map<StandardBook, Integer> books) {
+        for(Entry<StandardBook, Integer> entry:books.entrySet()) {
+            if(!(this.books.containsKey(entry.getKey())&&this.books.get(entry.getKey()).equals(entry.getValue()))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

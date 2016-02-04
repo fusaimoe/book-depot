@@ -7,5 +7,6 @@ public interface Reporter {
 
     void sendEmail(String from, String to);
 
-    boolean convertTextToPDF(File file) throws Exception;
+
+    void sendEmail2(String aFromEmailAddr, String aToEmailAddr, String aSubject, String aBody);
 }
