@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
+import com.medusabookdepot.model.modelInterface.CanSendTransferrer;
 import com.medusabookdepot.model.modelInterface.StandardBook;
 import com.medusabookdepot.model.modelInterface.Transfer;
 import com.medusabookdepot.model.modelInterface.Transferrer;
@@ -28,13 +29,13 @@ public class TransferImpl implements Transfer, Serializable{
      * 
      */
     private static final long serialVersionUID = -1788501318970271441L;
-    private Transferrer sender;
+    private CanSendTransferrer sender;
     private Transferrer receiver;
     private java.util.Date leavingDate;
     private String trackingNumber;
     private Map<StandardBook,Integer> books;
     
-    public TransferImpl(Transferrer sender,Transferrer receiver,java.util.Date leavingDate, Map<StandardBook,Integer> books) {
+    public TransferImpl(CanSendTransferrer sender,Transferrer receiver,java.util.Date leavingDate, Map<StandardBook,Integer> books) {
         this.sender=sender;
         this.receiver=receiver;
         this.leavingDate=leavingDate;
@@ -42,7 +43,7 @@ public class TransferImpl implements Transfer, Serializable{
         this.books=books;
         
     }
-    public TransferImpl(Transferrer sender,Transferrer receiver,java.util.Date leavingDate, Map<StandardBook,Integer> books,String trackingNumber) {
+    public TransferImpl(CanSendTransferrer sender,Transferrer receiver,java.util.Date leavingDate, Map<StandardBook,Integer> books,String trackingNumber) {
         this.sender=sender;
         this.receiver=receiver;
         this.leavingDate=leavingDate;
@@ -67,7 +68,7 @@ public class TransferImpl implements Transfer, Serializable{
         return tr;
     }
     @Override
-    public Transferrer getSender() {
+    public CanSendTransferrer getSender() {
         return this.sender;
     }
 
@@ -95,7 +96,7 @@ public class TransferImpl implements Transfer, Serializable{
     }
 
     @Override
-    public void setSender(Transferrer sender) {
+    public void setSender(CanSendTransferrer sender) {
         this.sender=sender;
     }
 

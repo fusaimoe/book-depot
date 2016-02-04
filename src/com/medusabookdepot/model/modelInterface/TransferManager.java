@@ -13,7 +13,7 @@ public interface TransferManager {
     public ObservableList<? extends Transfer> getAllTransfersProperty();
     
     public void addTransfer(final Transfer transfer);
-    public void addTransfer(final Transferrer sender,final Transferrer receiver,final java.util.Date leavingDate,final Map<StandardBook,Integer> books);
+    public void addTransfer(final CanSendTransferrer sender,final Transferrer receiver,final java.util.Date leavingDate,final Map<StandardBook,Integer> books);
     void removeTransfer(final Transfer transfer);
     void removeTransfer(final int index);
     public void registerTransfersFromFile(final File f);

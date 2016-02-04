@@ -17,13 +17,12 @@ import javafx.beans.property.StringProperty;
  * @author Marcello_Feroce
  *
  */
-public class DepotImpl extends TransferrerImpl implements Depot, Serializable {
+public class DepotImpl extends CanSendTransferrerImpl implements Depot, Serializable {
 
     /**
      * 
      */
     private static final long serialVersionUID = 47429766209693618L;
-    private Map<StandardBook,Integer> books;
     public DepotImpl(String name,Map<StandardBook,Integer> books) {
         super(name);
         this.books=books;
@@ -132,7 +131,6 @@ public class DepotImpl extends TransferrerImpl implements Depot, Serializable {
         // TODO Auto-generated method stub
         return null;
     }
-
     @Override
     public boolean contains(Map<StandardBook, Integer> books) {
         for(Entry<StandardBook, Integer> entry:books.entrySet()) {
@@ -142,5 +140,6 @@ public class DepotImpl extends TransferrerImpl implements Depot, Serializable {
         }
         return true;
     }
+
 
 }

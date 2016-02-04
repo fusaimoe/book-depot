@@ -14,7 +14,7 @@ import javafx.beans.property.StringProperty;
  */
 public interface Transfer {
         
-        public Transferrer getSender();
+        public CanSendTransferrer getSender();
         
         public Transferrer getReceiver();
         
@@ -25,7 +25,7 @@ public interface Transfer {
         
         // ========================================== \\
         
-        public void setSender(Transferrer sender);
+        public void setSender(CanSendTransferrer sender);
         
         public void setReceiver(Transferrer receiver);
         
