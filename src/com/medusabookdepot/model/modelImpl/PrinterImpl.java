@@ -3,9 +3,11 @@
  */
 package com.medusabookdepot.model.modelImpl;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import com.medusabookdepot.model.modelInterface.CanSendTransferrer;
+import com.medusabookdepot.model.modelInterface.Customer;
 import com.medusabookdepot.model.modelInterface.Printer;
 import com.medusabookdepot.model.modelInterface.StandardBook;
 
@@ -13,7 +15,7 @@ import com.medusabookdepot.model.modelInterface.StandardBook;
  * @author Marcello_Feroce
  *
  */
-public class PrinterImpl extends CustomerImpl implements Printer,CanSendTransferrer {
+public class PrinterImpl extends CustomerImpl implements Printer,Customer,CanSendTransferrer,Serializable {
 
     /**
      * 
