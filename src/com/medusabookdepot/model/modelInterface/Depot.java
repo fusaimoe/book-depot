@@ -3,6 +3,8 @@
  */
 package com.medusabookdepot.model.modelInterface;
 
+import java.util.Map;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 
@@ -33,7 +35,8 @@ public interface Depot extends CanSendTransferrer{
      * @return the quantity of the books in the depot, having that title
      */
     public int getQuantityFromTitle(String title);
-    
+    public void removeBooks(Map<StandardBook,Integer> books);
+    public void addBooks(Map<StandardBook,Integer> books);
     public IntegerProperty getQuantityFromTitleProperty(String title);
     /**
      * 
