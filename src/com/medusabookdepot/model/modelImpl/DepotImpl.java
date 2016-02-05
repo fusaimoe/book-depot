@@ -199,5 +199,34 @@ public class DepotImpl extends TransferrerImpl implements Depot, Serializable {
         }
     }
 
+    @Override
+    public Map<StandardBook, Integer> getBooksFromStandardBookIsbnAndQuantity(Pair<String, Integer>... isbnsAndQuantities) {
+        if(isbnsAndQuantities.length==0) {
+            return this.books;
+        }
+        else {
+            List<String>isbnsl=new ArrayList<>();
+            List<Pair<String, Integer>>isbnsAndQuantitiesl=new ArrayList<>();
+            for(Pair<String, Integer> iAQ:isbnsAndQuantities) {
+                isbnsl.add(iAQ.getFirst());
+                isbnsAndQuantitiesl.add(iAQ);
+            }
+            Map<StandardBook,Integer> libri=new HashMap<>();
+            for(Entry<StandardBook,Integer> entry :this.books.entrySet()) {
+                if(isbnsl.contains(entry.getKey().getIsbn())) {
+                    Pair<String, Integer>pa = null;
+                    for(Pair<String, Integer>p:isbnsAndQuantitiesl) {
+                        if(p.getFirst().equals(entry.getKey().getIsbn())) {
+                            pa=p;
+                            break;
+                        }
+                    }
+                    libri.put(entry.getKey(),pa.getSecond());
+                }
+            }
+            return libri;
+        }
+    }
+
 
 }
