@@ -173,5 +173,10 @@ public class DepotImpl extends TransferrerImpl implements Depot, Serializable {
         
     }
 
+    @Override
+    public boolean isADepot() {
+        return true;
+    }
+
 
 }

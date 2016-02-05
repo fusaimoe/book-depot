@@ -61,13 +61,13 @@ public class TransferManagerImpl implements TransferManager {
         }
         DepotManager dm=DepotManagerImpl.getInstanceOfDepotManger();
         if(transfer.getSender().contains(transfer.getBooks())) {
-            if(transfer.getSender() instanceof DepotImpl && dm.getAllDepots().contains(transfer.getSender())) {
+            if(transfer.getSender().isADepot() && dm.getAllDepots().contains(transfer.getSender())) {
                 Depot dep=(Depot) transfer.getSender();
                 dm.removeDepot(dep);
                 dep.removeBooks(transfer.getBooks());
                 dm.addDepot(dep);
             }
-            if(transfer.getReceiver() instanceof DepotImpl&& dm.getAllDepots().contains(transfer.getReceiver())) {
+            if(transfer.getReceiver().isADepot() && dm.getAllDepots().contains(transfer.getReceiver())) {
                 Depot depo=(Depot) transfer.getReceiver();
                 dm.removeDepot(depo);
                 depo.addBooks(transfer.getBooks());
