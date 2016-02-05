@@ -26,6 +26,10 @@ public class DepotManagerImpl implements DepotManager {
         //costruttore privato!
         this.defaultFileName="depositi.dat";
         this.depots=getDepotsFromFile(this.defaultFileName);
+        File f=new File(System.getProperty("user.home")+System.getProperty("file.separator")+"filesMedusa");
+        if(!f.exists()&&!f.isDirectory()) {
+            f.mkdir();
+        }
     }
     
     public static DepotManager getInstanceOfDepotManger() {
@@ -112,7 +116,7 @@ public class DepotManagerImpl implements DepotManager {
     }
     
     private String getFilePath(String fileName) {
-        String filepath = System.getProperty("user.home")+System.getProperty("file.separator")+ fileName;
+        String filepath = System.getProperty("user.home")+System.getProperty("file.separator")+"filesMedusa"+System.getProperty("file.separator")+fileName;
         return filepath;
     }
     @SuppressWarnings("unchecked")
