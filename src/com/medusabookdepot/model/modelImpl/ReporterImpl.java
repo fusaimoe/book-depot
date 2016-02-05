@@ -28,6 +28,7 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.medusabookdepot.model.modelInterface.Reporter;
+import com.medusabookdepot.model.modelInterface.StandardBook;
 import com.medusabookdepot.model.modelInterface.Transfer;
 
 public class ReporterImpl implements Reporter {
@@ -77,6 +78,13 @@ public class ReporterImpl implements Reporter {
                     bw.write("          data di partenza="+t.getLeavingDate());bw.newLine();
                     bw.write("          mittente="+t.getSender().getName());bw.newLine();
                     bw.write("          destinatario="+t.getReceiver().getName());bw.newLine();
+                    bw.write("          numero di libri="+t.getQuantity());bw.newLine();
+                    bw.write("          libri:");bw.newLine();
+                    int y=0;
+                    for(StandardBook b:t.getBooks().keySet()) {
+                        bw.write("                  tipo di libro "+(y+1)+", isbn: "+ b.getIsbn()+", titolo "+b.getTitle()+"; in quantità "+t.getBooks().get(b));bw.newLine();
+                        y++;
+                    }
                 }
                 bw.newLine();
             }
@@ -262,7 +270,7 @@ public class ReporterImpl implements Reporter {
     public static void main(String...args) {
         Reporter r=ReporterImpl.getInstanceOfReporter();
         System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().get(0));
-        r.buildReport(2,3,2013,2,1,2015,"reso.txt");
+        r.buildReport(2,3,2013,4,6,2015,"reso.txt");
         //r.sendEmail("ferocemarcello@gmail.com", "ferocemarcello@virgilio.it");
         //r.sendEmail2("ferocemarcello@gmail.com", "ferocemarcello@virgilio.it", "prova", "messagio di prova");
     }
