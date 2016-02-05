@@ -48,6 +48,10 @@ public abstract class CustomerImpl extends TransferrerImpl implements Customer,S
         this.telephoneNumber=telephoneNumber;
     }
     @Override
+    public boolean isADepot() {
+        return false;
+    }
+    @Override
     public StringProperty getAddressProperty() {
         // TODO Auto-generated method stub
         return null;
