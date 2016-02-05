@@ -73,7 +73,7 @@ public class ReporterImpl implements Reporter {
                     x++;
                     bw.write("trasferimento "+x+":");bw.newLine();
                     bw.write("          tracking number="+t.getTrackingNumber());bw.newLine();
-                    bw.write("          prezzo totale="+t.getTotalPrice());bw.newLine();
+                    bw.write("          prezzo totale="+t.getTotalPrice()+" €");bw.newLine();
                     bw.write("          data di partenza="+t.getLeavingDate());bw.newLine();
                     bw.write("          mittente="+t.getSender().getName());bw.newLine();
                     bw.write("          destinatario="+t.getReceiver().getName());bw.newLine();
@@ -197,7 +197,7 @@ public class ReporterImpl implements Reporter {
  
             Document pdfDoc = new Document();  
             String output_file =file.getParent()+System.getProperty("file.separator")+file.getName().substring(0, file.getName().length()-3)+"pdf";  
-            PdfWriter writer=PdfWriter.getInstance(pdfDoc,new FileOutputStream(output_file));  
+            PdfWriter.getInstance(pdfDoc,new FileOutputStream(output_file));  
             pdfDoc.open();  
             pdfDoc.setMarginMirroring(true);  
             pdfDoc.setMargins(36, 72, 108,180);  
@@ -261,7 +261,7 @@ public class ReporterImpl implements Reporter {
     }
     public static void main(String...args) {
         Reporter r=ReporterImpl.getInstanceOfReporter();
-
+        System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().get(0));
         r.buildReport(2,3,2013,2,1,2015,"reso.txt");
         //r.sendEmail("ferocemarcello@gmail.com", "ferocemarcello@virgilio.it");
         r.sendEmail2("ferocemarcello@gmail.com", "ferocemarcello@virgilio.it", "prova", "messagio di prova");
