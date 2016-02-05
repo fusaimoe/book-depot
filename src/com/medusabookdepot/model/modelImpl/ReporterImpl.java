@@ -35,6 +35,10 @@ public class ReporterImpl implements Reporter {
     private static ReporterImpl single=null;//singleton
     private ReporterImpl() {
         //costruttore privato!
+        File f=new File(System.getProperty("user.home")+System.getProperty("file.separator")+"filesMedusa");
+        if(!f.exists()&&!f.isDirectory()) {
+            f.mkdir();
+        }
     }
     
     public static Reporter getInstanceOfReporter() {
@@ -46,6 +50,11 @@ public class ReporterImpl implements Reporter {
             return ReporterImpl.single;
         }
     }
+    
+    private String getFilePath(String fileName) {
+        String filepath = System.getProperty("user.home")+System.getProperty("file.separator")+"filesMedusa"+System.getProperty("file.separator")+fileName;
+        return filepath;
+    }
     @Override
     public void buildReport(int dayBegin,int monthBegin, int yearBegin,int dayEnd,int monthEnd, int yearEnd,String fileName) {
         List<Transfer> transes=TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers();
@@ -55,7 +64,7 @@ public class ReporterImpl implements Reporter {
         Calendar c2=Calendar.getInstance();c2.set(yearEnd, monthEnd-1, dayEnd, 23, 59, 59);
         Date dateEnd=c2.getTime();
         try {
-            bw = new BufferedWriter(new FileWriter(System.getProperty("user.home")+System.getProperty("file.separator")+ fileName, false));
+            bw = new BufferedWriter(new FileWriter(this.getFilePath(fileName), false));
             int x=0;
             bw.write("trasferimenti da "+dateBeg+" a "+dateEnd);
             bw.newLine();
@@ -76,7 +85,7 @@ public class ReporterImpl implements Reporter {
             e.printStackTrace();
         }
         try {
-            this.convertTextToPDF(new File(System.getProperty("user.home")+System.getProperty("file.separator")+ fileName));
+            this.convertTextToPDF(new File(this.getFilePath(fileName)));
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

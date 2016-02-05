@@ -28,11 +28,14 @@ public class TransferManagerImpl implements TransferManager {
     private static TransferManager sing=null;//singleton
     private List<Transfer> transfers;//List that contains all transfers alive
     private String defaultFileName;
-    
     private TransferManagerImpl() {
         //costruttore privato!
         this.defaultFileName="trasferimenti.dat";
         this.transfers=getTransfersFromFile(this.defaultFileName);
+        File f=new File(System.getProperty("user.home")+System.getProperty("file.separator")+"filesMedusa");
+        if(!f.exists()&&!f.isDirectory()) {
+            f.mkdir();
+        }
         
     }
     
@@ -140,7 +143,7 @@ public class TransferManagerImpl implements TransferManager {
         
     }
     private String getFilePath(String fileName) {
-        String filepath = System.getProperty("user.home")+System.getProperty("file.separator")+ fileName;
+        String filepath = System.getProperty("user.home")+System.getProperty("file.separator")+"filesMedusa"+System.getProperty("file.separator")+fileName;
         return filepath;
     }
 
