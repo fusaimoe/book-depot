@@ -197,7 +197,6 @@ public class TransferManagerImpl implements TransferManager {
                 e.printStackTrace();
             }
         }
-        
     }
     private List<String> getAllTrackings() {
         List<String> lis=new ArrayList<>();
