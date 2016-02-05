@@ -32,6 +32,7 @@ public class TransferImpl implements Transfer, Serializable{
     private java.util.Date leavingDate;
     private String trackingNumber;
     private Map<StandardBook,Integer> books;
+    private boolean arrived;
     
     public TransferImpl(CanSendTransferrer sender,Transferrer receiver,java.util.Date leavingDate, Map<StandardBook,Integer> books) {
         this.sender=sender;
@@ -181,5 +182,14 @@ public class TransferImpl implements Transfer, Serializable{
     public StringProperty getBooksAsStringProperty() {
         // TODO Auto-generated method stub
         return null;
+    }
+    @Override
+    public boolean isArrived() {
+        return this.arrived;
+    }
+    @Override
+    public void setArrived(boolean arrived) {
+        this.arrived=arrived;
+        
     }
 }

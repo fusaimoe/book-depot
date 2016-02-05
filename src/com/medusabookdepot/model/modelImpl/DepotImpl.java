@@ -29,7 +29,13 @@ public class DepotImpl extends TransferrerImpl implements Depot, Serializable {
     private Map<StandardBook,Integer> books;
     public DepotImpl(String name,Map<StandardBook,Integer> books) {
         super(name);
-        this.books=books;
+        if(books==null) {
+            this.books=new HashMap<StandardBook,Integer>();
+        }
+        else {
+            this.books=books;
+        }
+        
         this.isDepot=true;
     }
     

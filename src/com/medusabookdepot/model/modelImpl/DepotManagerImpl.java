@@ -25,11 +25,11 @@ public class DepotManagerImpl implements DepotManager {
     private DepotManagerImpl() {
         //costruttore privato!
         this.defaultFileName="depositi.dat";
-        this.depots=getDepotsFromFile(this.defaultFileName);
         File f=new File(System.getProperty("user.home")+System.getProperty("file.separator")+"filesMedusa");
         if(!f.exists()&&!f.isDirectory()) {
             f.mkdir();
         }
+        this.depots=getDepotsFromFile(this.defaultFileName);
     }
     
     public static DepotManager getInstanceOfDepotManger() {
