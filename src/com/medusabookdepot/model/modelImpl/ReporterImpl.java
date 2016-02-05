@@ -46,10 +46,9 @@ public class ReporterImpl implements Reporter {
             return ReporterImpl.single;
         }
     }
-    @SuppressWarnings("unchecked")
     @Override
     public void buildReport(int dayBegin,int monthBegin, int yearBegin,int dayEnd,int monthEnd, int yearEnd,String fileName) {
-        List<Transfer> transes=(List<Transfer>)TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers();
+        List<Transfer> transes=TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers();
         BufferedWriter bw;
         Calendar c1=Calendar.getInstance();c1.set(yearBegin, monthBegin-1, dayBegin, 0, 0, 0);
         Date dateBeg=c1.getTime();
