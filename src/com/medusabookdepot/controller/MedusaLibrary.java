@@ -1,8 +1,6 @@
 package com.medusabookdepot.controller;
 
 import com.medusabookdepot.model.modelImpl.LibraryImpl;
-import com.medusabookdepot.model.modelInterface.Library;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -11,7 +9,7 @@ public class MedusaLibrary {
 	/**
 	 * The list that contain all saved libraries
 	 */
-	private final ObservableList<Library> libraries = FXCollections.observableArrayList();
+	private final ObservableList<LibraryImpl> libraries = FXCollections.observableArrayList();
 	
 	/**
 	 * Add a new library to the list of all libraries
@@ -27,7 +25,7 @@ public class MedusaLibrary {
 	 * Remove a library from the list
 	 * @param lib
 	 */
-	public void deleteLibrary(Library lib){
+	public void deleteLibrary(LibraryImpl lib){
 		
 		libraries.remove(lib);
 	}

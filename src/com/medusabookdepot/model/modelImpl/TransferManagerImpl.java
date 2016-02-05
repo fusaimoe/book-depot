@@ -14,10 +14,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.medusabookdepot.model.modelInterface.CanSendTransferrer;
+import com.medusabookdepot.model.modelInterface.Customer;
 import com.medusabookdepot.model.modelInterface.Depot;
 import com.medusabookdepot.model.modelInterface.DepotManager;
-import com.medusabookdepot.model.modelInterface.Library;
-import com.medusabookdepot.model.modelInterface.Printer;
 import com.medusabookdepot.model.modelInterface.StandardBook;
 import com.medusabookdepot.model.modelInterface.Transfer;
 import com.medusabookdepot.model.modelInterface.TransferManager;
@@ -232,7 +231,7 @@ public class TransferManagerImpl implements TransferManager {
         Map<StandardBook, Integer>mm2=new HashMap<>();
         mm2.put(new StandardBookImpl("evdfb ", "gauss", 2040, 20,"mate", "calcolo", "fabrizio caselli", 234), Integer.valueOf(8));
         mm2.put(new StandardBookImpl("eerdfs ", "lambdas", 2051, 50,"labo", "oop", "lionel Ritchie", 400), Integer.valueOf(20));
-        Printer prin=new PrinterImpl("printer", "via roma 3", "07184939");
+        CanSendTransferrer prin=new PrinterImpl("printer", "via roma 3", "07184939");
         Depot trad2=new DepotImpl("sw", mm2);
         DepotManagerImpl.getInstanceOfDepotManger().addDepot(trad2);
         
@@ -246,7 +245,7 @@ public class TransferManagerImpl implements TransferManager {
         mm3.put(new StandardBookImpl("eerdddfs ", "bo2",1999, 520,"chennes", "ignoranza", "lionel messi", 4020), Integer.valueOf(11));
         Calendar cal3 =Calendar.getInstance();
         cal2.set(2015,5, 4);
-        Library l=new LibraryImpl("da rosi", "via mia 3", "07123422");
+        CanSendTransferrer l=new LibraryImpl("da rosi", "via mia 3", "07123422");
         Transfer tr3=new TransferImpl(l, trad2, cal3.getTime(), mm3);
         System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(0));
         System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(1));

@@ -6,15 +6,15 @@ package com.medusabookdepot.model.modelImpl;
 import java.io.Serializable;
 import java.util.Map;
 
+import com.medusabookdepot.model.modelInterface.CanSendTransferrer;
 import com.medusabookdepot.model.modelInterface.Customer;
-import com.medusabookdepot.model.modelInterface.Library;
 import com.medusabookdepot.model.modelInterface.StandardBook;
 
 /**
  * @author Marcello_Feroce
  *
  */
-public class LibraryImpl extends CustomerImpl implements Library,Customer,Serializable{
+public class LibraryImpl extends CustomerImpl implements Customer,CanSendTransferrer,Serializable{
 
     /**
      * 

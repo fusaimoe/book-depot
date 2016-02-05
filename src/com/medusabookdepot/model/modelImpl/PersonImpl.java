@@ -5,13 +5,13 @@ package com.medusabookdepot.model.modelImpl;
 
 import java.io.Serializable;
 
-import com.medusabookdepot.model.modelInterface.Person;
+import com.medusabookdepot.model.modelInterface.Customer;
 
 /**
  * @author Marcello_Feroce
  *
  */
-public class PersonImpl extends CustomerImpl implements Person , Serializable{
+public class PersonImpl extends CustomerImpl implements Customer, Serializable{
 
     /**
      * 
