@@ -15,7 +15,6 @@ import java.util.Map;
 import com.medusabookdepot.model.modelInterface.Depot;
 import com.medusabookdepot.model.modelInterface.DepotManager;
 import com.medusabookdepot.model.modelInterface.StandardBook;
-import com.medusabookdepot.model.modelInterface.Transfer;
 
 public class DepotManagerImpl implements DepotManager {
 

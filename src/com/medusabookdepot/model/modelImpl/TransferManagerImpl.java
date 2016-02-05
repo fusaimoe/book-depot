@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.medusabookdepot.model.modelInterface.CanSendTransferrer;
-import com.medusabookdepot.model.modelInterface.Customer;
 import com.medusabookdepot.model.modelInterface.Depot;
 import com.medusabookdepot.model.modelInterface.DepotManager;
 import com.medusabookdepot.model.modelInterface.StandardBook;
@@ -48,7 +47,7 @@ public class TransferManagerImpl implements TransferManager {
     }
 
     @Override
-    public List<? extends Transfer> getAllTransfers() {
+    public List<Transfer> getAllTransfers() {
         return this.transfers;
     }
 
@@ -170,13 +169,13 @@ public class TransferManagerImpl implements TransferManager {
             return trans;
         }
     }
+    @SuppressWarnings("unchecked")
     @Override
     public void registerTransfersFromFile(File f) {
         if(f.exists()&&!f.isDirectory()) {
             try {
                 ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(f));
                 if(f.exists()&&!f.isDirectory()) {
-                    @SuppressWarnings("unchecked")
                     List<Transfer> trans=(ArrayList<Transfer>) objectInputStream.readObject();
                     for(Transfer t:trans){
                         if(!this.getAllTrackings().contains(t.getTrackingNumber())) {

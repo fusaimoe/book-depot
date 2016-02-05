@@ -9,7 +9,7 @@ import javafx.collections.ObservableList;
 public interface TransferManager {
     
     
-    public List<? extends Transfer>getAllTransfers();
+    public List<Transfer>getAllTransfers();
     public ObservableList<? extends Transfer> getAllTransfersProperty();
     
     public void addTransfer(final Transfer transfer);

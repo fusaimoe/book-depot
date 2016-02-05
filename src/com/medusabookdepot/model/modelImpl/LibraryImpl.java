@@ -28,7 +28,7 @@ public class LibraryImpl extends CustomerImpl implements Customer,CanSendTransfe
     }
     @Override
     public String toString() {
-        return this.name+"\n"+this.address+"\n"+this.telephoneNumber+"\n";
+        return "Libreria: "+this.name+"\n"+this.address+"\n"+this.telephoneNumber+"\n";
         
     }
     @Override
