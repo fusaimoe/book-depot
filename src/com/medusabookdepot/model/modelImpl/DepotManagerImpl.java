@@ -15,6 +15,7 @@ import java.util.Map;
 import com.medusabookdepot.model.modelInterface.Depot;
 import com.medusabookdepot.model.modelInterface.DepotManager;
 import com.medusabookdepot.model.modelInterface.StandardBook;
+import com.medusabookdepot.model.modelInterface.Transfer;
 
 public class DepotManagerImpl implements DepotManager {
 
@@ -57,9 +58,52 @@ public class DepotManagerImpl implements DepotManager {
     public void addDepot(String name, Map<StandardBook, Integer> books) {
         Depot depot=new DepotImpl(name, books);
         this.depots.add(depot);
-        this.writeDepotOnFile(this.defaultFileName,depot);
     }
-
+    @SuppressWarnings("unchecked")
+    private List<Depot> getDepotsFromFile(String fileName) {
+        List<Depot> deps=new ArrayList<>();
+        File f = new File(getFilePath(fileName));
+        if(!f.exists()) {
+            return new ArrayList<>();
+        }
+        else {
+            try {
+                ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(getFilePath(fileName)));
+                try {
+                    deps =(ArrayList<Depot>) objectInputStream.readObject();
+                    objectInputStream.close();
+                    
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return deps;
+        }
+    }
+    @Override
+    public void registerDepotsFromFile(File f) {
+        if(f.exists()&&!f.isDirectory()) {
+            try {
+                ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(f));
+                if(f.exists()&&!f.isDirectory()) {
+                    List<Depot> depots=(ArrayList<Depot>) objectInputStream.readObject();
+                    for(Depot d:depots){
+                        this.addDepot(d);
+                    }
+                }
+                objectInputStream.close();
+                
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     @Override
     public void removeDepot(Depot depot) {
         this.depots.remove(depot);
@@ -118,31 +162,6 @@ public class DepotManagerImpl implements DepotManager {
     private String getFilePath(String fileName) {
         String filepath = System.getProperty("user.home")+System.getProperty("file.separator")+"filesMedusa"+System.getProperty("file.separator")+fileName;
         return filepath;
-    }
-    @SuppressWarnings("unchecked")
-    private List<Depot> getDepotsFromFile(String fileName) {
-        List<Depot> deps=new ArrayList<>();
-        File f = new File(getFilePath(fileName));
-        if(!f.exists()) {
-            return new ArrayList<>();
-        }
-        else {
-            try {
-                ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(getFilePath(fileName)));
-                try {
-                    deps =(ArrayList<Depot>) objectInputStream.readObject();
-                    objectInputStream.close();
-                    
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return deps;
-        }
     }
 
     @Override

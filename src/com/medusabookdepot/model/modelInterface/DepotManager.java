@@ -1,5 +1,6 @@
 package com.medusabookdepot.model.modelInterface;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -17,4 +18,6 @@ public interface DepotManager {
     public void setDefaultFileName(String DefaultFileName);
     
     public String getDefaultFileName();
+
+    void registerDepotsFromFile(File f);
 }
