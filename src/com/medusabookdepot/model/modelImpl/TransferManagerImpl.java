@@ -252,7 +252,7 @@ public class TransferManagerImpl implements TransferManager {
         mm3.put(new StandardBookImpl("eddvdfb ", "bo1", 1933, 202,"chennes", "malvagità", "gente a caso", 214), Integer.valueOf(2));
         mm3.put(new StandardBookImpl("eerdddfs ", "bo2",1999, 520,"chennes", "ignoranza", "lionel messi", 4020), Integer.valueOf(11));
         Calendar cal3 =Calendar.getInstance();
-        cal2.set(2015,5, 4);
+        cal3.set(2015,5, 4);
         CanSendTransferrer l=new LibraryImpl("da rosi", "via mia 3", "07123422");
         Transfer tr3=new TransferImpl(l, trad2, cal3.getTime(), mm3);
         System.out.println(tr);
