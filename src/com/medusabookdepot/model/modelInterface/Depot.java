@@ -5,6 +5,8 @@ package com.medusabookdepot.model.modelInterface;
 
 import java.util.Map;
 
+import com.medusabookdepot.model.modelImpl.Pair;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 
@@ -60,4 +62,5 @@ public interface Depot extends CanSendTransferrer{
     public StringProperty getBooksAsStringProperty();
     
     public Map<StandardBook,Integer> getBooksFromStandardBookIsbn(String...isbns);
+    public Map<StandardBook,Integer> getBooksFromStandardBookIsbnAndQuantity(Pair<String,Integer>...isbnsAndQuantities);
 }
