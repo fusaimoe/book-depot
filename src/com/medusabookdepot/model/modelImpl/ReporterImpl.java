@@ -264,6 +264,6 @@ public class ReporterImpl implements Reporter {
         System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().get(0));
         r.buildReport(2,3,2013,2,1,2015,"reso.txt");
         //r.sendEmail("ferocemarcello@gmail.com", "ferocemarcello@virgilio.it");
-        r.sendEmail2("ferocemarcello@gmail.com", "ferocemarcello@virgilio.it", "prova", "messagio di prova");
+        //r.sendEmail2("ferocemarcello@gmail.com", "ferocemarcello@virgilio.it", "prova", "messagio di prova");
     }
 }

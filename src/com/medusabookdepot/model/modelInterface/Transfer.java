@@ -54,5 +54,8 @@ public interface Transfer {
 
         public String getBooksAsString();
         public StringProperty getBooksAsStringProperty();
+        
+        public boolean isArrived();
+        public void setArrived(boolean arrived);
 
 }
