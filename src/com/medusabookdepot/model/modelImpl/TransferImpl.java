@@ -5,8 +5,6 @@ package com.medusabookdepot.model.modelImpl;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
@@ -51,21 +49,7 @@ public class TransferImpl implements Transfer, Serializable{
         this.trackingNumber=trackingNumber;
     }
     public String getNewTrackingNumber() {
-        List<String>allTrackings=new ArrayList<>();
-        if(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().isEmpty()) {
-            Random rm=new Random();
-            String tr=String.valueOf(rm.nextInt(1000000));
-            return tr;
-        }
-        for(Transfer trans:TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers()){
-            allTrackings.add(trans.getTrackingNumber());
-        }
-        Random rm=new Random();
-        String tr=String.valueOf(rm.nextInt(1000000));
-        while(!allTrackings.contains(tr)) {
-            tr=String.valueOf(rm.nextInt(1000000));
-        }
-        return tr;
+        return String.valueOf(new Random().nextInt(1000000));
     }
     @Override
     public CanSendTransferrer getSender() {
@@ -144,7 +128,7 @@ public class TransferImpl implements Transfer, Serializable{
     public int getTotalPrice() {
         int x=0;
         for(StandardBook libro :this.books.keySet()) {
-            x+=libro.getPrice();
+            x=x+libro.getPrice()*this.books.get(libro);
         }
         return x;
     }
@@ -171,7 +155,7 @@ public class TransferImpl implements Transfer, Serializable{
 
     }
     public String toString() {
-        return this.leavingDate+"\n"+this.receiver+"\n"+this.sender+"\n"+this.trackingNumber+"\n"+this.getQuantity()+"\n";
+        return this.leavingDate+"\n"+this.sender+"\n"+this.receiver+"\n"+this.trackingNumber+"\n"+this.getQuantity()+"\n";
     }
     @Override
     public Map<StandardBook, IntegerProperty> getBooksProperty() {

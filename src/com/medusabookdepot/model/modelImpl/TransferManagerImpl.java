@@ -56,17 +56,21 @@ public class TransferManagerImpl implements TransferManager {
 
     @Override
     public void addTransfer(Transfer transfer) {
+        List<String>allTrackings=new ArrayList<>();
         for(Transfer t:this.transfers) {
-            while(transfer.getTrackingNumber().equals(t.getTrackingNumber())) {//assegno un altro tracking number
-                transfer=new TransferImpl(transfer.getSender(), transfer.getReceiver(),transfer.getLeavingDate(), transfer.getBooks());
-            }
+            allTrackings.add(t.getTrackingNumber());
         }
+        while(allTrackings.contains(transfer.getTrackingNumber())) {//assegno un altro tracking number
+            transfer=new TransferImpl(transfer.getSender(), transfer.getReceiver(),transfer.getLeavingDate(), transfer.getBooks());
+        }
+        
         DepotManager dm=DepotManagerImpl.getInstanceOfDepotManger();
         if(transfer.getSender().contains(transfer.getBooks())) {
             if(transfer.getSender().isADepot() && dm.getAllDepots().contains(transfer.getSender())) {
                 Depot dep=(Depot) transfer.getSender();
                 dm.removeDepot(dep);
                 dep.removeBooks(transfer.getBooks());
+                /*System.out.println("in  "+transfer);*/
                 dm.addDepot(dep);
             }
             if(transfer.getReceiver().isADepot() && dm.getAllDepots().contains(transfer.getReceiver())) {
@@ -75,6 +79,7 @@ public class TransferManagerImpl implements TransferManager {
                 depo.addBooks(transfer.getBooks());
                 dm.addDepot(depo);
             }
+            
             this.transfers.add(transfer);
             this.writeTransferOnFile(this.defaultFileName,transfer);
         }
@@ -221,14 +226,16 @@ public class TransferManagerImpl implements TransferManager {
     }
     public static void main(String ...strings) {
         Map<StandardBook, Integer>mm=new HashMap<>();
-        mm.put(new StandardBookImpl("iiiinb ", "eeee", 2010, 43,"infoblew", "sisos", "io", 23), Integer.valueOf(5));
-        mm.put(new StandardBookImpl("iiiissnb ", "fff", 2011, 32,"infoblew", "oop", "io", 40), Integer.valueOf(9));
+        mm.put(new StandardBookImpl("iiiinb", "eeee", 2010, 43,"infoblew", "sisos", "io", 23), Integer.valueOf(5));
+        mm.put(new StandardBookImpl("iiiissnb", "fff", 2011, 32,"infoblew", "oop", "io", 40), Integer.valueOf(9));
         Transferrer per=new PersonImpl("joy", "via lazio 4", "333 332 332");
         Depot trad=new DepotImpl("D1", mm);
         DepotManagerImpl.getInstanceOfDepotManger().addDepot(trad);
         Calendar cal =Calendar.getInstance();
         cal.set(2013, 2, 2);
-        Transfer tr=new TransferImpl(trad, per,cal.getTime() , mm, "883737");
+        Map<StandardBook, Integer>mapps=trad.getBooksFromStandardBookIsbn("iiiissnb");
+        Transfer tr=new TransferImpl(trad, per,cal.getTime() , mapps, "883737");
+        
         
         Map<StandardBook, Integer>mm2=new HashMap<>();
         mm2.put(new StandardBookImpl("evdfb ", "gauss", 2040, 20,"mate", "calcolo", "fabrizio caselli", 234), Integer.valueOf(8));
@@ -249,8 +256,7 @@ public class TransferManagerImpl implements TransferManager {
         cal2.set(2015,5, 4);
         CanSendTransferrer l=new LibraryImpl("da rosi", "via mia 3", "07123422");
         Transfer tr3=new TransferImpl(l, trad2, cal3.getTime(), mm3);
-        System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(0));
-        System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(1));
+        System.out.println(tr);
         TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr);
         TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr2);
         TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr3);

@@ -58,4 +58,6 @@ public interface Depot extends CanSendTransferrer{
     public String getBooksAsString();
     
     public StringProperty getBooksAsStringProperty();
+    
+    public Map<StandardBook,Integer> getBooksFromStandardBookIsbn(String...isbns);
 }

@@ -5,6 +5,7 @@ package com.medusabookdepot.model.modelImpl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -176,6 +177,26 @@ public class DepotImpl extends TransferrerImpl implements Depot, Serializable {
     @Override
     public boolean isADepot() {
         return true;
+    }
+
+    @Override
+    public Map<StandardBook, Integer> getBooksFromStandardBookIsbn(String... isbns) {
+        if(isbns.length==0) {
+            return this.books;
+        }
+        else {
+            List<String>isbnsl=new ArrayList<>();
+            for(String isbn:isbns) {
+                isbnsl.add(isbn);
+            }
+            Map<StandardBook,Integer> libri=new HashMap<>();
+            for(Entry<StandardBook,Integer> entry :this.books.entrySet()) {
+                if(isbnsl.contains(entry.getKey().getIsbn())) {
+                    libri.put(entry.getKey(), entry.getValue());
+                }
+            }
+            return libri;
+        }
     }
 
 
