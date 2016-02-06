@@ -19,7 +19,7 @@ import com.medusabookdepot.model.modelInterface.Transfer;
 
 public class DepotManagerImpl implements DepotManager {
 
-    private static DepotManager single=null;//singleton
+    private static DepotManager single;//singleton
     private List<Depot> depots;//List that contains all depots alive
     private String defaultFileName;
     
@@ -84,6 +84,15 @@ public class DepotManagerImpl implements DepotManager {
             return deps;
         }
     }
+    public boolean hasIn(Depot depot) {//fatto questo metodo, al posto di contains, perchè la contains
+        for(Depot dep:this.depots) {//lavora sull'uguaglianza dell'oggetto
+            if(dep.getName().equals(depot.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     @Override
     public void registerDepotsFromFile(File f) {
         if(f.exists()&&!f.isDirectory()) {
@@ -111,8 +120,8 @@ public class DepotManagerImpl implements DepotManager {
     }
     @Override
     public void removeDepot(int index) {
-        this.depots.remove(index);
-        this.removeDepotFromFile(this.defaultFileName,index);
+        Depot dep=this.depots.get(index);
+        this.removeDepot(dep);
     }
     
     private void writeDepotOnFile(String fileName, Depot depot) {

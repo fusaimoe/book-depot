@@ -20,4 +20,6 @@ public interface DepotManager {
     public String getDefaultFileName();
 
     void registerDepotsFromFile(File f);
+    
+    public boolean hasIn(Depot depot);
 }

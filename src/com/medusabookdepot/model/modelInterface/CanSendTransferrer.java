@@ -4,5 +4,5 @@ import java.util.Map;
 
 public interface CanSendTransferrer extends Transferrer{
     
-    public boolean contains(Map<StandardBook,Integer> books);
+    public boolean containsBooks(Map<StandardBook,Integer> books);
 }
