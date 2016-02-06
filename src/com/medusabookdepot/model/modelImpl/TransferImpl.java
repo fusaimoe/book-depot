@@ -68,6 +68,13 @@ public class TransferImpl implements Transfer, Serializable{
 
     @Override
     public Transferrer getReceiver() {
+        if(this.receiver.isADepot()) {//copia difensiva!
+            Depot cs=(Depot)this.receiver;
+            Map<StandardBook,Integer>m=new HashMap<>();
+            m=cs.getBooksFromStandardBookIsbn();
+            cs=new DepotImpl(new String(this.receiver.getName()),m);
+            return cs;
+        }
         return this.receiver;
     }
 
