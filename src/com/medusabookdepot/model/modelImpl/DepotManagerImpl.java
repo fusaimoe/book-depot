@@ -57,7 +57,7 @@ public class DepotManagerImpl implements DepotManager {
     @Override
     public void addDepot(String name, Map<StandardBook, Integer> books) {
         Depot depot=new DepotImpl(name, books);
-        this.depots.add(depot);
+        this.addDepot(depot);
     }
     @SuppressWarnings("unchecked")
     private List<Depot> getDepotsFromFile(String fileName) {

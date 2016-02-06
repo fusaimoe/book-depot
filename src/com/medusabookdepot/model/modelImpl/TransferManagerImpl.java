@@ -261,8 +261,8 @@ public class TransferManagerImpl implements TransferManager {
         //TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr3);
         System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().get(0));
         System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().get(1));
-        //System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(0));
-        //System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(1));
+        System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(0));
+        System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(1));
     }
 
     
