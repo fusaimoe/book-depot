@@ -32,7 +32,7 @@ public class LibraryImpl extends CustomerImpl implements Customer,CanSendTransfe
         
     }
     @Override
-    public boolean contains(Map<StandardBook, Integer> books) {
+    public boolean containsBooks(Map<StandardBook, Integer> books) {
         return true;
     }
    

@@ -25,9 +25,10 @@ import javafx.collections.ObservableList;
 
 
 public class TransferManagerImpl implements TransferManager {
-    private static TransferManager sing=null;//singleton
+    private static TransferManager sing;//singleton
     private List<Transfer> transfers;//List that contains all transfers alive
     private String defaultFileName;
+    
     private TransferManagerImpl() {
         //costruttore privato!
         this.defaultFileName="trasferimenti.dat";
@@ -53,7 +54,7 @@ public class TransferManagerImpl implements TransferManager {
     public List<Transfer> getAllTransfers() {
         return this.transfers;
     }
-
+    
     @Override
     public void addTransfer(Transfer transfer) {
         if(!this.transfers.isEmpty()) {
@@ -65,15 +66,17 @@ public class TransferManagerImpl implements TransferManager {
                 transfer=new TransferImpl(transfer.getSender(), transfer.getReceiver(),transfer.getLeavingDate(), transfer.getBooks());
             }
         }
-        if(transfer.getSender().contains(transfer.getBooks())) {
+        if(transfer.getSender().containsBooks(transfer.getBooks())) {
             DepotManager dm=DepotManagerImpl.getInstanceOfDepotManger();
-            if(transfer.getSender().isADepot() && dm.getAllDepots().contains(transfer.getSender())) {
+            if(transfer.getSender().isADepot() && dm.hasIn((Depot) transfer.getSender())) {
                 Depot dep=(Depot) transfer.getSender();
+                System.out.println(dep);
                 dm.removeDepot(dep);
                 dep.removeBooks(transfer.getBooks());
+                System.out.println(dep);
                 dm.addDepot(dep);
             }
-            if(transfer.getReceiver().isADepot() && DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().contains(transfer.getReceiver())) {
+            if(transfer.getReceiver().isADepot() && dm.hasIn((Depot) transfer.getReceiver())) {
                 Depot depo=(Depot) transfer.getReceiver();
                 dm.removeDepot(depo);
                 depo.addBooks(transfer.getBooks());
@@ -254,15 +257,13 @@ public class TransferManagerImpl implements TransferManager {
         cal3.set(2015,5, 4);
         CanSendTransferrer l=new LibraryImpl("da rosi", "via mia 3", "07123422");
         Transfer tr3=new TransferImpl(l, trad2, cal3.getTime(), mm3);
-        System.out.println(tr);
-        System.out.println(tr2);
+        System.out.println(tr.getSender());
         TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr);
         TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr2);
         //TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr3);
         System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().get(0));
         System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().get(1));
-        System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(0));
-        System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(1));
+        
     }
 
     

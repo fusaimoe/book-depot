@@ -30,7 +30,7 @@ public class PrinterImpl extends CustomerImpl implements Customer,CanSendTransfe
         return "Stampa: "+this.name+"\n"+this.telephoneNumber+"\n"+this.address+"\n";
     }
     @Override
-    public boolean contains(Map<StandardBook, Integer> books) {
+    public boolean containsBooks(Map<StandardBook, Integer> books) {
         return true;
     }
 }
