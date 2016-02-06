@@ -5,11 +5,13 @@ package com.medusabookdepot.model.modelImpl;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
 import com.medusabookdepot.model.modelInterface.CanSendTransferrer;
+import com.medusabookdepot.model.modelInterface.Depot;
 import com.medusabookdepot.model.modelInterface.StandardBook;
 import com.medusabookdepot.model.modelInterface.Transfer;
 import com.medusabookdepot.model.modelInterface.Transferrer;
@@ -54,6 +56,13 @@ public class TransferImpl implements Transfer, Serializable{
     }
     @Override
     public CanSendTransferrer getSender() {
+        if(this.sender.isADepot()) {//copia difensiva!
+            Depot cs=(Depot)this.sender;
+            Map<StandardBook,Integer>m=new HashMap<>();
+            m=cs.getBooksFromStandardBookIsbn();
+            cs=new DepotImpl(new String(this.sender.getName()),m);
+            return cs;
+        }
         return this.sender;
     }
 
