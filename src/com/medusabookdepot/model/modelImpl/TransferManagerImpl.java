@@ -67,25 +67,29 @@ public class TransferManagerImpl implements TransferManager {
             }
         }
         if(transfer.getSender().containsBooks(transfer.getBooks())) {
-            DepotManager dm=DepotManagerImpl.getInstanceOfDepotManger();
-            if(transfer.getSender().isADepot() && dm.hasIn((Depot) transfer.getSender())) {
-                Depot dep=(Depot) transfer.getSender();
-                System.out.println(dep);
-                dm.removeDepot(dep);
-                dep.removeBooks(transfer.getBooks());
-                System.out.println(dep);
-                dm.addDepot(dep);
-            }
-            if(transfer.getReceiver().isADepot() && dm.hasIn((Depot) transfer.getReceiver())) {
+            this.modifyDepotsOnTransfer(transfer);
+            this.transfers.add(transfer);
+            this.writeTransferOnFile(this.defaultFileName,transfer);
+        }
+        
+    }
+    @Override
+    public void modifyDepotsOnTransfer(Transfer transfer) {
+        DepotManager dm=DepotManagerImpl.getInstanceOfDepotManger();
+        if(transfer.getSender().isADepot() && dm.hasIn((Depot) transfer.getSender())) {
+            Depot dep=(Depot) transfer.getSender();
+            dm.removeDepot(dep);
+            dep.removeBooks(transfer.getBooks());
+            dm.addDepot(dep);
+        }
+        if(transfer.getReceiver().isADepot() && dm.hasIn((Depot) transfer.getReceiver())) {
+            if(transfer.isArrived()) {//se è arrivato aggiungo i libri nel deposito di arrivo
                 Depot depo=(Depot) transfer.getReceiver();
                 dm.removeDepot(depo);
                 depo.addBooks(transfer.getBooks());
                 dm.addDepot(depo);
             }
-            this.transfers.add(transfer);
-            this.writeTransferOnFile(this.defaultFileName,transfer);
         }
-        
     }
     @Override
     public void addTransfer(CanSendTransferrer sender, Transferrer receiver, java.util.Date leavingDate,Map<StandardBook, Integer> books) {
@@ -260,7 +264,8 @@ public class TransferManagerImpl implements TransferManager {
         System.out.println(tr.getSender());
         TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr);
         TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr2);
-        //TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr3);
+        System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(0));
+        TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr3);
         System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().get(0));
         System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().get(1));
         
