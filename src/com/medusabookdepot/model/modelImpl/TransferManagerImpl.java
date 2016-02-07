@@ -74,7 +74,29 @@ public class TransferManagerImpl implements TransferManager {
         
     }
     @Override
-    public void modifyDepotsOnTransfer(Transfer transfer) {
+    public void modifyDepotOnLeavingTransfer(Transfer transfer) {
+        DepotManager dm=DepotManagerImpl.getInstanceOfDepotManger();
+        if(transfer.getSender().isADepot() && dm.hasIn((Depot) transfer.getSender())) {
+            Depot dep=(Depot) transfer.getSender();
+            dm.removeDepot(dep);
+            dep.removeBooks(transfer.getBooks());
+            dm.addDepot(dep);
+        }
+    }
+    @Override
+    public void modifyDepotOnArrivingTransfer(Transfer transfer) {
+        DepotManager dm=DepotManagerImpl.getInstanceOfDepotManger();
+        if(transfer.getReceiver().isADepot() && dm.hasIn((Depot) transfer.getReceiver())) {
+            if(transfer.isArrived()) {//se è arrivato aggiungo i libri nel deposito di arrivo
+                Depot depo=(Depot) transfer.getReceiver();
+                dm.removeDepot(depo);
+                depo.addBooks(transfer.getBooks());
+                dm.addDepot(depo);
+            }
+        }
+    }
+    @Override
+    public void modifyDepotsOnTransfer(Transfer transfer) {//ridondante
         DepotManager dm=DepotManagerImpl.getInstanceOfDepotManger();
         if(transfer.getSender().isADepot() && dm.hasIn((Depot) transfer.getSender())) {
             Depot dep=(Depot) transfer.getSender();
