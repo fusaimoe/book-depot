@@ -19,4 +19,5 @@ public interface TransferManager {
     public void registerTransfersFromFile(final File f);
     public void setDefaultFileName(String DefaultFileName);
     public String getDefaultFileName();
+    void modifyDepotsOnTransfer(Transfer transfer);
 }
