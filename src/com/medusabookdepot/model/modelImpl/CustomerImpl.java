@@ -13,7 +13,7 @@ import javafx.beans.property.StringProperty;
  * @author Marcello_Feroce
  *
  */
-public abstract class CustomerImpl extends TransferrerImpl implements Customer,Serializable {
+public abstract class CustomerImpl extends TransferrerImpl implements Customer,Serializable {//template method
 
     /**
      * 
@@ -21,8 +21,6 @@ public abstract class CustomerImpl extends TransferrerImpl implements Customer,S
     private static final long serialVersionUID = -9063812037630746920L;
     protected String address;
     protected String telephoneNumber;
-    protected boolean isHuman;
-    protected boolean isLibrary;
     public CustomerImpl(String name,String address, String telephoneNumber) {
         super(name);
         this.address=address;

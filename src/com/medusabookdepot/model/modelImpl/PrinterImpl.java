@@ -22,8 +22,6 @@ public class PrinterImpl extends CustomerImpl implements Customer,CanSendTransfe
     private static final long serialVersionUID = -8700734085567092049L;
     public PrinterImpl(String name, String address, String telephoneNumber) {
         super(name, address, telephoneNumber);
-        this.isHuman=false;
-        this.isLibrary=false;
     }
     @Override
     public String toString() {

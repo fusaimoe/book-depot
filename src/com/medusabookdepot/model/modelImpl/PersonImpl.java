@@ -19,8 +19,6 @@ public class PersonImpl extends CustomerImpl implements Customer,Serializable{
     private static final long serialVersionUID = -1881387138018701672L;
     public PersonImpl(String name, String address, String telephoneNumber) {
         super(name, address, telephoneNumber);
-        this.isHuman=true;
-        this.isLibrary=false;
     }
     @Override
     public String toString() {
