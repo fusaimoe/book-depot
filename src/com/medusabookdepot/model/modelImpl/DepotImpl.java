@@ -35,8 +35,6 @@ public class DepotImpl extends TransferrerImpl implements Depot, Serializable {
         else {
             this.books=books;
         }
-        
-        this.isDepot=true;
     }
     
     @Override

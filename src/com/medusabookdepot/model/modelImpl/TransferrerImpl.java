@@ -20,7 +20,6 @@ public abstract class TransferrerImpl implements Transferrer,Serializable{
      */
     private static final long serialVersionUID = -7387131023077698466L;
     protected String name;
-    protected boolean isDepot;
     public TransferrerImpl(String name) {
         this.name=name;
     }
