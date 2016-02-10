@@ -51,6 +51,12 @@ public abstract class CustomerImpl extends TransferrerImpl implements Customer,S
         return false;
     }
     @Override
+    public abstract boolean isAPrinter();
+    @Override
+    public abstract boolean isAPerson();
+    @Override
+    public abstract boolean isALibrary();
+    @Override
     public StringProperty getAddressProperty() {
         // TODO Auto-generated method stub
         return null;

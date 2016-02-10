@@ -35,5 +35,17 @@ public class LibraryImpl extends CustomerImpl implements Customer,CanSendTransfe
     public boolean containsBooks(Map<StandardBook, Integer> books) {
         return true;
     }
+    @Override
+    public boolean isAPrinter() {
+        return false;
+    }
+    @Override
+    public boolean isAPerson() {
+        return false;
+    }
+    @Override
+    public boolean isALibrary() {
+        return true;
+    }
    
 }
