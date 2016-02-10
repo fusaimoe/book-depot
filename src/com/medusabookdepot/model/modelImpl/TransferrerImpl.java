@@ -13,7 +13,7 @@ import javafx.beans.property.StringProperty;
  * @author Marcello_Feroce
  *
  */
-public abstract class TransferrerImpl implements Transferrer,Serializable{
+public abstract class TransferrerImpl implements Transferrer,Serializable {//template method
 
     /**
      * 

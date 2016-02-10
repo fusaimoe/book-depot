@@ -23,8 +23,6 @@ public class LibraryImpl extends CustomerImpl implements Customer,CanSendTransfe
 
     public LibraryImpl(String name, String address, String telephoneNumber) {
         super(name, address, telephoneNumber);
-        this.isHuman=false;
-        this.isLibrary=true;
     }
     @Override
     public String toString() {
