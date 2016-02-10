@@ -75,43 +75,34 @@ public class TransferManagerImpl implements TransferManager {
     }
     @Override
     public void modifyDepotOnLeavingTransfer(Transfer transfer) {
-        DepotManager dm=DepotManagerImpl.getInstanceOfDepotManger();
-        if(transfer.getSender().isADepot() && dm.hasIn((Depot) transfer.getSender())) {
-            Depot dep=(Depot) transfer.getSender();
-            dm.removeDepot(dep);
-            dep.removeBooks(transfer.getBooks());
-            dm.addDepot(dep);
+        DepotManager dm=DepotManagerImpl.getInstanceOfDepotManger();//qui e sotto faccio un if dentro un altro e non un && perchè dm.hasIn((Depot) transfer.getSender()) può generare eccezione
+        if(transfer.getSender().isADepot()) {
+            if(dm.hasIn((Depot) transfer.getSender())) {
+                Depot dep=(Depot) transfer.getSender();
+                dm.removeDepot(dep);
+                dep.removeBooks(transfer.getBooks());
+                dm.addDepot(dep);
+            }
         }
     }
     @Override
     public void modifyDepotOnArrivingTransfer(Transfer transfer) {
         DepotManager dm=DepotManagerImpl.getInstanceOfDepotManger();
-        if(transfer.getReceiver().isADepot() && dm.hasIn((Depot) transfer.getReceiver())) {
-            if(transfer.isArrived()) {//se è arrivato aggiungo i libri nel deposito di arrivo
-                Depot depo=(Depot) transfer.getReceiver();
-                dm.removeDepot(depo);
-                depo.addBooks(transfer.getBooks());
-                dm.addDepot(depo);
+        if(transfer.getReceiver().isADepot()) {
+            if(dm.hasIn((Depot) transfer.getReceiver())) {
+                if(transfer.isArrived()) {//se è arrivato aggiungo i libri nel deposito di arrivo
+                    Depot depo=(Depot) transfer.getReceiver();
+                    dm.removeDepot(depo);
+                    depo.addBooks(transfer.getBooks());
+                    dm.addDepot(depo);
+                }
             }
         }
     }
     @Override
-    public void modifyDepotsOnTransfer(Transfer transfer) {//ridondante
-        DepotManager dm=DepotManagerImpl.getInstanceOfDepotManger();
-        if(transfer.getSender().isADepot() && dm.hasIn((Depot) transfer.getSender())) {
-            Depot dep=(Depot) transfer.getSender();
-            dm.removeDepot(dep);
-            dep.removeBooks(transfer.getBooks());
-            dm.addDepot(dep);
-        }
-        if(transfer.getReceiver().isADepot() && dm.hasIn((Depot) transfer.getReceiver())) {
-            if(transfer.isArrived()) {//se è arrivato aggiungo i libri nel deposito di arrivo
-                Depot depo=(Depot) transfer.getReceiver();
-                dm.removeDepot(depo);
-                depo.addBooks(transfer.getBooks());
-                dm.addDepot(depo);
-            }
-        }
+    public void modifyDepotsOnTransfer(Transfer transfer) {
+        modifyDepotOnLeavingTransfer(transfer);
+        modifyDepotOnArrivingTransfer(transfer);
     }
     @Override
     public void addTransfer(CanSendTransferrer sender, Transferrer receiver, java.util.Date leavingDate,Map<StandardBook, Integer> books) {
@@ -283,10 +274,14 @@ public class TransferManagerImpl implements TransferManager {
         cal3.set(2015,5, 4);
         CanSendTransferrer l=new LibraryImpl("da rosi", "via mia 3", "07123422");
         Transfer tr3=new TransferImpl(l, trad2, cal3.getTime(), mm3);
+        
+        System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(0));
+        System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(1));
         System.out.println(tr.getSender());
         TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr);
         TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr2);
         System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(0));
+        System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(1));
         TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr3);
         System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().get(0));
         System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().get(1));

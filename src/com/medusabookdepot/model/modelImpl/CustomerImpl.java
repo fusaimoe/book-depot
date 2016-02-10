@@ -27,7 +27,6 @@ public abstract class CustomerImpl extends TransferrerImpl implements Customer,S
         super(name);
         this.address=address;
         this.telephoneNumber=telephoneNumber;
-        this.isDepot=false;
     }
     @Override
     public String getAddress() {
