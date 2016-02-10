@@ -35,5 +35,8 @@ public interface Customer extends Transferrer{
      * this method set the new telephone number as current address
      */
     public void setTelephoneNumber(String telephonenumber);
+    public boolean isAPrinter();
+    public boolean isAPerson();
+    public boolean isALibrary();
     
 }

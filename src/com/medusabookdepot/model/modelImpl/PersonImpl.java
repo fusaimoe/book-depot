@@ -27,5 +27,17 @@ public class PersonImpl extends CustomerImpl implements Customer,Serializable{
         return "Persona: "+this.name+"\n"+this.address+"\n"+this.telephoneNumber+"\n";
         
     }
+    @Override
+    public boolean isAPrinter() {
+        return false;
+    }
+    @Override
+    public boolean isAPerson() {
+        return true;
+    }
+    @Override
+    public boolean isALibrary() {
+        return false;
+    }
     
 }
