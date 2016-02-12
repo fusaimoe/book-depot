@@ -26,7 +26,7 @@ public abstract class TransferrerImpl implements Transferrer, Serializable {// t
     }
     @Override
     public String getName() {
-        return this.name;
+        return new String(this.name);//copia difensiva
     }
     @Override
     public void setName(String name) {

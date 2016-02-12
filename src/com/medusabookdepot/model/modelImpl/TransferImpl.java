@@ -61,7 +61,7 @@ public class TransferImpl implements Transfer, Serializable {
         if (this.sender.isADepot()) {// copia difensiva!
             Depot cs = (Depot) this.sender;
             Map<StandardBook, Integer> m = new HashMap<>();
-            m = cs.getBooksFromStandardBookIsbn(null);
+            m = cs.getBooks();
             cs = new DepotImpl(new String(this.sender.getName()), m);
             return cs;
         }
@@ -73,7 +73,7 @@ public class TransferImpl implements Transfer, Serializable {
         if (this.receiver.isADepot()) {// copia difensiva!
             Depot cs = (Depot) this.receiver;
             Map<StandardBook, Integer> m = new HashMap<>();
-            m = cs.getBooksFromStandardBookIsbn(null);
+            m = cs.getBooks();
             cs = new DepotImpl(new String(this.receiver.getName()), m);
             return cs;
         }
@@ -82,7 +82,11 @@ public class TransferImpl implements Transfer, Serializable {
 
     @Override
     public Map<StandardBook, Integer> getBooks() {
-        return this.books;
+        Map<StandardBook, Integer> map = new HashMap<>();
+        for (Entry<StandardBook, Integer> ee : this.books.entrySet()) {
+            map.put(ee.getKey(), ee.getValue());
+        }
+        return map;//copia difensiva
     }
     @Override
     public String getBooksAsString() {
