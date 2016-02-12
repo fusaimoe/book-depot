@@ -13,7 +13,8 @@ import javafx.beans.property.StringProperty;
  * @author Marcello_Feroce
  *
  */
-public abstract class TransferrerImpl implements Transferrer,Serializable {//template method
+public abstract class TransferrerImpl implements Transferrer, Serializable {// template
+                                                                            // method
 
     /**
      * 
@@ -21,7 +22,7 @@ public abstract class TransferrerImpl implements Transferrer,Serializable {//tem
     private static final long serialVersionUID = -7387131023077698466L;
     protected String name;
     public TransferrerImpl(String name) {
-        this.name=name;
+        this.name = name;
     }
     @Override
     public String getName() {
@@ -29,7 +30,7 @@ public abstract class TransferrerImpl implements Transferrer,Serializable {//tem
     }
     @Override
     public void setName(String name) {
-        this.name=name;
+        this.name = name;
     }
     @Override
     public StringProperty getNameProperty() {

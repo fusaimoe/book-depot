@@ -16,13 +16,14 @@ public interface Transferrer {
      * @return the name of the Transferrer object
      */
     public String getName();
-    
+
     public StringProperty getNameProperty();
     /**
      * 
-     * @param name is the name I want to give to the Transferrer Object
+     * @param name
+     *            is the name I want to give to the Transferrer Object
      */
     public void setName(String name);
     public boolean isADepot();
-    
+
 }
