@@ -201,7 +201,7 @@ public class DepotImpl extends TransferrerImpl implements Depot, Serializable {
         for (Entry<StandardBook, Integer> ee : this.books.entrySet()) {
             map.put(ee.getKey(), ee.getValue());
         }
-        return map;
+        return map;//copia difensiva
     }
 
     @Override

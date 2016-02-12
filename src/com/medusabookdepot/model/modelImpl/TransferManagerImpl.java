@@ -269,11 +269,13 @@ public class TransferManagerImpl implements TransferManager {
         DepotManagerImpl.getInstanceOfDepotManger().addDepot(trad);
         Calendar cal = Calendar.getInstance();
         cal.set(2013, 2, 2);
-        Map<StandardBook, Integer> mapps = trad.getBooksFromStandardBookIsbn("iiiissnb");
+        List<String>isbns=new ArrayList<>();
+        isbns.add("iiiinb");
+        Map<StandardBook, Integer> mapps = trad.getBooksFromStandardBookIsbn(isbns);
         // mapps=trad.getBooksFromStandardBookIsbnAndQuantity(new Pair<String,
         // Integer>("iiiinb", 1),new Pair<String, Integer>("iiiissnb", 2));
         Transfer tr = new TransferImpl(trad, per, cal.getTime(), mapps, "883737");
-
+        System.out.println(tr.getBooks());
         Map<StandardBook, Integer> mm2 = new HashMap<>();
         mm2.put(new StandardBookImpl("evdfb ", "gauss", 2040, 20, "mate", "calcolo", "fabrizio caselli", 234),
                 Integer.valueOf(8));
