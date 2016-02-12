@@ -11,7 +11,7 @@ import com.medusabookdepot.model.modelInterface.Customer;
  * @author Marcello_Feroce
  *
  */
-public class PersonImpl extends CustomerImpl implements Customer,Serializable{
+public class PersonImpl extends CustomerImpl implements Customer, Serializable {// strategy
 
     /**
      * 
@@ -22,8 +22,8 @@ public class PersonImpl extends CustomerImpl implements Customer,Serializable{
     }
     @Override
     public String toString() {
-        return "Persona: "+this.name+"\n"+this.address+"\n"+this.telephoneNumber+"\n";
-        
+        return "Persona: " + this.name + "\n" + this.address + "\n" + this.telephoneNumber + "\n";
+
     }
     @Override
     public boolean isAPrinter() {
@@ -37,5 +37,5 @@ public class PersonImpl extends CustomerImpl implements Customer,Serializable{
     public boolean isALibrary() {
         return false;
     }
-    
+
 }

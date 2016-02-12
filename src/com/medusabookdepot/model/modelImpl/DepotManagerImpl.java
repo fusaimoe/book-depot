@@ -19,31 +19,28 @@ import com.medusabookdepot.model.modelInterface.Transfer;
 
 public class DepotManagerImpl implements DepotManager {
 
-    private static DepotManager single;//singleton
-    private List<Depot> depots;//List that contains all depots alive
+    private static DepotManager single;// singleton
+    private List<Depot> depots;// List that contains all depots alive
     private String defaultFileName;
-    
+
     private DepotManagerImpl() {
-        //costruttore privato!
-        this.defaultFileName="depositi.dat";
-        File f=new File(System.getProperty("user.home")+System.getProperty("file.separator")+"filesMedusa");
-        if(!f.exists()&&!f.isDirectory()) {
+        // costruttore privato!
+        this.defaultFileName = "depositi.dat";
+        File f = new File(System.getProperty("user.home") + System.getProperty("file.separator") + "filesMedusa");
+        if (!f.exists() && !f.isDirectory()) {
             f.mkdir();
         }
-        this.depots=getDepotsFromFile(this.defaultFileName);
+        this.depots = getDepotsFromFile(this.defaultFileName);
     }
-    
+
     public static DepotManager getInstanceOfDepotManger() {
-        if(single==null) {
-            single=new DepotManagerImpl();
+        if (single == null) {
+            single = new DepotManagerImpl();
             return single;
-        }
-        else {
+        } else {
             return DepotManagerImpl.single;
         }
     }
-    
-    
 
     @Override
     public List<? extends Depot> getAllDepots() {
@@ -52,27 +49,26 @@ public class DepotManagerImpl implements DepotManager {
     @Override
     public void addDepot(Depot depot) {
         this.depots.add(depot);
-        this.writeDepotOnFile(this.defaultFileName,depot);
+        this.writeDepotOnFile(this.defaultFileName, depot);
     }
     @Override
     public void addDepot(String name, Map<StandardBook, Integer> books) {
-        Depot depot=new DepotImpl(name, books);
+        Depot depot = new DepotImpl(name, books);
         this.addDepot(depot);
     }
     @SuppressWarnings("unchecked")
     private List<Depot> getDepotsFromFile(String fileName) {
-        List<Depot> deps=new ArrayList<>();
+        List<Depot> deps = new ArrayList<>();
         File f = new File(getFilePath(fileName));
-        if(!f.exists()) {
+        if (!f.exists()) {
             return new ArrayList<>();
-        }
-        else {
+        } else {
             try {
                 ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(getFilePath(fileName)));
                 try {
-                    deps =(ArrayList<Depot>) objectInputStream.readObject();
+                    deps = (ArrayList<Depot>) objectInputStream.readObject();
                     objectInputStream.close();
-                    
+
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -84,28 +80,29 @@ public class DepotManagerImpl implements DepotManager {
             return deps;
         }
     }
-    public boolean hasIn(Depot depot) {//fatto questo metodo, al posto di contains, perchè la contains
-        for(Depot dep:this.depots) {//lavora sull'uguaglianza dell'oggetto
-            if(dep.getName().equals(depot.getName())) {
+    public boolean hasIn(Depot depot) {// fatto questo metodo, al posto di
+                                       // contains, perchè la contains
+        for (Depot dep : this.depots) {// lavora sull'uguaglianza dell'oggetto
+            if (dep.getName().equals(depot.getName())) {
                 return true;
             }
         }
         return false;
     }
-    
+
     @Override
     public void registerDepotsFromFile(File f) {
-        if(f.exists()&&!f.isDirectory()) {
+        if (f.exists() && !f.isDirectory()) {
             try {
                 ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(f));
-                if(f.exists()&&!f.isDirectory()) {
-                    List<Depot> depots=(ArrayList<Depot>) objectInputStream.readObject();
-                    for(Depot d:depots){
+                if (f.exists() && !f.isDirectory()) {
+                    List<Depot> depots = (ArrayList<Depot>) objectInputStream.readObject();
+                    for (Depot d : depots) {
                         this.addDepot(d);
                     }
                 }
                 objectInputStream.close();
-                
+
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
@@ -116,17 +113,17 @@ public class DepotManagerImpl implements DepotManager {
     @Override
     public void removeDepot(Depot depot) {
         this.depots.remove(depot);
-        this.removeDepotFromFile(this.defaultFileName,depot);
+        this.removeDepotFromFile(this.defaultFileName, depot);
     }
     @Override
     public void removeDepot(int index) {
-        Depot dep=this.depots.get(index);
+        Depot dep = this.depots.get(index);
         this.removeDepot(dep);
     }
-    
+
     private void writeDepotOnFile(String fileName, Depot depot) {
         try {
-            List<Depot> deps=getDepotsFromFile(fileName);
+            List<Depot> deps = getDepotsFromFile(fileName);
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(getFilePath(fileName)));
             deps.add(depot);
             oos.writeObject(deps);
@@ -136,11 +133,11 @@ public class DepotManagerImpl implements DepotManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
     }
     private void removeDepotFromFile(String fileName, Depot depot) {
         try {
-            List<Depot> deps=getDepotsFromFile(fileName);
+            List<Depot> deps = getDepotsFromFile(fileName);
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(getFilePath(fileName)));
             deps.remove(depot);
             oos.writeObject(deps);
@@ -150,12 +147,12 @@ public class DepotManagerImpl implements DepotManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
     }
 
     private void removeDepotFromFile(String fileName, int index) {
         try {
-            List<Depot> deps=getDepotsFromFile(fileName);
+            List<Depot> deps = getDepotsFromFile(fileName);
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(getFilePath(fileName)));
             deps.remove(index);
             oos.writeObject(deps);
@@ -165,38 +162,42 @@ public class DepotManagerImpl implements DepotManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
     }
-    
+
     private String getFilePath(String fileName) {
-        String filepath = System.getProperty("user.home")+System.getProperty("file.separator")+"filesMedusa"+System.getProperty("file.separator")+fileName;
+        String filepath = System.getProperty("user.home") + System.getProperty("file.separator") + "filesMedusa"
+                + System.getProperty("file.separator") + fileName;
         return filepath;
     }
 
     @Override
     public void setDefaultFileName(String DefaultFileName) {
-        this.defaultFileName=DefaultFileName;
-        
+        this.defaultFileName = DefaultFileName;
+
     }
 
     @Override
     public String getDefaultFileName() {
         return this.defaultFileName;
     }
-    public static void main(String...args) {
-        Map<StandardBook, Integer>mm=new HashMap<>();
-        mm.put(new StandardBookImpl("iiiinb ", "threads", 2010, 43,"info", "sisos", "io", 23), Integer.valueOf(5));
-        mm.put(new StandardBookImpl("iiiissnb ", "javas", 2011, 32,"info", "oop", "io", 40), Integer.valueOf(9));
-        Depot trad=new DepotImpl("D1", mm);
-        
-        Map<StandardBook, Integer>mm2=new HashMap<>();
-        mm2.put(new StandardBookImpl("evdfb", "gauss", 2040, 20,"mate", "calcolo", "fabrizio caselli", 234), Integer.valueOf(8));
-        mm2.put(new StandardBookImpl("eerdfs", "lambdas", 2051, 50,"labo", "oopm", "lionel Ritchie", 400), Integer.valueOf(20));
-        Depot trad2=new DepotImpl("sw", mm2);
-        
+    public static void main(String... args) {
+        Map<StandardBook, Integer> mm = new HashMap<>();
+        mm.put(new StandardBookImpl("iiiinb ", "threads", 2010, 43, "info", "sisos", "io", 23), Integer.valueOf(5));
+        mm.put(new StandardBookImpl("iiiissnb ", "javas", 2011, 32, "info", "oop", "io", 40), Integer.valueOf(9));
+        Depot trad = new DepotImpl("D1", mm);
+
+        Map<StandardBook, Integer> mm2 = new HashMap<>();
+        mm2.put(new StandardBookImpl("evdfb", "gauss", 2040, 20, "mate", "calcolo", "fabrizio caselli", 234),
+                Integer.valueOf(8));
+        mm2.put(new StandardBookImpl("eerdfs", "lambdas", 2051, 50, "labo", "oopm", "lionel Ritchie", 400),
+                Integer.valueOf(20));
+        Depot trad2 = new DepotImpl("sw", mm2);
+
         DepotManagerImpl.getInstanceOfDepotManger().addDepot(trad);
         DepotManagerImpl.getInstanceOfDepotManger().addDepot(trad2);
-        System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(1).getQuantityFromAuthor("dio"));
+        System.out.println(
+                DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(1).getQuantityFromAuthor("dio"));
         DepotManagerImpl.getInstanceOfDepotManger().removeDepot(0);
         System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(0).getBooksAsString());
         System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().size());

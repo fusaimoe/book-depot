@@ -14,7 +14,7 @@ import com.medusabookdepot.model.modelInterface.StandardBook;
  * @author Marcello_Feroce
  *
  */
-public class LibraryImpl extends CustomerImpl implements Customer,CanSendTransferrer,Serializable{
+public class LibraryImpl extends CustomerImpl implements Customer, CanSendTransferrer, Serializable {// strategy
 
     /**
      * 
@@ -26,8 +26,8 @@ public class LibraryImpl extends CustomerImpl implements Customer,CanSendTransfe
     }
     @Override
     public String toString() {
-        return "Libreria: "+this.name+"\n"+this.address+"\n"+this.telephoneNumber+"\n";
-        
+        return "Libreria: " + this.name + "\n" + this.address + "\n" + this.telephoneNumber + "\n";
+
     }
     @Override
     public boolean containsBooks(Map<StandardBook, Integer> books) {
@@ -45,5 +45,5 @@ public class LibraryImpl extends CustomerImpl implements Customer,CanSendTransfe
     public boolean isALibrary() {
         return true;
     }
-   
+
 }
