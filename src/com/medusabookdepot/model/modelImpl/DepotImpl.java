@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.medusabookdepot.model.modelInterface.CanSendTransferrer;
 import com.medusabookdepot.model.modelInterface.Depot;
 import com.medusabookdepot.model.modelInterface.StandardBook;
 
@@ -20,7 +21,7 @@ import javafx.beans.property.StringProperty;
  * @author Marcello_Feroce
  *
  */
-public class DepotImpl extends TransferrerImpl implements Depot, Serializable {
+public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransferrer,Serializable {
 
     /**
      * 
