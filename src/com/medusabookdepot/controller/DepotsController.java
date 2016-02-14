@@ -11,7 +11,7 @@ import com.medusabookdepot.model.modelInterface.StandardBook;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class MedusaDepot {
+public class DepotsController {
 	
 	private final ObservableList<Depot> depots = FXCollections.observableArrayList();
 	private final Map<StandardBook,Integer> booksInDepot = new HashMap<>();
