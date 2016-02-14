@@ -4,7 +4,7 @@ import com.medusabookdepot.model.modelImpl.LibraryImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class MedusaLibrary {
+public class LibrariesController {
 	
 	/**
 	 * The list that contain all saved libraries

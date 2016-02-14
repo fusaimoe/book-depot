@@ -10,9 +10,9 @@ import com.medusabookdepot.model.modelInterface.StandardBook;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class MedusaStandardBook {
+public class BooksController {
 	
-	private final ObservableList<StandardBook> books = FXCollections.observableArrayList();
+	private final ObservableList<StandardBookImpl> books = FXCollections.observableArrayList();
 	
 	/**
 	 * Add a new book in the list
@@ -35,9 +35,9 @@ public class MedusaStandardBook {
 	 * @param book
 	 * @return StandardBook if it found the book, else null
 	 */
-	public StandardBook searchBook(StandardBook book){
+	public StandardBookImpl searchBook(StandardBook book){
 		
-		for(StandardBook b:books){
+		for(StandardBookImpl b:books){
 			if(book.equals(b)){
 				
 				return b;
@@ -59,9 +59,9 @@ public class MedusaStandardBook {
 	 * @param author
 	 * @return Stream<StandardBook> : all books found with the passed filters
 	 */
-	public Stream<StandardBook> searchBook(Optional<Depot> depot, Optional<String> isbn, Optional<String> name, Optional<Integer> year, Optional<Integer> pages, Optional<String> serie, Optional<String> genre, Optional<String> author){
+	public Stream<StandardBookImpl> searchBook(Optional<Depot> depot, Optional<String> isbn, Optional<String> name, Optional<Integer> year, Optional<Integer> pages, Optional<String> serie, Optional<String> genre, Optional<String> author){
 		
-		Stream<StandardBook> result = this.books.stream();
+		Stream<StandardBookImpl> result = this.books.stream();
 		
 		//General searcher
 		if(isbn.isPresent()){
@@ -89,7 +89,7 @@ public class MedusaStandardBook {
 		//In depot
 		if(depot.isPresent()){
 			
-			result = result.filter(e -> depot.filter(f -> f.getQuantityFromStandardBook(e)<1)!=null);
+			//result = result.filter(e -> depot.filter(f -> f.getQuantityFromStandardBook(e)<1)!=null);
 		}
 		
 		 
@@ -109,7 +109,7 @@ public class MedusaStandardBook {
 	/**
 	 * @return The list of saved books
 	 */
-	public ObservableList<StandardBook> getAllBooks(){
+	public ObservableList<StandardBookImpl> getBooks(){
 		
 		return books;
 	}

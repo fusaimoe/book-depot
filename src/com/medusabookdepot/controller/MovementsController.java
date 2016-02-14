@@ -15,7 +15,7 @@ import com.medusabookdepot.model.modelInterface.Transferrer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class MedusaMovements {
+public class MovementsController {
 	
 	private final ObservableList<Transfer> movements = FXCollections.observableArrayList();
 	
