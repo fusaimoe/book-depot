@@ -5,6 +5,8 @@ package com.medusabookdepot.model.modelImpl;
 
 import java.io.Serializable;
 
+import com.medusabookdepot.model.modelInterface.StandardBook;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -14,7 +16,7 @@ import javafx.beans.property.StringProperty;
  * @author Marcello_Feroce
  *
  */
-public class StandardBookImpl implements Serializable{
+public class StandardBookImpl implements StandardBook,Serializable{
 
     /**
      * 
