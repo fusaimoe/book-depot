@@ -16,28 +16,28 @@ public interface StandardBook {
      * @return The book's name
      */
     public String getTitle();
-    public StringProperty getTitleProperty();
+    public StringProperty titleProperty();
 
     public String getIsbn();
-    public StringProperty getIsbnProperty();
+    public StringProperty isbnProperty();
 
     public int getYear();
-    public IntegerProperty getYearProperty();
+    public IntegerProperty yearProperty();
 
     public int getPages();
-    public IntegerProperty getPagesProperty();
+    public IntegerProperty pagesProperty();
 
     public String getSerie();
-    public StringProperty getSerieProperty();
+    public StringProperty serieProperty();
 
     public String getGenre();
-    public StringProperty getGenreProperty();
+    public StringProperty genreProperty();
 
     public String getAuthor();
-    public StringProperty getAuthorProperty();
+    public StringProperty authorProperty();
 
     public int getPrice();
-    public IntegerProperty getPriceProperty();
+    public IntegerProperty priceProperty();
 
     // ====================================== \\
 

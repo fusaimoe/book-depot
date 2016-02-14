@@ -2,7 +2,7 @@
  * Switch Screen Controller Class, inherited by all fxml files
  */
 
-package com.medusabookdepot.view.viewImpl;
+package com.medusabookdepot.view;
 
 import java.io.IOException;
 import java.net.URL;

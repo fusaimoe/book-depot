@@ -9,7 +9,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-		<ToolBar centerShape="false" prefHeight="40.0" scaleShape="false" styleClass="toolbar-colored" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.medusabookdepot.view.viewImpl.ScreenControl">
+		<ToolBar centerShape="false" prefHeight="40.0" scaleShape="false" styleClass="toolbar-colored" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.medusabookdepot.view.ScreenControl">
 			<items>
 				<Button fx:id="movements" mnemonicParsing="false" styleClass="button-flat" text="MOVEMENTS" onAction="#switchScreen" />
 				<Button fx:id="depots" mnemonicParsing="false" styleClass="button-flat" text="DEPOTS" onAction="#switchScreen" />

@@ -1,4 +1,4 @@
-package com.medusabookdepot.view.viewImpl;
+package com.medusabookdepot.view;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToolBar;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -29,12 +30,12 @@ public class Menu extends Application {
 	public void start(Stage primaryStage) throws IOException {
 		
 		// Loading the custom font before loading the files which use it
-		Font.loadFont(Menu.class.getResource("/Roboto-Regular.ttf").toExternalForm(), 10);
-		Font.loadFont(Menu.class.getResource("/Roboto-Bold.ttf").toExternalForm(), 10);
-		Font.loadFont(Menu.class.getResource("/Roboto-Medium.ttf").toExternalForm(), 10);
-		Font.loadFont(Menu.class.getResource("/Roboto-Black.ttf").toExternalForm(), 10);
-		Font.loadFont(Menu.class.getResource("/Roboto-Light.ttf").toExternalForm(), 10);
-		Font.loadFont(Menu.class.getResource("/Material-Design-Iconic-Font.ttf").toExternalForm(), 10);
+		Font.loadFont(getClass().getResource("/Roboto-Regular.ttf").toExternalForm(), 10);
+		Font.loadFont(getClass().getResource("/Roboto-Bold.ttf").toExternalForm(), 10);
+		Font.loadFont(getClass().getResource("/Roboto-Medium.ttf").toExternalForm(), 10);
+		Font.loadFont(getClass().getResource("/Roboto-Black.ttf").toExternalForm(), 10);
+		Font.loadFont(getClass().getResource("/Roboto-Light.ttf").toExternalForm(), 10);
+		Font.loadFont(getClass().getResource("/Material-Design-Iconic-Font.ttf").toExternalForm(), 10);
 				
 	    // Loading the main pane
 	    URL menuUrl = getClass().getResource("menu.fxml");
@@ -57,6 +58,7 @@ public class Menu extends Application {
 	      .getResource("materialDesign.css")
 	      .toExternalForm());
 	    
+	    primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
 	    primaryStage.setScene(scene);
 	    primaryStage.show();
 

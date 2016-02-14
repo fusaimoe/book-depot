@@ -260,7 +260,7 @@ public class TransferManagerImpl implements TransferManager {
     public String getDefaultFileName() {
         return this.defaultFileName;
     }
-    public static void main(String... strings) {
+    /*public static void main(String... strings) {
         Map<StandardBook, Integer> mm = new HashMap<>();
         mm.put(new StandardBookImpl("iiiinb", "eeee", 2010, 43, "infoblew", "sisos", "io", 23), Integer.valueOf(5));
         mm.put(new StandardBookImpl("iiiissnb", "fff", 2011, 32, "infoblew", "oop", "io", 40), Integer.valueOf(9));
@@ -310,6 +310,6 @@ public class TransferManagerImpl implements TransferManager {
         TransferManagerImpl.getInstanceOfTransferManger().addTransfer(tr3);
         System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().get(0));
         System.out.println(TransferManagerImpl.getInstanceOfTransferManger().getAllTransfers().get(1));
-    }
+    }*/
 
 }
