@@ -181,7 +181,7 @@ public class DepotManagerImpl implements DepotManager {
     public String getDefaultFileName() {
         return this.defaultFileName;
     }
-    public static void main(String... args) {
+    /*public static void main(String... args) {
         Map<StandardBook, Integer> mm = new HashMap<>();
         mm.put(new StandardBookImpl("iiiinb ", "threads", 2010, 43, "info", "sisos", "io", 23), Integer.valueOf(5));
         mm.put(new StandardBookImpl("iiiissnb ", "javas", 2011, 32, "info", "oop", "io", 40), Integer.valueOf(9));
@@ -202,5 +202,5 @@ public class DepotManagerImpl implements DepotManager {
         System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().get(0).getBooksAsString());
         System.out.println(DepotManagerImpl.getInstanceOfDepotManger().getAllDepots().size());
 
-    }
+    }*/
 }

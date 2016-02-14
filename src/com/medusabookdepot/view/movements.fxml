@@ -10,7 +10,7 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.shape.*?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.medusabookdepot.view.viewImpl.MovementsControl">
+<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.medusabookdepot.view.MovementsControl">
 	<content>
 		<VBox styleClass="card">
 			<children>

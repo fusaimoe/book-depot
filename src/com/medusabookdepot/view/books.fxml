@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.*?>
 
 
-<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.medusabookdepot.view.viewImpl.BooksControl">
+<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.medusabookdepot.view.BooksControl">
 	<content>
 		<VBox styleClass="card">
 			<children>
