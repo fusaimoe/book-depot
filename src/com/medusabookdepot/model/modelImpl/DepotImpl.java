@@ -100,10 +100,10 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
     }
 
     @Override
-    public String getBooksAsString() {
+    public String getBooksAsACoolString() {
         String finale = new String("");
         for (Entry<StandardBook, Integer> entry : this.books.entrySet()) {
-            finale = finale.concat(entry.getKey().toString() + ">" + entry.getValue() + ",");
+            finale = finale.concat("libro: "+entry.getKey().getTitle()+"\n\t" + "in quantità " + entry.getValue() + "\n");
         }
         return finale;
     }
@@ -135,7 +135,7 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
 
     @Override
     public StringProperty BooksAsStringProperty() {
-        return new SimpleStringProperty(this.getBooksAsString());
+        return new SimpleStringProperty(this.getBooksAsACoolString());
     }
     @Override
     public boolean containsBooks(Map<StandardBook, Integer> books) {

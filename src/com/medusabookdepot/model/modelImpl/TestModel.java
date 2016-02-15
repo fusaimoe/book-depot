@@ -13,7 +13,7 @@ import com.medusabookdepot.model.modelInterface.StandardBook;
 public class TestModel {
 
     @org.junit.Test
-    public void testTransfers() {
+    public void testModel() {
         Map<StandardBook, Integer> mm = new HashMap<>();
         StandardBook b=new StandardBookImpl("iiiinb", "il fantasma", 2010, 43, "la casa degli spettri", "orrore", "stephen King", 23);
         StandardBook b2=new StandardBookImpl("iiiissnb", "l'orso nella casa blu", 2010, 32, "bimbi cattivi", "infanzia rovinata", "quel mattachione dell'orso bear", 40);
@@ -36,8 +36,8 @@ public class TestModel {
         lis.set(1, new Pair<String, Integer>(lis.get(1).getFirst(), 11));
         lis=lis.subList(1, 2);
         dep.removeBooks(dep.getBooksFromStandardBookIsbnAndQuantity(lis));
-        
-        assertTrue(dep.getQuantity()==127&&127==dep.getQuantityFromYear(2010));
+        assertTrue(dep.getQuantity()<=(mm.get(b)+mm.get(b2))&&dep.getQuantity()==127&&127==dep.getQuantityFromYear(2010));
+        System.out.println(dep.getBooksAsACoolString());
     }
 
 }
