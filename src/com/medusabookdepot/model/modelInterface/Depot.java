@@ -23,7 +23,7 @@ public interface Depot extends CanSendTransferrer {
      */
     public int getQuantity();
 
-    public IntegerProperty getQuantityProperty();
+    public IntegerProperty QuantityProperty();
     /**
      * 
      * @param book
@@ -32,7 +32,7 @@ public interface Depot extends CanSendTransferrer {
      */
     public int getQuantityFromStandardBook(StandardBook book);
 
-    public IntegerProperty getQuantityFromStandardBookProperty(StandardBook book);
+    public IntegerProperty QuantityFromStandardBookProperty(StandardBook book);
     /**
      * 
      * @param title
@@ -40,9 +40,11 @@ public interface Depot extends CanSendTransferrer {
      * @return the quantity of the books in the depot, having that title
      */
     public int getQuantityFromTitle(String title);
+    public IntegerProperty QuantityFromTitleProperty(String title);
+    
     public void removeBooks(Map<StandardBook, Integer> books);
     public void addBooks(Map<StandardBook, Integer> books);
-    public IntegerProperty getQuantityFromTitleProperty(String title);
+    
     /**
      * 
      * @param author
@@ -51,7 +53,7 @@ public interface Depot extends CanSendTransferrer {
      */
     public int getQuantityFromAuthor(String author);
 
-    public IntegerProperty getQuantityFromAuthorProperty(String author);
+    public IntegerProperty QuantityFromAuthorProperty(String author);
     /**
      * 
      * @param year
@@ -60,11 +62,11 @@ public interface Depot extends CanSendTransferrer {
      */
     public int getQuantityFromYear(int year);
 
-    public IntegerProperty getQuantityFromYearProperty(int year);
+    public IntegerProperty QuantityFromYearProperty(int year);
 
     public String getBooksAsString();
 
-    public StringProperty getBooksAsStringProperty();
+    public StringProperty BooksAsStringProperty();
 
     public Map<StandardBook, Integer> getBooksFromStandardBookIsbn(List<String> isbns);
     public Map<StandardBook, Integer> getBooksFromStandardBookIsbnAndQuantity(
