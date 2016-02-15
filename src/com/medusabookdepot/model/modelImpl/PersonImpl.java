@@ -22,7 +22,7 @@ public class PersonImpl extends CustomerImpl implements Customer, Serializable {
     }
     @Override
     public String toString() {
-        return "Persona: " + this.name + "\n" + this.address + "\n" + this.telephoneNumber + "\n";
+        return "Persona: " + this.name.get() + "\n" + this.address.get() + "\n" + this.telephoneNumber.get() + "\n";
 
     }
     @Override

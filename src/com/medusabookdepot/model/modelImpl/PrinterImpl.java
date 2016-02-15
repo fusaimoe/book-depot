@@ -25,7 +25,7 @@ public class PrinterImpl extends CustomerImpl implements Customer, CanSendTransf
     }
     @Override
     public String toString() {
-        return "Stampa: " + this.name + "\n" + this.telephoneNumber + "\n" + this.address + "\n";
+        return "Stampa: " + this.name.get() + "\n" + this.telephoneNumber.get() + "\n" + this.address.get() + "\n";
     }
     @Override
     public boolean containsBooks(Map<StandardBook, Integer> books) {
