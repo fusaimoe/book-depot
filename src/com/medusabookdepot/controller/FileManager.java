@@ -18,19 +18,35 @@ public class FileManager {
 	* controller (tipo MovementsController, LibraryController, DepotController ecc.)
 	*/
 	private BooksController controller;
+	private File file;
 	
-	public FileManager(BooksController controller) {
+	/**
+	 * Constructor
+	 * It makes the directory "book-depot" in home,
+	 * load the file, if it exists and if it's not empty
+	 * 
+	 * @param filePath
+	 */
+	public FileManager(BooksController controller, String filePath) {
 		super();
 		this.controller = controller;
+		
+		file = new File(filePath);	
+		// Make the directory "book-depot" in home
+		file.getParentFile().mkdirs();
+		// Load the file, if it exists and if it's not empty
+		if(file.exists() && file.length()!=0){
+			loadPersonDataFromFile();
+		}
+		
 	}
-	
 	/**
 	 * Loads person data from the specified file. The current person data will
 	 * be replaced.
 	 * 
 	 * @param file
 	 */
-	public void loadPersonDataFromFile(File file) {
+	public void loadPersonDataFromFile() {
 	    try {
 	        JAXBContext context = JAXBContext.newInstance(StandardBookListWrapper.class);
 	        Unmarshaller um = context.createUnmarshaller();
@@ -56,7 +72,7 @@ public class FileManager {
 	 * 
 	 * @param file
 	 */
-	public void savePersonDataToFile(File file) {
+	public void savePersonDataToFile() {
 	    try {
 	        JAXBContext context = JAXBContext.newInstance(StandardBookListWrapper.class);
 	        Marshaller m = context.createMarshaller();

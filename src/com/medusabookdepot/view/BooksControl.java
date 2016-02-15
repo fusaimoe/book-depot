@@ -6,12 +6,11 @@ package com.medusabookdepot.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.TextFieldTableCell;
 
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 import com.medusabookdepot.model.modelInterface.StandardBook;
-
-import java.io.File;
 
 import com.medusabookdepot.controller.FileManager;
 import com.medusabookdepot.controller.BooksController;
@@ -19,17 +18,11 @@ import com.medusabookdepot.controller.BooksController;
 public class BooksControl extends ScreenControl{
 	
 	private BooksController booksController = new BooksController();
-	private FileManager fileManager = new FileManager(booksController);
-	private File file = new File(System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot" + System.getProperty("file.separator") + "books.xml");	
+	private String filePath = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot" + System.getProperty("file.separator") + "books.xml";	
+	private FileManager fileManager = new FileManager(booksController, filePath);
 	
 	public BooksControl(){
 		super();
-		// Make the directory "book-depot" in home
-		file.getParentFile().mkdirs();
-		// Load the file, if it exists and if it's not empty
-		if(file.exists() && file.length()!=0){
-			fileManager.loadPersonDataFromFile(file);
-		}
 	}
 
 	@FXML
@@ -68,7 +61,7 @@ public class BooksControl extends ScreenControl{
     @FXML
     private TextField priceField;
      
-	@FXML
+    @FXML
 	private Button delete;
 	
 	/**
@@ -81,12 +74,12 @@ public class BooksControl extends ScreenControl{
         // Initialize the table
         isbnColumn.setCellValueFactory(cellData -> cellData.getValue().isbnProperty());
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().titleProperty());
-        //TODO int  yearColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getYear()));
-        //TODO int  pagesColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getPages()));
+        yearColumn.setCellValueFactory(cellData -> cellData.getValue().yearProperty().asString());
+        pagesColumn.setCellValueFactory(cellData -> cellData.getValue().pagesProperty().asString());
         serieColumn.setCellValueFactory(cellData -> cellData.getValue().serieProperty());
         genreColumn.setCellValueFactory(cellData -> cellData.getValue().genreProperty());
         authorColumn.setCellValueFactory(cellData -> cellData.getValue().authorProperty());
-        //TODO int  priceColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getPrice()));
+        priceColumn.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asString());
      
         // Add observable list data to the table
         stdBooksTable.setItems(booksController.getBooks());
@@ -109,7 +102,7 @@ public class BooksControl extends ScreenControl{
 		// TODO Implement Confirmation Dialog
 	    int selectedIndex = stdBooksTable.getSelectionModel().getSelectedIndex();
 	    stdBooksTable.getItems().remove(selectedIndex);
-	    System.out.println(booksController.getBooks().toString());
+	    fileManager.savePersonDataToFile();
 	}
 		
 	/**
@@ -131,6 +124,7 @@ public class BooksControl extends ScreenControl{
 		isbnColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 		isbnColumn.setOnEditCommit( t -> {
 			((StandardBook)t.getTableView().getItems().get(t.getTablePosition().getRow())).setIsbn(t.getNewValue());
+			fileManager.savePersonDataToFile();
 		});
 		
 		/** Same piece of code but without the lambda, a bit more understandable maybe **
@@ -150,29 +144,65 @@ public class BooksControl extends ScreenControl{
 		nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 		nameColumn.setOnEditCommit( t -> {
 			((StandardBook)t.getTableView().getItems().get(t.getTablePosition().getRow())).setTitle(t.getNewValue());
+			fileManager.savePersonDataToFile();
 		});
+		
+		//yearColumn
+		yearColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+		yearColumn.setOnEditCommit( t -> {
+			((StandardBook)t.getTableView().getItems().get(t.getTablePosition().getRow())).setYear(Integer.parseInt(t.getNewValue()));
+			fileManager.savePersonDataToFile();
+		});
+		
+		//pagesColumn
+		pagesColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+		pagesColumn.setOnEditCommit( t -> {
+			((StandardBook)t.getTableView().getItems().get(t.getTablePosition().getRow())).setPages(Integer.parseInt(t.getNewValue()));
+			fileManager.savePersonDataToFile();
+		});
+				
 		//serieColumn
 		serieColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 		serieColumn.setOnEditCommit( t -> {
 			((StandardBook)t.getTableView().getItems().get(t.getTablePosition().getRow())).setSerie(t.getNewValue());
+			fileManager.savePersonDataToFile();
 		});
+		
 		//genreColumn
 		genreColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 		genreColumn.setOnEditCommit( t -> {
 			((StandardBook)t.getTableView().getItems().get(t.getTablePosition().getRow())).setGenre(t.getNewValue());
+			fileManager.savePersonDataToFile();
 		});
 		//authorColumn
 		authorColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 		authorColumn.setOnEditCommit( t -> {
 			((StandardBook)t.getTableView().getItems().get(t.getTablePosition().getRow())).setAuthor(t.getNewValue());
+			fileManager.savePersonDataToFile();
+		});
+		
+		//priceColumn
+		priceColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+		priceColumn.setOnEditCommit( t -> {
+			((StandardBook)t.getTableView().getItems().get(t.getTablePosition().getRow())).setPrice(Integer.parseInt(t.getNewValue()));
+			fileManager.savePersonDataToFile();
 		});
 	}
 	
 	@FXML
-	private void add() {
-    // TODO   if (isInputValid()) {}
-		booksController.addBook(isbnField.getText(), titleField.getText(), Integer.parseInt(yearField.getText()), Integer.parseInt(pagesField.getText()), serieField.getText(), genreField.getText(), authorField.getText(), Integer.parseInt(priceField.getText()));
-		fileManager.savePersonDataToFile(file);
+	private void add() throws NumberFormatException {
+		try{
+			//TODO isInputValid();
+			booksController.addBook(isbnField.getText(), titleField.getText(), Integer.parseInt(yearField.getText()), Integer.parseInt(pagesField.getText()), serieField.getText(), genreField.getText(), authorField.getText(), Integer.parseInt(priceField.getText()));
+			fileManager.savePersonDataToFile();
+		}
+		catch (NumberFormatException e) { // catches ANY exception
+	        Alert alert = new Alert(AlertType.WARNING);
+	        alert.setTitle("Pay Attention");
+	        alert.setHeaderText("Error!");
+	        alert.setContentText("You should enter a number in " );
+	        alert.showAndWait();
+	    }
 	}
 	
 }
