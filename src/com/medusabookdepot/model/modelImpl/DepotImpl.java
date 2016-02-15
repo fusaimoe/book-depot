@@ -149,7 +149,9 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
 
     @Override
     public void removeBooks(Map<StandardBook, Integer> books) {
+        int x=0;
         for (Entry<StandardBook, Integer> entry : books.entrySet()) {
+            x++;
             if(this.books.get(entry.getKey()) - entry.getValue()<=0) {
                 this.books.remove(entry.getKey());
             }
@@ -249,5 +251,13 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
             lis.add(new Pair<String, Integer>(en.getKey().getIsbn(), en.getValue()));
         }
         return lis;
+    }
+
+    @Override
+    public void addBook(Pair<StandardBook, Integer> pair) {
+        if(!this.books.containsKey(pair.getFirst())) {
+            this.books.put(pair.getFirst(), pair.getSecond());
+        }
+        
     }
 }
