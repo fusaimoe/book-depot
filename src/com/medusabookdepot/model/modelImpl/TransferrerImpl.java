@@ -7,6 +7,8 @@ import java.io.Serializable;
 
 import com.medusabookdepot.model.modelInterface.Transferrer;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 /**
@@ -20,22 +22,24 @@ public abstract class TransferrerImpl implements Transferrer, Serializable {// t
      * 
      */
     private static final long serialVersionUID = -7387131023077698466L;
-    protected String name;
+    protected StringProperty name;
     public TransferrerImpl(String name) {
-        this.name = name;
+        this.name = new SimpleStringProperty(name);
     }
     @Override
     public String getName() {
-        return new String(this.name);//copia difensiva
+        String name=new String(this.name.get());//copia difensiva
+        return name;
     }
     @Override
     public void setName(String name) {
-        this.name = name;
+        this.name.set(name);
     }
     @Override
-    public StringProperty getNameProperty() {
-        // TODO Auto-generated method stub
-        return null;
+    public StringProperty NameProperty() {
+        StringProperty name=new SimpleStringProperty(this.name.get());//copia difensiva
+        return name;
     }
     abstract public String toString();
+    abstract public boolean isADepot();
 }
