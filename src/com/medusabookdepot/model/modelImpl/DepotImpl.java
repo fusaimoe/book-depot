@@ -17,6 +17,8 @@ import com.medusabookdepot.model.modelInterface.StandardBook;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 /**
@@ -107,39 +109,33 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
     }
 
     @Override
-    public IntegerProperty getQuantityProperty() {
-        // TODO Auto-generated method stub
-        return null;
+    public IntegerProperty QuantityProperty() {
+        return new SimpleIntegerProperty(this.getQuantity());
     }
 
     @Override
-    public IntegerProperty getQuantityFromStandardBookProperty(StandardBook book) {
-        // TODO Auto-generated method stub
-        return null;
+    public IntegerProperty QuantityFromStandardBookProperty(StandardBook book) {
+        return new SimpleIntegerProperty(this.getQuantityFromStandardBook(book));
     }
 
     @Override
-    public IntegerProperty getQuantityFromTitleProperty(String title) {
-        // TODO Auto-generated method stub
-        return null;
+    public IntegerProperty QuantityFromTitleProperty(String title) {
+        return new SimpleIntegerProperty(this.getQuantityFromTitle(title));
     }
 
     @Override
-    public IntegerProperty getQuantityFromAuthorProperty(String author) {
-        // TODO Auto-generated method stub
-        return null;
+    public IntegerProperty QuantityFromAuthorProperty(String author) {
+        return new SimpleIntegerProperty(this.getQuantityFromAuthor(author));
     }
 
     @Override
-    public IntegerProperty getQuantityFromYearProperty(int year) {
-        // TODO Auto-generated method stub
-        return null;
+    public IntegerProperty QuantityFromYearProperty(int year) {
+        return new SimpleIntegerProperty(this.getQuantityFromYear(year));
     }
 
     @Override
-    public StringProperty getBooksAsStringProperty() {
-        // TODO Auto-generated method stub
-        return null;
+    public StringProperty BooksAsStringProperty() {
+        return new SimpleStringProperty(this.getBooksAsString());
     }
     @Override
     public boolean containsBooks(Map<StandardBook, Integer> books) {
