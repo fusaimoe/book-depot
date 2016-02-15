@@ -17,6 +17,8 @@ import com.medusabookdepot.model.modelInterface.Transfer;
 import com.medusabookdepot.model.modelInterface.Transferrer;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 /**
@@ -32,7 +34,7 @@ public class TransferImpl implements Transfer, Serializable {
     private CanSendTransferrer sender;
     private Transferrer receiver;
     private java.util.Date leavingDate;
-    private String trackingNumber;
+    private StringProperty trackingNumber;
     private Map<StandardBook, Integer> books;
     private boolean arrived;
 
@@ -41,7 +43,7 @@ public class TransferImpl implements Transfer, Serializable {
         this.sender = sender;
         this.receiver = receiver;
         this.leavingDate = leavingDate;
-        this.trackingNumber = this.getNewTrackingNumber();
+        this.trackingNumber = new SimpleStringProperty(this.getNewTrackingNumber());
         this.books = books;
 
     }
@@ -51,7 +53,7 @@ public class TransferImpl implements Transfer, Serializable {
         this.receiver = receiver;
         this.leavingDate = leavingDate;
         this.books = books;
-        this.trackingNumber = trackingNumber;
+        this.trackingNumber = new SimpleStringProperty(trackingNumber);
     }
     public String getNewTrackingNumber() {
         return String.valueOf(new Random().nextInt(1000000));
@@ -89,10 +91,10 @@ public class TransferImpl implements Transfer, Serializable {
         return map;//copia difensiva
     }
     @Override
-    public String getBooksAsString() {
+    public String getBooksAsACoolString() {
         String finale = new String("");
         for (Entry<StandardBook, Integer> entry : this.books.entrySet()) {
-            finale = finale.concat(entry.getKey().toString() + ">" + entry.getValue() + ",");
+            finale = finale.concat("libro: "+entry.getKey().getTitle()+"\n\t" + "in quantità " + entry.getValue() + "\n");
         }
         return finale;
 
@@ -123,7 +125,7 @@ public class TransferImpl implements Transfer, Serializable {
     }
     @Override
     public String getTrackingNumber() {
-        return this.trackingNumber;
+        return new String(trackingNumber.get());//copia difensiva
     }
     @Override
     public int getQuantity() {
@@ -156,7 +158,7 @@ public class TransferImpl implements Transfer, Serializable {
 
     @Override
     public void setTrackingNumber(String trackingnumber) {
-        this.trackingNumber = trackingnumber;
+        this.trackingNumber.set(trackingnumber);
     }
 
     @Override
@@ -178,28 +180,25 @@ public class TransferImpl implements Transfer, Serializable {
     }
     @Override
     public Map<StandardBook, IntegerProperty> getBooksProperty() {
-        // TODO Auto-generated method stub
         return null;
     }
     @Override
     public IntegerProperty getQuantityProperty() {
-        // TODO Auto-generated method stub
-        return null;
+        Integer i=new Integer(getQuantity());//copia difensiva
+        return new SimpleIntegerProperty(i);
     }
     @Override
-    public IntegerProperty getQuantityFromBookProperty() {
-        // TODO Auto-generated method stub
-        return null;
+    public IntegerProperty getQuantityFromBookProperty(StandardBook book) {
+        Integer i=new Integer(this.getQuantityFromBook(book));
+        return new SimpleIntegerProperty(i);
     }
     @Override
     public IntegerProperty getTotalPriceProperty() {
-        // TODO Auto-generated method stub
-        return null;
+        return new SimpleIntegerProperty(this.getTotalPrice());
     }
     @Override
-    public StringProperty getBooksAsStringProperty() {
-        // TODO Auto-generated method stub
-        return null;
+    public StringProperty getBooksAsACoolStringProperty() {
+        return new SimpleStringProperty(this.getBooksAsACoolString());
     }
     @Override
     public boolean isArrived() {

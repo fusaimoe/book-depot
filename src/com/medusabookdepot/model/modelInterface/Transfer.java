@@ -41,7 +41,7 @@ public interface Transfer {
     public IntegerProperty getQuantityProperty();
 
     public int getQuantityFromBook(StandardBook book);
-    public IntegerProperty getQuantityFromBookProperty();
+    public IntegerProperty getQuantityFromBookProperty(StandardBook book);
 
     public int getTotalPrice();
     public IntegerProperty getTotalPriceProperty();
@@ -52,8 +52,8 @@ public interface Transfer {
 
     public void replaceBook(StandardBook oldBook, StandardBook newBook);
 
-    public String getBooksAsString();
-    public StringProperty getBooksAsStringProperty();
+    public String getBooksAsACoolString();
+    public StringProperty getBooksAsACoolStringProperty();
 
     public boolean isArrived();
     public void setArrived(boolean arrived);
