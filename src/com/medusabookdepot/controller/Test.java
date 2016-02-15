@@ -1,4 +1,4 @@
-package com.medusabookdepot.model.modelImpl;
+package com.medusabookdepot.controller;
 
 import static org.junit.Assert.*;
 
@@ -6,11 +6,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.medusabookdepot.model.modelImpl.DepotImpl;
+import com.medusabookdepot.model.modelImpl.Pair;
+import com.medusabookdepot.model.modelImpl.PrinterImpl;
+import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 import com.medusabookdepot.model.modelInterface.Customer;
 import com.medusabookdepot.model.modelInterface.Depot;
 import com.medusabookdepot.model.modelInterface.StandardBook;
 
-public class TestModel {
+public class Test {
 
     @org.junit.Test
     public void testModel() {

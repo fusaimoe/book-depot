@@ -7,8 +7,6 @@ import java.io.Serializable;
 
 import com.medusabookdepot.model.modelInterface.Customer;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
