@@ -3,7 +3,6 @@
  */
 package com.medusabookdepot.model.modelInterface;
 
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
 
 /**
