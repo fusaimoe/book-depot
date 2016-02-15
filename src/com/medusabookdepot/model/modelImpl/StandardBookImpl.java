@@ -59,105 +59,104 @@ public class StandardBookImpl implements StandardBook,Serializable{
 		this.author = new SimpleStringProperty(author);
 		this.price = new SimpleIntegerProperty(price);
     }
-
+    @Override
     public String getIsbn() {
         return isbn.get();
     }
-	
+    @Override
     public StringProperty isbnProperty() {
         return isbn;
     }
-
+    @Override
     public void setIsbn(String isbn) {
         this.isbn.set(isbn);
     }
-
+    @Override
     public String getTitle() {
         return title.get();
     }
-	
+    @Override
     public StringProperty titleProperty() {
         return title;
     }
-	
+    @Override
     public void setTitle(String title) {
         this.title.set(title);
     }
-
+    @Override
     public int getYear() {
         return year.get();
     }
-	
+    @Override
     public IntegerProperty yearProperty() {
         return year;
     }
-
+    @Override
     public void setYear(int year) {
         this.year.set(year);
     }
-
+    @Override
     public int getPages() {
         return pages.get();
     }
-	
+    @Override
     public IntegerProperty pagesProperty() {
         return pages;
     }
-	
+    @Override
     public void setPages(int pages) {
         this.pages.set(pages);
     }
-
+    @Override
     public String getSerie() {
         return serie.get();
     }
-
+    @Override
     public StringProperty serieProperty() {
         return serie;
     }
-	
+    @Override
     public void setSerie(String serie) {
         this.serie.set(serie);
     }
-
+    @Override
     public String getGenre() {
         return genre.get();
     }
-
+    @Override
     public StringProperty genreProperty() {
         return genre;
     }
-	
+    @Override
     public void setGenre(String genre) {
         this.genre.set(genre);
     }
-
+    @Override
     public String getAuthor() {
         return author.get();
     }
-
+    @Override
     public StringProperty authorProperty() {
         return author;
     }
-	
+    @Override
     public void setAuthor(String author) {
         this.author.set(author);
     }
-
+    @Override
     public int getPrice() {
         return price.get();
     }
-
+    @Override
     public IntegerProperty priceProperty() {
         return price;
     }
-
+    @Override
     public void setPrice(int price) {
         this.price.set(price);
     }
-
+    @Override
     public String toString() {
-        return this.title+"\n"+this.isbn+"\n"+this.pages+"\n"+this.price+"\n"+this.year+"\n"+this.author+"\n"+this.genre+"\n"+this.serie+"\n";
-    }
-	
+        return "libro: "+this.title.get()+", isbn "+this.isbn.get()+", pagine "+this.pages.get()+", prezzo "+this.price.get()+", anno "+this.year.get()+", autore "+this.author.get()+", genere "+this.genre.get()+", collana "+this.serie.get()+"\n";
+    }	
 }

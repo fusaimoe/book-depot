@@ -96,7 +96,7 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
         return x;
     }
     public String toString() {
-        return this.name + "\n" + this.books + "\n";
+        return "Deposito "+this.name.get() + this.books + "\n";
     }
 
     @Override
@@ -193,6 +193,24 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
             }
             return libri;
         }
+    }
+    @Override
+    public List<StandardBook> getStandardBooksAsList() {
+        List<StandardBook> lis=new ArrayList<>();
+        for(StandardBook b:this.books.keySet()) {
+            //copia difensiva
+            lis.add(new StandardBookImpl(b.getTitle(), b.getIsbn(), b.getYear(), b.getPages(), b.getSerie(), b.getGenre(), b.getAuthor(), b.getPrice()));
+        }
+        return lis;
+    }
+    @Override
+    public List<String> getStandardBooksIsbns() {
+        List<String> lis=new ArrayList<>();
+        for(StandardBook b:this.books.keySet()) {
+            //copia difensiva
+            lis.add(new String(b.getIsbn()));
+        }
+        return lis;
     }
     @Override
     public Map<StandardBook, Integer> getBooks() {
