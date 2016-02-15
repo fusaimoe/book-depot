@@ -3,6 +3,7 @@
  */
 package com.medusabookdepot.model.modelInterface;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
 
 /**
@@ -17,7 +18,7 @@ public interface Transferrer {
      */
     public String getName();
 
-    public StringProperty getNameProperty();
+    public StringProperty NameProperty();
     /**
      * 
      * @param name
