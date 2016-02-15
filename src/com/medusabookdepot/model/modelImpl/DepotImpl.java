@@ -14,9 +14,7 @@ import com.medusabookdepot.model.modelInterface.CanSendTransferrer;
 import com.medusabookdepot.model.modelInterface.Depot;
 import com.medusabookdepot.model.modelInterface.StandardBook;
 
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -25,7 +23,7 @@ import javafx.beans.property.StringProperty;
  * @author Marcello_Feroce
  *
  */
-public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransferrer,Serializable {
+public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransferrer, Serializable {
 
     /**
      * 
@@ -37,7 +35,9 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
         if (books == null) {
             this.books = new HashMap<StandardBook, Integer>();
         } else {
-            this.books = books;
+            this.books = new HashMap<>(books);// mi creo un altro oggeeto così
+                                              // non mantengo il riferimento
+                                              // alla mappa di input
         }
     }
 
@@ -96,7 +96,7 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
         return x;
     }
     public String toString() {
-        return "Deposito "+this.name.get() + this.books + "\n";
+        return "Deposito " + this.name.get() + this.books + "\n";
     }
 
     @Override
@@ -150,16 +150,13 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
     @Override
     public void removeBooks(Map<StandardBook, Integer> books) {
         for (Entry<StandardBook, Integer> entry : books.entrySet()) {
-            this.books.put(entry.getKey(), this.books.get(entry.getKey()) - entry.getValue());
-        }
-        List<StandardBook> lis = new ArrayList<>();
-        for (Entry<StandardBook, Integer> entry : this.books.entrySet()) {
-            if (entry.getValue() == 0) {
-                lis.add(entry.getKey());
+            if(this.books.get(entry.getKey()) - entry.getValue()<=0) {
+                this.books.remove(entry.getKey());
             }
-        }
-        for (StandardBook b : lis) {
-            this.books.remove(b);
+            else {
+                this.books.put(entry.getKey(), this.books.get(entry.getKey()) - entry.getValue());
+            }
+            
         }
     }
 
@@ -196,18 +193,19 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
     }
     @Override
     public List<StandardBook> getStandardBooksAsList() {
-        List<StandardBook> lis=new ArrayList<>();
-        for(StandardBook b:this.books.keySet()) {
-            //copia difensiva
-            lis.add(new StandardBookImpl(b.getTitle(), b.getIsbn(), b.getYear(), b.getPages(), b.getSerie(), b.getGenre(), b.getAuthor(), b.getPrice()));
+        List<StandardBook> lis = new ArrayList<>();
+        for (StandardBook b : this.books.keySet()) {
+            // copia difensiva
+            lis.add(new StandardBookImpl(b.getTitle(), b.getIsbn(), b.getYear(), b.getPages(), b.getSerie(),
+                    b.getGenre(), b.getAuthor(), b.getPrice()));
         }
         return lis;
     }
     @Override
     public List<String> getStandardBooksIsbns() {
-        List<String> lis=new ArrayList<>();
-        for(StandardBook b:this.books.keySet()) {
-            //copia difensiva
+        List<String> lis = new ArrayList<>();
+        for (StandardBook b : this.books.keySet()) {
+            // copia difensiva
             lis.add(new String(b.getIsbn()));
         }
         return lis;
@@ -218,7 +216,7 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
         for (Entry<StandardBook, Integer> ee : this.books.entrySet()) {
             map.put(ee.getKey(), ee.getValue());
         }
-        return map;//copia difensiva
+        return map;// copia difensiva
     }
 
     @Override
@@ -242,5 +240,14 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
             x++;
         }
         return mappa;
+    }
+
+    @Override
+    public List<Pair<String, Integer>> getBookIsbnsAsListOfPair() {
+        List<Pair<String, Integer>> lis = new ArrayList<>();
+        for (Entry<StandardBook, Integer> en : this.books.entrySet()) {
+            lis.add(new Pair<String, Integer>(en.getKey().getIsbn(), en.getValue()));
+        }
+        return lis;
     }
 }

@@ -77,4 +77,6 @@ public interface Depot extends CanSendTransferrer {
     List<StandardBook> getStandardBooksAsList();
 
     List<String> getStandardBooksIsbns();
+
+    public List<Pair<String, Integer>> getBookIsbnsAsListOfPair();
 }
