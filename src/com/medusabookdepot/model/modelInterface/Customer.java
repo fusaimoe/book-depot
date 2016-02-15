@@ -16,14 +16,14 @@ public interface Customer extends Transferrer {
      */
     public String getAddress();
 
-    public StringProperty getAddressProperty();
+    public StringProperty AddressProperty();
     /**
      * 
      * @return the telephone number of the Customer
      */
     public String getTelephoneNumber();
 
-    public StringProperty getTelephoneNumberProperty();
+    public StringProperty TelephoneNumberProperty();
     /**
      * @param address
      *            is the new address of the Customer this method set the new
