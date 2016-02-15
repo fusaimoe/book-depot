@@ -14,9 +14,15 @@ public class Main {
             this.firstFrame.mainGui(new String[]{""});
     }
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         
-    	new Main();
+        Test prova=new Test();
+        prova.test();
+    	if(prova.getResult())System.out.println("test riuscito");
+    	else {
+    	    throw new Exception("failed test");
+    	}
+        new Main();
     	BooksController testBooksCtrl = new BooksController();
     	//DepotsController testDepotCtrl = new DepotsController();
     	
