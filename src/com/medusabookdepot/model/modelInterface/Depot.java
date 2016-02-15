@@ -64,7 +64,7 @@ public interface Depot extends CanSendTransferrer {
 
     public IntegerProperty QuantityFromYearProperty(int year);
 
-    public String getBooksAsString();
+    public String getBooksAsACoolString();
 
     public StringProperty BooksAsStringProperty();
 
