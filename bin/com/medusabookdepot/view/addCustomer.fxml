@@ -2,13 +2,8 @@
 
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
-<?import java.net.*?>
-<?import java.util.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.shape.*?>
 
 <ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
 	<content>
@@ -25,6 +20,11 @@
 				                <TextField prefHeight="42.0" prefWidth="300.0" fx:id="addressField"/>
 					            <Label styleClass="control-label" text="Phone Number" />
 								<TextField prefHeight="42.0" prefWidth="300.0" fx:id="phoneField"/>
+								<Label styleClass="control-label" text="Customer Type" />
+				                <ChoiceBox value="Individual" prefWidth="300.0" fx:id="typeChoiceBox">
+        							<String fx:value="Library"/>
+        							<String fx:value="Individual"/>
+    							</ChoiceBox>
                            		<Pane prefHeight="20.0" />
                            		<HBox>
 	                           		<children>
