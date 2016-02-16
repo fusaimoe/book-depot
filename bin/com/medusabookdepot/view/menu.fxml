@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+		<ToolBar centerShape="false" prefHeight="40.0" scaleShape="false" styleClass="toolbar-colored" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.medusabookdepot.view.ScreenControl">
+			<items>
+				<Button fx:id="movements" mnemonicParsing="false" styleClass="button-flat" text="MOVEMENTS" onAction="#switchScreen" />
+				<Button fx:id="depots" mnemonicParsing="false" styleClass="button-flat" text="DEPOTS" onAction="#switchScreen" />
+				<Button fx:id="books" mnemonicParsing="false" styleClass="button-flat" text="BOOKS" onAction="#switchScreen" />
+				<Button fx:id="customers" mnemonicParsing="false" styleClass="button-flat" text="CUSTOMERS" onAction="#switchScreen" />
+				<Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+				<HBox maxWidth="1.7976931348623157E308" prefHeight="44.0" prefWidth="157.0">
+					<children>
+						<Button cacheShape="false" centerShape="false" contentDisplay="TEXT_ONLY" mnemonicParsing="false" scaleShape="false" styleClass="icon-button" text="">
+							<font>
+								<Font name="Material-Design-Iconic-Font" size="18.0" />
+							</font>
+						</Button>
+						<Button cacheShape="false" centerShape="false" contentDisplay="TEXT_ONLY" mnemonicParsing="false" scaleShape="false" styleClass="icon-button" text="">
+							<font>
+								<Font name="Material-Design-Iconic-Font" size="18.0" />
+							</font>
+						</Button>
+						<Button cacheShape="false" centerShape="false" contentDisplay="TEXT_ONLY" mnemonicParsing="false" scaleShape="false" styleClass="icon-button" text="">
+							<font>
+								<Font name="Material-Design-Iconic-Font" size="18.0" />
+							</font>
+						</Button>
+						<Button cacheShape="false" centerShape="false" contentDisplay="TEXT_ONLY" mnemonicParsing="false" scaleShape="false" styleClass="icon-button" text="">
+							<font>
+								<Font name="Material-Design-Iconic-Font" size="18.0" />
+							</font>
+						</Button>
+					</children>
+				</HBox>
+			</items>
+		</ToolBar>

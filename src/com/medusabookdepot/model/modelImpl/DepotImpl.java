@@ -109,32 +109,32 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
     }
 
     @Override
-    public IntegerProperty QuantityProperty() {
+    public IntegerProperty quantityProperty() {
         return new SimpleIntegerProperty(this.getQuantity());
     }
 
     @Override
-    public IntegerProperty QuantityFromStandardBookProperty(StandardBook book) {
+    public IntegerProperty quantityFromStandardBookProperty(StandardBook book) {
         return new SimpleIntegerProperty(this.getQuantityFromStandardBook(book));
     }
 
     @Override
-    public IntegerProperty QuantityFromTitleProperty(String title) {
+    public IntegerProperty quantityFromTitleProperty(String title) {
         return new SimpleIntegerProperty(this.getQuantityFromTitle(title));
     }
 
     @Override
-    public IntegerProperty QuantityFromAuthorProperty(String author) {
+    public IntegerProperty quantityFromAuthorProperty(String author) {
         return new SimpleIntegerProperty(this.getQuantityFromAuthor(author));
     }
 
     @Override
-    public IntegerProperty QuantityFromYearProperty(int year) {
+    public IntegerProperty quantityFromYearProperty(int year) {
         return new SimpleIntegerProperty(this.getQuantityFromYear(year));
     }
 
     @Override
-    public StringProperty BooksAsStringProperty() {
+    public StringProperty booksAsACoolStringProperty() {
         return new SimpleStringProperty(this.getBooksAsACoolString());
     }
     @Override

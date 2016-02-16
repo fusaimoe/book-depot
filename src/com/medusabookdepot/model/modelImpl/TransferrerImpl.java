@@ -35,7 +35,7 @@ public abstract class TransferrerImpl implements Transferrer, Serializable {// t
         this.name.set(name);
     }
     @Override
-    public StringProperty NameProperty() {
+    public StringProperty nameProperty() {
         StringProperty name=new SimpleStringProperty(this.name.get());//copia difensiva
         return name;
     }
