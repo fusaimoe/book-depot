@@ -11,6 +11,7 @@ import com.medusabookdepot.model.modelInterface.Customer;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -39,12 +40,13 @@ public class CustomersControl extends ScreenControl{
     @FXML
     private TextField addressField;
     @FXML
-    private TextField phoneField;
+    private TextField phoneField;	
+    @FXML
+	private ChoiceBox<String> typeChoiceBox;
     
     @FXML
 	private Button delete;
-	
-    
+
     /**
 	 * Initializes the controller class. This method is automatically called
 	 * after the fxml file has been loaded.

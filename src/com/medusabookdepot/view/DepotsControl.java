@@ -14,6 +14,10 @@ import javafx.scene.layout.HBox;
 
 public class DepotsControl extends ScreenControl implements Initializable{
 	
+	public DepotsControl(){
+		super();
+	}
+	
 	@FXML
 	private HBox hBox;
 	@FXML
@@ -36,11 +40,6 @@ public class DepotsControl extends ScreenControl implements Initializable{
 	private TableColumn<StandardBookImpl, String> authorColumn;
 	@FXML
 	private TableColumn<StandardBookImpl, String> priceColumn;
-	
-	
-	public DepotsControl(){
-		super();
-	}
 	
 	/**
 	 * Enter a "dinamic" quantity of buttons in the fxml code, for example, depending on the list of depots
