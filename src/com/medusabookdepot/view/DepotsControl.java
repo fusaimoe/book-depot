@@ -7,9 +7,9 @@ import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
 
 public class DepotsControl extends ScreenControl implements Initializable{
@@ -46,9 +46,9 @@ public class DepotsControl extends ScreenControl implements Initializable{
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		for(int i=0; i<1; i++){
-			hBox.getChildren().add(i+1, new Button("PDE"));
-			hBox.getChildren().add(i+2, new Button("MEDUSA"));
+		for(int i=2; i<6; i++){
+			ToggleButton button = new ToggleButton("TOGGLE" + (i-1));
+			hBox.getChildren().add(i, button);
 		}
 	}
 	
