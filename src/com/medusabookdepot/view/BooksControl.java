@@ -12,13 +12,15 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 import com.medusabookdepot.model.modelInterface.StandardBook;
 
-import com.medusabookdepot.controller.FileManager;
 import com.medusabookdepot.controller.BooksController;
+import com.medusabookdepot.controller.files.ConvertXML2PDF;
+import com.medusabookdepot.controller.files.FileManager;
 
 public class BooksControl extends ScreenControl{
 	
 	private BooksController booksController = new BooksController();
-	private String filePath = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot" + System.getProperty("file.separator") + "books.xml";	
+	private String directoryPath = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot" + System.getProperty("file.separator");
+	private String filePath = directoryPath + "books.xml";	
 	private FileManager fileManager = new FileManager(booksController, filePath);
 	
 	public BooksControl(){
@@ -63,6 +65,8 @@ public class BooksControl extends ScreenControl{
      
     @FXML
 	private Button delete;
+    @FXML
+	private Button convert;
 	
 	/**
 	 * Initializes the controller class. This method is automatically called
@@ -203,6 +207,16 @@ public class BooksControl extends ScreenControl{
 	        alert.setContentText("You should enter a number in " );
 	        alert.showAndWait();
 	    }
+	}
+	
+	@FXML
+	private void convert() {
+		ConvertXML2PDF converter = new ConvertXML2PDF(filePath,
+				new String(directoryPath + "books.xsl"),
+				new String(directoryPath + "books.pdf"));
+		converter.openFile();
+		
+		//TODO if xsl doesn't exist, it's not possible to convert without templates!
 	}
 	
 }

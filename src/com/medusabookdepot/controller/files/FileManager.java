@@ -1,4 +1,4 @@
-package com.medusabookdepot.controller;
+package com.medusabookdepot.controller.files;
 
 import java.io.File;
 
@@ -6,6 +6,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import com.medusabookdepot.controller.BooksController;
 import com.medusabookdepot.model.modelImpl.StandardBookListWrapper;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
