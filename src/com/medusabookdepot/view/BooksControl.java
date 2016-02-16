@@ -12,6 +12,8 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 import com.medusabookdepot.model.modelInterface.StandardBook;
 
+import java.util.Optional;
+
 import com.medusabookdepot.controller.BooksController;
 import com.medusabookdepot.controller.files.ConvertXML2PDF;
 import com.medusabookdepot.controller.files.FileManager;
@@ -103,10 +105,22 @@ public class BooksControl extends ScreenControl{
 	 */
 	@FXML
 	private void delete() {
-		// TODO Implement Confirmation Dialog
-	    int selectedIndex = stdBooksTable.getSelectionModel().getSelectedIndex();
-	    stdBooksTable.getItems().remove(selectedIndex);
-	    fileManager.savePersonDataToFile();
+		
+		// On delete button press, opens a confirmation dialog asking if you really want to delete
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmation Dialog");
+		alert.setHeaderText("Do you really want to delete the following element?");
+		alert.setContentText(stdBooksTable.getSelectionModel().getSelectedItem().getTitle());
+		alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());		
+		
+		Optional<ButtonType> result = alert.showAndWait();
+		
+		// When the user clicks ok, the selection gets deleted
+		if(result.get() == ButtonType.OK){
+			int selectedIndex = stdBooksTable.getSelectionModel().getSelectedIndex();
+		    stdBooksTable.getItems().remove(selectedIndex);
+		    fileManager.saveDataToFile(); 
+		}
 	}
 		
 	/**
@@ -128,7 +142,7 @@ public class BooksControl extends ScreenControl{
 		isbnColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 		isbnColumn.setOnEditCommit( t -> {
 			((StandardBook)t.getTableView().getItems().get(t.getTablePosition().getRow())).setIsbn(t.getNewValue());
-			fileManager.savePersonDataToFile();
+			fileManager.saveDataToFile();
 		});
 		
 		/** Same piece of code but without the lambda, a bit more understandable maybe **
@@ -148,48 +162,48 @@ public class BooksControl extends ScreenControl{
 		nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 		nameColumn.setOnEditCommit( t -> {
 			((StandardBook)t.getTableView().getItems().get(t.getTablePosition().getRow())).setTitle(t.getNewValue());
-			fileManager.savePersonDataToFile();
+			fileManager.saveDataToFile();
 		});
 		
 		//yearColumn
 		yearColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 		yearColumn.setOnEditCommit( t -> {
 			((StandardBook)t.getTableView().getItems().get(t.getTablePosition().getRow())).setYear(Integer.parseInt(t.getNewValue()));
-			fileManager.savePersonDataToFile();
+			fileManager.saveDataToFile();
 		});
 		
 		//pagesColumn
 		pagesColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 		pagesColumn.setOnEditCommit( t -> {
 			((StandardBook)t.getTableView().getItems().get(t.getTablePosition().getRow())).setPages(Integer.parseInt(t.getNewValue()));
-			fileManager.savePersonDataToFile();
+			fileManager.saveDataToFile();
 		});
 				
 		//serieColumn
 		serieColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 		serieColumn.setOnEditCommit( t -> {
 			((StandardBook)t.getTableView().getItems().get(t.getTablePosition().getRow())).setSerie(t.getNewValue());
-			fileManager.savePersonDataToFile();
+			fileManager.saveDataToFile();
 		});
 		
 		//genreColumn
 		genreColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 		genreColumn.setOnEditCommit( t -> {
 			((StandardBook)t.getTableView().getItems().get(t.getTablePosition().getRow())).setGenre(t.getNewValue());
-			fileManager.savePersonDataToFile();
+			fileManager.saveDataToFile();
 		});
 		//authorColumn
 		authorColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 		authorColumn.setOnEditCommit( t -> {
 			((StandardBook)t.getTableView().getItems().get(t.getTablePosition().getRow())).setAuthor(t.getNewValue());
-			fileManager.savePersonDataToFile();
+			fileManager.saveDataToFile();
 		});
 		
 		//priceColumn
 		priceColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 		priceColumn.setOnEditCommit( t -> {
 			((StandardBook)t.getTableView().getItems().get(t.getTablePosition().getRow())).setPrice(Integer.parseInt(t.getNewValue()));
-			fileManager.savePersonDataToFile();
+			fileManager.saveDataToFile();
 		});
 	}
 	
@@ -198,13 +212,14 @@ public class BooksControl extends ScreenControl{
 		try{
 			//TODO isInputValid();
 			booksController.addBook(isbnField.getText(), titleField.getText(), Integer.parseInt(yearField.getText()), Integer.parseInt(pagesField.getText()), serieField.getText(), genreField.getText(), authorField.getText(), Integer.parseInt(priceField.getText()));
-			fileManager.savePersonDataToFile();
+			fileManager.saveDataToFile();
 		}
 		catch (NumberFormatException e) { // catches ANY exception
 	        Alert alert = new Alert(AlertType.WARNING);
 	        alert.setTitle("Pay Attention");
 	        alert.setHeaderText("Error!");
-	        alert.setContentText("You should enter a number in " );
+	        alert.setContentText("You should enter a number in ");
+	        alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
 	        alert.showAndWait();
 	    }
 	}

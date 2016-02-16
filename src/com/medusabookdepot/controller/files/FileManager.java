@@ -37,7 +37,7 @@ public class FileManager {
 		file.getParentFile().mkdirs();
 		// Load the file, if it exists and if it's not empty
 		if(file.exists() && file.length()!=0){
-			loadPersonDataFromFile();
+			loadDataFromFile();
 		}
 		
 	}
@@ -47,7 +47,7 @@ public class FileManager {
 	 * 
 	 * @param file
 	 */
-	public void loadPersonDataFromFile() {
+	public void loadDataFromFile() {
 	    try {
 	        JAXBContext context = JAXBContext.newInstance(StandardBookListWrapper.class);
 	        Unmarshaller um = context.createUnmarshaller();
@@ -73,7 +73,7 @@ public class FileManager {
 	 * 
 	 * @param file
 	 */
-	public void savePersonDataToFile() {
+	public void saveDataToFile() {
 	    try {
 	        JAXBContext context = JAXBContext.newInstance(StandardBookListWrapper.class);
 	        Marshaller m = context.createMarshaller();

@@ -52,12 +52,9 @@ public class Menu extends Application {
 	    final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	    
 	    Scene scene = new Scene(root, screenSize.getWidth(), screenSize.getHeight());
-	    scene
-	      .getStylesheets()
-	      .add(getClass()
-	      .getResource("materialDesign.css")
-	      .toExternalForm());
+	    scene.getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
 	    
+	    primaryStage.setTitle("book-depot");
 	    primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
 	    primaryStage.setScene(scene);
 	    primaryStage.show();

@@ -1,7 +1,3 @@
-/**
- * Main
- */
-
 package com.medusabookdepot.controller;
 
 import com.medusabookdepot.view.*;
