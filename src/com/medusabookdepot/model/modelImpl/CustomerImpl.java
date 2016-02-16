@@ -59,12 +59,12 @@ public abstract class CustomerImpl extends TransferrerImpl implements Customer, 
     @Override
     public abstract boolean isALibrary();
     @Override
-    public StringProperty AddressProperty() {
+    public StringProperty addressProperty() {
         StringProperty addr=new SimpleStringProperty(this.address.get());//copia difensiva
         return addr;
     }
     @Override
-    public StringProperty TelephoneNumberProperty() {
+    public StringProperty telephoneNumberProperty() {
         StringProperty tel=new SimpleStringProperty(this.telephoneNumber.get());//copia difensiva
         return tel;
     }

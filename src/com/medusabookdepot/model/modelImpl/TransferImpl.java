@@ -37,6 +37,7 @@ public class TransferImpl implements Transfer, Serializable {
     private StringProperty trackingNumber;
     private Map<StandardBook, Integer> books;
     private boolean arrived;
+    private boolean left;
 
     public TransferImpl(CanSendTransferrer sender, Transferrer receiver, java.util.Date leavingDate,
             Map<StandardBook, Integer> books) {
@@ -208,5 +209,14 @@ public class TransferImpl implements Transfer, Serializable {
     public void setArrived(boolean arrived) {
         this.arrived = arrived;
 
+    }
+    @Override
+    public boolean isLeft() {
+        return this.left;
+    }
+    @Override
+    public void setLeft(boolean left) {
+        this.left = left;
+        
     }
 }
