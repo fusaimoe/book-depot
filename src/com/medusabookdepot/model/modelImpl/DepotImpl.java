@@ -40,7 +40,6 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
                                               // alla mappa di input
         }
     }
-
     @Override
     public int getQuantity() {
         int x = 0;
@@ -149,19 +148,16 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
 
     @Override
     public void removeBooks(Map<StandardBook, Integer> books) {
-        int x=0;
         for (Entry<StandardBook, Integer> entry : books.entrySet()) {
-            x++;
             if(this.books.get(entry.getKey()) - entry.getValue()<=0) {
                 this.books.remove(entry.getKey());
             }
             else {
                 this.books.put(entry.getKey(), this.books.get(entry.getKey()) - entry.getValue());
             }
-            
         }
     }
-
+    
     @Override
     public void addBooks(Map<StandardBook, Integer> books) {
         for (Entry<StandardBook, Integer> entry : books.entrySet()) {
