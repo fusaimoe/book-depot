@@ -17,9 +17,9 @@
 	        	<HBox fx:id="hBox">
 	            	<children>
 	            		<Label styleClass="card-title" text="Depots" />
-                   		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                   		<Button fx:id="addMovement" mnemonicParsing="false" styleClass="button-flat" text="ADD NEW" onAction="#switchScreen" />                           
-                        <Button mnemonicParsing="false" styleClass="button-flat" text="DELETE" />
+	            		<Pane prefWidth="15.0"/>
+	            		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
+						<Button mnemonicParsing="false" styleClass="button-flat" text="DELETE" />
                     </children>
                 </HBox>
 	            <HBox VBox.vgrow="ALWAYS">
@@ -46,6 +46,13 @@
 	                  </VBox>
 	               </children>
 	            </HBox>
+	            <HBox >
+	            	<children>
+	            		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />   
+	            		<TextField promptText="Enter a depot name" styleClass="control-label" />
+	            		<Button mnemonicParsing="false" styleClass="button-flat" text="ADD NEW" />
+	            	</children>
+                </HBox>
 	        </children>	
 		</VBox>					
 	</content>

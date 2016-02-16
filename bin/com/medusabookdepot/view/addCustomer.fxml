@@ -20,11 +20,11 @@
 							<children> 
 					        	<Label styleClass="card-title" text="Add Customer" />
 					        	<Label styleClass="control-label" text="Name" />
-				                <TextField prefHeight="43.0" prefWidth="300.0" />
-				                <Label styleClass="control-label" text="Address" />
-				                <TextField prefHeight="42.0" prefWidth="300.0" />
+				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="nameField"/>
+				                <Label styleClass="control-label" text="Address"/>
+				                <TextField prefHeight="42.0" prefWidth="300.0" fx:id="addressField"/>
 					            <Label styleClass="control-label" text="Phone Number" />
-								<TextField prefHeight="42.0" prefWidth="300.0" />
+								<TextField prefHeight="42.0" prefWidth="300.0" fx:id="phoneField"/>
                            		<Pane prefHeight="20.0" />
                            		<HBox>
 	                           		<children>
