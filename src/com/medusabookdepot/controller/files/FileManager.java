@@ -61,8 +61,9 @@ public class FileManager {
 	    } catch (Exception e) { // catches ANY exception
 	        Alert alert = new Alert(AlertType.ERROR);
 	        alert.setTitle("Error");
-	        alert.setHeaderText("Could not load data");
-	        alert.setContentText("Could not load data from file:\n" + file.getPath());
+	        alert.setHeaderText("Could not load data from file:");
+	        alert.setContentText(file.getPath());
+	        alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
 
 	        alert.showAndWait();
 	    }
@@ -89,9 +90,9 @@ public class FileManager {
 	    } catch (Exception e) { // catches ANY exception
 	        Alert alert = new Alert(AlertType.ERROR);
 	        alert.setTitle("Error");
-	        alert.setHeaderText("Could not save data");
-	        alert.setContentText("Could not save data to file:\n" + file.getPath());
-
+	        alert.setHeaderText("Could not save data to file:");
+	        alert.setContentText(file.getPath());
+	        alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
 	        alert.showAndWait();
 	    }
 	}
