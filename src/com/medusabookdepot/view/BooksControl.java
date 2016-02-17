@@ -12,6 +12,8 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 import com.medusabookdepot.model.modelInterface.StandardBook;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
 
 import com.medusabookdepot.controller.BooksController;
@@ -22,8 +24,11 @@ public class BooksControl extends ScreenControl{
 	
 	private BooksController booksController = new BooksController();
 	private String directoryPath = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot" + System.getProperty("file.separator");
-	private String filePath = directoryPath + "books.xml";	
-	private FileManager fileManager = new FileManager(booksController, filePath);
+	private String xmlPath = directoryPath + ".xml" + System.getProperty("file.separator") + "books.xml";
+	private String xslPath = directoryPath + ".xsl" + System.getProperty("file.separator") + "books.xsl";
+	// TODO Aggiungere data a nome del file
+	private String pdfPath = directoryPath + "books.pdf";
+	private FileManager fileManager = new FileManager(booksController, xmlPath);
 	
 	public BooksControl(){
 		super();
@@ -213,8 +218,7 @@ public class BooksControl extends ScreenControl{
 			//TODO isInputValid();
 			booksController.addBook(isbnField.getText(), titleField.getText(), Integer.parseInt(yearField.getText()), Integer.parseInt(pagesField.getText()), serieField.getText(), genreField.getText(), authorField.getText(), Integer.parseInt(priceField.getText()));
 			fileManager.saveDataToFile();
-		}
-		catch (NumberFormatException e) { // catches ANY exception
+		} catch (NumberFormatException e) {
 	        Alert alert = new Alert(AlertType.WARNING);
 	        alert.setTitle("Pay Attention");
 	        alert.setHeaderText("Error!");
@@ -226,10 +230,28 @@ public class BooksControl extends ScreenControl{
 	
 	@FXML
 	private void convert() {
-		ConvertXML2PDF converter = new ConvertXML2PDF(filePath,
-				new String(directoryPath + "books.xsl"),
-				new String(directoryPath + "books.pdf"));
-		converter.openFile();
+		try{
+			if(!new File(xslPath).exists()) throw new IOException("XSL Template doesn't exist");
+			if(!new File(xmlPath).exists()) throw new IllegalArgumentException("XML File doesn't exist");
+			
+			ConvertXML2PDF converter = new ConvertXML2PDF(xmlPath, xslPath, pdfPath);
+			
+			converter.open();
+		} catch (IOException e){
+			Alert alert = new Alert(AlertType.WARNING);
+	        alert.setTitle("Template not found");
+	        alert.setHeaderText("Could not load a conversion template for " + this.getClass().getName().substring(25, new String(this.getClass().getName()).length()-7));
+	        alert.setContentText("If it's not there, make it yourself. It's so time consuming and I have more important things to do atm. Sorry :(");
+	        alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
+	        alert.showAndWait();			
+		}  catch (IllegalArgumentException e){
+			Alert alert = new Alert(AlertType.WARNING);
+	        alert.setTitle("No data to export");
+	        alert.setHeaderText("Could not load data from xml file");
+	        alert.setContentText("Probably there is no data to export. Make sure to save before exporting");
+	        alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
+	        alert.showAndWait();			
+		}
 		
 		//TODO if xsl doesn't exist, it's not possible to convert without templates!
 	}

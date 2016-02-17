@@ -48,7 +48,7 @@ public class ConvertXML2PDF {
 		
 	}
 	 
-	 public void openFile(){
+	 public void open(){
 		 //TODO do it 
 	 };
 
