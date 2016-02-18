@@ -25,14 +25,23 @@ public class PersonImpl extends CustomerImpl implements Customer, Serializable {
         return "Persona: " + this.name.get() + "\n" + this.address.get() + "\n" + this.telephoneNumber.get() + "\n";
 
     }
+    /**
+     * always return false
+     */
     @Override
     public boolean isAPrinter() {
         return false;
     }
+    /**
+     * always return true
+     */
     @Override
     public boolean isAPerson() {
         return true;
     }
+    /**
+     * always return false
+     */
     @Override
     public boolean isALibrary() {
         return false;

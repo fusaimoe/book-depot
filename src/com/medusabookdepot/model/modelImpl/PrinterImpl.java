@@ -31,14 +31,23 @@ public class PrinterImpl extends CustomerImpl implements Customer, CanSendTransf
     public boolean containsBooks(Map<StandardBook, Integer> books) {
         return true;
     }
+    /**
+     * always return true
+     */
     @Override
     public boolean isAPrinter() {
         return true;
     }
+    /**
+     * always return false
+     */
     @Override
     public boolean isAPerson() {
         return false;
     }
+    /**
+     * always return false
+     */
     @Override
     public boolean isALibrary() {
         return false;

@@ -10,7 +10,6 @@ public class Main {
             this.firstFrame = new Menu();
             this.firstFrame.mainGui(new String[]{""});
     }
-    
     public static void main(String[] args) throws Exception {
         
         Test prova=new Test();

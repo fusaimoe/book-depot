@@ -33,14 +33,23 @@ public class LibraryImpl extends CustomerImpl implements Customer, CanSendTransf
     public boolean containsBooks(Map<StandardBook, Integer> books) {
         return true;
     }
+    /**
+     * always return false
+     */
     @Override
     public boolean isAPrinter() {
         return false;
     }
+    /**
+     * always return false
+     */
     @Override
     public boolean isAPerson() {
         return false;
     }
+    /**
+     * always return true
+     */
     @Override
     public boolean isALibrary() {
         return true;
