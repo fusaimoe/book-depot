@@ -22,7 +22,7 @@ import com.medusabookdepot.controller.files.FileManager;
 
 public class BooksControl extends ScreenControl {
 
-    private BooksController booksController = new BooksController();
+    private BooksController booksController = BooksController.getInstanceOf();
     private String directoryPath = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot"
             + System.getProperty("file.separator");
     private String xmlPath = directoryPath + ".xml" + System.getProperty("file.separator") + "books.xml";
