@@ -13,7 +13,6 @@ import javafx.collections.ObservableList;
 public class BooksController {
 	
 	private final ObservableList<StandardBookImpl> books = FXCollections.observableArrayList();
-	
 	/**
 	 * Add a new book in the list
 	 * @param isbn
@@ -25,9 +24,9 @@ public class BooksController {
 	 * @param author
 	 * @param price
 	 */
-	public void addBook(String isbn,String name, int year, int pages, String serie, String genre, String author, int price){
-		
-		books.add(new StandardBookImpl(isbn,name, year, pages, serie, genre, author, price));
+	public void addBook(String isbn,String name, int year, int pages, String serie, String genre, String author, int price) {
+	    
+	    books.add(new StandardBookImpl(isbn,name, year, pages, serie, genre, author, price));
 	}
 	
 	/**
@@ -90,9 +89,7 @@ public class BooksController {
 		if(depot.isPresent()){
 			
 			//result = result.filter(e -> depot.filter(f -> f.getQuantityFromStandardBook(e)<1)!=null);
-		}
-		
-		 
+		} 
 		/* If there are not filters, return all books in one stream */
 		return result;
 	}
