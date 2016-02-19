@@ -2,6 +2,8 @@ package com.medusabookdepot.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -20,14 +22,12 @@ public class BooksController {
 	private final ObservableList<StandardBookImpl> books = FXCollections.observableArrayList();
 	private static BooksController singBook;
 
-	// Campi per scrittura su file
-	private String directoryPath = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot"
-			+ System.getProperty("file.separator");
+	// Fields for file load and save, and for converting to PDF
+	private String directoryPath = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot" + System.getProperty("file.separator");
 	private String xmlPath = directoryPath + ".xml" + System.getProperty("file.separator") + "books.xml";
 	private String xslPath = directoryPath + ".xsl" + System.getProperty("file.separator") + "books.xsl";
-	// TODO Aggiungere data a nome del file
-	private String pdfPath = directoryPath + "books.pdf";
-	private FileManager fileManager = new FileManager(books, xmlPath);
+	private String pdfPath = directoryPath + "books" + new SimpleDateFormat("yyyyMMdd-HHmm-").format(new Date());
+	private FileManager<StandardBookImpl> fileManager = new FileManager<>(this.getBooks(), xmlPath, StandardBookImpl.class, "books");
 
 	private BooksController() {
 
@@ -50,18 +50,15 @@ public class BooksController {
 	 */
 	public int convertPrice(String price) throws IllegalArgumentException, IndexOutOfBoundsException {
 		
-		if(price.equals("")){
-			throw new IllegalArgumentException("The price field mustn't be empty!");
-		}
+		if(price.equals("")) throw new IllegalArgumentException("The price field mustn't be empty!");
+
 		if (!price.contains(".") && !price.contains(",")) {
 			price += ".00";
 		} else if (price.charAt(price.length() - 2) == '.' || price.charAt(price.length() - 2) == ',') {
 			price += "0";
 		} else if (price.charAt(price.length() - 3) == '.' || price.charAt(price.length() - 3) == ',') {
 			// Correct input, nothing to do
-		} else {
-			throw new IllegalArgumentException("Price format not valid! (IE 12.50)");
-		}
+		} else throw new IllegalArgumentException("Price format not valid! (IE 12.50)");
 
 		return Integer.parseInt(new StringBuilder(price).deleteCharAt(price.length() - 3).toString());
 	}

@@ -5,6 +5,8 @@ package com.medusabookdepot.model.modelImpl;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import com.medusabookdepot.model.modelInterface.StandardBook;
 
 import javafx.beans.property.IntegerProperty;
@@ -14,8 +16,8 @@ import javafx.beans.property.StringProperty;
 
 /**
  * @author Marcello_Feroce
- *
  */
+@XmlRootElement(name="book")
 public class StandardBookImpl implements StandardBook, Serializable {
 
     /**
