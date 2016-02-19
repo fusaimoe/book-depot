@@ -248,6 +248,7 @@ public class BooksController {
 						e.setIsbn(newISBN);
 					}
 				});
+		fileManager.saveDataToFile();
 	}
 
 	public void editTitle(String isbn, String newTitle) {
@@ -257,6 +258,7 @@ public class BooksController {
 
 					e.setTitle(newTitle);
 				});
+		fileManager.saveDataToFile();
 	}
 
 	public void editYear(String isbn, int newYear) {
@@ -268,6 +270,7 @@ public class BooksController {
 						e.setYear(newYear);
 					}
 				});
+		fileManager.saveDataToFile();
 	}
 
 	public void editPages(String isbn, int newPages) {
@@ -277,6 +280,7 @@ public class BooksController {
 
 					e.setPages(newPages);
 				});
+		fileManager.saveDataToFile();
 	}
 
 	public void editSerie(String isbn, String newSerie) {
@@ -287,6 +291,7 @@ public class BooksController {
 					e.setSerie(newSerie);
 					;
 				});
+		fileManager.saveDataToFile();
 	}
 
 	public void editGenre(String isbn, String newGenre) {
@@ -296,6 +301,7 @@ public class BooksController {
 
 					e.setGenre(newGenre);
 				});
+		fileManager.saveDataToFile();
 	}
 
 	public void editAuthor(String isbn, String newAuthor) {
@@ -305,6 +311,7 @@ public class BooksController {
 
 					e.setAuthor(newAuthor);
 				});
+		fileManager.saveDataToFile();
 	}
 	
 	public void editPrice(String isbn, String newPrice) {
@@ -314,5 +321,6 @@ public class BooksController {
 
 					e.setPrice(this.convertPrice(newPrice));
 				});
+		fileManager.saveDataToFile();
 	}
 }
