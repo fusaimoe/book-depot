@@ -20,15 +20,15 @@ public class Main {
     	    throw new Exception("failed test");
     	}
         new Main();
-    	BooksController testBooksCtrl = BooksController.getInstanceOf();
+    	//BooksController testBooksCtrl = BooksController.getInstanceOf();
         //BooksController testBooksCtrl = new BooksController();
     	//DepotsController testDepotCtrl = new DepotsController();
     	
         //Creo 4 titoli con valore dei campi diversi
-        testBooksCtrl.addBook("9788767547823", "Harry Potter", 1980, 7, "HP Saga", "Fantasy", "Feroce Macello", 2);
-        testBooksCtrl.addBook("9788712309897", "Il Signore degli Anelli", 2002, 290, "LOTR Saga", "Romanzo", "Croccolino Lorenzo", 15);
-        testBooksCtrl.addBook("9788712378922", "Il Codice da Vinci", 2017, 322, "Libri", "Horror", "Colombo Andrea", 22);
-        testBooksCtrl.addBook("9788712378924", "Hunger Games", 2017, 322, "HG Saga", "Fantascienza", "Cecchetti Giulia", 22);
+        //testBooksCtrl.addBook("9788767547823", "Harry Potter", 1980, 7, "HP Saga", "Fantasy", "Feroce Macello", 2);
+        //testBooksCtrl.addBook("9788712309897", "Il Signore degli Anelli", 2002, 290, "LOTR Saga", "Romanzo", "Croccolino Lorenzo", 15);
+        //testBooksCtrl.addBook("9788712378922", "Il Codice da Vinci", 2017, 322, "Libri", "Horror", "Colombo Andrea", 22);
+        //testBooksCtrl.addBook("9788712378924", "Hunger Games", 2017, 322, "HG Saga", "Fantascienza", "Cecchetti Giulia", 22);
 
         //Creo un depot con i libri sopra creati assegnando ad ognuno una quantità nel depot
         //medusiniDepot.addDepot("Medusini", medusiniBook.getBooks(), new int[]{10,2,33,22});

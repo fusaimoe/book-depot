@@ -5,7 +5,6 @@ import java.util.stream.Stream;
 
 import com.medusabookdepot.model.modelImpl.LibraryImpl;
 import com.medusabookdepot.model.modelImpl.PersonImpl;
-import com.medusabookdepot.model.modelImpl.PrinterImpl;
 import com.medusabookdepot.model.modelInterface.Customer;
 
 import javafx.collections.FXCollections;
@@ -59,7 +58,7 @@ public class CustomerController {
 	 * @param Telephone
 	 *            number of new customer
 	 * @param Type
-	 *            of customer: 1) Library 2) Person 3) Printer
+	 *            of customer: 1) Library 2) Person
 	 */
 	public void addCustomer(String name, String address, String telephoneNumber, int type) {
 
@@ -74,9 +73,6 @@ public class CustomerController {
 			break;
 		case 2:
 			customers.add(new PersonImpl(name, address, telephoneNumber));
-			break;
-		case 3:
-			customers.add(new PrinterImpl(name, address, telephoneNumber));
 			break;
 		}
 	}
