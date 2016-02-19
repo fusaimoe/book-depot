@@ -1,8 +1,12 @@
 package com.medusabookdepot.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import com.medusabookdepot.controller.files.ConvertXML2PDF;
+import com.medusabookdepot.controller.files.FileManager;
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 import com.medusabookdepot.model.modelInterface.Depot;
 import com.medusabookdepot.model.modelInterface.StandardBook;
@@ -12,8 +16,18 @@ import javafx.collections.ObservableList;
 
 public class BooksController {
 
+	private static final int ISBN_LENGTH = 13;
 	private final ObservableList<StandardBookImpl> books = FXCollections.observableArrayList();
 	private static BooksController singBook;
+
+	// Campi per scrittura su file
+	private String directoryPath = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot"
+			+ System.getProperty("file.separator");
+	private String xmlPath = directoryPath + ".xml" + System.getProperty("file.separator") + "books.xml";
+	private String xslPath = directoryPath + ".xsl" + System.getProperty("file.separator") + "books.xsl";
+	// TODO Aggiungere data a nome del file
+	private String pdfPath = directoryPath + "books.pdf";
+	private FileManager fileManager = new FileManager(books, xmlPath);
 
 	private BooksController() {
 
@@ -23,6 +37,30 @@ public class BooksController {
 	public static BooksController getInstanceOf() {
 
 		return (BooksController.singBook == null ? new BooksController() : BooksController.singBook);
+	}
+
+	/**
+	 * Convert price in int
+	 * 
+	 * @param Book
+	 *            price in string format
+	 * @return Price in int
+	 * @throws IllegalArgumentException
+	 *             and IndexOutOfBoundsException
+	 */
+	public int convertPrice(String price) throws IllegalArgumentException, IndexOutOfBoundsException {
+
+		if (!price.contains(".") && !price.contains(",")) {
+			price += ".00";
+		} else if (price.charAt(price.length() - 2) == '.' || price.charAt(price.length() - 2) == ',') {
+			price += "0";
+		} else if (price.charAt(price.length() - 3) == '.' || price.charAt(price.length() - 3) == ',') {
+			// Correct input, nothing to do
+		} else {
+			throw new IllegalArgumentException("Price format not valid! (IE 12.50)");
+		}
+
+		return Integer.parseInt(new StringBuilder(price).deleteCharAt(price.length() - 3).toString());
 	}
 
 	/**
@@ -40,14 +78,13 @@ public class BooksController {
 	 *             if isbn already exists
 	 */
 	public void addBook(String isbn, String name, int year, int pages, String serie, String genre, String author,
-			int price) throws IllegalArgumentException {
+			String price) throws IllegalArgumentException, IndexOutOfBoundsException {
 
-		System.out.println(isbn + " " + this.bookIsPresent(isbn));
-		if (this.bookIsPresent(isbn)) {
+		if (this.isInputValid(isbn, year)) {
 
-			throw new IllegalArgumentException("FAIL: " + isbn + " is already present!");
+			books.add(new StandardBookImpl(isbn, name, year, pages, serie, genre, author, this.convertPrice(price)));
+			fileManager.saveDataToFile();
 		}
-		books.add(new StandardBookImpl(isbn, name, year, pages, serie, genre, author, price));
 	}
 
 	/**
@@ -128,6 +165,7 @@ public class BooksController {
 	public void removeBook(StandardBook book) {
 
 		books.remove(book);
+		fileManager.saveDataToFile();
 	}
 
 	/**
@@ -151,10 +189,22 @@ public class BooksController {
 	 *            to search
 	 * @return true if is present, else false
 	 */
-	public boolean bookIsPresent(String isbn) {
+	public boolean isInputValid(String isbn, int year) {
 
-		return (this.searchBook(Optional.empty(), Optional.of(isbn), Optional.empty(), Optional.empty(),
-				Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()).count() == 1);
+		if (this.searchBook(Optional.empty(), Optional.of(isbn), Optional.empty(), Optional.empty(), Optional.empty(),
+				Optional.empty(), Optional.empty(), Optional.empty()).count() >= 1) {
+			throw new IllegalArgumentException(isbn + " is already present!");
+		}
+		if (isbn.length() != ISBN_LENGTH) {
+			throw new IllegalArgumentException(isbn + " should be " + ISBN_LENGTH + " character!");
+		}
+		if (Integer.toString(year).length() != 4
+				|| year > java.util.Calendar.getInstance().get(java.util.Calendar.YEAR)) {
+			throw new IllegalArgumentException(
+					"Wait a minute, Doc. Are you telling me that you built a time machine... out of Delorian?!");
+		}
+
+		return true;
 	}
 
 	/**
@@ -163,5 +213,17 @@ public class BooksController {
 	public ObservableList<StandardBookImpl> getBooks() {
 
 		return books;
+	}
+
+	public void convert() throws IOException {
+
+		if (!new File(xslPath).exists())
+			throw new IOException("XSL Template doesn't exist");
+		if (!new File(xmlPath).exists())
+			throw new IllegalArgumentException("XML File doesn't exist");
+
+		ConvertXML2PDF converter = new ConvertXML2PDF(xmlPath, xslPath, pdfPath);
+
+		converter.open();
 	}
 }

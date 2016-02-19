@@ -12,24 +12,14 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 import com.medusabookdepot.model.modelInterface.StandardBook;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
 import com.medusabookdepot.controller.BooksController;
-import com.medusabookdepot.controller.files.ConvertXML2PDF;
-import com.medusabookdepot.controller.files.FileManager;
 
 public class BooksControl extends ScreenControl {
 
     private BooksController booksController = BooksController.getInstanceOf();
-    private String directoryPath = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot"
-            + System.getProperty("file.separator");
-    private String xmlPath = directoryPath + ".xml" + System.getProperty("file.separator") + "books.xml";
-    private String xslPath = directoryPath + ".xsl" + System.getProperty("file.separator") + "books.xsl";
-    // TODO Aggiungere data a nome del file
-    private String pdfPath = directoryPath + "books.pdf";
-    private FileManager fileManager = new FileManager(booksController, xmlPath);
 
     public BooksControl() {
         super();
@@ -125,8 +115,7 @@ public class BooksControl extends ScreenControl {
         // When the user clicks ok, the selection gets deleted
         if (result.get() == ButtonType.OK) {
             int selectedIndex = stdBooksTable.getSelectionModel().getSelectedIndex();
-            stdBooksTable.getItems().remove(selectedIndex);
-            fileManager.saveDataToFile();
+            booksController.removeBook(stdBooksTable.getItems().get(selectedIndex));
         }
     }
 
@@ -150,7 +139,7 @@ public class BooksControl extends ScreenControl {
         isbnColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         isbnColumn.setOnEditCommit(t -> {
             ((StandardBook) t.getTableView().getItems().get(t.getTablePosition().getRow())).setIsbn(t.getNewValue());
-            fileManager.saveDataToFile();
+            
         });
 
         /**
@@ -170,7 +159,7 @@ public class BooksControl extends ScreenControl {
         nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         nameColumn.setOnEditCommit(t -> {
             ((StandardBook) t.getTableView().getItems().get(t.getTablePosition().getRow())).setTitle(t.getNewValue());
-            fileManager.saveDataToFile();
+            
         });
 
         // yearColumn
@@ -178,7 +167,7 @@ public class BooksControl extends ScreenControl {
         yearColumn.setOnEditCommit(t -> {
             ((StandardBook) t.getTableView().getItems().get(t.getTablePosition().getRow()))
                     .setYear(Integer.parseInt(t.getNewValue()));
-            fileManager.saveDataToFile();
+            
         });
 
         // pagesColumn
@@ -186,27 +175,27 @@ public class BooksControl extends ScreenControl {
         pagesColumn.setOnEditCommit(t -> {
             ((StandardBook) t.getTableView().getItems().get(t.getTablePosition().getRow()))
                     .setPages(Integer.parseInt(t.getNewValue()));
-            fileManager.saveDataToFile();
+            
         });
 
         // serieColumn
         serieColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         serieColumn.setOnEditCommit(t -> {
             ((StandardBook) t.getTableView().getItems().get(t.getTablePosition().getRow())).setSerie(t.getNewValue());
-            fileManager.saveDataToFile();
+            
         });
 
         // genreColumn
         genreColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         genreColumn.setOnEditCommit(t -> {
             ((StandardBook) t.getTableView().getItems().get(t.getTablePosition().getRow())).setGenre(t.getNewValue());
-            fileManager.saveDataToFile();
+            
         });
         // authorColumn
         authorColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         authorColumn.setOnEditCommit(t -> {
             ((StandardBook) t.getTableView().getItems().get(t.getTablePosition().getRow())).setAuthor(t.getNewValue());
-            fileManager.saveDataToFile();
+            
         });
 
         // priceColumn
@@ -214,7 +203,7 @@ public class BooksControl extends ScreenControl {
         priceColumn.setOnEditCommit(t -> {
             ((StandardBook) t.getTableView().getItems().get(t.getTablePosition().getRow()))
                     .setPrice(Integer.parseInt(t.getNewValue()));
-            fileManager.saveDataToFile();
+            
         });
     }
 
@@ -224,13 +213,19 @@ public class BooksControl extends ScreenControl {
             // TODO isInputValid();
             booksController.addBook(isbnField.getText(), titleField.getText(), Integer.parseInt(yearField.getText()),
                     Integer.parseInt(pagesField.getText()), serieField.getText(), genreField.getText(),
-                    authorField.getText(), Integer.parseInt(priceField.getText()));
-            fileManager.saveDataToFile();
-        } catch (NumberFormatException e) {
+                    authorField.getText(), priceField.getText());
+        } catch (IndexOutOfBoundsException e){
+        	Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Pay Attention");
+            alert.setHeaderText("Error!");
+            alert.setContentText("Price format not valid! (IE 12.50)");
+            alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
+            alert.showAndWait();
+        } catch (Exception e) {
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Pay Attention");
             alert.setHeaderText("Error!");
-            alert.setContentText("You should enter a number in ");
+            alert.setContentText(e.getMessage());
             alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
             alert.showAndWait();
         }
@@ -238,14 +233,7 @@ public class BooksControl extends ScreenControl {
     @FXML
     private void convert() {
         try {
-            if (!new File(xslPath).exists())
-                throw new IOException("XSL Template doesn't exist");
-            if (!new File(xmlPath).exists())
-                throw new IllegalArgumentException("XML File doesn't exist");
-
-            ConvertXML2PDF converter = new ConvertXML2PDF(xmlPath, xslPath, pdfPath);
-
-            converter.open();
+            booksController.convert();
         } catch (IOException e) {
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Template not found");
