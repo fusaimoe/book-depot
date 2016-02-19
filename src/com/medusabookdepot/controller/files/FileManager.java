@@ -38,7 +38,7 @@ public class FileManager {
 		// Make the directory "book-depot" in home
 		file.getParentFile().mkdirs();
 		// Load the file, if it exists and if it's not empty
-		if(file.exists() && file.length()!=0){
+		if(file.exists() && file.length()>65){
 			loadDataFromFile();
 		}
 		

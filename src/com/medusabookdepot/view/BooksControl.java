@@ -10,7 +10,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.TextFieldTableCell;
 
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
-import com.medusabookdepot.model.modelInterface.StandardBook;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -20,9 +19,11 @@ import com.medusabookdepot.controller.BooksController;
 public class BooksControl extends ScreenControl {
 
     private BooksController booksController = BooksController.getInstanceOf();
-
+    private final Alert alert = new Alert(AlertType.WARNING);
+    
     public BooksControl() {
         super();
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
     }
 
     @FXML
@@ -138,8 +139,14 @@ public class BooksControl extends ScreenControl {
         // isbnColumn
         isbnColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         isbnColumn.setOnEditCommit(t -> {
-            ((StandardBook) t.getTableView().getItems().get(t.getTablePosition().getRow())).setIsbn(t.getNewValue());
-            
+        	try{
+        		booksController.editISBN(t.getTableView().getItems().get(t.getTablePosition().getRow()).getIsbn(), t.getNewValue()); 
+        	}catch(Exception e){
+                alert.setTitle("Pay Attention");
+                alert.setHeaderText("Error!");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            }
         });
 
         /**
@@ -158,51 +165,100 @@ public class BooksControl extends ScreenControl {
         // titleColumn
         nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         nameColumn.setOnEditCommit(t -> {
-            ((StandardBook) t.getTableView().getItems().get(t.getTablePosition().getRow())).setTitle(t.getNewValue());
-            
+        	try{
+	            booksController.editTitle(t.getTableView().getItems().get(t.getTablePosition().getRow()).getIsbn(),
+	            		t.getNewValue());
+        	}catch(Exception e){
+                alert.setTitle("Pay Attention");
+                alert.setHeaderText("Error!");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            }
         });
 
         // yearColumn
         yearColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         yearColumn.setOnEditCommit(t -> {
-            ((StandardBook) t.getTableView().getItems().get(t.getTablePosition().getRow()))
-                    .setYear(Integer.parseInt(t.getNewValue()));
-            
+        	try{
+	        	booksController.editYear(t.getTableView().getItems().get(t.getTablePosition().getRow()).getIsbn(), 
+	        			Integer.parseInt(t.getNewValue()));
+        	}catch(Exception e){
+                alert.setTitle("Pay Attention");
+                alert.setHeaderText("Error!");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            }
+        
         });
 
         // pagesColumn
         pagesColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         pagesColumn.setOnEditCommit(t -> {
-            ((StandardBook) t.getTableView().getItems().get(t.getTablePosition().getRow()))
-                    .setPages(Integer.parseInt(t.getNewValue()));
+        	try{
+	        	booksController.editPages(t.getTableView().getItems().get(t.getTablePosition().getRow()).getIsbn(), 
+	        			Integer.parseInt(t.getNewValue()));
+        	}catch(Exception e){
+                alert.setTitle("Pay Attention");
+                alert.setHeaderText("Error!");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            }
             
         });
 
         // serieColumn
         serieColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         serieColumn.setOnEditCommit(t -> {
-            ((StandardBook) t.getTableView().getItems().get(t.getTablePosition().getRow())).setSerie(t.getNewValue());
+        	try{
+        		booksController.editSerie(t.getTableView().getItems().get(t.getTablePosition().getRow()).getIsbn(), t.getNewValue());
+        	}catch(Exception e){
+                alert.setTitle("Pay Attention");
+                alert.setHeaderText("Error!");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            }
             
         });
 
         // genreColumn
         genreColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         genreColumn.setOnEditCommit(t -> {
-            ((StandardBook) t.getTableView().getItems().get(t.getTablePosition().getRow())).setGenre(t.getNewValue());
+        	try{
+        		booksController.editGenre(t.getTableView().getItems().get(t.getTablePosition().getRow()).getIsbn(), t.getNewValue());
+        	}catch(Exception e){
+                alert.setTitle("Pay Attention");
+                alert.setHeaderText("Error!");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            }
             
         });
         // authorColumn
         authorColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         authorColumn.setOnEditCommit(t -> {
-            ((StandardBook) t.getTableView().getItems().get(t.getTablePosition().getRow())).setAuthor(t.getNewValue());
+        	try{
+        		booksController.editAuthor(t.getTableView().getItems().get(t.getTablePosition().getRow()).getIsbn(), t.getNewValue());
+        	}catch(Exception e){
+                alert.setTitle("Pay Attention");
+                alert.setHeaderText("Error!");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            }
             
         });
 
         // priceColumn
         priceColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         priceColumn.setOnEditCommit(t -> {
-            ((StandardBook) t.getTableView().getItems().get(t.getTablePosition().getRow()))
-                    .setPrice(Integer.parseInt(t.getNewValue()));
+        	try{
+	        	booksController.editPrice(t.getTableView().getItems().get(t.getTablePosition().getRow()).getIsbn(), 
+	        			t.getNewValue());
+        	}catch(Exception e){
+                alert.setTitle("Pay Attention");
+                alert.setHeaderText("Error!");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            }
             
         });
     }
@@ -210,23 +266,18 @@ public class BooksControl extends ScreenControl {
     @FXML
     private void add() throws NumberFormatException {
         try {
-            // TODO isInputValid();
-            booksController.addBook(isbnField.getText(), titleField.getText(), Integer.parseInt(yearField.getText()),
+           booksController.addBook(isbnField.getText(), titleField.getText(), Integer.parseInt(yearField.getText()),
                     Integer.parseInt(pagesField.getText()), serieField.getText(), genreField.getText(),
                     authorField.getText(), priceField.getText());
         } catch (IndexOutOfBoundsException e){
-        	Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Pay Attention");
             alert.setHeaderText("Error!");
             alert.setContentText("Price format not valid! (IE 12.50)");
-            alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
             alert.showAndWait();
         } catch (Exception e) {
-            Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Pay Attention");
             alert.setHeaderText("Error!");
             alert.setContentText(e.getMessage());
-            alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
             alert.showAndWait();
         }
     }
@@ -235,20 +286,16 @@ public class BooksControl extends ScreenControl {
         try {
             booksController.convert();
         } catch (IOException e) {
-            Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Template not found");
             alert.setHeaderText("Could not load a conversion template for "
                     + this.getClass().getName().substring(25, new String(this.getClass().getName()).length() - 7));
             alert.setContentText(
                     "If it's not there, make it yourself. It's so time consuming and I have more important things to do atm. Sorry :(");
-            alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
             alert.showAndWait();
         } catch (IllegalArgumentException e) {
-            Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("No data to export");
             alert.setHeaderText("Could not load data from xml file");
             alert.setContentText("Probably there is no data to export. Make sure to save before exporting");
-            alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
             alert.showAndWait();
         }
 
