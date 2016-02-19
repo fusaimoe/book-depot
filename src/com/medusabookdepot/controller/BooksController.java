@@ -33,7 +33,7 @@ public class BooksController {
 
 		super();
 	}
-
+	
 	public static BooksController getInstanceOf() {
 
 		return (BooksController.singBook == null ? new BooksController() : BooksController.singBook);
@@ -49,7 +49,10 @@ public class BooksController {
 	 *             and IndexOutOfBoundsException
 	 */
 	public int convertPrice(String price) throws IllegalArgumentException, IndexOutOfBoundsException {
-
+		
+		if(price.equals("")){
+			throw new IllegalArgumentException("The price field mustn't be empty!");
+		}
 		if (!price.contains(".") && !price.contains(",")) {
 			price += ".00";
 		} else if (price.charAt(price.length() - 2) == '.' || price.charAt(price.length() - 2) == ',') {
@@ -80,7 +83,7 @@ public class BooksController {
 	public void addBook(String isbn, String name, int year, int pages, String serie, String genre, String author,
 			String price) throws IllegalArgumentException, IndexOutOfBoundsException {
 
-		if (this.isInputValid(isbn, year)) {
+		if (this.isInputValid(isbn, year, serie, genre, author)) {
 
 			books.add(new StandardBookImpl(isbn, name, year, pages, serie, genre, author, this.convertPrice(price)));
 			fileManager.saveDataToFile();
@@ -183,14 +186,19 @@ public class BooksController {
 	}
 
 	/**
-	 * Search if a book is present
 	 * 
 	 * @param isbn
-	 *            to search
-	 * @return true if is present, else false
+	 * @param year
+	 * @param serie
+	 * @param genre
+	 * @param author
+	 * @return
 	 */
-	public boolean isInputValid(String isbn, int year) {
+	public boolean isInputValid(String isbn, int year, String serie, String genre, String author) {
+		if (isbn.equals("") || Integer.toString(year).equals("") || serie.equals("") || genre.equals("") || author.equals("")) {
 
+			throw new IllegalArgumentException("The fields mustn't be empty!");
+		}
 		if (this.searchBook(Optional.empty(), Optional.of(isbn), Optional.empty(), Optional.empty(), Optional.empty(),
 				Optional.empty(), Optional.empty(), Optional.empty()).count() >= 1) {
 			throw new IllegalArgumentException(isbn + " is already present!");
@@ -214,7 +222,11 @@ public class BooksController {
 
 		return books;
 	}
-
+	
+	/**
+	 * Convert the xml file in a PDF
+	 * @throws IOException
+	 */
 	public void convert() throws IOException {
 
 		if (!new File(xslPath).exists())
@@ -225,5 +237,82 @@ public class BooksController {
 		ConvertXML2PDF converter = new ConvertXML2PDF(xmlPath, xslPath, pdfPath);
 
 		converter.open();
+	}
+
+	public void editISBN(String oldISBN, String newISBN) {
+
+		this.searchBook(Optional.empty(), Optional.of(oldISBN), Optional.empty(), Optional.empty(), Optional.empty(),
+				Optional.empty(), Optional.empty(), Optional.empty()).forEach(e -> {
+
+					if (this.isInputValid(newISBN, e.getYear(), e.getSerie(), e.getGenre(), e.getAuthor())) {
+						e.setIsbn(newISBN);
+					}
+				});
+	}
+
+	public void editTitle(String isbn, String newTitle) {
+
+		this.searchBook(Optional.empty(), Optional.of(isbn), Optional.empty(), Optional.empty(), Optional.empty(),
+				Optional.empty(), Optional.empty(), Optional.empty()).forEach(e -> {
+
+					e.setTitle(newTitle);
+				});
+	}
+
+	public void editYear(String isbn, int newYear) {
+
+		this.searchBook(Optional.empty(), Optional.of(isbn), Optional.empty(), Optional.empty(), Optional.empty(),
+				Optional.empty(), Optional.empty(), Optional.empty()).forEach(e -> {
+
+					if (this.isInputValid(isbn, newYear, e.getSerie(), e.getGenre(), e.getAuthor())) {
+						e.setYear(newYear);
+					}
+				});
+	}
+
+	public void editPages(String isbn, int newPages) {
+
+		this.searchBook(Optional.empty(), Optional.of(isbn), Optional.empty(), Optional.empty(), Optional.empty(),
+				Optional.empty(), Optional.empty(), Optional.empty()).forEach(e -> {
+
+					e.setPages(newPages);
+				});
+	}
+
+	public void editSerie(String isbn, String newSerie) {
+
+		this.searchBook(Optional.empty(), Optional.of(isbn), Optional.empty(), Optional.empty(), Optional.empty(),
+				Optional.empty(), Optional.empty(), Optional.empty()).forEach(e -> {
+
+					e.setSerie(newSerie);
+					;
+				});
+	}
+
+	public void editGenre(String isbn, String newGenre) {
+
+		this.searchBook(Optional.empty(), Optional.of(isbn), Optional.empty(), Optional.empty(), Optional.empty(),
+				Optional.empty(), Optional.empty(), Optional.empty()).forEach(e -> {
+
+					e.setGenre(newGenre);
+				});
+	}
+
+	public void editAuthor(String isbn, String newAuthor) {
+
+		this.searchBook(Optional.empty(), Optional.of(isbn), Optional.empty(), Optional.empty(), Optional.empty(),
+				Optional.empty(), Optional.empty(), Optional.empty()).forEach(e -> {
+
+					e.setAuthor(newAuthor);
+				});
+	}
+	
+	public void editPrice(String isbn, String newPrice) {
+
+		this.searchBook(Optional.empty(), Optional.of(isbn), Optional.empty(), Optional.empty(), Optional.empty(),
+				Optional.empty(), Optional.empty(), Optional.empty()).forEach(e -> {
+
+					e.setPrice(this.convertPrice(newPrice));
+				});
 	}
 }
