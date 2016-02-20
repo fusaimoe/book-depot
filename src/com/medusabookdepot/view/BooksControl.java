@@ -281,14 +281,17 @@ public class BooksControl extends ScreenControl {
             alert.showAndWait();
         }
     }
+    
     @FXML
     private void convert() {
         try {
             booksController.convert();
         } catch (IOException e) {
             alert.setTitle("Template not found");
-            alert.setHeaderText("Could not load a conversion template for " + this.getClass().getName().substring(25, new String(this.getClass().getName()).length() - 7));
-            alert.setContentText("If it's not there, make it yourself. It's so time consuming and I have more important things to do atm. Sorry :(");
+            alert.setHeaderText("Could not load a conversion template for "
+                    + this.getClass().getName().substring(25, new String(this.getClass().getName()).length() - 7));
+            alert.setContentText(
+                    "If it's not there, make it yourself. It's so time consuming and I have more important things to do atm. Sorry :(");
             alert.showAndWait();
         } catch (IllegalArgumentException e) {
             alert.setTitle("No data to export");
@@ -296,6 +299,9 @@ public class BooksControl extends ScreenControl {
             alert.setContentText("Probably there is no data to export. Make sure to save before exporting");
             alert.showAndWait();
         }
+
+        // TODO if xsl doesn't exist, it's not possible to convert without
+        // templates!
     }
 
 }
