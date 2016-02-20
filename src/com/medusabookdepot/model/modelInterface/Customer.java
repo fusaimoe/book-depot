@@ -57,5 +57,10 @@ public interface Customer extends Transferrer {
      * @return true if the Customer object is a library, else false
      */
     public boolean isALibrary();
+    /**
+     * 
+     * @return the type of Customer, e.g. "Library"
+     */
+    public StringProperty getType();
 
 }

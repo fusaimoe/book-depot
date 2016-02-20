@@ -5,12 +5,18 @@ package com.medusabookdepot.model.modelImpl;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import com.medusabookdepot.model.modelInterface.Customer;
+
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  * @author Marcello_Feroce
  *
  */
+@XmlRootElement(name="person")
 public class PersonImpl extends CustomerImpl implements Customer, Serializable {// strategy
 
     /**
@@ -45,6 +51,10 @@ public class PersonImpl extends CustomerImpl implements Customer, Serializable {
     @Override
     public boolean isALibrary() {
         return false;
+    }
+    @Override
+    public StringProperty getType() {
+        return new SimpleStringProperty("Person");
     }
 
 }

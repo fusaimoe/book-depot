@@ -5,6 +5,8 @@ package com.medusabookdepot.model.modelImpl;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlSeeAlso;
+
 import com.medusabookdepot.model.modelInterface.Customer;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -17,6 +19,7 @@ import javafx.beans.property.StringProperty;
  * @author Marcello_Feroce
  *
  */
+@XmlSeeAlso({PersonImpl.class,LibraryImpl.class})
 public abstract class CustomerImpl extends TransferrerImpl implements Customer, Serializable {// template
                                                                                               // method
 
