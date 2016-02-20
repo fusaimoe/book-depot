@@ -32,7 +32,7 @@ public interface Transfer {
      * 
      * @return all the books of the transfer, with their quantities
      */
-    public Map<StandardBook, IntegerProperty> getBooksProperty();
+    public Map<StandardBook, IntegerProperty> booksProperty();
     /**
      * 
      * @return the leaving date of the transfer
@@ -72,7 +72,7 @@ public interface Transfer {
      * 
      * @return the quantity of books brought by the transfer
      */
-    public IntegerProperty getQuantityProperty();
+    public IntegerProperty quantityProperty();
     /**
      * 
      * @param book is the book I want look for its quantity
@@ -84,7 +84,7 @@ public interface Transfer {
      * @param book is the book I want look for its quantity
      * @return the quantity of the book in the depot
      */
-    public IntegerProperty getQuantityFromBookProperty(StandardBook book);
+    public IntegerProperty quantityFromBookProperty(StandardBook book);
     /**
      * 
      * @return the total price of the books carried in the transfer
@@ -94,7 +94,7 @@ public interface Transfer {
      * 
      * @return the total price of the books carried in the transfer
      */
-    public IntegerProperty getTotalPriceProperty();
+    public IntegerProperty totalPriceProperty();
     /**
      * 
      * @param trackingnumber is the new tracking number of the transfer
@@ -121,7 +121,7 @@ public interface Transfer {
      * 
      * @return a String of the books carried by the transfer
      */
-    public StringProperty getBooksAsACoolStringProperty();
+    public StringProperty booksAsACoolStringProperty();
     /**
      * 
      * @return true if the transfer is arrived

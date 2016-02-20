@@ -180,25 +180,25 @@ public class TransferImpl implements Transfer, Serializable {
                 + this.getQuantity() + "\n";
     }
     @Override
-    public Map<StandardBook, IntegerProperty> getBooksProperty() {
+    public Map<StandardBook, IntegerProperty> booksProperty() {
         return null;
     }
     @Override
-    public IntegerProperty getQuantityProperty() {
+    public IntegerProperty quantityProperty() {
         Integer i=new Integer(getQuantity());//copia difensiva
         return new SimpleIntegerProperty(i);
     }
     @Override
-    public IntegerProperty getQuantityFromBookProperty(StandardBook book) {
+    public IntegerProperty quantityFromBookProperty(StandardBook book) {
         Integer i=new Integer(this.getQuantityFromBook(book));
         return new SimpleIntegerProperty(i);
     }
     @Override
-    public IntegerProperty getTotalPriceProperty() {
+    public IntegerProperty totalPriceProperty() {
         return new SimpleIntegerProperty(this.getTotalPrice());
     }
     @Override
-    public StringProperty getBooksAsACoolStringProperty() {
+    public StringProperty booksAsACoolStringProperty() {
         return new SimpleStringProperty(this.getBooksAsACoolString());
     }
     @Override
