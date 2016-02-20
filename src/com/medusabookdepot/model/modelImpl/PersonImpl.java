@@ -23,6 +23,9 @@ public class PersonImpl extends CustomerImpl implements Customer, Serializable {
      * 
      */
     private static final long serialVersionUID = -1881387138018701672L;
+    public PersonImpl() {
+        super(null, null, null);
+    }
     public PersonImpl(String name, String address, String telephoneNumber) {
         super(name, address, telephoneNumber);
     }

@@ -26,7 +26,9 @@ public class LibraryImpl extends CustomerImpl implements Customer, CanSendTransf
      * 
      */
     private static final long serialVersionUID = 1297118859791514521L;
-
+    public LibraryImpl() {
+        super(null, null, null);
+    }
     public LibraryImpl(String name, String address, String telephoneNumber) {
         super(name, address, telephoneNumber);
     }
