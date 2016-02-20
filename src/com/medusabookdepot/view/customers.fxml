@@ -23,10 +23,14 @@
 	                     <children>
 	                        <TableView editable="true" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS" fx:id="customersTable">
 	                          <columns>
-	                          	<TableColumn text="Name" prefWidth="250.0" fx:id="nameColumn"/>
-	                            <TableColumn text="Address" prefWidth="250.0" fx:id="addressColumn"/>
-	                            <TableColumn text="Phone Number" prefWidth="250.0" fx:id="phoneColumn"/>
+	                          	<TableColumn text="Name" fx:id="nameColumn"/>
+	                            <TableColumn text="Address" fx:id="addressColumn"/>
+	                            <TableColumn text="Phone Number" fx:id="phoneColumn"/>
+	                            <TableColumn text="Type" fx:id="typeColumn"/>
 	                          </columns>
+	                          <columnResizePolicy>
+							        	<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+							  </columnResizePolicy>
 	                        </TableView>
 	                     </children>
 	                  </VBox>

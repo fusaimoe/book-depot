@@ -25,6 +25,10 @@ public class FileManager<A> {
 	private QName qName;
 	private final Class<A> classType;
 	
+	//Minimum number of character of a full XML file
+	//If the file contains less than MIN_CHARS characters, it is empty
+	private static final int MIN_CHARS = 80;
+	
 	/**
 	 * Constructor
 	 * It creates the directory "book-depot" in home,
@@ -52,7 +56,7 @@ public class FileManager<A> {
 		// Make the directory "book-depot" in home if doesn't exist already
 		file.getParentFile().mkdirs();
 		// Load the file, if it exists and if it's not empty
-		if(file.exists() && file.length()!=0){
+		if(file.exists() && file.length()>MIN_CHARS){
 			loadDataFromFile();
 		}
 		

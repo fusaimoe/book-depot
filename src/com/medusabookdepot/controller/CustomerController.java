@@ -1,17 +1,32 @@
 package com.medusabookdepot.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 import com.medusabookdepot.model.modelImpl.LibraryImpl;
 import com.medusabookdepot.model.modelImpl.PersonImpl;
-import com.medusabookdepot.model.modelInterface.Customer;
+import com.medusabookdepot.controller.files.FileManager;
+import com.medusabookdepot.model.modelImpl.CustomerImpl;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class CustomerController {
-
+	
+	/**
+	 * The list that contains all saved customers
+	 */
+	private final ObservableList<CustomerImpl> customers = FXCollections.observableArrayList();
+	
+	// Fields for file load and save, and for converting to PDF
+	private String directoryPath = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot" + System.getProperty("file.separator");
+	private String xmlPath = directoryPath + ".xml" + System.getProperty("file.separator") + "customers.xml";
+	private String xslPath = directoryPath + ".xsl" + System.getProperty("file.separator") + "customer.xsl";
+	private String pdfPath = directoryPath + "customers" + new SimpleDateFormat("yyyyMMdd-HHmm-").format(new Date());
+	private FileManager<CustomerImpl> fileManager = new FileManager<>(customers, xmlPath, CustomerImpl.class, "customers");
+		
 	/**
 	 * Search a customer in his list
 	 * @param Name of customer
@@ -19,10 +34,10 @@ public class CustomerController {
 	 * @param Telephone number of customer
 	 * @return None elements if it doesn't find the element(s)
 	 */
-	public Stream<Customer> searchCustomer(Optional<String> name, Optional<String> address,
+	public Stream<CustomerImpl> searchCustomer(Optional<String> name, Optional<String> address,
 			Optional<String> telephoneNumber) {
 
-		Stream<Customer> result = this.customers.stream();
+		Stream<CustomerImpl> result = this.customers.stream();
 
 		if (name.isPresent()) {
 			result = result.filter(e -> name.get().equals(e.getName()));
@@ -37,16 +52,55 @@ public class CustomerController {
 		/* If there are not filters, return all books in one stream */
 		return result;
 	}
+	
+	/**
+	 * @return The list of saved books
+	 */
+	public ObservableList<CustomerImpl> getCustomers() {
 
+		return customers;
+	}
+	
 	public boolean customerIsPresent(String address, String telephoneNumber) {
 
 		return (this.searchCustomer(Optional.empty(), Optional.of(address), Optional.of(telephoneNumber)).count() == 1);
 	}
 
 	/**
-	 * The list that contains all saved customers
+	 * Edit a customer name
+	 * 
+	 * @param Customer
+	 * @param Name
 	 */
-	private final ObservableList<Customer> customers = FXCollections.observableArrayList();
+	public void editName(CustomerImpl customer, String name) {
+
+		customers.get(customers.indexOf(customer)).setName(name);
+		fileManager.saveDataToFile();
+	}
+	
+	/**
+	 * Edit a customer address
+	 * 
+	 * @param Customer
+	 * @param Address
+	 */
+	public void editAddress(CustomerImpl customer, String address) {
+
+		customers.get(customers.indexOf(customer)).setAddress(address);
+		fileManager.saveDataToFile();
+	}
+	
+	/**
+	 * Edit a customer telephone number
+	 * 
+	 * @param Customer
+	 * @param Telephone
+	 */
+	public void editPhone(CustomerImpl customer, String phone) {
+
+		customers.get(customers.indexOf(customer)).setTelephoneNumber(phone);;
+		fileManager.saveDataToFile();
+	}
 
 	/**
 	 * Add a new customer to the list of all customers
@@ -60,7 +114,7 @@ public class CustomerController {
 	 * @param Type
 	 *            of customer: 1) Library 2) Person
 	 */
-	public void addCustomer(String name, String address, String telephoneNumber, int type) {
+	public void addCustomer(String name, String address, String telephoneNumber, String type) {
 
 		if (this.customerIsPresent(address, telephoneNumber)) {
 			throw new IllegalArgumentException(
@@ -68,22 +122,26 @@ public class CustomerController {
 		}
 
 		switch (type) {
-		case 1:
+		case "Library":
 			customers.add(new LibraryImpl(name, address, telephoneNumber));
 			break;
-		case 2:
+		case "Person":
 			customers.add(new PersonImpl(name, address, telephoneNumber));
 			break;
 		}
+		
+		fileManager.saveDataToFile();
 	}
-
+	 
+	
 	/**
 	 * Remove a customer from the list
 	 * 
 	 * @param Customer
 	 */
-	public void deleteCusomer(Customer customer) {
+	public void removeCustomer(CustomerImpl customer) {
 
 		customers.remove(customer);
+		fileManager.saveDataToFile();
 	}
 }
