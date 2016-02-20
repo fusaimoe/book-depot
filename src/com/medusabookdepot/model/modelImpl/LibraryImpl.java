@@ -6,14 +6,20 @@ package com.medusabookdepot.model.modelImpl;
 import java.io.Serializable;
 import java.util.Map;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import com.medusabookdepot.model.modelInterface.CanSendTransferrer;
 import com.medusabookdepot.model.modelInterface.Customer;
 import com.medusabookdepot.model.modelInterface.StandardBook;
+
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  * @author Marcello_Feroce
  *
  */
+@XmlRootElement(name="library")
 public class LibraryImpl extends CustomerImpl implements Customer, CanSendTransferrer, Serializable {// strategy
 
     /**
@@ -53,6 +59,10 @@ public class LibraryImpl extends CustomerImpl implements Customer, CanSendTransf
     @Override
     public boolean isALibrary() {
         return true;
+    }
+    @Override
+    public StringProperty getType() {
+        return new SimpleStringProperty("Library");
     }
 
 }
