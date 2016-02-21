@@ -5,9 +5,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.stream.Stream;
 
 import com.medusabookdepot.controller.files.FileManager;
-import com.medusabookdepot.model.modelImpl.CustomerImpl;
 import com.medusabookdepot.model.modelImpl.DepotImpl;
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 
@@ -68,7 +68,7 @@ public class DepotsController {
 	 */
 	public void addDepot(String name) throws IllegalArgumentException{
 		
-		if(this.searchDepot(new DepotImpl(name, new HashMap<>()))!=null){
+		if(this.searchDepot(name).count()>=1){
 			throw new IllegalArgumentException("Depot " + name +" is already present!");
 		}
 		depots.add(new DepotImpl(name, new HashMap<>()));
@@ -76,61 +76,19 @@ public class DepotsController {
 	}
 
 	/**
-	 * Add new depot in the list
-	 * 
-	 * @param name:
-	 *            name of new book depot
-	 * @param book:
-	 *            a book list to insert in new book depot
-	 * @param quantity:
-	 *            the quantity of before books
-	 * @return true: all right, false: error in parameters
-	 * 
-	 */
-	/*
-	 * Con questo modulo ho voluto poter far inserire all'utente più libri alla
-	 * creazione del deposito anzichè inserirne uno solo per poi aggiungerne
-	 * altri dopo la creazione
-	 */
-	/*public boolean addDepot(String name, List<StandardBookImpl> book, int... quantity) {
-
-		for (DepotImpl d : depots) {
-			if (d.getName().equals(name)) {
-				throw new IllegalArgumentException("Fail: " + name + "is already exists!");
-			}
-		}
-
-		booksInDepot.clear();
-
-		if (book.size() != quantity.length && !book.isEmpty() && quantity.length == 0) {
-			return false;
-		}
-
-		for (StandardBookImpl n : book) {
-
-			booksInDepot.put(n, quantity[book.indexOf(n)]);
-		}
-
-		addDepot(new DepotImpl(name, booksInDepot));
-
-		return true;
-	}*/
-
-	/**
 	 * Search a depot in the list
 	 * 
-	 * @param depot
-	 * @return null if it doesn't find one, else the object found
+	 * @param Depot name
+	 * @return Empty stream if none depot was found, else the depot
 	 */
-	public DepotImpl searchDepot(DepotImpl depot) {
+	public Stream<DepotImpl> searchDepot(String name) {
 
-		for (DepotImpl d : depots) {
-			if (depot.equals(d)) {
-				return d;
-			}
-		}
-		return null;
+		Stream<DepotImpl> result = this.depots.stream();
+		result = result.filter(e -> e.getName().contains(name));
+		return result;
 	}
+	
+	
 
 	/**
 	 * Remove a depot from the list
