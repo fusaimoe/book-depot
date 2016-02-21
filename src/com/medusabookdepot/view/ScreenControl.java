@@ -41,6 +41,8 @@ public class ScreenControl {
 	private Button addCustomer;
 	@FXML
 	private Button addBook;
+	@FXML
+	private Button addDepot;
 	//private Button search;
 	//private Button stats;
 	//private Button more;

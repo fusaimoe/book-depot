@@ -8,6 +8,8 @@ import java.util.Optional;
 import com.medusabookdepot.controller.CustomerController;
 import com.medusabookdepot.model.modelImpl.CustomerImpl;
 
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -51,6 +53,8 @@ public class CustomersControl extends ScreenControl{
     
     @FXML
 	private Button delete;
+    @FXML
+    private TextField searchField;
 
     /**
 	 * Initializes the controller class. This method is automatically called
@@ -77,6 +81,9 @@ public class CustomersControl extends ScreenControl{
         customersTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
         	delete.setDisable(false);
         } );
+        
+        // Use a 'searchField' to search for books in the tableView
+        this.search();
 	}
 
 	private void edit() {
@@ -123,6 +130,9 @@ public class CustomersControl extends ScreenControl{
         });
 	}
 	
+	/**
+     * Called when the user add a new customer
+     */
 	@FXML
     private void add() throws NumberFormatException {
         try {
@@ -157,5 +167,41 @@ public class CustomersControl extends ScreenControl{
             int selectedIndex = customersTable.getSelectionModel().getSelectedIndex();
             customersController.removeCustomer(customersTable.getItems().get(selectedIndex));
         }
+    }
+    
+    /**
+     * Called when the user enter something in the search field
+     */
+    private void search(){
+    	
+        FilteredList<CustomerImpl> filteredData = new FilteredList<>(customersController.getCustomers(), p -> true);
+        
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(customer -> {
+            	
+                // If filter text is empty, display all the items.
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                // Compare all the items with filter text.
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (customer.getName().toLowerCase().contains(lowerCaseFilter)) return true; 
+                else if (customer.getAddress().toLowerCase().contains(lowerCaseFilter))return true; 
+                else if (customer.getTelephoneNumber().toLowerCase().contains(lowerCaseFilter)) return true;
+                else if (customer.getType().get().toLowerCase().contains(lowerCaseFilter)) return true;
+                return false; // Does not match.
+            });
+        });
+
+        // 3. Wrap the FilteredList in a SortedList. 
+        SortedList<CustomerImpl> sortedData = new SortedList<>(filteredData);
+
+        // 4. Bind the SortedList comparator to the TableView comparator.
+        sortedData.comparatorProperty().bind(customersTable.comparatorProperty());
+
+        // 5. Add sorted (and filtered) data to the table.
+        customersTable.setItems(sortedData);
     }
 }

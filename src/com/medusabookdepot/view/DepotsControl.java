@@ -3,29 +3,36 @@ package com.medusabookdepot.view;
 import java.util.Map.Entry;
 
 import com.medusabookdepot.controller.DepotsController;
+import com.medusabookdepot.model.modelImpl.DepotImpl;
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 
 public class DepotsControl extends ScreenControl {
 	
 	private final DepotsController depotsController = new DepotsController();
-	
+    private final Alert alert = new Alert(AlertType.WARNING);
+    
 	public DepotsControl(){
 		super();
+		alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
 	}
 	
 	@FXML
 	private HBox hBox;
 	@FXML
 	private TableView<Entry<StandardBookImpl,Integer>> depotsTable;
+
 	@FXML
 	private TableColumn<Entry<StandardBookImpl,Integer>, String> quantityColumn;
 	@FXML
@@ -44,21 +51,22 @@ public class DepotsControl extends ScreenControl {
 	private TableColumn<Entry<StandardBookImpl,Integer>, String> authorColumn;
 	@FXML
 	private TableColumn<Entry<StandardBookImpl,Integer>, String> priceColumn;
-	
-	/**
-	 * Enter a "dinamic" quantity of buttons in the fxml code, for example, depending on the list of depots
-	 */
+	@FXML
+	private TextField nameField;
+	@FXML
+	private TextField searchField;
 
 	public void initialize() {
 		
 		final ObservableList<Entry<StandardBookImpl,Integer>> data = FXCollections.observableArrayList();
 		
-		for(int i=2; i<6; i++){
-			ToggleButton button = new ToggleButton("TOGGLE" + (i-1));
+		int i=2;
+		for(DepotImpl depot : depotsController.getDepots()){
+			ToggleButton button = new ToggleButton(depot.getName());
 			hBox.getChildren().add(i, button);
+			i++;
 		}
 		
-		// Initialize the table
         quantityColumn.setCellValueFactory(cellData ->  new ReadOnlyStringWrapper(cellData.getValue().getValue().toString()));
         isbnColumn.setCellValueFactory(cellData -> cellData.getValue().getKey().isbnProperty());
         titleColumn.setCellValueFactory(cellData -> cellData.getValue().getKey().titleProperty());
@@ -77,5 +85,5 @@ public class DepotsControl extends ScreenControl {
         
         depotsTable.setItems(data);
 	}
-	
+
 }

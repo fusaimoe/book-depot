@@ -4,6 +4,8 @@
 
 package com.medusabookdepot.view;
 
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
@@ -66,6 +68,8 @@ public class BooksControl extends ScreenControl {
     private Button delete;
     @FXML
     private Button convert;
+    @FXML
+    private TextField searchField;
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -74,6 +78,7 @@ public class BooksControl extends ScreenControl {
     @FXML
     private void initialize() {
 
+    	
         // Initialize the table
         isbnColumn.setCellValueFactory(cellData -> cellData.getValue().isbnProperty());
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().titleProperty());
@@ -95,6 +100,9 @@ public class BooksControl extends ScreenControl {
         stdBooksTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             delete.setDisable(false);
         });
+        
+        // Use a 'searchField' to search for books in the tableView
+        this.search();
     }
 
     /**
@@ -140,7 +148,7 @@ public class BooksControl extends ScreenControl {
         isbnColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         isbnColumn.setOnEditCommit(t -> {
         	try{
-        		booksController.editISBN(t.getTableView().getItems().get(t.getTablePosition().getRow()).getIsbn(), t.getNewValue()); 
+        		booksController.editISBN(t.getTableView().getItems().get(t.getTablePosition().getRow()), t.getNewValue()); 
         	}catch(Exception e){
                 alert.setTitle("Pay Attention");
                 alert.setHeaderText("Error!");
@@ -166,7 +174,7 @@ public class BooksControl extends ScreenControl {
         nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         nameColumn.setOnEditCommit(t -> {
         	try{
-	            booksController.editTitle(t.getTableView().getItems().get(t.getTablePosition().getRow()).getIsbn(),
+	            booksController.editTitle(t.getTableView().getItems().get(t.getTablePosition().getRow()),
 	            		t.getNewValue());
         	}catch(Exception e){
                 alert.setTitle("Pay Attention");
@@ -180,7 +188,7 @@ public class BooksControl extends ScreenControl {
         yearColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         yearColumn.setOnEditCommit(t -> {
         	try{
-	        	booksController.editYear(t.getTableView().getItems().get(t.getTablePosition().getRow()).getIsbn(), 
+	        	booksController.editYear(t.getTableView().getItems().get(t.getTablePosition().getRow()), 
 	        			Integer.parseInt(t.getNewValue()));
         	}catch(Exception e){
                 alert.setTitle("Pay Attention");
@@ -195,7 +203,7 @@ public class BooksControl extends ScreenControl {
         pagesColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         pagesColumn.setOnEditCommit(t -> {
         	try{
-	        	booksController.editPages(t.getTableView().getItems().get(t.getTablePosition().getRow()).getIsbn(), 
+	        	booksController.editPages(t.getTableView().getItems().get(t.getTablePosition().getRow()), 
 	        			Integer.parseInt(t.getNewValue()));
         	}catch(Exception e){
                 alert.setTitle("Pay Attention");
@@ -210,7 +218,7 @@ public class BooksControl extends ScreenControl {
         serieColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         serieColumn.setOnEditCommit(t -> {
         	try{
-        		booksController.editSerie(t.getTableView().getItems().get(t.getTablePosition().getRow()).getIsbn(), t.getNewValue());
+        		booksController.editSerie(t.getTableView().getItems().get(t.getTablePosition().getRow()), t.getNewValue());
         	}catch(Exception e){
                 alert.setTitle("Pay Attention");
                 alert.setHeaderText("Error!");
@@ -224,7 +232,7 @@ public class BooksControl extends ScreenControl {
         genreColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         genreColumn.setOnEditCommit(t -> {
         	try{
-        		booksController.editGenre(t.getTableView().getItems().get(t.getTablePosition().getRow()).getIsbn(), t.getNewValue());
+        		booksController.editGenre(t.getTableView().getItems().get(t.getTablePosition().getRow()), t.getNewValue());
         	}catch(Exception e){
                 alert.setTitle("Pay Attention");
                 alert.setHeaderText("Error!");
@@ -237,7 +245,7 @@ public class BooksControl extends ScreenControl {
         authorColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         authorColumn.setOnEditCommit(t -> {
         	try{
-        		booksController.editAuthor(t.getTableView().getItems().get(t.getTablePosition().getRow()).getIsbn(), t.getNewValue());
+        		booksController.editAuthor(t.getTableView().getItems().get(t.getTablePosition().getRow()), t.getNewValue());
         	}catch(Exception e){
                 alert.setTitle("Pay Attention");
                 alert.setHeaderText("Error!");
@@ -251,8 +259,8 @@ public class BooksControl extends ScreenControl {
         priceColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         priceColumn.setOnEditCommit(t -> {
         	try{
-	        	booksController.editPrice(t.getTableView().getItems().get(t.getTablePosition().getRow()).getIsbn(), 
-	        			t.getNewValue());
+	        	booksController.editPrice(t.getTableView().getItems().get(t.getTablePosition().getRow()), 
+	        			Integer.parseInt(t.getNewValue()));
         	}catch(Exception e){
                 alert.setTitle("Pay Attention");
                 alert.setHeaderText("Error!");
@@ -263,11 +271,14 @@ public class BooksControl extends ScreenControl {
         });
     }
 
+    /**
+     * Called when the user add a new book
+     */
     @FXML
     private void add() throws NumberFormatException {
         try {
-           booksController.addBook(isbnField.getText(), titleField.getText(), Integer.parseInt(yearField.getText()),
-                    Integer.parseInt(pagesField.getText()), serieField.getText(), genreField.getText(),
+           booksController.addBook(isbnField.getText(), titleField.getText(), yearField.getText(),
+                    pagesField.getText(), serieField.getText(), genreField.getText(),
                     authorField.getText(), priceField.getText());
         } catch (IndexOutOfBoundsException e){
             alert.setTitle("Pay Attention");
@@ -282,6 +293,9 @@ public class BooksControl extends ScreenControl {
         }
     }
     
+    /**
+     * Called when the user wants to convert the TableView to a PDF file
+     */
     @FXML
     private void convert() {
         try {
@@ -302,6 +316,44 @@ public class BooksControl extends ScreenControl {
 
         // TODO if xsl doesn't exist, it's not possible to convert without
         // templates!
+    }
+    
+    /**
+     * Called when the user enter something in the search field
+     */
+    private void search(){
+    	
+        FilteredList<StandardBookImpl> filteredData = new FilteredList<>(booksController.getBooks(), p -> true);
+
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(book -> {
+            	
+                // If filter text is empty, display all the items.
+                if (newValue == null || newValue.isEmpty()) return true;
+
+                // Compare all the items with filter text.
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (book.getIsbn().toLowerCase().contains(lowerCaseFilter)) return true; 
+                else if (book.getTitle().toLowerCase().contains(lowerCaseFilter))return true; 
+                else if (Integer.toString(book.getYear()).toLowerCase().contains(lowerCaseFilter)) return true;
+                else if (Integer.toString(book.getPages()).toLowerCase().contains(lowerCaseFilter)) return true;
+                else if (book.getGenre().toLowerCase().contains(lowerCaseFilter)) return true;
+                else if (book.getSerie().toLowerCase().contains(lowerCaseFilter)) return true;
+                else if (book.getAuthor().toLowerCase().contains(lowerCaseFilter)) return true;
+                else if (Integer.toString(book.getPrice()).toLowerCase().contains(lowerCaseFilter)) return true;
+                return false; // Does not match.
+            });
+        });
+
+        // 3. Wrap the FilteredList in a SortedList. 
+        SortedList<StandardBookImpl> sortedData = new SortedList<>(filteredData);
+
+        // 4. Bind the SortedList comparator to the TableView comparator.
+        sortedData.comparatorProperty().bind(stdBooksTable.comparatorProperty());
+
+        // 5. Add sorted (and filtered) data to the table.
+        stdBooksTable.setItems(sortedData);
     }
 
 }
