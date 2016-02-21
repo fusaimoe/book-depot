@@ -211,6 +211,14 @@ public class TransferImpl implements Transfer, Serializable {
 
     }
     @Override
+    public boolean equals(Transfer transfer) {
+        if(this.getTrackingNumber().equals(transfer.getTrackingNumber())) {
+            return true;
+        }
+        return false;
+
+    }
+    @Override
     public boolean isLeft() {
         return this.left;
     }
