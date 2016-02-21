@@ -9,7 +9,6 @@ import java.util.NoSuchElementException;
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 import com.medusabookdepot.model.modelImpl.TransferImpl;
 import com.medusabookdepot.model.modelInterface.CanSendTransferrer;
-import com.medusabookdepot.model.modelInterface.StandardBook;
 import com.medusabookdepot.model.modelInterface.Transfer;
 import com.medusabookdepot.model.modelInterface.Transferrer;
 
@@ -55,8 +54,23 @@ public class MovementsController {
 			try {
 				movements.remove(t);
 			} catch (Exception e) {
-				new NoSuchElementException();
+				throw new NoSuchElementException("No such element in list");
 			}
 		}
+	}
+	
+	/**
+	 * Search a transfer in list by tracking number
+	 * @param <b>Tracking number</b>
+	 * @return The transfer if it was found, else <b>null</b>
+	 */
+	public Transfer searchTrasferByTrackingNumber(String tracking){
+		
+		for(Transfer t:movements){
+			if(t.getTrackingNumber().equals(tracking)){
+				return t;
+			}
+		}
+		return null;
 	}
 }
