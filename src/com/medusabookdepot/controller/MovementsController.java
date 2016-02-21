@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 import com.medusabookdepot.model.modelImpl.TransferImpl;
 import com.medusabookdepot.model.modelInterface.CanSendTransferrer;
 import com.medusabookdepot.model.modelInterface.StandardBook;
@@ -28,9 +29,9 @@ public class MovementsController {
 	 * Dalla GUI noto che si puo aggiungere solo un libro alla volta, per cui, questo metodo (fino a prossime istruzioni)
 	 * creerà un movimento con una mappa (chiesta da Model) contenente un solo elempento preso in input.
 	 */
-	public void addMovements(CanSendTransferrer sender,Transferrer receiver,Date leavingDate, StandardBook book, int quantity){
+	public void addMovements(CanSendTransferrer sender,Transferrer receiver,Date leavingDate, StandardBookImpl book, int quantity){
 		
-		Map<StandardBook,Integer> books = new HashMap<>();
+		Map<StandardBookImpl,Integer> books = new HashMap<>();
 		books.put(book, quantity);
 		this.addMovements(new TransferImpl(sender, receiver, leavingDate, books));
 	}

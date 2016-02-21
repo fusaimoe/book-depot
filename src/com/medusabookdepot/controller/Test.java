@@ -25,10 +25,10 @@ public class Test {
 
     @org.junit.Test
     public void test() {
-        Map<StandardBook, Integer> mm = new HashMap<>();
-        StandardBook b = new StandardBookImpl("iiiinb", "il fantasma", 2010, 43, "la casa degli spettri", "orrore",
+        Map<StandardBookImpl, Integer> mm = new HashMap<>();
+        StandardBookImpl b = new StandardBookImpl("iiiinb", "il fantasma", 2010, 43, "la casa degli spettri", "orrore",
                 "stephen King", 23);
-        StandardBook b2 = new StandardBookImpl("iiiissnb", "l'orso nella casa blu", 2010, 32, "bimbi cattivi",
+        StandardBookImpl b2 = new StandardBookImpl("iiiissnb", "l'orso nella casa blu", 2010, 32, "bimbi cattivi",
                 "infanzia rovinata", "quel mattachione dell'orso bear", 40);
         mm.put(b, Integer.valueOf(45));
         mm.put(b2, Integer.valueOf(93));
@@ -59,9 +59,9 @@ public class Test {
         assertTrue(dep2.getQuantity() <= (mm.get(b) + mm.get(b2)) && dep2.getQuantity() == 127
                 && 127 == dep2.getQuantityFromYear(2010));
 
-        StandardBook book = new StandardBookImpl("eeqqrq", "la fabbrica di cioccolato", 1994, 122, "dolci storie",
+        StandardBookImpl book = new StandardBookImpl("eeqqrq", "la fabbrica di cioccolato", 1994, 122, "dolci storie",
                 "infanzia", "Roahl Dahl", 20);
-        dep2.addBook(new Pair<StandardBook, Integer>(book, 42));
+        dep2.addBook(new Pair<StandardBookImpl, Integer>(book, 42));
         assertTrue(dep2.getQuantity() == 169);
         Calendar cal = Calendar.getInstance();
         cal.set(2016, 02, 23);

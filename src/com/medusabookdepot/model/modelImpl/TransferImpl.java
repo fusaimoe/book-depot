@@ -35,12 +35,12 @@ public class TransferImpl implements Transfer, Serializable {
     private Transferrer receiver;
     private java.util.Date leavingDate;
     private StringProperty trackingNumber;
-    private Map<StandardBook, Integer> books;
+    private Map<StandardBookImpl, Integer> books;
     private boolean arrived;
     private boolean left;
 
     public TransferImpl(CanSendTransferrer sender, Transferrer receiver, java.util.Date leavingDate,
-            Map<StandardBook, Integer> books) {
+            Map<StandardBookImpl, Integer> books) {
         this.sender = sender;
         this.receiver = receiver;
         this.leavingDate = leavingDate;
@@ -49,7 +49,7 @@ public class TransferImpl implements Transfer, Serializable {
 
     }
     public TransferImpl(CanSendTransferrer sender, Transferrer receiver, java.util.Date leavingDate,
-            Map<StandardBook, Integer> books, String trackingNumber) {
+            Map<StandardBookImpl, Integer> books, String trackingNumber) {
         this.sender = sender;
         this.receiver = receiver;
         this.leavingDate = leavingDate;
@@ -63,7 +63,7 @@ public class TransferImpl implements Transfer, Serializable {
     public CanSendTransferrer getSender() {
         if (this.sender.isADepot()) {// copia difensiva!
             Depot cs = (Depot) this.sender;
-            Map<StandardBook, Integer> m = new HashMap<>();
+            Map<StandardBookImpl, Integer> m = new HashMap<>();
             m = cs.getBooks();
             cs = new DepotImpl(new String(this.sender.getName()), m);
             return cs;
@@ -75,7 +75,7 @@ public class TransferImpl implements Transfer, Serializable {
     public Transferrer getReceiver() {
         if (this.receiver.isADepot()) {// copia difensiva!
             Depot cs = (Depot) this.receiver;
-            Map<StandardBook, Integer> m = new HashMap<>();
+            Map<StandardBookImpl, Integer> m = new HashMap<>();
             m = cs.getBooks();
             cs = new DepotImpl(new String(this.receiver.getName()), m);
             return cs;
@@ -84,9 +84,9 @@ public class TransferImpl implements Transfer, Serializable {
     }
 
     @Override
-    public Map<StandardBook, Integer> getBooks() {
-        Map<StandardBook, Integer> map = new HashMap<>();
-        for (Entry<StandardBook, Integer> ee : this.books.entrySet()) {
+    public Map<StandardBookImpl, Integer> getBooks() {
+        Map<StandardBookImpl, Integer> map = new HashMap<>();
+        for (Entry<StandardBookImpl, Integer> ee : this.books.entrySet()) {
             map.put(ee.getKey(), ee.getValue());
         }
         return map;//copia difensiva
@@ -94,7 +94,7 @@ public class TransferImpl implements Transfer, Serializable {
     @Override
     public String getBooksAsACoolString() {
         String finale = new String("");
-        for (Entry<StandardBook, Integer> entry : this.books.entrySet()) {
+        for (Entry<StandardBookImpl, Integer> entry : this.books.entrySet()) {
             finale = finale.concat("libro: "+entry.getKey().getTitle()+"\n\t" + "in quantità " + entry.getValue() + "\n");
         }
         return finale;
@@ -116,7 +116,7 @@ public class TransferImpl implements Transfer, Serializable {
     }
 
     @Override
-    public void setBooks(Map<StandardBook, Integer> books) {
+    public void setBooks(Map<StandardBookImpl, Integer> books) {
         this.books = books;
     }
 
@@ -138,7 +138,7 @@ public class TransferImpl implements Transfer, Serializable {
     }
 
     @Override
-    public int getQuantityFromBook(StandardBook book) {
+    public int getQuantityFromBook(StandardBookImpl book) {
         int x = 0;
         for (StandardBook libro : this.books.keySet()) {
             if (libro.getIsbn().equals(book.getIsbn())) {
@@ -163,13 +163,13 @@ public class TransferImpl implements Transfer, Serializable {
     }
 
     @Override
-    public void setQuantityFromBook(StandardBook book, int quantity) {
+    public void setQuantityFromBook(StandardBookImpl book, int quantity) {
         this.books.replace(book, books.get(book), Integer.valueOf(quantity));
 
     }
 
     @Override
-    public void replaceBook(StandardBook oldBook, StandardBook newBook) {
+    public void replaceBook(StandardBookImpl oldBook, StandardBookImpl newBook) {
         Integer x = books.get(oldBook);
         this.books.remove(oldBook);
         this.books.put(newBook, x);
@@ -180,7 +180,7 @@ public class TransferImpl implements Transfer, Serializable {
                 + this.getQuantity() + "\n";
     }
     @Override
-    public Map<StandardBook, IntegerProperty> booksProperty() {
+    public Map<StandardBookImpl, IntegerProperty> booksProperty() {
         return null;
     }
     @Override
@@ -189,7 +189,7 @@ public class TransferImpl implements Transfer, Serializable {
         return new SimpleIntegerProperty(i);
     }
     @Override
-    public IntegerProperty quantityFromBookProperty(StandardBook book) {
+    public IntegerProperty quantityFromBookProperty(StandardBookImpl book) {
         Integer i=new Integer(this.getQuantityFromBook(book));
         return new SimpleIntegerProperty(i);
     }

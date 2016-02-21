@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.medusabookdepot.model.modelImpl.DepotImpl;
+import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 import com.medusabookdepot.model.modelInterface.Depot;
 import com.medusabookdepot.model.modelInterface.StandardBook;
 
@@ -14,7 +15,7 @@ import javafx.collections.ObservableList;
 public class DepotsController {
 
 	private final ObservableList<Depot> depots = FXCollections.observableArrayList();
-	private final Map<StandardBook, Integer> booksInDepot = new HashMap<>();
+	private final Map<StandardBookImpl, Integer> booksInDepot = new HashMap<>();
 	private static DepotsController singDepots;
 
 	private DepotsController() {
@@ -57,7 +58,7 @@ public class DepotsController {
 	 * creazione del deposito anzichè inserirne uno solo per poi aggiungerne
 	 * altri dopo la creazione
 	 */
-	public boolean addDepot(String name, List<StandardBook> book, int... quantity) {
+	public boolean addDepot(String name, List<StandardBookImpl> book, int... quantity) {
 
 		for (Depot d : depots) {
 			if (d.getName().equals(name)) {
@@ -71,7 +72,7 @@ public class DepotsController {
 			return false;
 		}
 
-		for (StandardBook n : book) {
+		for (StandardBookImpl n : book) {
 
 			booksInDepot.put(n, quantity[book.indexOf(n)]);
 		}
