@@ -92,8 +92,8 @@ public class BooksController {
 	/**
 	 * Search a book in the list
 	 * 
-	 * @param book
-	 * @return StandardBook if it found the book, else null
+	 * @param Book
+	 * @return StandardBook if it found the book, else <b>null</b>
 	 */
 	public StandardBookImpl searchBook(StandardBook book) {
 
@@ -128,25 +128,25 @@ public class BooksController {
 
 		// General searcher
 		if (isbn.isPresent()) {
-			result = result.filter(e -> isbn.get().toString().equals(e.getIsbn()));
+			result = result.filter(e -> e.getIsbn().contains(isbn.get()));
 		}
 		if (name.isPresent()) {
-			result = result.filter(e -> e.getTitle().contains(name.get().toString()));
+			result = result.filter(e -> e.getTitle().contains(name.get()));
 		}
 		if (year.isPresent()) {
-			result = result.filter(e -> year.get().equals(e.getYear()));
+			result = result.filter(e -> Integer.toString(e.getYear()).contains(year.get()));
 		}
 		if (pages.isPresent()) {
-			result = result.filter(e -> pages.get().equals(e.getPages()));
+			result = result.filter(e -> Integer.toString(e.getPages()).contains(pages.get()));
 		}
 		if (serie.isPresent()) {
-			result = result.filter(e -> serie.get().toString().equals(e.getSerie()));
+			result = result.filter(e -> e.getSerie().contains(serie.get()));
 		}
 		if (genre.isPresent()) {
-			result = result.filter(e -> genre.get().toString().equals(e.getGenre()));
+			result = result.filter(e -> e.getGenre().contains(genre.get()));
 		}
 		if (author.isPresent()) {
-			result = result.filter(e -> author.get().toString().equals(e.getAuthor()));
+			result = result.filter(e -> e.getAuthor().contains(author.get()));
 		}
 
 		// In depot
