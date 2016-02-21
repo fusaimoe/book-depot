@@ -69,6 +69,12 @@
 						</VBox>
 					</children>
 				</HBox>  
+				<HBox >
+	            	<children>
+	            		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />   
+	            		<TextField promptText="Search" styleClass="control-label" fx:id="searchField" />
+	            	</children>
+                </HBox>
 	        </children>	
 		</VBox>					
 	</content>
