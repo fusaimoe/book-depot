@@ -29,11 +29,11 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
      * 
      */
     private static final long serialVersionUID = 47429766209693618L;
-    private Map<StandardBook, Integer> books;
-    public DepotImpl(String name, Map<StandardBook, Integer> books) {
+    private Map<StandardBookImpl, Integer> books;
+    public DepotImpl(String name, Map<StandardBookImpl, Integer> books) {
         super(name);
         if (books == null) {
-            this.books = new HashMap<StandardBook, Integer>();
+            this.books = new HashMap<StandardBookImpl, Integer>();
         } else {
             this.books = new HashMap<>(books);// mi creo un altro oggeeto così
                                               // non mantengo il riferimento
@@ -43,16 +43,16 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
     @Override
     public int getQuantity() {
         int x = 0;
-        for (StandardBook libro : this.books.keySet()) {
+        for (StandardBookImpl libro : this.books.keySet()) {
             x += books.get(libro);
         }
         return x;
     }
     @Override
-    public int getQuantityFromStandardBook(StandardBook book) {
+    public int getQuantityFromStandardBook(StandardBookImpl book) {
 
         int x = 0;
-        for (StandardBook libro : this.books.keySet()) {
+        for (StandardBookImpl libro : this.books.keySet()) {
             if (libro.getIsbn().equals(book.getIsbn())) {
                 x += books.get(libro);
             }
@@ -64,7 +64,7 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
     public int getQuantityFromTitle(String title) {
 
         int x = 0;
-        for (StandardBook libro : this.books.keySet()) {
+        for (StandardBookImpl libro : this.books.keySet()) {
             if (libro.getTitle().equals(title)) {
                 x += books.get(libro);
             }
@@ -76,7 +76,7 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
     public int getQuantityFromAuthor(String author) {
 
         int x = 0;
-        for (StandardBook libro : this.books.keySet()) {
+        for (StandardBookImpl libro : this.books.keySet()) {
             if (libro.getAuthor().equals(author)) {
                 x += books.get(libro);
             }
@@ -87,7 +87,7 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
     public int getQuantityFromYear(int year) {
 
         int x = 0;
-        for (StandardBook libro : this.books.keySet()) {
+        for (StandardBookImpl libro : this.books.keySet()) {
             if (libro.getYear() == year) {
                 x += books.get(libro);
             }
@@ -101,7 +101,7 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
     @Override
     public String getBooksAsACoolString() {
         String finale = new String("");
-        for (Entry<StandardBook, Integer> entry : this.books.entrySet()) {
+        for (Entry<StandardBookImpl, Integer> entry : this.books.entrySet()) {
             finale = finale.concat("libro: "+entry.getKey().getTitle()+"\n\t" + "in quantità " + entry.getValue() + "\n");
         }
         return finale;
@@ -113,7 +113,7 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
     }
 
     @Override
-    public IntegerProperty quantityFromStandardBookProperty(StandardBook book) {
+    public IntegerProperty quantityFromStandardBookProperty(StandardBookImpl book) {
         return new SimpleIntegerProperty(this.getQuantityFromStandardBook(book));
     }
 
@@ -137,8 +137,8 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
         return new SimpleStringProperty(this.getBooksAsACoolString());
     }
     @Override
-    public boolean containsBooks(Map<StandardBook, Integer> books) {
-        for (Entry<StandardBook, Integer> entry : books.entrySet()) {
+    public boolean containsBooks(Map<StandardBookImpl, Integer> books) {
+        for (Entry<StandardBookImpl, Integer> entry : books.entrySet()) {
             if (!(this.books.containsKey(entry.getKey()) && this.books.get(entry.getKey()).equals(entry.getValue()))) {
                 return false;
             }
@@ -147,8 +147,8 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
     }
 
     @Override
-    public void removeBooks(Map<StandardBook, Integer> books) {
-        for (Entry<StandardBook, Integer> entry : books.entrySet()) {
+    public void removeBooks(Map<StandardBookImpl, Integer> books) {
+        for (Entry<StandardBookImpl, Integer> entry : books.entrySet()) {
             if(this.books.get(entry.getKey()) - entry.getValue()<=0) {
                 this.books.remove(entry.getKey());
             }
@@ -159,8 +159,8 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
     }
     
     @Override
-    public void addBooks(Map<StandardBook, Integer> books) {
-        for (Entry<StandardBook, Integer> entry : books.entrySet()) {
+    public void addBooks(Map<StandardBookImpl, Integer> books) {
+        for (Entry<StandardBookImpl, Integer> entry : books.entrySet()) {
             if (this.books.containsKey(entry.getKey())) {
                 this.books.put(entry.getKey(), entry.getValue() + this.books.get(entry.getKey()));
             } else {
@@ -176,12 +176,12 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
     }
 
     @Override
-    public Map<StandardBook, Integer> getBooksFromStandardBookIsbn(List<String> isbns) {
+    public Map<StandardBookImpl, Integer> getBooksFromStandardBookIsbn(List<String> isbns) {
         if (isbns.isEmpty() || isbns == null) {
             return this.books;
         } else {
-            Map<StandardBook, Integer> libri = new HashMap<>();
-            for (Entry<StandardBook, Integer> entry : this.books.entrySet()) {
+            Map<StandardBookImpl, Integer> libri = new HashMap<>();
+            for (Entry<StandardBookImpl, Integer> entry : this.books.entrySet()) {
                 if (isbns.contains(entry.getKey().getIsbn())) {
                     libri.put(entry.getKey(), entry.getValue());
                 }
@@ -190,9 +190,9 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
         }
     }
     @Override
-    public List<StandardBook> getStandardBooksAsList() {
-        List<StandardBook> lis = new ArrayList<>();
-        for (StandardBook b : this.books.keySet()) {
+    public List<StandardBookImpl> getStandardBooksAsList() {
+        List<StandardBookImpl> lis = new ArrayList<>();
+        for (StandardBookImpl b : this.books.keySet()) {
             // copia difensiva
             lis.add(new StandardBookImpl(b.getTitle(), b.getIsbn(), b.getYear(), b.getPages(), b.getSerie(),
                     b.getGenre(), b.getAuthor(), b.getPrice()));
@@ -202,23 +202,23 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
     @Override
     public List<String> getStandardBooksIsbns() {
         List<String> lis = new ArrayList<>();
-        for (StandardBook b : this.books.keySet()) {
+        for (StandardBookImpl b : this.books.keySet()) {
             // copia difensiva
             lis.add(new String(b.getIsbn()));
         }
         return lis;
     }
     @Override
-    public Map<StandardBook, Integer> getBooks() {
-        Map<StandardBook, Integer> map = new HashMap<>();
-        for (Entry<StandardBook, Integer> ee : this.books.entrySet()) {
+    public Map<StandardBookImpl, Integer> getBooks() {
+        Map<StandardBookImpl, Integer> map = new HashMap<>();
+        for (Entry<StandardBookImpl, Integer> ee : this.books.entrySet()) {
             map.put(ee.getKey(), ee.getValue());
         }
         return map;// copia difensiva
     }
 
     @Override
-    public Map<StandardBook, Integer> getBooksFromStandardBookIsbnAndQuantity(
+    public Map<StandardBookImpl, Integer> getBooksFromStandardBookIsbnAndQuantity(
             List<Pair<String, Integer>> isbnsAndQuantities) {
         if (isbnsAndQuantities.isEmpty() || isbnsAndQuantities == null) {
             return this.books;
@@ -227,13 +227,13 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
         for (Pair<String, Integer> pa : isbnsAndQuantities) {
             ss.add(pa.getFirst());
         }
-        Map<StandardBook, Integer> mappa = getBooksFromStandardBookIsbn(ss);
+        Map<StandardBookImpl, Integer> mappa = getBooksFromStandardBookIsbn(ss);
         List<Integer> ii = new ArrayList<>();
         for (Pair<String, Integer> pa : isbnsAndQuantities) {
             ii.add(pa.getSecond());
         }
         int x = 0;
-        for (Entry<StandardBook, Integer> en : mappa.entrySet()) {
+        for (Entry<StandardBookImpl, Integer> en : mappa.entrySet()) {
             en.setValue(ii.get(x));
             x++;
         }
@@ -243,14 +243,14 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
     @Override
     public List<Pair<String, Integer>> getBookIsbnsAsListOfPair() {
         List<Pair<String, Integer>> lis = new ArrayList<>();
-        for (Entry<StandardBook, Integer> en : this.books.entrySet()) {
+        for (Entry<StandardBookImpl, Integer> en : this.books.entrySet()) {
             lis.add(new Pair<String, Integer>(en.getKey().getIsbn(), en.getValue()));
         }
         return lis;
     }
 
     @Override
-    public void addBook(Pair<StandardBook, Integer> pair) {
+    public void addBook(Pair<StandardBookImpl, Integer> pair) {
         if(!this.books.containsKey(pair.getFirst())) {
             this.books.put(pair.getFirst(), pair.getSecond());
         }

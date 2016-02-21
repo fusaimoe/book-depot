@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.medusabookdepot.model.modelImpl.Pair;
+import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
@@ -33,13 +34,13 @@ public interface Depot extends CanSendTransferrer {
      * @param book is the book I want look for its quantity
      * @return the quantity of the book in the depot
      */
-    public int getQuantityFromStandardBook(StandardBook book);
+    public int getQuantityFromStandardBook(StandardBookImpl book);
     /**
      * 
      * @param book is the book I want look for its quantity
      * @return the quantity of the book in the depot
      */
-    public IntegerProperty quantityFromStandardBookProperty(StandardBook book);
+    public IntegerProperty quantityFromStandardBookProperty(StandardBookImpl book);
     /**
      * 
      * @param title is the title of all the books I want look for their quantity
@@ -56,12 +57,12 @@ public interface Depot extends CanSendTransferrer {
      * 
      * @param books is the map of the books I want to remove from depot
      */
-    public void removeBooks(Map<StandardBook, Integer> books);
+    public void removeBooks(Map<StandardBookImpl, Integer> books);
     /**
      * 
      * @param books is the map of the books I want to add from depot
      */
-    public void addBooks(Map<StandardBook, Integer> books);
+    public void addBooks(Map<StandardBookImpl, Integer> books);
     
     /**
      * 
@@ -102,24 +103,24 @@ public interface Depot extends CanSendTransferrer {
      * @param isbns is a list of isbns(as Strings)
      * @return a map of StandardBook, Integer matching with all isbns in input
      */
-    public Map<StandardBook, Integer> getBooksFromStandardBookIsbn(List<String> isbns);
+    public Map<StandardBookImpl, Integer> getBooksFromStandardBookIsbn(List<String> isbns);
     /**
      * 
      * @param isbnsAndQuantities is a list of isbns and quantities(as Pair String, Integer)
      * @return a map of StandardBook, Integer matching with all isbns and quantities in input
      */
-    public Map<StandardBook, Integer> getBooksFromStandardBookIsbnAndQuantity(
+    public Map<StandardBookImpl, Integer> getBooksFromStandardBookIsbnAndQuantity(
             List<Pair<String, Integer>> isbnsAndQuantities);
     /**
      * 
      * @return all the books of the depot, with their quantities
      */
-    public Map<StandardBook, Integer> getBooks();
+    public Map<StandardBookImpl, Integer> getBooks();
     /**
      * 
      * @return a list of the books contained in depot
      */
-    List<StandardBook> getStandardBooksAsList();
+    List<StandardBookImpl> getStandardBooksAsList();
     /**
      * 
      * @return a list of the isbns of the books contained in depot
@@ -134,5 +135,5 @@ public interface Depot extends CanSendTransferrer {
      * 
      * @param pairBook is the book, with its quantity i want to add to the depot
      */
-    public void addBook(Pair<StandardBook, Integer> pairBook);
+    public void addBook(Pair<StandardBookImpl, Integer> pairBook);
 }
