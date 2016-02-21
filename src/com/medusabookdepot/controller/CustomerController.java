@@ -21,11 +21,12 @@ public class CustomerController {
 	private final ObservableList<CustomerImpl> customers = FXCollections.observableArrayList();
 	
 	// Fields for file load and save, and for converting to PDF
+	private final static String NAME = "customers";
 	private String directoryPath = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot" + System.getProperty("file.separator");
-	private String xmlPath = directoryPath + ".xml" + System.getProperty("file.separator") + "customers.xml";
-	private String xslPath = directoryPath + ".xsl" + System.getProperty("file.separator") + "customer.xsl";
-	private String pdfPath = directoryPath + "customers" + new SimpleDateFormat("yyyyMMdd-HHmm-").format(new Date());
-	private FileManager<CustomerImpl> fileManager = new FileManager<>(customers, xmlPath, CustomerImpl.class, "customers");
+	private String xmlPath = directoryPath + ".xml" + System.getProperty("file.separator") + NAME + ".xml";
+	private String xslPath = directoryPath + ".xsl" + System.getProperty("file.separator") + NAME + ".xsl";
+	private String pdfPath = directoryPath + NAME + new SimpleDateFormat("yyyyMMdd-HHmm-").format(new Date());
+	private FileManager<CustomerImpl> fileManager = new FileManager<>(customers, xmlPath, CustomerImpl.class, NAME);
 		
 	/**
 	 * Search a customer in his list

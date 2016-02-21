@@ -23,11 +23,12 @@ public class BooksController {
 	private static BooksController singBook;
 
 	// Fields for file load and save, and for converting to PDF
+	private final static String NAME = "books";
 	private String directoryPath = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot" + System.getProperty("file.separator");
-	private String xmlPath = directoryPath + ".xml" + System.getProperty("file.separator") + "books.xml";
-	private String xslPath = directoryPath + ".xsl" + System.getProperty("file.separator") + "books.xsl";
-	private String pdfPath = directoryPath + "books" + new SimpleDateFormat("yyyyMMdd-HHmm-").format(new Date());
-	private FileManager<StandardBookImpl> fileManager = new FileManager<>(this.getBooks(), xmlPath, StandardBookImpl.class, "books");
+	private String xmlPath = directoryPath + ".xml" + System.getProperty("file.separator") + NAME + ".xml";
+	private String xslPath = directoryPath + ".xsl" + System.getProperty("file.separator") + NAME + ".xsl";
+	private String pdfPath = directoryPath + NAME + new SimpleDateFormat("yyyyMMdd-HHmm-").format(new Date());
+	private FileManager<StandardBookImpl> fileManager = new FileManager<>(books, xmlPath, StandardBookImpl.class, NAME);
 
 	private BooksController() {
 
