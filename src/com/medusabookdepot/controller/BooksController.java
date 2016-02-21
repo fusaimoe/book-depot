@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -67,14 +68,14 @@ public class BooksController {
 	/**
 	 * Add a new book in the list
 	 * 
-	 * @param isbn
-	 * @param name
-	 * @param year
-	 * @param pages
-	 * @param serie
-	 * @param genre
-	 * @param author
-	 * @param price
+	 * @param ISBN 
+	 * @param Name
+	 * @param Year
+	 * @param Pages
+	 * @param Serie
+	 * @param Genre
+	 * @param Author
+	 * @param <b>Price</b> in string format
 	 * @throws IllegalArgumentException
 	 *             if isbn already exists
 	 */
@@ -109,14 +110,14 @@ public class BooksController {
 	 * Multifilter for books search. It search in the books list if you don't
 	 * pass a depot, or in a specific depot if you pass it
 	 * 
-	 * @param depot
-	 * @param isbn
-	 * @param name
-	 * @param year
-	 * @param pages
-	 * @param serie
-	 * @param genre
-	 * @param author
+	 * @param Depot
+	 * @param ISBN
+	 * @param Name
+	 * @param Year
+	 * @param Pages
+	 * @param Serie
+	 * @param Genre
+	 * @param Author
 	 * @return Stream<StandardBook> : all books found with the passed filters
 	 */
 	public Stream<StandardBookImpl> searchBook(Optional<Depot> depot, Optional<String> isbn, Optional<String> name,
@@ -161,11 +162,16 @@ public class BooksController {
 	/**
 	 * Remove a book from the list
 	 * 
-	 * @param book
+	 * @param Book
+	 * @throws NoSuchElementException if element is not present in books list
 	 */
-	public void removeBook(StandardBook book) {
+	public void removeBook(StandardBook book) throws NoSuchElementException{
 
-		books.remove(book);
+		try {
+			books.remove(book);
+		} catch (Exception e) {
+			throw new NoSuchElementException("No such element in list!");
+		}
 		fileManager.saveDataToFile();
 	}
 
@@ -185,14 +191,15 @@ public class BooksController {
 
 	/**
 	 * 
-	 * @param isbn
-	 * @param year
-	 * @param serie
-	 * @param genre
-	 * @param author
-	 * @return
+	 * @param ISBN
+	 * @param Year
+	 * @param Serie
+	 * @param Genre
+	 * @param Author
+	 * @return <b>True</b> if input is valid, else a exception
+	 * @throws IllegalArgumentException if the arguments are not valid
 	 */
-	public boolean isInputValid(String isbn, int year, String serie, String genre, String author) {
+	public boolean isInputValid(String isbn, int year, String serie, String genre, String author) throws IllegalArgumentException{
 		if (isbn.equals("") || Integer.toString(year).equals("") || serie.equals("") || genre.equals("") || author.equals("")) {
 
 			throw new IllegalArgumentException("The fields mustn't be empty!");
@@ -237,88 +244,51 @@ public class BooksController {
 		converter.open();
 	}
 
-	public void editISBN(String oldISBN, String newISBN) {
+	public void editISBN(StandardBook book, String isbn) {
 
-		this.searchBook(Optional.empty(), Optional.of(oldISBN), Optional.empty(), Optional.empty(), Optional.empty(),
-				Optional.empty(), Optional.empty(), Optional.empty()).forEach(e -> {
-
-					if (this.isInputValid(newISBN, e.getYear(), e.getSerie(), e.getGenre(), e.getAuthor())) {
-						e.setIsbn(newISBN);
-					}
-				});
+		books.get(books.indexOf(book)).setIsbn(isbn);
 		fileManager.saveDataToFile();
 	}
 
-	public void editTitle(String isbn, String newTitle) {
+	public void editTitle(StandardBook book, String title) {
 
-		this.searchBook(Optional.empty(), Optional.of(isbn), Optional.empty(), Optional.empty(), Optional.empty(),
-				Optional.empty(), Optional.empty(), Optional.empty()).forEach(e -> {
-
-					e.setTitle(newTitle);
-				});
+		books.get(books.indexOf(book)).setTitle(title);
 		fileManager.saveDataToFile();
 	}
 
-	public void editYear(String isbn, int newYear) {
+	public void editYear(StandardBook book, int year) {
 
-		this.searchBook(Optional.empty(), Optional.of(isbn), Optional.empty(), Optional.empty(), Optional.empty(),
-				Optional.empty(), Optional.empty(), Optional.empty()).forEach(e -> {
-
-					if (this.isInputValid(isbn, newYear, e.getSerie(), e.getGenre(), e.getAuthor())) {
-						e.setYear(newYear);
-					}
-				});
+		books.get(books.indexOf(book)).setYear(year);
 		fileManager.saveDataToFile();
 	}
 
-	public void editPages(String isbn, int newPages) {
+	public void editPages(StandardBook book, int pages) {
 
-		this.searchBook(Optional.empty(), Optional.of(isbn), Optional.empty(), Optional.empty(), Optional.empty(),
-				Optional.empty(), Optional.empty(), Optional.empty()).forEach(e -> {
-
-					e.setPages(newPages);
-				});
+		books.get(books.indexOf(book)).setPages(pages);
 		fileManager.saveDataToFile();
 	}
 
-	public void editSerie(String isbn, String newSerie) {
+	public void editSerie(StandardBook book, String serie) {
 
-		this.searchBook(Optional.empty(), Optional.of(isbn), Optional.empty(), Optional.empty(), Optional.empty(),
-				Optional.empty(), Optional.empty(), Optional.empty()).forEach(e -> {
-
-					e.setSerie(newSerie);
-					;
-				});
+		books.get(books.indexOf(book)).setSerie(serie);
 		fileManager.saveDataToFile();
 	}
 
-	public void editGenre(String isbn, String newGenre) {
+	public void editGenre(StandardBook book, String genre) {
 
-		this.searchBook(Optional.empty(), Optional.of(isbn), Optional.empty(), Optional.empty(), Optional.empty(),
-				Optional.empty(), Optional.empty(), Optional.empty()).forEach(e -> {
-
-					e.setGenre(newGenre);
-				});
+		books.get(books.indexOf(book)).setGenre(genre);
 		fileManager.saveDataToFile();
 	}
 
-	public void editAuthor(String isbn, String newAuthor) {
+	public void editAuthor(StandardBook book, String author) {
 
-		this.searchBook(Optional.empty(), Optional.of(isbn), Optional.empty(), Optional.empty(), Optional.empty(),
-				Optional.empty(), Optional.empty(), Optional.empty()).forEach(e -> {
-
-					e.setAuthor(newAuthor);
-				});
+		books.get(books.indexOf(book)).setAuthor(author);
 		fileManager.saveDataToFile();
 	}
 	
-	public void editPrice(String isbn, String newPrice) {
+	public void editPrice(StandardBook book, int price) {
 
-		this.searchBook(Optional.empty(), Optional.of(isbn), Optional.empty(), Optional.empty(), Optional.empty(),
-				Optional.empty(), Optional.empty(), Optional.empty()).forEach(e -> {
-
-					e.setPrice(this.convertPrice(newPrice));
-				});
+		books.get(books.indexOf(book)).setPrice(price);
 		fileManager.saveDataToFile();
 	}
 }

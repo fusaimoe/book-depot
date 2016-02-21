@@ -2,6 +2,7 @@ package com.medusabookdepot.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -137,12 +138,16 @@ public class CustomerController {
 	
 	/**
 	 * Remove a customer from the list
-	 * 
 	 * @param Customer
 	 */
 	public void removeCustomer(CustomerImpl customer) {
 
-		customers.remove(customer);
+		try {
+			customers.remove(customer);
+		} catch (Exception e) {
+			
+			throw new NoSuchElementException("No such element in list!");
+		}
 		fileManager.saveDataToFile();
 	}
 }

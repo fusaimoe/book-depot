@@ -4,9 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import com.medusabookdepot.controller.files.FileManager;
+import com.medusabookdepot.model.modelImpl.CustomerImpl;
 import com.medusabookdepot.model.modelImpl.DepotImpl;
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 
@@ -62,10 +64,14 @@ public class DepotsController {
 	
 	/**
 	 * Add a empty depot from name
-	 * @param <p>Name of depot</p>
+	 * @param <b>Name of depot</b>
+	 * @throws IllegalArgumentException if another depot is registered with the same name
 	 */
-	public void addDepot(String name) {
-
+	public void addDepot(String name) throws IllegalArgumentException{
+		
+		if(this.searchDepot(new DepotImpl(name, new HashMap<>()))!=null){
+			throw new IllegalArgumentException("Depot " + name +" is already present!");
+		}
 		depots.add(new DepotImpl(name, new HashMap<>()));
 		fileManager.saveDataToFile();
 	}
@@ -130,20 +136,29 @@ public class DepotsController {
 	/**
 	 * Remove a depot from the list
 	 * 
-	 * @param depot
+	 * @param Depot
 	 */
 	public void removeDepot(DepotImpl depot) {
 
-		depots.remove(depot);
+		try {
+			depots.remove(depot);
+		} catch (Exception e) {
+			throw new NoSuchElementException("No such element in list!");
+		}
+		fileManager.saveDataToFile();
 	}
 	
 	/**
 	 * Get the observable list of depots
-	 * 
-	 * @param depot
 	 */
 	public ObservableList<DepotImpl> getDepots() {
 
 		return depots;
+	}
+	
+	public void editName(DepotImpl depot, String name) {
+
+		depots.get(depots.indexOf(depot)).setName(name);
+		fileManager.saveDataToFile();
 	}
 }
