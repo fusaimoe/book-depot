@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import com.medusabookdepot.controller.files.FileManager;
 import com.medusabookdepot.model.modelImpl.DepotImpl;
@@ -57,6 +58,16 @@ public class DepotsController {
 
 			depots.add(n);
 		}
+	}
+	
+	/**
+	 * Add a empty depot from name
+	 * @param <p>Name of depot</p>
+	 */
+	public void addDepot(String name) {
+
+		depots.add(new DepotImpl(name, new HashMap<>()));
+		fileManager.saveDataToFile();
 	}
 
 	/**
