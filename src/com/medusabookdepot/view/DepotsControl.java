@@ -1,21 +1,22 @@
 package com.medusabookdepot.view;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.Map.Entry;
 
 import com.medusabookdepot.controller.DepotsController;
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
 
-public class DepotsControl extends ScreenControl implements Initializable{
+public class DepotsControl extends ScreenControl {
 	
-	DepotsController depotsController;
+	private final DepotsController depotsController = new DepotsController();
 	
 	public DepotsControl(){
 		super();
@@ -24,35 +25,57 @@ public class DepotsControl extends ScreenControl implements Initializable{
 	@FXML
 	private HBox hBox;
 	@FXML
-	private TableView<StandardBookImpl> depotsTable;
+	private TableView<Entry<StandardBookImpl,Integer>> depotsTable;
 	@FXML
-	private TableColumn<StandardBookImpl, String> quantityColumn;
+	private TableColumn<Entry<StandardBookImpl,Integer>, String> quantityColumn;
 	@FXML
-	private TableColumn<StandardBookImpl, String> isbnColumn;
+	private TableColumn<Entry<StandardBookImpl,Integer>, String> isbnColumn;
 	@FXML
-	private TableColumn<StandardBookImpl, String> titleColumn;
+	private TableColumn<Entry<StandardBookImpl,Integer>, String> titleColumn;
 	@FXML
-	private TableColumn<StandardBookImpl, String> yearColumn;
+	private TableColumn<Entry<StandardBookImpl,Integer>, String> yearColumn;
 	@FXML
-	private TableColumn<StandardBookImpl, String> pagesColumn;
+	private TableColumn<Entry<StandardBookImpl,Integer>, String> pagesColumn;
 	@FXML
-	private TableColumn<StandardBookImpl, String> serieColumn;
+	private TableColumn<Entry<StandardBookImpl,Integer>, String> serieColumn;
 	@FXML
-	private TableColumn<StandardBookImpl, String> genreColumn;
+	private TableColumn<Entry<StandardBookImpl,Integer>, String> genreColumn;
 	@FXML
-	private TableColumn<StandardBookImpl, String> authorColumn;
+	private TableColumn<Entry<StandardBookImpl,Integer>, String> authorColumn;
 	@FXML
-	private TableColumn<StandardBookImpl, String> priceColumn;
+	private TableColumn<Entry<StandardBookImpl,Integer>, String> priceColumn;
 	
 	/**
 	 * Enter a "dinamic" quantity of buttons in the fxml code, for example, depending on the list of depots
 	 */
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+
+	public void initialize() {
+		
+		final ObservableList<Entry<StandardBookImpl,Integer>> data = FXCollections.observableArrayList();
+		
 		for(int i=2; i<6; i++){
 			ToggleButton button = new ToggleButton("TOGGLE" + (i-1));
 			hBox.getChildren().add(i, button);
 		}
+		
+		// Initialize the table
+        quantityColumn.setCellValueFactory(cellData ->  new ReadOnlyStringWrapper(cellData.getValue().getValue().toString()));
+        isbnColumn.setCellValueFactory(cellData -> cellData.getValue().getKey().isbnProperty());
+        titleColumn.setCellValueFactory(cellData -> cellData.getValue().getKey().titleProperty());
+        yearColumn.setCellValueFactory(cellData -> cellData.getValue().getKey().yearProperty().asString());
+        pagesColumn.setCellValueFactory(cellData -> cellData.getValue().getKey().yearProperty().asString());
+        serieColumn.setCellValueFactory(cellData -> cellData.getValue().getKey().serieProperty());
+        genreColumn.setCellValueFactory(cellData -> cellData.getValue().getKey().genreProperty());
+        authorColumn.setCellValueFactory(cellData -> cellData.getValue().getKey().authorProperty());
+        priceColumn.setCellValueFactory(cellData -> cellData.getValue().getKey().priceProperty().asString());
+		
+        //Lo zero serve per indicare di quale depot deve mostrare i libri. In questo caso mostra solo i libri del depot  
+        // che si trova in posizione 0 della lista. Ovvero il primo depot che ho aggiunto. 
+        //Lo zero dovrà essere modificato in modo tale che mostri solo i libri del depot indicato dal bottone che l'utente
+        //ha premuto. Al momento non ho idee.
+        data.addAll(depotsController.getDepots().get(0).getBooks().entrySet());
+        
+        depotsTable.setItems(data);
 	}
 	
 }

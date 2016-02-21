@@ -15,7 +15,6 @@ import javafx.collections.ObservableList;
 public class DepotsController {
 
 	private final ObservableList<DepotImpl> depots = FXCollections.observableArrayList();
-	private final Map<StandardBookImpl, Integer> booksInDepot = new HashMap<>();
 	private static DepotsController singDepots;
 	
 	// Fields for file load and save, and for converting to PDF
@@ -125,5 +124,15 @@ public class DepotsController {
 	public void removeDepot(DepotImpl depot) {
 
 		depots.remove(depot);
+	}
+	
+	/**
+	 * Get the observable list of depots
+	 * 
+	 * @param depot
+	 */
+	public ObservableList<DepotImpl> getDepots() {
+
+		return depots;
 	}
 }
