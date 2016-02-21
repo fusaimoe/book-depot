@@ -121,7 +121,7 @@ public class BooksController {
 	 * @return Stream<StandardBook> : all books found with the passed filters
 	 */
 	public Stream<StandardBookImpl> searchBook(Optional<Depot> depot, Optional<String> isbn, Optional<String> name,
-			Optional<Integer> year, Optional<Integer> pages, Optional<String> serie, Optional<String> genre,
+			Optional<String> year, Optional<String> pages, Optional<String> serie, Optional<String> genre,
 			Optional<String> author) {
 
 		Stream<StandardBookImpl> result = this.books.stream();
@@ -134,10 +134,10 @@ public class BooksController {
 			result = result.filter(e -> e.getTitle().contains(name.get().toString()));
 		}
 		if (year.isPresent()) {
-			result = result.filter(e -> year.get() == e.getYear());
+			result = result.filter(e -> year.get().equals(e.getYear()));
 		}
 		if (pages.isPresent()) {
-			result = result.filter(e -> pages.get() == e.getPages());
+			result = result.filter(e -> pages.get().equals(e.getPages()));
 		}
 		if (serie.isPresent()) {
 			result = result.filter(e -> serie.get().toString().equals(e.getSerie()));
