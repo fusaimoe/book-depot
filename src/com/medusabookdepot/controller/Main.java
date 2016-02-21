@@ -1,5 +1,11 @@
 package com.medusabookdepot.controller;
 
+//NON ELIMINARE GLI INPORT NON USATI, SONO USATI NEI TEST COMMENTATI
+import java.util.Optional;
+import java.util.stream.Stream;
+
+import com.medusabookdepot.model.modelImpl.StandardBookImpl;
+import com.medusabookdepot.model.modelInterface.StandardBook;
 import com.medusabookdepot.test.Test;
 import com.medusabookdepot.view.*;
 
@@ -21,15 +27,14 @@ public class Main {
     	    throw new Exception("failed test");
     	}
         new Main();
-    	//BooksController testBooksCtrl = BooksController.getInstanceOf();
-        //BooksController testBooksCtrl = new BooksController();
-    	//DepotsController testDepotCtrl = new DepotsController();
+    	/*BooksController testBooksCtrl = BooksController.getInstanceOf();
+    	DepotsController testDepotCtrl = new DepotsController();*/
     	
         //Creo 4 titoli con valore dei campi diversi
-        //testBooksCtrl.addBook("9788767547823", "Harry Potter", 1980, 7, "HP Saga", "Fantasy", "Feroce Macello", 2);
-        //testBooksCtrl.addBook("9788712309897", "Il Signore degli Anelli", 2002, 290, "LOTR Saga", "Romanzo", "Croccolino Lorenzo", 15);
-        //testBooksCtrl.addBook("9788712378922", "Il Codice da Vinci", 2017, 322, "Libri", "Horror", "Colombo Andrea", 22);
-        //testBooksCtrl.addBook("9788712378924", "Hunger Games", 2017, 322, "HG Saga", "Fantascienza", "Cecchetti Giulia", 22);
+        //testBooksCtrl.addBook("9788767547899", "Harry Potter", "1980", "7", "HP Saga", "Fantasy", "Feroce Macello", "2");
+        //testBooksCtrl.addBook("9788712309888", "Il Signore degli Anelli", "2002", "290", "LOTR Saga", "Romanzo", "Croccolino Lorenzo", "15");
+        //testBooksCtrl.addBook("9788712378955", "Il Codice da Vinci", "2012","322", "Libri", "Horror", "Colombo Andrea", "22");
+        //testBooksCtrl.addBook("9788712378966", "Hunger Games", "2015", "322", "HG Saga", "Fantascienza", "Cecchetti Giulia", "22");
 
         //Creo un depot con i libri sopra creati assegnando ad ognuno una quantità nel depot
         //medusiniDepot.addDepot("Medusini", medusiniBook.getBooks(), new int[]{10,2,33,22});
@@ -45,8 +50,11 @@ public class Main {
         // <-- DECOMMENTARE I TEST CHE SI DESIDERA ESEGUIRE --> \\
         
         /*Filtri: isbn*/
-        //Stream<StandardBook> bb =medusiniDepot.searchBook(Optional.empty(), Optional.of("9788712378922"), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
-        
+    	/*for(StandardBookImpl b:testBooksCtrl.getBooks()){
+    		System.out.println(b.getTitle());
+    	}
+        Stream<StandardBookImpl> bb =testBooksCtrl.searchBook(Optional.empty(), Optional.of("9"), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        */
         /*Filtri: name*/
         //Stream<StandardBook> bb =medusiniBook.searchBook(Optional.empty(), Optional.empty(), Optional.of("Cicci"), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
         
@@ -67,8 +75,8 @@ public class Main {
         	System.out.println("# " + e.getTitle());
         }*/
         
-        /*Stampa risultati trovati
-        System.out.println("\nAll books found:");
+        /*Stampa risultati trovati*/
+        /*System.out.println("\nAll books found:");
         bb.forEach(e->{
         	System.out.println("F: " + e.getTitle());
         });*/
