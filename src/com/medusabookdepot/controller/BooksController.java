@@ -79,12 +79,12 @@ public class BooksController {
 	 * @throws IllegalArgumentException
 	 *             if isbn already exists
 	 */
-	public void addBook(String isbn, String name, int year, int pages, String serie, String genre, String author,
+	public void addBook(String isbn, String name, String year, String pages, String serie, String genre, String author,
 			String price) throws IllegalArgumentException, IndexOutOfBoundsException {
+		
+		if (this.isInputValid(isbn, year, pages, serie, genre, author)) {
 
-		if (this.isInputValid(isbn, year, serie, genre, author)) {
-
-			books.add(new StandardBookImpl(isbn, name, year, pages, serie, genre, author, this.convertPrice(price)));
+			books.add(new StandardBookImpl(isbn, name, Integer.parseInt(year), Integer.parseInt(pages), serie, genre, author, this.convertPrice(price)));
 			fileManager.saveDataToFile();
 		}
 	}
@@ -199,8 +199,15 @@ public class BooksController {
 	 * @return <b>True</b> if input is valid, else a exception
 	 * @throws IllegalArgumentException if the arguments are not valid
 	 */
-	public boolean isInputValid(String isbn, int year, String serie, String genre, String author) throws IllegalArgumentException{
-		if (isbn.equals("") || Integer.toString(year).equals("") || serie.equals("") || genre.equals("") || author.equals("")) {
+	public boolean isInputValid(String isbn, String year, String pages, String serie, String genre, String author) throws IllegalArgumentException{
+		
+		try {
+			Integer.parseInt(year);
+			Integer.parseInt(pages);
+		} catch (Exception e) {
+			throw new IllegalArgumentException("Year and pages must be integers!");
+		}
+		if (isbn.equals("") || year.equals("") || pages.equals("") || serie.equals("") || genre.equals("") || author.equals("")) {
 
 			throw new IllegalArgumentException("The fields mustn't be empty!");
 		}
@@ -211,8 +218,8 @@ public class BooksController {
 		if (isbn.length() != ISBN_LENGTH) {
 			throw new IllegalArgumentException(isbn + " should be " + ISBN_LENGTH + " character!");
 		}
-		if (Integer.toString(year).length() != 4
-				|| year > java.util.Calendar.getInstance().get(java.util.Calendar.YEAR)) {
+		if (year.length() != 4
+				|| Integer.parseInt(year) > java.util.Calendar.getInstance().get(java.util.Calendar.YEAR)) {
 			throw new IllegalArgumentException(
 					"Wait a minute, Doc. Are you telling me that you built a time machine... out of Delorian?!");
 		}

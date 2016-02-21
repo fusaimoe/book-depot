@@ -140,7 +140,7 @@ public class CustomerController {
 	 * Remove a customer from the list
 	 * @param Customer
 	 */
-	public void removeCustomer(CustomerImpl customer) {
+	public void removeCustomer(CustomerImpl customer) throws NoSuchElementException{
 
 		try {
 			customers.remove(customer);
