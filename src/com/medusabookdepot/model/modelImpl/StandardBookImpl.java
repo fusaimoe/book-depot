@@ -33,9 +33,11 @@ public class StandardBookImpl implements StandardBook, Serializable {
     private final StringProperty author;
     private final IntegerProperty price;
 
+    // Default Constructor
     public StandardBookImpl() {
         this(null, null, 0, 0, null, null, null, 0);
     }
+    
     /**
      * 
      * @param isbn is the isbn of the book

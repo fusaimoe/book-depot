@@ -10,9 +10,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import com.medusabookdepot.model.modelInterface.CanSendTransferrer;
 import com.medusabookdepot.model.modelInterface.Depot;
-import com.medusabookdepot.model.modelInterface.StandardBook;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -23,13 +25,22 @@ import javafx.beans.property.StringProperty;
  * @author Marcello_Feroce
  *
  */
+@XmlRootElement(name="depot")
 public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransferrer, Serializable {
 
     /**
      * 
      */
     private static final long serialVersionUID = 47429766209693618L;
+    
+    @XmlElement
     private Map<StandardBookImpl, Integer> books;
+    
+    // Default Constructor
+    public DepotImpl() {
+		this(null,null);
+	}
+    
     public DepotImpl(String name, Map<StandardBookImpl, Integer> books) {
         super(name);
         if (books == null) {

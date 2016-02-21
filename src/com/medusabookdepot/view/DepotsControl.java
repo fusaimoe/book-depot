@@ -3,6 +3,7 @@ package com.medusabookdepot.view;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.medusabookdepot.controller.DepotsController;
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 
 import javafx.fxml.FXML;
@@ -13,6 +14,8 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
 
 public class DepotsControl extends ScreenControl implements Initializable{
+	
+	DepotsController depotsController;
 	
 	public DepotsControl(){
 		super();

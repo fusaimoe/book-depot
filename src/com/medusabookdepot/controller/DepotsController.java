@@ -1,25 +1,44 @@
 package com.medusabookdepot.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import com.medusabookdepot.controller.files.FileManager;
 import com.medusabookdepot.model.modelImpl.DepotImpl;
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
-import com.medusabookdepot.model.modelInterface.Depot;
-import com.medusabookdepot.model.modelInterface.StandardBook;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class DepotsController {
 
-	private final ObservableList<Depot> depots = FXCollections.observableArrayList();
+	private final ObservableList<DepotImpl> depots = FXCollections.observableArrayList();
 	private final Map<StandardBookImpl, Integer> booksInDepot = new HashMap<>();
 	private static DepotsController singDepots;
-
-	private DepotsController() {
-		// lettura da file
+	
+	// Fields for file load and save, and for converting to PDF
+	private final static String NAME = "depots";
+	private String directoryPath = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot" + System.getProperty("file.separator");
+	private String xmlPath = directoryPath + ".xml" + System.getProperty("file.separator") + NAME + ".xml";
+	private String xslPath = directoryPath + ".xsl" + System.getProperty("file.separator") + NAME + ".xsl";
+	private String pdfPath = directoryPath + NAME + new SimpleDateFormat("yyyyMMdd-HHmm-").format(new Date());
+	private FileManager<DepotImpl> fileManager = new FileManager<>(depots, xmlPath, DepotImpl.class, NAME);
+	
+	
+	public DepotsController() {
+		
+		//test scrittura provvisorio
+		StandardBookImpl libro = new StandardBookImpl("9788767547823", "Harry Potter", 1980, 7, "HP Saga", "Fantasy", "Feroce Macello", 2);
+		Map<StandardBookImpl, Integer> mappa = new HashMap<>();
+		mappa.put(libro, 3);
+		DepotImpl esempio = new DepotImpl("prova", mappa);
+		depots.add(esempio);
+		System.out.println("Salvataggio riuscito @" + xmlPath);
+		fileManager.saveDataToFile();
+		//fine test
+		
 	}
 
 	public static DepotsController getInstanceOf() {
@@ -58,9 +77,9 @@ public class DepotsController {
 	 * creazione del deposito anzichè inserirne uno solo per poi aggiungerne
 	 * altri dopo la creazione
 	 */
-	public boolean addDepot(String name, List<StandardBookImpl> book, int... quantity) {
+	/*public boolean addDepot(String name, List<StandardBookImpl> book, int... quantity) {
 
-		for (Depot d : depots) {
+		for (DepotImpl d : depots) {
 			if (d.getName().equals(name)) {
 				throw new IllegalArgumentException("Fail: " + name + "is already exists!");
 			}
@@ -80,7 +99,7 @@ public class DepotsController {
 		addDepot(new DepotImpl(name, booksInDepot));
 
 		return true;
-	}
+	}*/
 
 	/**
 	 * Search a depot in the list
@@ -88,9 +107,9 @@ public class DepotsController {
 	 * @param depot
 	 * @return null if it doesn't find one, else the object found
 	 */
-	public Depot searchDepot(Depot depot) {
+	public DepotImpl searchDepot(DepotImpl depot) {
 
-		for (Depot d : depots) {
+		for (DepotImpl d : depots) {
 			if (depot.equals(d)) {
 				return d;
 			}
@@ -103,7 +122,7 @@ public class DepotsController {
 	 * 
 	 * @param depot
 	 */
-	public void removeDepot(Depot depot) {
+	public void removeDepot(DepotImpl depot) {
 
 		depots.remove(depot);
 	}
