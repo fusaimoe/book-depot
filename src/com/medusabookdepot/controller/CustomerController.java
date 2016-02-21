@@ -42,13 +42,13 @@ public class CustomerController {
 		Stream<CustomerImpl> result = this.customers.stream();
 
 		if (name.isPresent()) {
-			result = result.filter(e -> name.get().equals(e.getName()));
+			result = result.filter(e -> e.getName().contains(name.get()));
 		}
 		if (address.isPresent()) {
-			result = result.filter(e -> address.get().equals(e.getAddress()));
+			result = result.filter(e -> e.getAddress().contains(address.get()));
 		}
 		if (telephoneNumber.isPresent()) {
-			result = result.filter(e -> telephoneNumber.get().equals(e.getTelephoneNumber()));
+			result = result.filter(e -> e.getTelephoneNumber().contains(telephoneNumber.get()));
 		}
 
 		/* If there are not filters, return all books in one stream */
