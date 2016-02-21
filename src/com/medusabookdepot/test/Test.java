@@ -1,4 +1,4 @@
-package com.medusabookdepot.controller;
+package com.medusabookdepot.test;
 
 import static org.junit.Assert.*;
 
