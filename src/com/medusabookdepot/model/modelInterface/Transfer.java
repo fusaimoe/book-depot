@@ -144,5 +144,11 @@ public interface Transfer {
      * @param left is the state(true/false) i want to set about the condition that the transfer is left
      */
     public void setLeft(boolean left);
+    /**
+     * 
+     * @param transfer is the transfer i need to compare
+     * @return true if the two transfers have the same values
+     */
+    boolean equals(Transfer transfer);
 
 }
