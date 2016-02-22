@@ -33,8 +33,8 @@ public class Main {
     	    throw new Exception("failed test");
     	}
         new Main();
-    	/*BooksController testBooksCtrl = BooksController.getInstanceOf();
-    	DepotsController testDepotCtrl = new DepotsController();*/
+    	BooksController testBooksCtrl = BooksController.getInstanceOf();
+    	DepotsController testDepotCtrl = new DepotsController();
     	
         //Creo 4 titoli con valore dei campi diversi
         //testBooksCtrl.addBook("9788767547899", "Harry Potter", "1980", "7", "HP Saga", "Fantasy", "Feroce Macello", "2");
@@ -62,19 +62,19 @@ public class Main {
         Stream<StandardBookImpl> bb =testBooksCtrl.searchBook(Optional.empty(), Optional.of("9"), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
         */
         /*Filtri: name*/
-        //Stream<StandardBook> bb =medusiniBook.searchBook(Optional.empty(), Optional.empty(), Optional.of("Cicci"), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        //Stream<StandardBookImpl> bb =testBooksCtrl.searchBook(Optional.empty(), Optional.empty(), Optional.of("S"), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
         
         /*Filtri: name*/
-        //Stream<StandardBook> bb =medusiniDepot.searchBook(Optional.empty(), Optional.empty(), Optional.of("cci"), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        //Stream<StandardBook> bb =testBooksCtrl.searchBook(Optional.empty(), Optional.empty(), Optional.of("cci"), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
         
         /*Filtri: year*/
-        //Stream<StandardBook> bb =medusiniDepot.searchBook(Optional.empty(), Optional.empty(), Optional.empty(), Optional.of(1980), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        //Stream<StandardBook> bb =testBooksCtrl.searchBook(Optional.empty(), Optional.empty(), Optional.empty(), Optional.of(1980), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
         
         /*Filtri: year + name*/
-        //Stream<StandardBook> bb =medusiniDepot.searchBook(Optional.empty(), Optional.empty(), Optional.of("cci"), Optional.of(1980), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        //Stream<StandardBook> bb =testBooksCtrl.searchBook(Optional.empty(), Optional.empty(), Optional.of("cci"), Optional.of(1980), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
         
         /*Filtri: depot + name + year*/
-        //Stream<StandardBook> bb =medusiniDepot.searchBook(Optional.of(medusiniDepot.depots.get(0)), Optional.empty(), Optional.empty(), Optional.of(1980), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        //Stream<StandardBook> bb =testBooksCtrl.searchBook(Optional.of(medusiniDepot.depots.get(0)), Optional.empty(), Optional.empty(), Optional.of(1980), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
         
         /*System.out.println("All books saved:");
         for(StandardBook e: medusiniBook.getBooks()){
