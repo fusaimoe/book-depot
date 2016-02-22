@@ -1,6 +1,7 @@
 package com.medusabookdepot.controller;
 
 //NON ELIMINARE GLI INPORT NON USATI, SONO USATI NEI TEST COMMENTATI
+
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -8,6 +9,11 @@ import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 import com.medusabookdepot.model.modelInterface.StandardBook;
 import com.medusabookdepot.test.Test;
 import com.medusabookdepot.view.*;
+
+/*
+ * Suppressed unused warnings because they are used in commented tests
+ */
+@SuppressWarnings("unused")
 
 public class Main {
 

@@ -42,6 +42,9 @@ public class DepotsController {
 		
 	}
 
+	/**
+	 * Singleton for DepotsController
+	 */
 	public static DepotsController getInstanceOf() {
 
 		return (DepotsController.singDepots == null ? new DepotsController() : DepotsController.singDepots);
@@ -63,7 +66,7 @@ public class DepotsController {
 	
 	/**
 	 * Add a empty depot from name
-	 * @param <b>Name of depot</b>
+	 * @param <b>Name of new depot</b>
 	 * @throws IllegalArgumentException if another depot is registered with the same name
 	 */
 	public void addDepot(String name) throws IllegalArgumentException{
@@ -92,10 +95,10 @@ public class DepotsController {
 
 	/**
 	 * Remove a depot from the list
-	 * 
 	 * @param Depot
+	 * @throws <b>NoSuchElementException</b> if you are trying to remove a depot that not exists
 	 */
-	public void removeDepot(DepotImpl depot) {
+	public void removeDepot(DepotImpl depot) throws NoSuchElementException{
 
 		try {
 			depots.remove(depot);

@@ -26,7 +26,7 @@ public class MovementsController {
 	
 	/*
 	 * Dalla GUI noto che si puo aggiungere solo un libro alla volta, per cui, questo metodo (fino a prossime istruzioni)
-	 * creerà un movimento con una mappa (chiesta da Model) contenente un solo elempento preso in input.
+	 * creerà un movimento con una mappa (chiesta da Model) contenente un solo elemento preso in input.
 	 */
 	public void addMovements(CanSendTransferrer sender,Transferrer receiver,Date leavingDate, StandardBookImpl book, int quantity){
 		
@@ -47,14 +47,15 @@ public class MovementsController {
 	/**
 	 * Remove one ore more movements from list
 	 * @param One ore more movements
+	 * @throws <b>NoSuchElementException</b> if you are trying to remove a movement that not exists
 	 */
-	public void removeMovements(Transfer... mov){
+	public void removeMovements(Transfer... mov) throws NoSuchElementException{
 		
 		for(Transfer t:mov){
 			try {
 				movements.remove(t);
 			} catch (Exception e) {
-				throw new NoSuchElementException("No such element in list");
+				throw new NoSuchElementException("No such element in list!");
 			}
 		}
 	}
@@ -72,5 +73,19 @@ public class MovementsController {
 			}
 		}
 		return null;
+	}
+	
+	/**
+	 * Assign a passed tracking number at a movement
+	 * @param <b>Tracking number</b> given by courier
+	 * @param <b>The movement</b> to assign it
+	 * @throws <b>IllegalArgumentException</b> if there is a registered movement with the same tracking number
+	 */
+	public void assignTrackingNumber(String tracking, Transfer movement) throws IllegalArgumentException{
+		
+		if(this.searchTrasferByTrackingNumber(tracking) != null){
+			throw new IllegalArgumentException("The tracking number is already assigned!");
+		}
+		movement.setTrackingNumber(tracking);
 	}
 }
