@@ -3,7 +3,9 @@ package com.medusabookdepot.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -25,18 +27,19 @@ public class BooksController {
 
 	// Fields for file load and save, and for converting to PDF
 	private final static String NAME = "books";
-	private String directoryPath = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot" + System.getProperty("file.separator");
+	private String directoryPath = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot"
+			+ System.getProperty("file.separator");
 	private String xmlPath = directoryPath + ".xml" + System.getProperty("file.separator") + NAME + ".xml";
 	private String xslPath = directoryPath + ".xsl" + System.getProperty("file.separator") + NAME + ".xsl";
 	private String pdfPath = directoryPath + NAME + new SimpleDateFormat("yyyyMMdd-HHmm-").format(new Date());
 	private FileManager<StandardBookImpl> fileManager = new FileManager<>(books, xmlPath, StandardBookImpl.class, NAME);
 
 	private BooksController() {
-		
+
 		super();
 		fileManager.loadDataFromFile();
 	}
-	
+
 	public static BooksController getInstanceOf() {
 
 		return (BooksController.singBook == null ? new BooksController() : BooksController.singBook);
@@ -45,14 +48,16 @@ public class BooksController {
 	/**
 	 * Convert price from string to integer
 	 * 
-	 * @param <b>Book price</b> in string format
+	 * @param <b>Book
+	 *            price</b> in string format
 	 * @return Price in integet format
 	 * @throws IllegalArgumentException
 	 *             and IndexOutOfBoundsException
 	 */
 	public int convertPrice(String price) throws IllegalArgumentException, IndexOutOfBoundsException {
-		
-		if(price.equals("")) throw new IllegalArgumentException("The price field mustn't be empty!");
+
+		if (price.equals(""))
+			throw new IllegalArgumentException("The price field mustn't be empty!");
 
 		if (!price.contains(".") && !price.contains(",")) {
 			price += ".00";
@@ -60,7 +65,8 @@ public class BooksController {
 			price += "0";
 		} else if (price.charAt(price.length() - 3) == '.' || price.charAt(price.length() - 3) == ',') {
 			// Correct input, nothing to do
-		} else throw new IllegalArgumentException("Price format not valid! (IE 12.50)");
+		} else
+			throw new IllegalArgumentException("Price format not valid! (IE 12.50)");
 
 		return Integer.parseInt(new StringBuilder(price).deleteCharAt(price.length() - 3).toString());
 	}
@@ -68,23 +74,25 @@ public class BooksController {
 	/**
 	 * Add a new book in the list
 	 * 
-	 * @param ISBN 
+	 * @param ISBN
 	 * @param Name
 	 * @param Year
 	 * @param Pages
 	 * @param Serie
 	 * @param Genre
 	 * @param Author
-	 * @param <b>Price</b> in string format
+	 * @param <b>Price</b>
+	 *            in string format
 	 * @throws IllegalArgumentException
 	 *             if isbn already exists
 	 */
 	public void addBook(String isbn, String name, String year, String pages, String serie, String genre, String author,
 			String price) throws IllegalArgumentException, IndexOutOfBoundsException {
-		
+
 		if (this.isInputValid(isbn, year, pages, serie, genre, author)) {
 
-			books.add(new StandardBookImpl(isbn, name, Integer.parseInt(year), Integer.parseInt(pages), serie, genre, author, this.convertPrice(price)));
+			books.add(new StandardBookImpl(isbn, name, Integer.parseInt(year), Integer.parseInt(pages), serie, genre,
+					author, this.convertPrice(price)));
 			fileManager.saveDataToFile();
 		}
 	}
@@ -107,10 +115,31 @@ public class BooksController {
 	}
 
 	/**
+	 * Search a string in ALL fields of book object and add it to results if it is contains in field
+	 * @param String to search
+	 * @return <b>List</b> of all books found
+	 */
+	public List<StandardBookImpl> searchBook(String value) {
+		List<StandardBookImpl> result = new ArrayList<>();
+
+		this.books.stream().forEach(e -> {
+
+			if (e.getIsbn().contains(value) || e.getTitle().contains(value)
+					|| Integer.toString(e.getYear()).contains(value) || Integer.toString(e.getPages()).contains(value)
+					|| e.getSerie().contains(value) || e.getGenre().contains(value) || e.getAuthor().contains(value)
+					|| Integer.toString(e.getPrice()).contains(value)) {
+				result.add(e);
+			}
+		});
+		return result;
+	}
+
+	/**
 	 * Multifilter for books search. It search in the books list if you don't
 	 * pass a depot, or in a specific depot if you pass it
 	 * 
-	 * @param <b>Depot</b> if you want to search in a specific depot
+	 * @param <b>Depot</b>
+	 *            if you want to search in a specific depot
 	 * @param ISBN
 	 * @param Name
 	 * @param Year
@@ -159,9 +188,10 @@ public class BooksController {
 	 * Remove a book from the list
 	 * 
 	 * @param Book
-	 * @throws NoSuchElementException if element is not present in books list
+	 * @throws NoSuchElementException
+	 *             if element is not present in books list
 	 */
-	public void removeBook(StandardBook book) throws NoSuchElementException{
+	public void removeBook(StandardBook book) throws NoSuchElementException {
 
 		try {
 			books.remove(book);
@@ -194,17 +224,20 @@ public class BooksController {
 	 * @param Genre
 	 * @param Author
 	 * @return <b>True</b> if input is valid, else a exception
-	 * @throws IllegalArgumentException if the arguments are not valid
+	 * @throws IllegalArgumentException
+	 *             if the arguments are not valid
 	 */
-	public boolean isInputValid(String isbn, String year, String pages, String serie, String genre, String author) throws IllegalArgumentException{
-		
+	public boolean isInputValid(String isbn, String year, String pages, String serie, String genre, String author)
+			throws IllegalArgumentException {
+
 		try {
 			Integer.parseInt(year);
 			Integer.parseInt(pages);
 		} catch (Exception e) {
 			throw new IllegalArgumentException("Year and pages must be integers!");
 		}
-		if (isbn.equals("") || year.equals("") || pages.equals("") || serie.equals("") || genre.equals("") || author.equals("")) {
+		if (isbn.equals("") || year.equals("") || pages.equals("") || serie.equals("") || genre.equals("")
+				|| author.equals("")) {
 
 			throw new IllegalArgumentException("The fields mustn't be empty!");
 		}
@@ -231,7 +264,7 @@ public class BooksController {
 
 		return books;
 	}
-	
+
 	/**
 	 * Convert the xml file in a PDF
 	 * 
@@ -332,7 +365,7 @@ public class BooksController {
 		books.get(books.indexOf(book)).setAuthor(author);
 		fileManager.saveDataToFile();
 	}
-	
+
 	/**
 	 * Edit book price
 	 * 
