@@ -30,16 +30,6 @@ public class DepotsController {
 	
 	public DepotsController() {
 		
-		//test scrittura provvisorio
-		StandardBookImpl libro = new StandardBookImpl("9788767547823", "Harry Potter", 1980, 7, "HP Saga", "Fantasy", "Feroce Macello", 2);
-		Map<StandardBookImpl, Integer> mappa = new HashMap<>();
-		mappa.put(libro, 3);
-		DepotImpl esempio = new DepotImpl("prova", mappa);
-		depots.add(esempio);
-		System.out.println("Salvataggio riuscito @" + xmlPath);
-		fileManager.saveDataToFile();
-		//fine test
-		
 	}
 
 	/**
