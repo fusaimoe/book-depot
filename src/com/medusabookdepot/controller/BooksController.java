@@ -42,11 +42,10 @@ public class BooksController {
 	}
 
 	/**
-	 * Convert price in int
+	 * Convert price from string to integer
 	 * 
-	 * @param Book
-	 *            price in string format
-	 * @return Price in int
+	 * @param <b>Book price</b> in string format
+	 * @return Price in integet format
 	 * @throws IllegalArgumentException
 	 *             and IndexOutOfBoundsException
 	 */
@@ -110,7 +109,7 @@ public class BooksController {
 	 * Multifilter for books search. It search in the books list if you don't
 	 * pass a depot, or in a specific depot if you pass it
 	 * 
-	 * @param Depot
+	 * @param <b>Depot</b> if you want to search in a specific depot
 	 * @param ISBN
 	 * @param Name
 	 * @param Year
@@ -118,7 +117,7 @@ public class BooksController {
 	 * @param Serie
 	 * @param Genre
 	 * @param Author
-	 * @return Stream<StandardBook> : all books found with the passed filters
+	 * @return <b>Stream<of StandardBooks></b> found by filtering the books list
 	 */
 	public Stream<StandardBookImpl> searchBook(Optional<Depot> depot, Optional<String> isbn, Optional<String> name,
 			Optional<String> year, Optional<String> pages, Optional<String> serie, Optional<String> genre,
@@ -126,7 +125,6 @@ public class BooksController {
 
 		Stream<StandardBookImpl> result = this.books.stream();
 
-		// General searcher
 		if (isbn.isPresent()) {
 			result = result.filter(e -> e.getIsbn().contains(isbn.get()));
 		}
@@ -148,14 +146,11 @@ public class BooksController {
 		if (author.isPresent()) {
 			result = result.filter(e -> e.getAuthor().contains(author.get()));
 		}
-
-		// In depot
 		if (depot.isPresent()) {
 
 			result = result.filter(e -> depot.filter(f -> f.getQuantityFromStandardBook(e) < 1) != null);
 		}
 
-		/* If there are not filters, return all books in one stream */
 		return result;
 	}
 
@@ -190,6 +185,7 @@ public class BooksController {
 	}
 
 	/**
+	 * Check if the input for a new book is correct
 	 * 
 	 * @param ISBN
 	 * @param Year
@@ -237,6 +233,7 @@ public class BooksController {
 	
 	/**
 	 * Convert the xml file in a PDF
+	 * 
 	 * @throws IOException
 	 */
 	public void convert() throws IOException {
@@ -251,48 +248,96 @@ public class BooksController {
 		converter.open();
 	}
 
+	/**
+	 * Edit isbn number
+	 * 
+	 * @param Book
+	 * @param isbn
+	 */
 	public void editISBN(StandardBook book, String isbn) {
 
 		books.get(books.indexOf(book)).setIsbn(isbn);
 		fileManager.saveDataToFile();
 	}
 
+	/**
+	 * Edit book name
+	 * 
+	 * @param Book
+	 * @param Name
+	 */
 	public void editTitle(StandardBook book, String title) {
 
 		books.get(books.indexOf(book)).setTitle(title);
 		fileManager.saveDataToFile();
 	}
 
+	/**
+	 * Edit book release year
+	 * 
+	 * @param Book
+	 * @param Year
+	 */
 	public void editYear(StandardBook book, int year) {
 
 		books.get(books.indexOf(book)).setYear(year);
 		fileManager.saveDataToFile();
 	}
 
+	/**
+	 * Edit book pages number
+	 * 
+	 * @param Book
+	 * @param Pages
+	 */
 	public void editPages(StandardBook book, int pages) {
 
 		books.get(books.indexOf(book)).setPages(pages);
 		fileManager.saveDataToFile();
 	}
 
+	/**
+	 * Edit book serie
+	 * 
+	 * @param Book
+	 * @param Serie
+	 */
 	public void editSerie(StandardBook book, String serie) {
 
 		books.get(books.indexOf(book)).setSerie(serie);
 		fileManager.saveDataToFile();
 	}
 
+	/**
+	 * Edit book genre
+	 * 
+	 * @param Book
+	 * @param Genre
+	 */
 	public void editGenre(StandardBook book, String genre) {
 
 		books.get(books.indexOf(book)).setGenre(genre);
 		fileManager.saveDataToFile();
 	}
 
+	/**
+	 * Edit book author
+	 * 
+	 * @param Book
+	 * @param Author
+	 */
 	public void editAuthor(StandardBook book, String author) {
 
 		books.get(books.indexOf(book)).setAuthor(author);
 		fileManager.saveDataToFile();
 	}
 	
+	/**
+	 * Edit book price
+	 * 
+	 * @param Book
+	 * @param Price
+	 */
 	public void editPrice(StandardBook book, int price) {
 
 		books.get(books.indexOf(book)).setPrice(price);

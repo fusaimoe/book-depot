@@ -51,7 +51,6 @@ public class CustomerController {
 			result = result.filter(e -> e.getTelephoneNumber().contains(telephoneNumber.get()));
 		}
 
-		/* If there are not filters, return all books in one stream */
 		return result;
 	}
 	
