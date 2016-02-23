@@ -10,6 +10,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+
 import com.medusabookdepot.model.modelInterface.CanSendTransferrer;
 import com.medusabookdepot.model.modelInterface.Depot;
 import com.medusabookdepot.model.modelInterface.StandardBook;
@@ -25,6 +29,8 @@ import javafx.beans.property.StringProperty;
  * @author Marcello_Feroce
  *
  */
+@XmlRootElement(name = "transfer")
+@XmlSeeAlso({DepotImpl.class,CustomerImpl.class, TransferrerImpl.class})
 public class TransferImpl implements Transfer, Serializable {
 
     /**
@@ -33,12 +39,18 @@ public class TransferImpl implements Transfer, Serializable {
     private static final long serialVersionUID = -1788501318970271441L;
     private CanSendTransferrer sender;
     private Transferrer receiver;
+    
+    @XmlElement
     private java.util.Date leavingDate;
     private StringProperty trackingNumber;
     private Map<StandardBookImpl, Integer> books;
     private boolean arrived;
     private boolean left;
 
+    public TransferImpl() {
+        this(null,null,null,null, null);
+    }
+    
     public TransferImpl(CanSendTransferrer sender, Transferrer receiver, java.util.Date leavingDate,
             Map<StandardBookImpl, Integer> books) {
         this.sender = sender;
@@ -85,11 +97,12 @@ public class TransferImpl implements Transfer, Serializable {
 
     @Override
     public Map<StandardBookImpl, Integer> getBooks() {
-        Map<StandardBookImpl, Integer> map = new HashMap<>();
+    	
+      /*  Map<StandardBookImpl, Integer> map = new HashMap<>();
         for (Entry<StandardBookImpl, Integer> ee : this.books.entrySet()) {
             map.put(ee.getKey(), ee.getValue());
-        }
-        return map;//copia difensiva
+        }*/ //copia difensiva
+        return books;
     }
     @Override
     public String getBooksAsACoolString() {

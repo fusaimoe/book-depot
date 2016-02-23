@@ -10,7 +10,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.medusabookdepot.model.modelInterface.CanSendTransferrer;
 import com.medusabookdepot.model.modelInterface.Customer;
-import com.medusabookdepot.model.modelInterface.StandardBook;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

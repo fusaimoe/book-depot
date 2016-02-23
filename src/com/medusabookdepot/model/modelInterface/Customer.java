@@ -3,6 +3,9 @@
  */
 package com.medusabookdepot.model.modelInterface;
 
+import javax.xml.bind.annotation.XmlSeeAlso;
+
+import com.medusabookdepot.model.modelImpl.CustomerImpl;
 import javafx.beans.property.StringProperty;
 
 /**
@@ -10,6 +13,7 @@ import javafx.beans.property.StringProperty;
  * @author Marcello_Feroce
  *
  */
+@XmlSeeAlso({CustomerImpl.class})
 public interface Customer extends Transferrer {
     /**
      * 
