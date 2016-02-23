@@ -30,14 +30,7 @@ public class DepotsController {
 	
 	public DepotsController() {
 		
-	}
-
-	/**
-	 * Singleton for DepotsController
-	 */
-	public static DepotsController getInstanceOf() {
-
-		return (DepotsController.singDepots == null ? new DepotsController() : DepotsController.singDepots);
+		super();
 	}
 
 	/**
@@ -80,8 +73,6 @@ public class DepotsController {
 		result = result.filter(e -> e.getName().contains(name));
 		return result;
 	}
-	
-	
 
 	/**
 	 * Remove a depot from the list
@@ -109,6 +100,21 @@ public class DepotsController {
 	public void editName(DepotImpl depot, String name) {
 
 		depots.get(depots.indexOf(depot)).setName(name);
+		fileManager.saveDataToFile();
+	}
+	
+	public void editBookQuantity(DepotImpl depot, StandardBookImpl book, int value){
+		
+		Map<StandardBookImpl,Integer> tmpMap = new HashMap<>();
+		int oldQnt = depot.getQuantityFromStandardBook(book);
+		if((oldQnt - value) < 0){
+			throw new IllegalArgumentException("Not enaught books in depot");
+		}
+		tmpMap.put(book, oldQnt);
+		depots.get(depots.indexOf(depot)).removeBooks(tmpMap);
+		tmpMap.clear();
+		tmpMap.put(book, oldQnt - value);
+		depots.get(depots.indexOf(depot)).addBooks(tmpMap);
 		fileManager.saveDataToFile();
 	}
 }
