@@ -55,6 +55,10 @@ public class MovementsController {
 
 	public void addMovements(TransferImpl transfer) {
 
+		// Aggiungo alla lista il movimento di libri e scrivo su file gli
+		// aggiornamenti sia per i movimenti sia per i depots dato il possibile
+		// cambiamento di quantità di libri se almeno uno dei soggetti coinvolti
+		// è un depot
 		movements.add(transfer);
 		fileManager.saveDataToFile();
 		depotsFileManager.saveDataToFile();
@@ -70,30 +74,40 @@ public class MovementsController {
 		DepotImpl senderObj = new DepotImpl();
 		DepotImpl receiverObj = new DepotImpl();
 		StandardBookImpl bookObj = new StandardBookImpl();
-		
-		
+
+		// Controllo se il movimento ha tutti i presupposti per essere eseguito
 		if (!this.isMovementValid(sender, receiver, leavingDate, book, quantity)) {
 			throw new IllegalArgumentException();
 		}
-		
-		for(StandardBookImpl b:BooksController.getInstanceOf().getBooks()){
-			if(b.getIsbn().equals(book)){
+		// Una volta arrivati qui si tenga presente che si da per scontato il
+		// fatto che tutto può essere fatto senza ulteriori controlli!
+
+		// Cerco il libro corrispondente alla stringa passatami
+		for (StandardBookImpl b : BooksController.getInstanceOf().getBooks()) {
+			if (b.getIsbn().equals(book)) {
 				bookObj = b;
 			}
 		}
 
+		// Controllo se è un depot oppure no, per sapere se togliere i libri da
+		// un eventuale magazzino di partenza oppure solo settare il nome del
+		// sender
 		if (this.isADepot(sender)) {
 			for (DepotImpl d : depots) {
 				if (d.getName().equals(sender)) {
-					
+
+					// Ora che so che è un depot e l'ho trovato rimpiazzo il
+					// libro nella lista in modo da aggiornare la sua quantità
 					senderObj = d;
 					d.getBooks().put(bookObj, d.getQuantityFromStandardBook(bookObj) - Integer.parseInt(quantity));
 				}
 			}
-		}else{
+		} else {
+			// Se non è un depot setto solamente il nome del mittente (sender)
 			senderObj.setName(sender);
 		}
-		
+
+		// Faccio la stessa cosa con il ricevente
 		if (this.isADepot(receiver)) {
 			for (DepotImpl d : depots) {
 				if (d.getName().equals(receiver)) {
@@ -102,10 +116,12 @@ public class MovementsController {
 					d.getBooks().put(bookObj, d.getQuantityFromStandardBook(bookObj) - Integer.parseInt(quantity));
 				}
 			}
-		}else{
+		} else {
 			receiverObj.setName(receiver);
 		}
 
+		// A questo punto non ci resta che creare l'occetto Transfer e con
+		// addMovements scrivere su file i vari cambiamenti
 		Map<StandardBookImpl, Integer> books = new HashMap<>();
 		books.put(bookObj, Integer.parseInt(quantity));
 		this.addMovements(new TransferImpl(senderObj, receiverObj, leavingDate, books));
@@ -193,6 +209,7 @@ public class MovementsController {
 
 	/**
 	 * Check if arguments passed are good
+	 * 
 	 * @param sender
 	 * @param receiver
 	 * @param leavingDate
@@ -200,23 +217,22 @@ public class MovementsController {
 	 * @param quantity
 	 * @return
 	 */
-	public boolean isMovementValid(String sender, String receiver, Date leavingDate,
-			String book, String quantity) {
+	public boolean isMovementValid(String sender, String receiver, Date leavingDate, String book, String quantity) {
 		try {
 			Integer.parseInt(quantity);
 		} catch (Exception e) {
 			throw new IllegalArgumentException("Quantity must be a integer!");
 		}
-		
+
 		Calendar c = Calendar.getInstance();
 		boolean bookFound = false;
-		
+
 		if (this.isADepot(sender)) {
 			for (DepotImpl d : depots) {
 				if (d.getName().equals(sender)) {
 					BooksController bc = BooksController.getInstanceOf();
-					for(StandardBookImpl b:bc.getBooks()){
-						if(b.getIsbn().equals(book)){
+					for (StandardBookImpl b : bc.getBooks()) {
+						if (b.getIsbn().equals(book)) {
 							bookFound = true;
 							if (d.getQuantityFromStandardBook(b) < Integer.parseInt(quantity)) {
 								throw new IllegalArgumentException("There are not so many books in depot!");
@@ -226,7 +242,7 @@ public class MovementsController {
 				}
 			}
 		}
-		if(!bookFound){
+		if (!bookFound) {
 			throw new IllegalArgumentException("Book not found!");
 		}
 		if (c.getTime().after(leavingDate)) {
