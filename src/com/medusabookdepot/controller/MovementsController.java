@@ -1,11 +1,15 @@
 package com.medusabookdepot.controller;
 
-import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 
+import com.medusabookdepot.controller.files.FileManager;
+import com.medusabookdepot.model.modelImpl.DepotImpl;
+import com.medusabookdepot.model.modelImpl.PersonImpl;
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 import com.medusabookdepot.model.modelImpl.TransferImpl;
 import com.medusabookdepot.model.modelInterface.CanSendTransferrer;
@@ -17,9 +21,28 @@ import javafx.collections.ObservableList;
 
 public class MovementsController {
 	
-	private final ObservableList<Transfer> movements = FXCollections.observableArrayList();
+	private final ObservableList<TransferImpl> movements = FXCollections.observableArrayList();
 	
-	public void addMovements(Transfer transfer){
+	// Fields for file load and save, and for converting to PDF
+	private final static String NAME = "transfers";
+	private String directoryPath = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot" + System.getProperty("file.separator");
+	private String xmlPath = directoryPath + ".xml" + System.getProperty("file.separator") + NAME + ".xml";
+	private String xslPath = directoryPath + ".xsl" + System.getProperty("file.separator") + NAME + ".xsl";
+	private String pdfPath = directoryPath + NAME + new SimpleDateFormat("yyyyMMdd-HHmm-").format(new Date());
+	private FileManager<TransferImpl> fileManager = new FileManager<>(movements, xmlPath, TransferImpl.class, NAME);
+	
+	public MovementsController(){
+		StandardBookImpl libro = new StandardBookImpl("9788767547823", "Harry Potter", 1980, 7, "HP Saga", "Fantasy", "Feroce Macello", 2);
+		Map<StandardBookImpl, Integer> mappa = new HashMap<>();
+		mappa.put(libro, 3);
+		DepotImpl esempio = new DepotImpl("prova", new HashMap<StandardBookImpl,Integer>());
+		PersonImpl pino = new PersonImpl("pino", "via","numbero");
+		TransferImpl transfer = new TransferImpl(esempio, pino, new java.util.Date(), mappa);
+		movements.add(transfer);
+		fileManager.saveDataToFile();
+	}
+		
+	public void addMovements(TransferImpl transfer){
 		
 		movements.add(transfer);
 	}
@@ -39,7 +62,7 @@ public class MovementsController {
 	 * Return the list of movements
 	 * @return Movements list
 	 */
-	public List<Transfer> getAllMovements(){
+	public ObservableList<TransferImpl> getAllMovements(){
 		
 		return movements;
 	}
@@ -49,14 +72,14 @@ public class MovementsController {
 	 * @param One ore more movements
 	 * @throws <b>NoSuchElementException</b> if you are trying to remove a movement that not exists
 	 */
-	public void removeMovements(Transfer... mov) throws NoSuchElementException{
+	public void removeMovement(TransferImpl t) throws NoSuchElementException{
 		
-		for(Transfer t:mov){
-			try {
-				movements.remove(t);
-			} catch (Exception e) {
-				throw new NoSuchElementException("No such element in list!");
-			}
+		try {
+			movements.remove(t);
+			fileManager.saveDataToFile();
+			
+		} catch (Exception e) {
+			throw new NoSuchElementException("No such element in list!");
 		}
 	}
 	
@@ -87,5 +110,18 @@ public class MovementsController {
 			throw new IllegalArgumentException("The tracking number is already assigned!");
 		}
 		movement.setTrackingNumber(tracking);
+	}
+	
+	/**
+	 * Search for transfer from StandardBook
+	 * @param StandardBookImpl
+	 */
+	public TransferImpl getTransferFromBook(StandardBookImpl book){
+		for(TransferImpl transfer : movements){
+			for(Entry<StandardBookImpl,Integer> entry : transfer.getBooks().entrySet()){
+				if(entry.getKey().equals(book)) return transfer;
+			}
+		}
+		return null;
 	}
 }

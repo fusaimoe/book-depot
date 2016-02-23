@@ -4,8 +4,8 @@
 
 package com.medusabookdepot.view;
 
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
@@ -322,38 +322,12 @@ public class BooksControl extends ScreenControl {
      * Called when the user enter something in the search field
      */
     private void search(){
-    	
-        FilteredList<StandardBookImpl> filteredData = new FilteredList<>(booksController.getBooks(), p -> true);
-
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(book -> {
-            	
-                // If filter text is empty, display all the items.
-                if (newValue == null || newValue.isEmpty()) return true;
-
-                // Compare all the items with filter text.
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                if (book.getIsbn().toLowerCase().contains(lowerCaseFilter)) return true; 
-                else if (book.getTitle().toLowerCase().contains(lowerCaseFilter))return true; 
-                else if (Integer.toString(book.getYear()).toLowerCase().contains(lowerCaseFilter)) return true;
-                else if (Integer.toString(book.getPages()).toLowerCase().contains(lowerCaseFilter)) return true;
-                else if (book.getGenre().toLowerCase().contains(lowerCaseFilter)) return true;
-                else if (book.getSerie().toLowerCase().contains(lowerCaseFilter)) return true;
-                else if (book.getAuthor().toLowerCase().contains(lowerCaseFilter)) return true;
-                else if (Integer.toString(book.getPrice()).toLowerCase().contains(lowerCaseFilter)) return true;
-                return false; // Does not match.
-            });
+    	searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+        	if (!newValue.isEmpty()){
+		        ObservableList<StandardBookImpl> ob = FXCollections.observableArrayList(booksController.searchBook(newValue));
+		        stdBooksTable.setItems(ob);
+        	}else stdBooksTable.setItems(booksController.getBooks());
         });
-
-        // 3. Wrap the FilteredList in a SortedList. 
-        SortedList<StandardBookImpl> sortedData = new SortedList<>(filteredData);
-
-        // 4. Bind the SortedList comparator to the TableView comparator.
-        sortedData.comparatorProperty().bind(stdBooksTable.comparatorProperty());
-
-        // 5. Add sorted (and filtered) data to the table.
-        stdBooksTable.setItems(sortedData);
     }
 
 }
