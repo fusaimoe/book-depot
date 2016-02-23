@@ -17,13 +17,14 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 
-public class MovementsControl extends ScreenControl{
+public class AddMovementControl extends ScreenControl{
 	
 	private final MovementsController movementsController = new MovementsController();
 	
@@ -48,9 +49,24 @@ public class MovementsControl extends ScreenControl{
     private TableColumn<Entry<StandardBookImpl,Integer>, String> trackingColumn;
     
     @FXML
+    private TextField quantityField;
+    @FXML
+    private ComboBox<String> isbnField;
+    @FXML
+    private ComboBox<String> titleField;
+    @FXML
+    private TextField senderField;
+    @FXML
+    private TextField receiverField;
+    @FXML
+    private TextField dateField;
+    @FXML
+    private TextField trackingField;
+    
+    @FXML
     private Button delete;
     
-	public MovementsControl(){
+    public AddMovementControl(){
 		super();
 	}
 
@@ -62,23 +78,25 @@ public class MovementsControl extends ScreenControl{
     private void initialize() {
 
     	final ObservableList<Entry<StandardBookImpl,Integer>> data = FXCollections.observableArrayList();
+    	// test combo boxes
+    	final ObservableList<String> isbns = FXCollections.observableArrayList();
+    	final ObservableList<String> titles = FXCollections.observableArrayList();
+    	isbns.add("1234");
+    	isbns.add("9876");
+    	titles.add("prova");
+    	titles.add("test");
     	
         // Initialize the table
 		quantityColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getValue().toString()));
         isbnColumn.setCellValueFactory(cellData -> cellData.getValue().getKey().isbnProperty());
         titleColumn.setCellValueFactory(cellData -> cellData.getValue().getKey().titleProperty());
-        senderColumn.setCellValueFactory(cellData -> movementsController.getTransferFromBook(cellData.getValue().getKey()).getSender().nameProperty());
-        receiverColumn.setCellValueFactory(cellData -> movementsController.getTransferFromBook(cellData.getValue().getKey()).getReceiver().nameProperty());
-        dateColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(movementsController.getTransferFromBook(cellData.getValue().getKey()).getLeavingDate().toString()));
-        trackingColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(movementsController.getTransferFromBook(cellData.getValue().getKey()).getTrackingNumber()));
-	
-        for(TransferImpl transfers : movementsController.getAllMovements()){
-        	data.addAll(transfers.getBooks().entrySet());
-        }
         
         movementsTable.setItems(data); 
         
-     // Listen for selection changes and enable delete button
+        titleField.setItems(titles);
+        isbnField.setItems(isbns);
+        
+        // Listen for selection changes and enable delete button
         delete.setDisable(true);
         movementsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
         	delete.setDisable(false);
