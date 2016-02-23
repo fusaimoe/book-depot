@@ -27,6 +27,9 @@ public abstract class TransferrerImpl implements Transferrer, Serializable {// t
      */
     private static final long serialVersionUID = -7387131023077698466L;
     protected StringProperty name;
+    public TransferrerImpl() {
+        this(null);
+    }
     public TransferrerImpl(String name) {
         this.name = new SimpleStringProperty(name);
     }
