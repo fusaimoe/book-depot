@@ -21,6 +21,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 
 public class MovementsControl extends ScreenControl{
 	
@@ -64,6 +65,9 @@ public class MovementsControl extends ScreenControl{
     private TextField dateField;
     @FXML
     private TextField trackingField;
+    
+    @FXML
+    private Button delete;
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -87,7 +91,13 @@ public class MovementsControl extends ScreenControl{
         	data.addAll(transfers.getBooks().entrySet());
         }
         
-        movementsTable.setItems(data);       
+        movementsTable.setItems(data); 
+        
+     // Listen for selection changes and enable delete button
+        delete.setDisable(true);
+        movementsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        	delete.setDisable(false);
+        } );
         
     }
     

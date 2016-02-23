@@ -13,7 +13,7 @@
 					<children>
 					    <Label styleClass="card-title" text="Add Depot" />
                    		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />                     
-                        <Button mnemonicParsing="false" styleClass="button-flat" text="DELETE" fx:id="delete" onAction="#delete"/>
+                        <Button fx:id="delete" mnemonicParsing="false" styleClass="button-flat" text="DELETE" fx:id="delete" onAction="#delete"/>
 					</children>
 				</HBox>
 				<HBox VBox.vgrow="ALWAYS">
