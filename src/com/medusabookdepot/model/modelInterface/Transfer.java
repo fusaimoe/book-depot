@@ -5,7 +5,10 @@ package com.medusabookdepot.model.modelInterface;
 
 import java.util.Map;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
+import com.sun.xml.internal.bind.AnyTypeAdapter;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
@@ -14,6 +17,7 @@ import javafx.beans.property.StringProperty;
  * This interface represents a transfer
  * @author Marcello_Feroce
  */
+@XmlJavaTypeAdapter(AnyTypeAdapter.class)
 public interface Transfer {
     /**
      * 

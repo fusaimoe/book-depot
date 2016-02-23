@@ -5,6 +5,9 @@ package com.medusabookdepot.model.modelImpl;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+
 import com.medusabookdepot.model.modelInterface.Transferrer;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -14,6 +17,8 @@ import javafx.beans.property.StringProperty;
  * @author Marcello_Feroce
  *
  */
+@XmlRootElement(name = "transferrer")
+@XmlSeeAlso({CustomerImpl.class})
 public abstract class TransferrerImpl implements Transferrer, Serializable {// template
                                                                             // method
 
