@@ -19,17 +19,22 @@ import java.util.Optional;
 import com.medusabookdepot.controller.BooksController;
 
 public class BooksControl extends ScreenControl {
-
+	
+	// Reference to the controller
     private BooksController booksController = BooksController.getInstanceOf();
+    
+    // Aler panel to manage exceptions
     private final Alert alert = new Alert(AlertType.WARNING);
     
     public BooksControl() {
-        super();
+    	super();
+        //Added CSS Style to the alert panel
         alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
     }
 
     @FXML
     private TableView<StandardBookImpl> stdBooksTable;
+    
     @FXML
     private TableColumn<StandardBookImpl, String> isbnColumn;
     @FXML
@@ -77,8 +82,7 @@ public class BooksControl extends ScreenControl {
      */
     @FXML
     private void initialize() {
-
-    	
+	
         // Initialize the table
         isbnColumn.setCellValueFactory(cellData -> cellData.getValue().isbnProperty());
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().titleProperty());
@@ -96,10 +100,7 @@ public class BooksControl extends ScreenControl {
         this.edit();
 
         // Listen for selection changes and enable delete button
-        delete.setDisable(true);
-        stdBooksTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            delete.setDisable(false);
-        });
+        this.update();
         
         // Use a 'searchField' to search for books in the tableView
         this.search();
@@ -329,5 +330,16 @@ public class BooksControl extends ScreenControl {
         	}else stdBooksTable.setItems(booksController.getBooks());
         });
     }
-
+    
+    /**
+	 * Method to disable/enable the delete button 
+	 * 
+	 */
+    private void update(){
+    	// Listen for selection changes and enable delete button
+    	delete.setDisable(true);
+        stdBooksTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            delete.setDisable(false);
+        });
+    }
 }

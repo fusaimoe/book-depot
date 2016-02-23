@@ -8,8 +8,8 @@ import java.util.Optional;
 import com.medusabookdepot.controller.CustomerController;
 import com.medusabookdepot.model.modelImpl.CustomerImpl;
 
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -23,11 +23,15 @@ import javafx.scene.control.cell.TextFieldTableCell;
 
 public class CustomersControl extends ScreenControl{
 	
+	// Reference to the controller
 	private CustomerController customersController = new CustomerController();
+	
+	// Aler panel to manage exceptions
 	private final Alert alert = new Alert(AlertType.WARNING);
 	
 	public CustomersControl(){
 		super();
+		//Added CSS Style to the alert panel
 		alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
 	}
 	
@@ -69,7 +73,6 @@ public class CustomersControl extends ScreenControl{
         phoneColumn.setCellValueFactory(cellData -> cellData.getValue().telephoneNumberProperty());
         typeColumn.setCellValueFactory(cellData -> cellData.getValue().getType());
        
-     
         // Add observable list data to the table
         customersTable.setItems(customersController.getCustomers());
         
@@ -77,10 +80,7 @@ public class CustomersControl extends ScreenControl{
         this.edit();
  
         // Listen for selection changes and enable delete button
-        delete.setDisable(true);
-        customersTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-        	delete.setDisable(false);
-        } );
+        this.update();
         
         // Use a 'searchField' to search for books in the tableView
         this.search();
@@ -173,35 +173,22 @@ public class CustomersControl extends ScreenControl{
      * Called when the user enter something in the search field
      */
     private void search(){
-    	
-        FilteredList<CustomerImpl> filteredData = new FilteredList<>(customersController.getCustomers(), p -> true);
-        
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(customer -> {
-            	
-                // If filter text is empty, display all the items.
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-
-                // Compare all the items with filter text.
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                if (customer.getName().toLowerCase().contains(lowerCaseFilter)) return true; 
-                else if (customer.getAddress().toLowerCase().contains(lowerCaseFilter))return true; 
-                else if (customer.getTelephoneNumber().toLowerCase().contains(lowerCaseFilter)) return true;
-                else if (customer.getType().get().toLowerCase().contains(lowerCaseFilter)) return true;
-                return false; // Does not match.
-            });
+    	searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+        	if (!newValue.isEmpty()){
+		        ObservableList<CustomerImpl> ob = FXCollections.observableArrayList(customersController.searchCustomer(newValue));
+		        customersTable.setItems(ob);
+        	}else customersTable.setItems(customersController.getCustomers());
         });
-
-        // 3. Wrap the FilteredList in a SortedList. 
-        SortedList<CustomerImpl> sortedData = new SortedList<>(filteredData);
-
-        // 4. Bind the SortedList comparator to the TableView comparator.
-        sortedData.comparatorProperty().bind(customersTable.comparatorProperty());
-
-        // 5. Add sorted (and filtered) data to the table.
-        customersTable.setItems(sortedData);
+    }
+    
+    /**
+	 * Method to disable/enable the delete button 
+	 * 
+	 */
+    private void update(){
+    	delete.setDisable(true);
+        customersTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        	delete.setDisable(false);
+        } );
     }
 }
