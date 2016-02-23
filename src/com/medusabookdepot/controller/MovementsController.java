@@ -87,7 +87,7 @@ public class MovementsController {
 				if (d.getName().equals(sender)) {
 					
 					senderObj = d;
-					d.getBooks().replace(bookObj, d.getQuantityFromStandardBook(bookObj) - Integer.parseInt(quantity));
+					d.getBooks().put(bookObj, d.getQuantityFromStandardBook(bookObj) - Integer.parseInt(quantity));
 				}
 			}
 		}else{
@@ -99,7 +99,7 @@ public class MovementsController {
 				if (d.getName().equals(receiver)) {
 
 					receiverObj = d;
-					d.getBooks().replace(bookObj, d.getQuantityFromStandardBook(bookObj) + Integer.parseInt(quantity));
+					d.getBooks().put(bookObj, d.getQuantityFromStandardBook(bookObj) - Integer.parseInt(quantity));
 				}
 			}
 		}else{
