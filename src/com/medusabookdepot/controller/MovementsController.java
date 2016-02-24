@@ -273,6 +273,20 @@ public class MovementsController {
 	}
 	
 	/**
+	 * @return A ObservableList of only CanSendTransferrer(s) name
+	 */
+	public ObservableList<String> getCanSendTransferrersString() {
+		
+		ObservableList<String> canSendTransferrersString = FXCollections.observableArrayList();
+		CustomerController.getInstanceOf().getCustomers().stream().forEach(e->{
+			if(e.isADepot() || e.isALibrary() || e.isAPrinter()){
+				canSendTransferrersString.add(e.getName());
+			}
+		});
+		return canSendTransferrersString;
+	}
+	
+	/**
 	 * @return A ObservableList of all customers name
 	 */
 	public ObservableList<String> getCustomersString() {
