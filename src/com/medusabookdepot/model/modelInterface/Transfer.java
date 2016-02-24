@@ -3,6 +3,7 @@
  */
 package com.medusabookdepot.model.modelInterface;
 
+import java.util.Date;
 import java.util.Map;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -63,7 +64,7 @@ public interface Transfer {
      * 
      * @param leavingDate is the new leaving date of the transfer
      */
-    public void setLeavingDate(java.sql.Date leavingDate);
+    public void setLeavingDate(Date leavingDate);
     /**
      * 
      * @return the tracking number of the transfer

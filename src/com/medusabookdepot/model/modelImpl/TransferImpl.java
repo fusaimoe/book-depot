@@ -4,7 +4,7 @@
 package com.medusabookdepot.model.modelImpl;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -41,7 +41,7 @@ public class TransferImpl implements Transfer, Serializable {
     private Transferrer receiver;
     
     @XmlElement
-    private java.util.Date leavingDate;
+    private Date leavingDate;
     private StringProperty trackingNumber;
     private Map<StandardBookImpl, Integer> books;
     private boolean arrived;
@@ -51,7 +51,7 @@ public class TransferImpl implements Transfer, Serializable {
         this(null,null,null,null, null);
     }
     
-    public TransferImpl(CanSendTransferrer sender, Transferrer receiver, java.util.Date leavingDate,
+    public TransferImpl(CanSendTransferrer sender, Transferrer receiver, Date leavingDate,
             Map<StandardBookImpl, Integer> books) {
         this.sender = sender;
         this.receiver = receiver;
@@ -60,7 +60,7 @@ public class TransferImpl implements Transfer, Serializable {
         this.books = books;
 
     }
-    public TransferImpl(CanSendTransferrer sender, Transferrer receiver, java.util.Date leavingDate,
+    public TransferImpl(CanSendTransferrer sender, Transferrer receiver, Date leavingDate,
             Map<StandardBookImpl, Integer> books, String trackingNumber) {
         this.sender = sender;
         this.receiver = receiver;
@@ -114,7 +114,7 @@ public class TransferImpl implements Transfer, Serializable {
 
     }
     @Override
-    public java.util.Date getLeavingDate() {
+    public Date getLeavingDate() {
         return this.leavingDate;
     }
 
