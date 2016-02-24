@@ -43,30 +43,38 @@ public class TransferImpl implements Transfer, Serializable {
     @XmlElement
     private Date leavingDate;
     private StringProperty trackingNumber;
-    private Map<StandardBookImpl, Integer> books;
+    private StandardBookImpl book;
+    private IntegerProperty quantity;
     private boolean arrived;
     private boolean left;
 
     public TransferImpl() {
-        this(null,null,null,null, null);
+        this.sender=null;
+        this.receiver=null;
+        this.leavingDate=null;
+        this.trackingNumber=null;
+        this.book=null;
+        this.quantity=null;
     }
     
     public TransferImpl(CanSendTransferrer sender, Transferrer receiver, Date leavingDate,
-            Map<StandardBookImpl, Integer> books) {
+            StandardBookImpl book, int quantity) {
         this.sender = sender;
         this.receiver = receiver;
         this.leavingDate = leavingDate;
         this.trackingNumber = new SimpleStringProperty(this.getNewTrackingNumber());
-        this.books = books;
+        this.book=book;
+        this.quantity=new SimpleIntegerProperty(quantity);
 
     }
     public TransferImpl(CanSendTransferrer sender, Transferrer receiver, Date leavingDate,
-            Map<StandardBookImpl, Integer> books, String trackingNumber) {
+            StandardBookImpl book, String trackingNumber, int quantity) {
         this.sender = sender;
         this.receiver = receiver;
         this.leavingDate = leavingDate;
-        this.books = books;
+        this.book = book;
         this.trackingNumber = new SimpleStringProperty(trackingNumber);
+        this.quantity=new SimpleIntegerProperty(quantity);
     }
     public String getNewTrackingNumber() {
         return String.valueOf(new Random().nextInt(1000000));
@@ -95,29 +103,31 @@ public class TransferImpl implements Transfer, Serializable {
         return this.receiver;
     }
 
-    @Override
-    public Map<StandardBookImpl, Integer> getBooks() {
-    	
-      /*  Map<StandardBookImpl, Integer> map = new HashMap<>();
-        for (Entry<StandardBookImpl, Integer> ee : this.books.entrySet()) {
-            map.put(ee.getKey(), ee.getValue());
-        }*/ //copia difensiva
-        return books;
-    }
-    @Override
-    public String getBooksAsACoolString() {
-        String finale = new String("");
-        for (Entry<StandardBookImpl, Integer> entry : this.books.entrySet()) {
-            finale = finale.concat("libro: "+entry.getKey().getTitle()+"\n\t" + "in quantità " + entry.getValue() + "\n");
-        }
-        return finale;
 
-    }
     @Override
     public Date getLeavingDate() {
         return this.leavingDate;
     }
+    @Override
+    public String getTrackingNumber() {
+        return new String(trackingNumber.get());//copia difensiva
+    }
+    @Override
+    public int getQuantity() {
+        Integer q=new Integer(this.quantity.get());//copia difensiva
+        return q.intValue();
+    }
 
+    @Override
+    public int getTotalPrice() {
+        int x = 0;
+        x=this.quantity.get()*this.book.getPrice();
+        return x;
+    }
+    @Override
+    public StandardBookImpl getBook() {//copia difensiva
+        return new StandardBookImpl(this.book.getIsbn(), this.book.getTitle(), this.book.getYear(), this.book.getPages(), this.book.getSerie(), this.book.getGenre(), this.book.getAuthor(), this.book.getPrice());
+    }
     @Override
     public void setSender(CanSendTransferrer sender) {
         this.sender = sender;
@@ -129,72 +139,23 @@ public class TransferImpl implements Transfer, Serializable {
     }
 
     @Override
-    public void setBooks(Map<StandardBookImpl, Integer> books) {
-        this.books = books;
-    }
-
-    @Override
     public void setLeavingDate(Date leavingDate) {
         this.leavingDate = leavingDate;
     }
-    @Override
-    public String getTrackingNumber() {
-        return new String(trackingNumber.get());//copia difensiva
-    }
-    @Override
-    public int getQuantity() {
-        int x = 0;
-        for (StandardBook libro : this.books.keySet()) {
-            x = x + books.get(libro);
-        }
-        return x;
-    }
+  
 
     @Override
-    public int getQuantityFromBook(StandardBookImpl book) {
-        int x = 0;
-        for (StandardBook libro : this.books.keySet()) {
-            if (libro.getIsbn().equals(book.getIsbn())) {
-                x += books.get(libro).intValue();
-            }
-        }
-        return x;
+    public void setBook(StandardBookImpl book) {
+        this.book=book;
+        
     }
-
-    @Override
-    public int getTotalPrice() {
-        int x = 0;
-        for (StandardBook libro : this.books.keySet()) {
-            x = x + libro.getPrice() * this.books.get(libro);
-        }
-        return x;
-    }
-
     @Override
     public void setTrackingNumber(String trackingnumber) {
         this.trackingNumber.set(trackingnumber);
     }
-
-    @Override
-    public void setQuantityFromBook(StandardBookImpl book, int quantity) {
-        this.books.replace(book, books.get(book), Integer.valueOf(quantity));
-
-    }
-
-    @Override
-    public void replaceBook(StandardBookImpl oldBook, StandardBookImpl newBook) {
-        Integer x = books.get(oldBook);
-        this.books.remove(oldBook);
-        this.books.put(newBook, x);
-
-    }
     public String toString() {
         return this.leavingDate + "\n" + this.sender + "\n" + this.receiver + "\n" + this.trackingNumber + "\n"
                 + this.getQuantity() + "\n";
-    }
-    @Override
-    public Map<StandardBookImpl, IntegerProperty> booksProperty() {
-        return null;
     }
     @Override
     public IntegerProperty quantityProperty() {
@@ -202,17 +163,8 @@ public class TransferImpl implements Transfer, Serializable {
         return new SimpleIntegerProperty(i);
     }
     @Override
-    public IntegerProperty quantityFromBookProperty(StandardBookImpl book) {
-        Integer i=new Integer(this.getQuantityFromBook(book));
-        return new SimpleIntegerProperty(i);
-    }
-    @Override
     public IntegerProperty totalPriceProperty() {
         return new SimpleIntegerProperty(this.getTotalPrice());
-    }
-    @Override
-    public StringProperty booksAsACoolStringProperty() {
-        return new SimpleStringProperty(this.getBooksAsACoolString());
     }
     @Override
     public boolean isArrived() {
@@ -240,4 +192,6 @@ public class TransferImpl implements Transfer, Serializable {
         this.left = left;
         
     }
+
+    
 }
