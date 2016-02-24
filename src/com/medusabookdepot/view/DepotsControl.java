@@ -28,7 +28,7 @@ import javafx.scene.layout.HBox;
 public class DepotsControl extends ScreenControl {
 	
 	// Reference to the controller
-	private final DepotsController depotsController = new DepotsController();
+	private final DepotsController depotsController = DepotsController.getInstanceOf();
 	
 	// Aler panel to manage exceptions
     private final Alert alert = new Alert(AlertType.WARNING);
@@ -110,7 +110,7 @@ public class DepotsControl extends ScreenControl {
         this.filter();
         
         // Selecting the first depot of the list for the first time the user opens the screen
-        buttonsList.get(0).setSelected(true);
+        if(!buttonsList.isEmpty()) buttonsList.get(0).setSelected(true);
         
         // Putting data into the table
         depotsTable.setItems(data);

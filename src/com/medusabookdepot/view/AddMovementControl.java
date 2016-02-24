@@ -5,10 +5,8 @@
 package com.medusabookdepot.view;
 
 import java.util.Optional;
-import java.util.Map.Entry;
 
 import com.medusabookdepot.controller.MovementsController;
-import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 import com.medusabookdepot.model.modelImpl.TransferImpl;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -18,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -26,40 +25,41 @@ import javafx.scene.control.Button;
 
 public class AddMovementControl extends ScreenControl{
 	
-	private final MovementsController movementsController = new MovementsController();
+	private final MovementsController movementsController = MovementsController.getInstanceOf();
+	private final ObservableList<TransferImpl> tempData = FXCollections.observableArrayList();
 	
 	@FXML
     private TextField searchField;
 	
 	@FXML
-    private TableView<Entry<StandardBookImpl,Integer>> movementsTable;
+    private TableView<TransferImpl> movementsTable;
     @FXML
-    private TableColumn<Entry<StandardBookImpl,Integer>, String> quantityColumn;
+    private TableColumn<TransferImpl, String> quantityColumn;
     @FXML
-    private TableColumn<Entry<StandardBookImpl, Integer>, String> isbnColumn;
+    private TableColumn<TransferImpl, String> isbnColumn;
     @FXML
-    private TableColumn<Entry<StandardBookImpl, Integer>, String> titleColumn;
+    private TableColumn<TransferImpl, String> titleColumn;
     @FXML
-    private TableColumn<Entry<StandardBookImpl,Integer>, String> senderColumn;
+    private TableColumn<TransferImpl, String> senderColumn;
     @FXML
-    private TableColumn<Entry<StandardBookImpl,Integer>, String> receiverColumn;
+    private TableColumn<TransferImpl, String> receiverColumn;
     @FXML
-    private TableColumn<Entry<StandardBookImpl,Integer>, String> dateColumn;
+    private TableColumn<TransferImpl, String> dateColumn;
     @FXML
-    private TableColumn<Entry<StandardBookImpl,Integer>, String> trackingColumn;
+    private TableColumn<TransferImpl, String> trackingColumn;
     
     @FXML
     private TextField quantityField;
     @FXML
-    private ComboBox<String> isbnField;
+    private ComboBox<String> isbnBox;
     @FXML
-    private ComboBox<String> titleField;
+    private ComboBox<String> titleBox;
     @FXML
-    private TextField senderField;
+    private ComboBox<String> senderBox;
     @FXML
-    private TextField receiverField;
+    private ComboBox<String> receiverBox;
     @FXML
-    private TextField dateField;
+    private DatePicker dateField;
     @FXML
     private TextField trackingField;
     
@@ -77,24 +77,30 @@ public class AddMovementControl extends ScreenControl{
     @FXML
     private void initialize() {
 
-    	final ObservableList<Entry<StandardBookImpl,Integer>> data = FXCollections.observableArrayList();
     	// test combo boxes
     	final ObservableList<String> isbns = FXCollections.observableArrayList();
     	final ObservableList<String> titles = FXCollections.observableArrayList();
     	isbns.add("1234");
     	isbns.add("9876");
-    	titles.add("prova");
-    	titles.add("test");
+    	titles.add("stanza");
+    	titles.add("abbastanza");
+    	AutoCompleteComboBoxListener<String> autoComplete;
     	
-        // Initialize the table
-		quantityColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getValue().toString()));
-        isbnColumn.setCellValueFactory(cellData -> cellData.getValue().getKey().isbnProperty());
-        titleColumn.setCellValueFactory(cellData -> cellData.getValue().getKey().titleProperty());
+    	// Initialize the table
+		quantityColumn.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asString());
+        isbnColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().isbnProperty());
+        titleColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().titleProperty());
+        senderColumn.setCellValueFactory(cellData -> cellData.getValue().getSender().nameProperty());
+        receiverColumn.setCellValueFactory(cellData -> cellData.getValue().getReceiver().nameProperty());
+        dateColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getLeavingDate().toString()));
+        trackingColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getTrackingNumber()));
         
-        movementsTable.setItems(data); 
+        movementsTable.setItems(tempData); 
         
-        titleField.setItems(titles);
-        isbnField.setItems(isbns);
+        titleBox.setItems(titles);
+        autoComplete = new AutoCompleteComboBoxListener<String>(titleBox);
+        
+        isbnBox.setItems(isbns);
         
         // Listen for selection changes and enable delete button
         delete.setDisable(true);
@@ -122,8 +128,8 @@ public class AddMovementControl extends ScreenControl{
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText("Do you really want to delete the following element?");
-        alert.setContentText("Tracking Number: " + movementsController.getTransferFromBook(movementsTable.getSelectionModel().getSelectedItem().getKey()).getTrackingNumber() 
-        		+ "\nBook: " + movementsTable.getSelectionModel().getSelectedItem().getKey().getTitle());
+        alert.setContentText("Tracking Number: " + movementsTable.getSelectionModel().getSelectedItem().getNewTrackingNumber() 
+        		+ "\nBook: " + movementsTable.getSelectionModel().getSelectedItem().getBook().getIsbn());
         alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
 
         Optional<ButtonType> result = alert.showAndWait();
@@ -131,8 +137,7 @@ public class AddMovementControl extends ScreenControl{
         // When the user clicks ok, the selection gets deleted
         if (result.get() == ButtonType.OK) {
             int selectedIndex = movementsTable.getSelectionModel().getSelectedIndex();
-            movementsController.removeMovement(movementsController.getTransferFromBook(movementsTable.getItems().get(selectedIndex).getKey()));
-            movementsTable.getItems().remove(selectedIndex);
+            movementsController.removeMovement(movementsTable.getItems().get(selectedIndex));
         }
     }
     

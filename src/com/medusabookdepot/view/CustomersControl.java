@@ -24,7 +24,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 public class CustomersControl extends ScreenControl{
 	
 	// Reference to the controller
-	private CustomerController customersController = new CustomerController();
+	private CustomerController customersController = CustomerController.getInstanceOf();
 	
 	// Aler panel to manage exceptions
 	private final Alert alert = new Alert(AlertType.WARNING);

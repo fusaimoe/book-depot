@@ -35,9 +35,7 @@ public class BooksController {
 	private FileManager<StandardBookImpl> fileManager = new FileManager<>(books, xmlPath, StandardBookImpl.class, NAME);
 
 	private BooksController() {
-
 		super();
-		fileManager.loadDataFromFile();
 	}
 
 	public static BooksController getInstanceOf() {

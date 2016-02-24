@@ -29,9 +29,7 @@ public class DepotsController {
 	
 	
 	private DepotsController() {
-		
 		super();
-		fileManager.loadDataFromFile();
 	}
 	
 	public static DepotsController getInstanceOf() {

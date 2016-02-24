@@ -35,9 +35,7 @@ public class CustomerController {
 	private FileManager<CustomerImpl> fileManager = new FileManager<>(customers, xmlPath, CustomerImpl.class, NAME);
 
 	private CustomerController(){
-		
 		super();
-		fileManager.loadDataFromFile();
 	}
 	
 	public static CustomerController getInstanceOf() {
