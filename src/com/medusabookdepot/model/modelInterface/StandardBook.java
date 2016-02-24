@@ -3,6 +3,8 @@
  */
 package com.medusabookdepot.model.modelInterface;
 
+import com.medusabookdepot.model.modelImpl.StandardBookImpl;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 
@@ -132,4 +134,10 @@ public interface StandardBook {
      * @param price is the new price of the book
      */
     public void setPrice(int price);
+    /**
+     * 
+     * @param book is the book i want to verify
+     * @return true if the books are equals
+     */
+    public boolean equals(StandardBookImpl book);
 }
