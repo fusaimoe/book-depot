@@ -82,9 +82,9 @@ public class Test {
             }
         }
         lis2=lisap2;
-        Transfer tr = new TransferImpl(dep2, dep, date, dep2.getBooksFromStandardBookIsbn(lis2));
+        Transfer tr = new TransferImpl(dep2, dep, date, book,13);
         assertTrue(!tr.isArrived());
-        assertTrue(tr.getTotalPrice()==4315);
+        assertTrue(tr.getTotalPrice()==13*book.getPrice());
         tr.setArrived(true);
         assertTrue(tr.isArrived());
         this.result=true;

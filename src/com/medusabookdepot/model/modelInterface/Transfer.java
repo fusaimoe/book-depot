@@ -32,14 +32,9 @@ public interface Transfer {
     public Transferrer getReceiver();
     /**
      * 
-     * @return all the books of the transfer, with their quantities
+     * @return the StandardBook transfered
      */
-    public Map<StandardBookImpl, Integer> getBooks();
-    /**
-     * 
-     * @return all the books of the transfer, with their quantities
-     */
-    public Map<StandardBookImpl, IntegerProperty> booksProperty();
+    public StandardBookImpl getBook();
     /**
      * 
      * @return the leaving date of the transfer
@@ -59,7 +54,7 @@ public interface Transfer {
      * 
      * @param books is the new map of StandardBook, Integer i want to set as whole of books to be transferred
      */
-    public void setBooks(Map<StandardBookImpl, Integer> books);
+    public void setBook(StandardBookImpl book);
     /**
      * 
      * @param leavingDate is the new leaving date of the transfer
@@ -82,18 +77,6 @@ public interface Transfer {
     public IntegerProperty quantityProperty();
     /**
      * 
-     * @param book is the book I want look for its quantity
-     * @return the quantity of the book in the depot
-     */
-    public int getQuantityFromBook(StandardBookImpl book);
-    /**
-     * 
-     * @param book is the book I want look for its quantity
-     * @return the quantity of the book in the depot
-     */
-    public IntegerProperty quantityFromBookProperty(StandardBookImpl book);
-    /**
-     * 
      * @return the total price of the books carried in the transfer
      */
     public int getTotalPrice();
@@ -107,28 +90,6 @@ public interface Transfer {
      * @param trackingnumber is the new tracking number of the transfer
      */
     public void setTrackingNumber(String trackingnumber);
-    /**
-     * 
-     * @param book is the book i want to set the quantity
-     * @param quantity is the new quantity of the specified book
-     */
-    public void setQuantityFromBook(StandardBookImpl book, int quantity);
-    /**
-     * 
-     * @param oldBook is the book i want to replace
-     * @param newBook is the new book that replaces the old one
-     */
-    public void replaceBook(StandardBookImpl oldBook, StandardBookImpl newBook);
-    /**
-     * 
-     * @return a String of the books carried by the transfer
-     */
-    public String getBooksAsACoolString();
-    /**
-     * 
-     * @return a String of the books carried by the transfer
-     */
-    public StringProperty booksAsACoolStringProperty();
     /**
      * 
      * @return true if the transfer is arrived
