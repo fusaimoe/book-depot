@@ -128,16 +128,6 @@ public class MovementsController {
 	}
 
 	/**
-	 * Return the list of movements
-	 * 
-	 * @return Movements list
-	 */
-	public ObservableList<TransferImpl> getAllMovements() {
-
-		return movements;
-	}
-
-	/**
 	 * Remove one ore more movements from list
 	 * 
 	 * @param One
@@ -253,17 +243,27 @@ public class MovementsController {
 	}
 
 	/**
-	 * 
+	 * Check if the string passed is a depot name
 	 * @param name
 	 * @return
 	 */
 	public boolean isADepot(String name) {
-
+		name = name.toLowerCase();
 		for (DepotImpl d : depots) {
-			if (d.getName().equals(name)) {
+			if (d.getName().toLowerCase().equals(name)) {
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * Return the list of movements
+	 * 
+	 * @return Movements list
+	 */
+	public ObservableList<TransferImpl> getMovements() {
+
+		return movements;
 	}
 }
