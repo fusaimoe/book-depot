@@ -157,16 +157,36 @@ public class StandardBookImpl implements StandardBook, Serializable {
         this.price.set(price);
     }
     @Override
-    public boolean equals(StandardBookImpl book) {
-        if(this.isbn.get().equals(book.getIsbn())) {
-            return true;
-        }
-        return false;
-    }
-    @Override
     public String toString() {
         return "libro: " + this.title.get() + ", isbn " + this.isbn.get() + ", pagine " + this.pages.get() + ", prezzo "
                 + this.price.get() + ", anno " + this.year.get() + ", autore " + this.author.get() + ", genere "
                 + this.genre.get() + ", collana " + this.serie.get() + "\n";
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((isbn.get() == null) ? 0 : isbn.get().hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		StandardBookImpl other = (StandardBookImpl) obj;
+		if (isbn.get() == null) {
+			if (other.isbn.get() != null)
+				return false;
+		} else if (!isbn.get().equals(other.isbn.get()))
+			return false;
+		return true;
+	}
+    
+    
 }
