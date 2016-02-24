@@ -21,7 +21,7 @@ import javafx.scene.control.Button;
 
 public class MovementsControl extends ScreenControl{
 	
-	private final MovementsController movementsController = new MovementsController();
+	private final MovementsController movementsController = MovementsController.getInstanceOf();
 	
 	@FXML
     private TextField searchField;

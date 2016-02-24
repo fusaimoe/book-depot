@@ -38,10 +38,7 @@ public class MovementsController {
 			DEPOTS_NAME);
 
 	private MovementsController() {
-
 		super();
-		fileManager.loadDataFromFile();
-		depotsFileManager.loadDataFromFile();
 	}
 	
 	public static MovementsController getInstanceOf() {

@@ -21,7 +21,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 
 public class AddDepotControl extends ScreenControl{
 	
-	private final DepotsController depotsController = new DepotsController();
+	private final DepotsController depotsController = DepotsController.getInstanceOf();
     private final Alert alert = new Alert(AlertType.WARNING);
     
 	public AddDepotControl(){

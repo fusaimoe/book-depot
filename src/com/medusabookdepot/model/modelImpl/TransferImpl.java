@@ -39,8 +39,6 @@ public class TransferImpl implements Transfer, Serializable {
     private static final long serialVersionUID = -1788501318970271441L;
     private CanSendTransferrer sender;
     private Transferrer receiver;
-    
-    @XmlElement
     private Date leavingDate;
     private StringProperty trackingNumber;
     private StandardBookImpl book;
