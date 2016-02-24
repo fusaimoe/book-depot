@@ -26,6 +26,7 @@ public class CustomerController {
 
 	// Fields for file load and save, and for converting to PDF
 	private final static String NAME = "customers";
+	private static CustomerController singCustomers;
 	private String directoryPath = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot"
 			+ System.getProperty("file.separator");
 	private String xmlPath = directoryPath + ".xml" + System.getProperty("file.separator") + NAME + ".xml";
@@ -33,6 +34,17 @@ public class CustomerController {
 	private String pdfPath = directoryPath + NAME + new SimpleDateFormat("yyyyMMdd-HHmm-").format(new Date());
 	private FileManager<CustomerImpl> fileManager = new FileManager<>(customers, xmlPath, CustomerImpl.class, NAME);
 
+	private CustomerController(){
+		
+		super();
+		fileManager.loadDataFromFile();
+	}
+	
+	public static CustomerController getInstanceOf() {
+
+		return (CustomerController.singCustomers == null ? new CustomerController() : CustomerController.singCustomers);
+	}
+	
 	/**
 	 * Search a string in all field of customer properties
 	 * @param Value to search
