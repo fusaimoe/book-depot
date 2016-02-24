@@ -33,8 +33,8 @@ public class Main {
     	    throw new Exception("failed test");
     	}
         new Main();
-    	BooksController testBooksCtrl = BooksController.getInstanceOf();
-    	DepotsController testDepotCtrl = new DepotsController();
+    	//BooksController testBooksCtrl = BooksController.getInstanceOf();
+    	//DepotsController testDepotCtrl = DepotsController.getInstanceOf();
     	
         //Creo 4 titoli con valore dei campi diversi
         //testBooksCtrl.addBook("9788767547899", "Harry Potter", "1980", "7", "HP Saga", "Fantasy", "Feroce Macello", "2");

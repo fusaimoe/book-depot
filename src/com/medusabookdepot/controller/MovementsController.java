@@ -3,14 +3,10 @@ package com.medusabookdepot.controller;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 
 import com.medusabookdepot.controller.files.FileManager;
 import com.medusabookdepot.model.modelImpl.DepotImpl;
-import com.medusabookdepot.model.modelImpl.PersonImpl;
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 import com.medusabookdepot.model.modelImpl.TransferImpl;
 import com.medusabookdepot.model.modelInterface.Transfer;
@@ -21,7 +17,8 @@ import javafx.collections.ObservableList;
 public class MovementsController {
 
 	private final ObservableList<TransferImpl> movements = FXCollections.observableArrayList();
-
+	private static MovementsController singMovements;
+	
 	// Fields for file load and save, and for converting to PDF
 	private final static String NAME = "transfers";
 	private String directoryPath = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot"
@@ -40,17 +37,16 @@ public class MovementsController {
 	private FileManager<DepotImpl> depotsFileManager = new FileManager<>(depots, depotsXmlPath, DepotImpl.class,
 			DEPOTS_NAME);
 
-	public MovementsController() {
-		StandardBookImpl libro = new StandardBookImpl("9788767547823", "Harry Potter", 1980, 7, "HP Saga", "Fantasy",
-				"Feroce Macello", 2);
-		Map<StandardBookImpl, Integer> mappa = new HashMap<>();
-		mappa.put(libro, 3);
-		DepotImpl esempio = new DepotImpl("prova", new HashMap<StandardBookImpl, Integer>());
-		PersonImpl pino = new PersonImpl("pino", "via", "numbero");
-		TransferImpl transfer = new TransferImpl(esempio, pino, new java.util.Date(), mappa);
-		movements.add(transfer);
-		fileManager.saveDataToFile();
+	private MovementsController() {
+
+		super();
+		fileManager.loadDataFromFile();
 		depotsFileManager.loadDataFromFile();
+	}
+	
+	public static MovementsController getInstanceOf() {
+
+		return (MovementsController.singMovements == null ? new MovementsController() : MovementsController.singMovements);
 	}
 
 	public void addMovements(TransferImpl transfer) {
@@ -69,7 +65,8 @@ public class MovementsController {
 	 * questo metodo (fino a prossime istruzioni) creerà un movimento con una
 	 * mappa (chiesta da Model) contenente un solo elemento preso in input.
 	 */
-	public void addMovements(String sender, String receiver, Date leavingDate, String book, String quantity) {
+	public void addMovements(String sender, String receiver, Date leavingDate, String book, String quantity,
+			String trackingNumber) {
 
 		DepotImpl senderObj = new DepotImpl();
 		DepotImpl receiverObj = new DepotImpl();
@@ -120,11 +117,10 @@ public class MovementsController {
 			receiverObj.setName(receiver);
 		}
 
-		// A questo punto non ci resta che creare l'occetto Transfer e con
+		// A questo punto non ci resta che creare l'oggetto Transfer e con
 		// addMovements scrivere su file i vari cambiamenti
-		Map<StandardBookImpl, Integer> books = new HashMap<>();
-		books.put(bookObj, Integer.parseInt(quantity));
-		this.addMovements(new TransferImpl(senderObj, receiverObj, leavingDate, books));
+		this.addMovements(new TransferImpl(senderObj, receiverObj, leavingDate, bookObj, trackingNumber,
+				Integer.parseInt(quantity)));
 	}
 
 	/**
@@ -189,9 +185,8 @@ public class MovementsController {
 	 */
 	public TransferImpl getTransferFromBook(StandardBookImpl book) {
 		for (TransferImpl transfer : movements) {
-			for (Entry<StandardBookImpl, Integer> entry : transfer.getBooks().entrySet()) {
-				if (entry.getKey().equals(book))
-					return transfer;
+			if (transfer.getBook().getIsbn().equals(book)) {
+				return transfer;
 			}
 		}
 		return null;
@@ -244,6 +239,7 @@ public class MovementsController {
 
 	/**
 	 * Check if the string passed is a depot name
+	 * 
 	 * @param name
 	 * @return
 	 */
@@ -256,7 +252,7 @@ public class MovementsController {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Return the list of movements
 	 * 
@@ -265,5 +261,41 @@ public class MovementsController {
 	public ObservableList<TransferImpl> getMovements() {
 
 		return movements;
+	}
+	
+	/**
+	 * @return A ObservableList of all books title
+	 */
+	public ObservableList<String> getBooksString() {
+
+		ObservableList<String> booksString = FXCollections.observableArrayList();
+		BooksController.getInstanceOf().getBooks().stream().forEach(e->{
+			booksString.add(e.getTitle());
+		});
+		return booksString;
+	}
+	
+	/**
+	 * @return A ObservableList of all customers name
+	 */
+	public ObservableList<String> getCustomersString() {
+
+		ObservableList<String> customersString = FXCollections.observableArrayList();
+		CustomerController.getInstanceOf().getCustomers().stream().forEach(e->{
+			customersString.add(e.getName());
+		});
+		return customersString;
+	}
+	
+	/**
+	 * @return A ObservableList of all depots name
+	 */
+	public ObservableList<String> getDepotsString() {
+
+		ObservableList<String> depotsString = FXCollections.observableArrayList();
+		DepotsController.getInstanceOf().getDepots().stream().forEach(e->{
+			depotsString.add(e.getName());
+		});
+		return depotsString;
 	}
 }

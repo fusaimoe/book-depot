@@ -28,9 +28,15 @@ public class DepotsController {
 	private FileManager<DepotImpl> fileManager = new FileManager<>(depots, xmlPath, DepotImpl.class, NAME);
 	
 	
-	public DepotsController() {
+	private DepotsController() {
 		
 		super();
+		fileManager.loadDataFromFile();
+	}
+	
+	public static DepotsController getInstanceOf() {
+
+		return (DepotsController.singDepots == null ? new DepotsController() : DepotsController.singDepots);
 	}
 
 	/**
