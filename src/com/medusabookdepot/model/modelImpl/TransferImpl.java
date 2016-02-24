@@ -112,6 +112,9 @@ public class TransferImpl implements Transfer, Serializable {
     }
     @Override
     public int getQuantity() {
+    	if(this.quantity==null) {
+    		return 0;
+    	}
         Integer q=new Integer(this.quantity.get());//copia difensiva
         return q.intValue();
     }
@@ -124,7 +127,10 @@ public class TransferImpl implements Transfer, Serializable {
     }
     @Override
     public StandardBookImpl getBook() {//copia difensiva
-        return new StandardBookImpl(this.book.getIsbn(), this.book.getTitle(), this.book.getYear(), this.book.getPages(), this.book.getSerie(), this.book.getGenre(), this.book.getAuthor(), this.book.getPrice());
+        if(this.book==null) {
+        	return null;
+        }
+    	return new StandardBookImpl(this.book.getIsbn(), this.book.getTitle(), this.book.getYear(), this.book.getPages(), this.book.getSerie(), this.book.getGenre(), this.book.getAuthor(), this.book.getPrice());
     }
     @Override
     public void setSender(CanSendTransferrer sender) {
