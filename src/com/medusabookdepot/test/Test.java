@@ -26,11 +26,19 @@ public class Test {
     @org.junit.Test
     public void test() {
         Map<StandardBookImpl, Integer> mm = new HashMap<>();
-        StandardBookImpl b = new StandardBookImpl("iiiinb", "il fantasma", 2010, 43, "la casa degli spettri", "orrore",
-                "stephen King", 23);
-        StandardBookImpl b2 = new StandardBookImpl("iiiissnb", "l'orso nella casa blu", 2010, 32, "bimbi cattivi",
-                "infanzia rovinata", "quel mattachione dell'orso bear", 40);
+        Map<StandardBookImpl, Integer> ma = new HashMap<>();
+        StandardBookImpl b = new StandardBookImpl("iiiinb", "il fantasma", 2010, 43, "la casa degli spettri", "orrore", "stephen King", 23);
+        StandardBookImpl b1 = new StandardBookImpl("iiiinb", "il fantasma", 2010, 43, "la casa degli spettri", "orrore", "stephen King", 23);
+        StandardBookImpl b2 = new StandardBookImpl("iiiissnb", "l'orso nella casa blu", 2010, 32, "bimbi cattivi", "infanzia rovinata", "quel mattachione dell'orso bear", 40);
+        
+        // Test equals StandardBookImpl
+        ma.put(b, Integer.valueOf(5));
+        ma.put(b1, Integer.valueOf(5));
+        assertTrue(b.equals(b1));
+        assertTrue(ma.size()==1);
+        
         mm.put(b, Integer.valueOf(45));
+        assertTrue(mm.containsKey(b1));
         mm.put(b2, Integer.valueOf(93));
         Depot dep = new DepotImpl("Jellyfish", mm);
         assertTrue(dep.isADepot());
@@ -56,8 +64,7 @@ public class Test {
         }
         lis=lisap;
         dep2.removeBooks(dep2.getBooksFromStandardBookIsbnAndQuantity(lis));
-        assertTrue(dep2.getQuantity() <= (mm.get(b) + mm.get(b2)) && dep2.getQuantity() == 127
-                && 127 == dep2.getQuantityFromYear(2010));
+        assertTrue(dep2.getQuantity() <= (mm.get(b) + mm.get(b2)) && dep2.getQuantity() == 127 && 127 == dep2.getQuantityFromYear(2010));
 
         StandardBookImpl book = new StandardBookImpl("eeqqrq", "la fabbrica di cioccolato", 1994, 122, "dolci storie",
                 "infanzia", "Roahl Dahl", 20);
