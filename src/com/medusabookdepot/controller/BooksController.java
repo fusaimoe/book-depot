@@ -258,14 +258,6 @@ public class BooksController {
 	}
 
 	/**
-	 * @return The list of saved books
-	 */
-	public ObservableList<StandardBookImpl> getBooks() {
-
-		return books;
-	}
-
-	/**
 	 * Convert the xml file in a PDF
 	 * 
 	 * @throws IOException
@@ -376,5 +368,13 @@ public class BooksController {
 
 		books.get(books.indexOf(book)).setPrice(price);
 		fileManager.saveDataToFile();
+	}
+	
+	/**
+	 * @return The list of saved books
+	 */
+	public ObservableList<StandardBookImpl> getBooks() {
+
+		return books;
 	}
 }

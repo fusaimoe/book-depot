@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import com.medusabookdepot.model.modelImpl.LibraryImpl;
 import com.medusabookdepot.model.modelImpl.PersonImpl;
+import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 import com.medusabookdepot.controller.files.FileManager;
 import com.medusabookdepot.model.modelImpl.CustomerImpl;
 
@@ -76,14 +77,6 @@ public class CustomerController {
 		}
 
 		return result;
-	}
-
-	/**
-	 * @return The list of saved books
-	 */
-	public ObservableList<CustomerImpl> getCustomers() {
-
-		return customers;
 	}
 
 	/**
@@ -183,5 +176,13 @@ public class CustomerController {
 			throw new NoSuchElementException("No such element in list!");
 		}
 		fileManager.saveDataToFile();
+	}
+	
+	/**
+	 * @return The list of saved books
+	 */
+	public ObservableList<CustomerImpl> getCustomers() {
+
+		return customers;
 	}
 }

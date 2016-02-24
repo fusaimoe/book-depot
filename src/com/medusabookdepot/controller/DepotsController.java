@@ -89,14 +89,6 @@ public class DepotsController {
 		fileManager.saveDataToFile();
 	}
 	
-	/**
-	 * Get the observable list of depots
-	 */
-	public ObservableList<DepotImpl> getDepots() {
-
-		return depots;
-	}
-	
 	public void editName(DepotImpl depot, String name) {
 
 		depots.get(depots.indexOf(depot)).setName(name);
@@ -116,5 +108,13 @@ public class DepotsController {
 		tmpMap.put(book, oldQnt - value);
 		depots.get(depots.indexOf(depot)).addBooks(tmpMap);
 		fileManager.saveDataToFile();
+	}
+	
+	/**
+	 * Get the observable list of depots
+	 */
+	public ObservableList<DepotImpl> getDepots() {
+
+		return depots;
 	}
 }
