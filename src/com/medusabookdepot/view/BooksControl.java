@@ -190,7 +190,7 @@ public class BooksControl extends ScreenControl {
         yearColumn.setOnEditCommit(t -> {
         	try{
 	        	booksController.editYear(t.getTableView().getItems().get(t.getTablePosition().getRow()), 
-	        			Integer.parseInt(t.getNewValue()));
+	        			t.getNewValue());
         	}catch(Exception e){
                 alert.setTitle("Pay Attention");
                 alert.setHeaderText("Error!");
@@ -205,7 +205,7 @@ public class BooksControl extends ScreenControl {
         pagesColumn.setOnEditCommit(t -> {
         	try{
 	        	booksController.editPages(t.getTableView().getItems().get(t.getTablePosition().getRow()), 
-	        			Integer.parseInt(t.getNewValue()));
+	        			t.getNewValue());
         	}catch(Exception e){
                 alert.setTitle("Pay Attention");
                 alert.setHeaderText("Error!");
@@ -261,7 +261,7 @@ public class BooksControl extends ScreenControl {
         priceColumn.setOnEditCommit(t -> {
         	try{
 	        	booksController.editPrice(t.getTableView().getItems().get(t.getTablePosition().getRow()), 
-	        			Integer.parseInt(t.getNewValue()));
+	        			t.getNewValue());
         	}catch(Exception e){
                 alert.setTitle("Pay Attention");
                 alert.setHeaderText("Error!");
