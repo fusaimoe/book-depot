@@ -19,7 +19,7 @@ public class MovementsController {
 	private final ObservableList<TransferImpl> movements = FXCollections.observableArrayList();
 	private final ObservableList<DepotImpl> depots = FXCollections.observableArrayList();
 	private static MovementsController singMovements;
-	
+
 	// Fields for file load and save, and for converting to PDF for Transfers
 	private final static String NAME = "transfers";
 	private String directoryPath = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot"
@@ -41,10 +41,11 @@ public class MovementsController {
 	private MovementsController() {
 		super();
 	}
-	
+
 	public static MovementsController getInstanceOf() {
 
-		return (MovementsController.singMovements == null ? new MovementsController() : MovementsController.singMovements);
+		return (MovementsController.singMovements == null ? new MovementsController()
+				: MovementsController.singMovements);
 	}
 
 	public void addMovements(TransferImpl transfer) {
@@ -53,7 +54,7 @@ public class MovementsController {
 		// aggiornamenti sia per i movimenti sia per i depots dato il possibile
 		// cambiamento di quantità di libri se almeno uno dei soggetti coinvolti
 		// è un depot
-		
+
 		movements.add(transfer);
 		fileManager.saveDataToFile();
 	}
@@ -95,6 +96,10 @@ public class MovementsController {
 					// libro nella lista in modo da aggiornare la sua quantità
 					senderObj = d;
 					d.setQuantityFromBook(bookObj, d.getQuantityFromStandardBook(bookObj) - Integer.parseInt(quantity));
+					if (d.getQuantityFromStandardBook(bookObj) == 0) {
+						//Rimuovo il libro se è arrivato a quantità zero
+						BooksController.getInstanceOf().removeBook(bookObj);
+					}
 				}
 			}
 		} else {
@@ -108,7 +113,9 @@ public class MovementsController {
 				if (d.getName().equals(receiver)) {
 
 					receiverObj = d;
-					//d.getBooks().put(bookObj, d.getQuantityFromStandardBook(bookObj) + Integer.parseInt(quantity));
+					// d.getBooks().put(bookObj,
+					// d.getQuantityFromStandardBook(bookObj) +
+					// Integer.parseInt(quantity));
 					d.setQuantityFromBook(bookObj, d.getQuantityFromStandardBook(bookObj) + Integer.parseInt(quantity));
 				}
 			}
@@ -117,10 +124,11 @@ public class MovementsController {
 		}
 
 		depotsFileManager.saveDataToFile();
-		
+
 		// A questo punto non ci resta che creare l'oggetto Transfer e con
 		// addMovements scrivere su file i vari cambiamenti
-		this.addMovements(new TransferImpl(senderObj, receiverObj, leavingDate, bookObj, trackingNumber, Integer.parseInt(quantity)));
+		this.addMovements(new TransferImpl(senderObj, receiverObj, leavingDate, bookObj, trackingNumber,
+				Integer.parseInt(quantity)));
 	}
 
 	/**
@@ -262,61 +270,61 @@ public class MovementsController {
 
 		return movements;
 	}
-	
+
 	/**
 	 * @return A ObservableList of all books titles
 	 */
 	public ObservableList<String> getTitlesString() {
 
 		ObservableList<String> booksString = FXCollections.observableArrayList();
-		BooksController.getInstanceOf().getBooks().stream().forEach(e->{
+		BooksController.getInstanceOf().getBooks().stream().forEach(e -> {
 			booksString.add(e.getTitle());
 		});
 		return booksString;
 	}
-	
+
 	/**
 	 * @return A ObservableList of all books isbns
 	 */
 	public ObservableList<String> getIsbnsString() {
 
 		ObservableList<String> booksString = FXCollections.observableArrayList();
-		BooksController.getInstanceOf().getBooks().stream().forEach(e->{
+		BooksController.getInstanceOf().getBooks().stream().forEach(e -> {
 			booksString.add(e.getIsbn());
 		});
 		return booksString;
 	}
-	
+
 	/**
 	 * @return A ObservableList of only CanSendTransferrer(s) name
 	 */
 	public ObservableList<String> getCanSendTransferrersString() {
-		
+
 		ObservableList<String> canSendTransferrersString = FXCollections.observableArrayList();
-		CustomerController.getInstanceOf().getCustomers().stream().forEach(e->{
-			if(e.isALibrary() || e.isAPrinter()){
+		CustomerController.getInstanceOf().getCustomers().stream().forEach(e -> {
+			if (e.isALibrary() || e.isAPrinter()) {
 				canSendTransferrersString.add(e.getName());
 			}
 		});
-		DepotsController.getInstanceOf().getDepots().stream().forEach(e->{
+		DepotsController.getInstanceOf().getDepots().stream().forEach(e -> {
 			canSendTransferrersString.add(e.getName());
 		});
 		return canSendTransferrersString;
 	}
-	
+
 	/**
 	 * @return A ObservableList of all customers name
 	 */
 	public ObservableList<String> getCustomersAndDepotsString() {
 
 		ObservableList<String> customersAndDepotsString = FXCollections.observableArrayList();
-		CustomerController.getInstanceOf().getCustomers().stream().forEach(e->{
+		CustomerController.getInstanceOf().getCustomers().stream().forEach(e -> {
 			customersAndDepotsString.add(e.getName());
 		});
-		DepotsController.getInstanceOf().getDepots().stream().forEach(e->{
+		DepotsController.getInstanceOf().getDepots().stream().forEach(e -> {
 			customersAndDepotsString.add(e.getName());
 		});
 		return customersAndDepotsString;
 	}
-	
+
 }

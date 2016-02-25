@@ -42,6 +42,42 @@ public class CustomerController {
 
 		return (CustomerController.singCustomers == null ? new CustomerController() : CustomerController.singCustomers);
 	}
+
+	/**
+	 * Add a new customer to the list of all customers
+	 * 
+	 * @param Name
+	 *            of new customer
+	 * @param Address
+	 *            of new customer
+	 * @param Telephone
+	 *            number of new customer
+	 * @param Type
+	 *            of customer: 1) Library 2) Person
+	 */
+	public void addCustomer(String name, String address, String telephoneNumber, String type) {
+
+		if (this.isCustomerValid(name, address, telephoneNumber, type)) {
+			throw new IllegalArgumentException(
+					"FAIL: " + address + " and/or " + telephoneNumber + "are/is already present/s");
+		}
+
+		//To be sure
+		type = type.toLowerCase();
+		switch (type) {
+		case "library":
+			customers.add(new LibraryImpl(name, address, telephoneNumber));
+			break;
+		case "person":
+			customers.add(new PersonImpl(name, address, telephoneNumber));
+			break;
+		case "printer":
+			customers.add(new PrinterImpl(name, address, telephoneNumber));
+			break;
+		}
+
+		fileManager.saveDataToFile();
+	}
 	
 	/**
 	 * Search a string in all field of customer properties
@@ -96,81 +132,28 @@ public class CustomerController {
 	 * @return <b>True</b> if he's already present, else <b>False</b>
 	 */
 	public boolean customerIsPresent(String address, String telephoneNumber) {
-
+		
 		return (this.searchCustomer(Optional.empty(), Optional.of(address), Optional.of(telephoneNumber)).count() >= 1);
 	}
-
+	
 	/**
-	 * Edit a customer name
-	 * 
-	 * @param Customer
+	 * Verify the correct input for new customers
 	 * @param Name
-	 */
-	public void editName(CustomerImpl customer, String name) {
-
-		customers.get(customers.indexOf(customer)).setName(name);
-		fileManager.saveDataToFile();
-	}
-
-	/**
-	 * Edit a customer address
-	 * 
-	 * @param Customer
 	 * @param Address
-	 */
-	public void editAddress(CustomerImpl customer, String address) {
-
-		customers.get(customers.indexOf(customer)).setAddress(address);
-		fileManager.saveDataToFile();
-	}
-
-	/**
-	 * Edit a customer telephone number
-	 * 
-	 * @param Customer
-	 * @param Telephone
-	 */
-	public void editPhone(CustomerImpl customer, String phone) {
-
-		customers.get(customers.indexOf(customer)).setTelephoneNumber(phone);
-		;
-		fileManager.saveDataToFile();
-	}
-
-	/**
-	 * Add a new customer to the list of all customers
-	 * 
-	 * @param Name
-	 *            of new customer
-	 * @param Address
-	 *            of new customer
-	 * @param Telephone
-	 *            number of new customer
+	 * @param Telephone number
 	 * @param Type
-	 *            of customer: 1) Library 2) Person
+	 * @return True if arguments are correct
 	 */
-	public void addCustomer(String name, String address, String telephoneNumber, String type) {
-
-		if (this.customerIsPresent(address, telephoneNumber)) {
-			throw new IllegalArgumentException(
-					"FAIL: " + address + " and/or " + telephoneNumber + "are/is already present/s");
+	public boolean isCustomerValid(String name, String address, String telephoneNumber, String type){
+		
+		if(name.equals("") || address.equals("") || telephoneNumber.equals("") || type.equals("")){
+			throw new IllegalArgumentException("The arguments must be not empty!");
 		}
-
-		//To be sure
-		type = type.toLowerCase();
-		switch (type) {
-		case "library":
-			customers.add(new LibraryImpl(name, address, telephoneNumber));
-			break;
-		case "person":
-			customers.add(new PersonImpl(name, address, telephoneNumber));
-			break;
-		case "printery":
-			customers.add(new PrinterImpl(name, address, telephoneNumber));
-			break;
+		if(this.customerIsPresent(address, telephoneNumber)){
+			throw new IllegalArgumentException("The customer is already present!");
 		}
-
-		fileManager.saveDataToFile();
+		
+		return true;
 	}
 
 	/**
@@ -188,6 +171,51 @@ public class CustomerController {
 
 			throw new NoSuchElementException("No such element in list!");
 		}
+		fileManager.saveDataToFile();
+	}
+	
+	/**
+	 * Edit a customer name
+	 * 
+	 * @param Customer
+	 * @param Name
+	 */
+	public void editName(CustomerImpl customer, String name) {
+
+		if(!isCustomerValid(name, customer.getAddress(), customer.getTelephoneNumber(), customer.getType().toString())){
+			throw new IllegalArgumentException("Arguments are not right!");
+		}
+		customers.get(customers.indexOf(customer)).setName(name);
+		fileManager.saveDataToFile();
+	}
+
+	/**
+	 * Edit a customer address
+	 * 
+	 * @param Customer
+	 * @param Address
+	 */
+	public void editAddress(CustomerImpl customer, String address) {
+		
+		if(!isCustomerValid(customer.getName(), address, customer.getTelephoneNumber(), customer.getType().toString())){
+			throw new IllegalArgumentException("Arguments are not right!");
+		}
+		customers.get(customers.indexOf(customer)).setAddress(address);
+		fileManager.saveDataToFile();
+	}
+
+	/**
+	 * Edit a customer telephone number
+	 * 
+	 * @param Customer
+	 * @param Telephone
+	 */
+	public void editPhone(CustomerImpl customer, String phone) {
+
+		if(!isCustomerValid(customer.getName(), customer.getAddress(), phone, customer.getType().toString())){
+			throw new IllegalArgumentException("Arguments are not right!");
+		}
+		customers.get(customers.indexOf(customer)).setTelephoneNumber(phone);
 		fileManager.saveDataToFile();
 	}
 	
