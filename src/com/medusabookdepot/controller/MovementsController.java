@@ -97,7 +97,7 @@ public class MovementsController {
 					senderObj = d;
 					d.setQuantityFromBook(bookObj, d.getQuantityFromStandardBook(bookObj) - Integer.parseInt(quantity));
 					if (d.getQuantityFromStandardBook(bookObj) == 0) {
-						//Rimuovo il libro se è arrivato a quantità zero
+						// Rimuovo il libro se è arrivato a quantità zero
 						BooksController.getInstanceOf().removeBook(bookObj);
 					}
 				}
@@ -234,6 +234,10 @@ public class MovementsController {
 					}
 				}
 			}
+		} else {
+			// Se non è un magazzino non si può controllare se ha realmente il
+			// libro
+			bookFound = true;
 		}
 		if (!bookFound) {
 			throw new IllegalArgumentException("Book not found!");
