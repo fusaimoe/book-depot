@@ -140,8 +140,10 @@ public class MovementsController {
 	 *             if you are trying to remove a movement that not exists
 	 */
 	public void removeMovement(TransferImpl t) throws NoSuchElementException {
-
+		
 		try {
+			//Sostanzialmente inverte i ruoli di sender e receiver
+			this.addMovements(t.getReceiver().getName(), t.getSender().getName(), t.getLeavingDate(), t.getBook().getTitle(), Integer.toString(t.getQuantity()), t.getTrackingNumber());
 			movements.remove(t);
 			fileManager.saveDataToFile();
 
