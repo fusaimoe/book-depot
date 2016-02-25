@@ -152,7 +152,7 @@ public class MovementsController {
 	public Transfer searchTrasferByTrackingNumber(String tracking) {
 
 		for (Transfer t : movements) {
-			if (t.getTrackingNumber().equals(tracking)) {
+			if (t.getTrackingNumber().toLowerCase().equals(tracking.toLowerCase())) {
 				return t;
 			}
 		}

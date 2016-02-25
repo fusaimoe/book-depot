@@ -10,7 +10,6 @@ import java.util.stream.Stream;
 
 import com.medusabookdepot.model.modelImpl.LibraryImpl;
 import com.medusabookdepot.model.modelImpl.PersonImpl;
-import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 import com.medusabookdepot.controller.files.FileManager;
 import com.medusabookdepot.model.modelImpl.CustomerImpl;
 
@@ -50,9 +49,9 @@ public class CustomerController {
 	 */
 	public List<CustomerImpl> searchCustomer(String value){
 		List<CustomerImpl> result = new ArrayList<>();
-		
+		value.toLowerCase();
 		this.customers.stream().forEach(e->{
-			if(e.getAddress().contains(value) || e.getTelephoneNumber().contains(value) || e.getName().contains(value)){
+			if(e.getAddress().toLowerCase().contains(value) || e.getTelephoneNumber().toLowerCase().contains(value) || e.getName().toLowerCase().contains(value)){
 				result.add(e);
 			}
 		});
@@ -77,13 +76,13 @@ public class CustomerController {
 		Stream<CustomerImpl> result = this.customers.stream();
 
 		if (name.isPresent()) {
-			result = result.filter(e -> e.getName().contains(name.get()));
+			result = result.filter(e -> e.getName().toLowerCase().contains(name.get().toLowerCase()));
 		}
 		if (address.isPresent()) {
-			result = result.filter(e -> e.getAddress().contains(address.get()));
+			result = result.filter(e -> e.getAddress().toLowerCase().contains(address.get().toLowerCase()));
 		}
 		if (telephoneNumber.isPresent()) {
-			result = result.filter(e -> e.getTelephoneNumber().contains(telephoneNumber.get()));
+			result = result.filter(e -> e.getTelephoneNumber().toLowerCase().contains(telephoneNumber.get().toLowerCase()));
 		}
 
 		return result;
@@ -93,7 +92,7 @@ public class CustomerController {
 	 * Check if a customer is already present in list
 	 * @param Address
 	 * @param Telephone number
-	 * @return <b>True</b> if he's already oresent, else <b>False</b>
+	 * @return <b>True</b> if he's already present, else <b>False</b>
 	 */
 	public boolean customerIsPresent(String address, String telephoneNumber) {
 
