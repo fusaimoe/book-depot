@@ -265,6 +265,10 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
         if(!this.books.containsKey(pair.getFirst())) {
             this.books.put(pair.getFirst(), pair.getSecond());
         }
-        
+    }
+    
+    public void setQuantityFromBook(StandardBookImpl book, int quantity){
+
+    	this.books.put(book, quantity);
     }
 }

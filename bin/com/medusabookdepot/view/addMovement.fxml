@@ -54,7 +54,7 @@
 							        	<TextField prefHeight="42.0" promptText="Quantity" styleClass="control-label" HBox.hgrow="ALWAYS" fx:id="quantityField" />
 							        	<ComboBox prefHeight="42.0" promptText="Title" HBox.hgrow="ALWAYS" fx:id="titleBox" />
 							        	<ComboBox prefHeight="42.0" promptText="ISBN" HBox.hgrow="ALWAYS" fx:id="isbnBox" />
-							        	<Button defaultButton="true" mnemonicParsing="false" text="ADD" HBox.hgrow="ALWAYS" />
+							        	<Button defaultButton="true" mnemonicParsing="false" text="ADD" HBox.hgrow="ALWAYS" onAction="#add"/>
 									</children> 
 								</HBox>
 							</children>

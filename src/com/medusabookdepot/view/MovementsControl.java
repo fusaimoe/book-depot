@@ -64,11 +64,11 @@ public class MovementsControl extends ScreenControl{
         senderColumn.setCellValueFactory(cellData -> cellData.getValue().getSender().nameProperty());
         receiverColumn.setCellValueFactory(cellData -> cellData.getValue().getReceiver().nameProperty());
         dateColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getLeavingDate().toString()));
-        trackingColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getTrackingNumber()));
+        trackingColumn.setCellValueFactory(cellData -> cellData.getValue().trackingNumberProperty());
 	
         movementsTable.setItems(movementsController.getMovements()); 
         
-     // Listen for selection changes and enable delete button
+        // Listen for selection changes and enable delete button
         delete.setDisable(true);
         movementsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
         	delete.setDisable(false);
