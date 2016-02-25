@@ -40,8 +40,6 @@ public class TransferImpl implements Transfer, Serializable {
     private StringProperty trackingNumber;
     private StandardBookImpl book;
     private IntegerProperty quantity;
-    private boolean arrived;
-    private boolean left;
 
     public TransferImpl() {
         this.sender=null;
@@ -71,6 +69,7 @@ public class TransferImpl implements Transfer, Serializable {
         this.trackingNumber = new SimpleStringProperty(trackingNumber);
         this.quantity=new SimpleIntegerProperty(quantity);
     }
+    @Override
     public String getNewTrackingNumber() {
         return String.valueOf(new Random().nextInt(1000000));
     }
@@ -85,7 +84,10 @@ public class TransferImpl implements Transfer, Serializable {
         }
         return this.sender;
     }
-
+    @Override
+    public StringProperty trackingNumberProperty() {
+        return new SimpleStringProperty(this.getTrackingNumber());//copia difensiva
+    }
     @Override
     public Transferrer getReceiver() {
         if (this.receiver.isADepot()) {// copia difensiva!
@@ -167,32 +169,4 @@ public class TransferImpl implements Transfer, Serializable {
     public IntegerProperty totalPriceProperty() {
         return new SimpleIntegerProperty(this.getTotalPrice());
     }
-    @Override
-    public boolean isArrived() {
-        return this.arrived;
-    }
-    @Override
-    public void setArrived(boolean arrived) {
-        this.arrived = arrived;
-
-    }
-    @Override
-    public boolean equals(Transfer transfer) {
-        if(this.getTrackingNumber().equals(transfer.getTrackingNumber())) {
-            return true;
-        }
-        return false;
-
-    }
-    @Override
-    public boolean isLeft() {
-        return this.left;
-    }
-    @Override
-    public void setLeft(boolean left) {
-        this.left = left;
-        
-    }
-
-    
 }
