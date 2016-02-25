@@ -261,13 +261,25 @@ public class MovementsController {
 	}
 	
 	/**
-	 * @return A ObservableList of all books title
+	 * @return A ObservableList of all books titles
 	 */
-	public ObservableList<String> getBooksString() {
+	public ObservableList<String> getTitlesString() {
 
 		ObservableList<String> booksString = FXCollections.observableArrayList();
 		BooksController.getInstanceOf().getBooks().stream().forEach(e->{
 			booksString.add(e.getTitle());
+		});
+		return booksString;
+	}
+	
+	/**
+	 * @return A ObservableList of all books isbns
+	 */
+	public ObservableList<String> getIsbnsString() {
+
+		ObservableList<String> booksString = FXCollections.observableArrayList();
+		BooksController.getInstanceOf().getBooks().stream().forEach(e->{
+			booksString.add(e.getIsbn());
 		});
 		return booksString;
 	}
@@ -279,9 +291,12 @@ public class MovementsController {
 		
 		ObservableList<String> canSendTransferrersString = FXCollections.observableArrayList();
 		CustomerController.getInstanceOf().getCustomers().stream().forEach(e->{
-			if(e.isADepot() || e.isALibrary() || e.isAPrinter()){
+			if(e.isALibrary() || e.isAPrinter()){
 				canSendTransferrersString.add(e.getName());
 			}
+		});
+		DepotsController.getInstanceOf().getDepots().stream().forEach(e->{
+			canSendTransferrersString.add(e.getName());
 		});
 		return canSendTransferrersString;
 	}
@@ -289,24 +304,16 @@ public class MovementsController {
 	/**
 	 * @return A ObservableList of all customers name
 	 */
-	public ObservableList<String> getCustomersString() {
+	public ObservableList<String> getCustomersAndDepotsString() {
 
-		ObservableList<String> customersString = FXCollections.observableArrayList();
+		ObservableList<String> customersAndDepotsString = FXCollections.observableArrayList();
 		CustomerController.getInstanceOf().getCustomers().stream().forEach(e->{
-			customersString.add(e.getName());
+			customersAndDepotsString.add(e.getName());
 		});
-		return customersString;
+		DepotsController.getInstanceOf().getDepots().stream().forEach(e->{
+			customersAndDepotsString.add(e.getName());
+		});
+		return customersAndDepotsString;
 	}
 	
-	/**
-	 * @return A ObservableList of all depots name
-	 */
-	public ObservableList<String> getDepotsString() {
-
-		ObservableList<String> depotsString = FXCollections.observableArrayList();
-		DepotsController.getInstanceOf().getDepots().stream().forEach(e->{
-			depotsString.add(e.getName());
-		});
-		return depotsString;
-	}
 }

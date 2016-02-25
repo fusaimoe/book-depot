@@ -27,6 +27,8 @@ public class AddMovementControl extends ScreenControl{
 	
 	private final MovementsController movementsController = MovementsController.getInstanceOf();
 	private final ObservableList<TransferImpl> tempData = FXCollections.observableArrayList();
+	@SuppressWarnings("unused")
+	private AutoCompleteComboBoxListener<String> autoCompleteFactory;
 	
 	@FXML
     private TextField searchField;
@@ -76,15 +78,6 @@ public class AddMovementControl extends ScreenControl{
      */
     @FXML
     private void initialize() {
-
-    	// test combo boxes
-    	final ObservableList<String> isbns = FXCollections.observableArrayList();
-    	final ObservableList<String> titles = FXCollections.observableArrayList();
-    	isbns.add("1234");
-    	isbns.add("9876");
-    	titles.add("stanza");
-    	titles.add("abbastanza");
-    	AutoCompleteComboBoxListener<String> autoComplete;
     	
     	// Initialize the table
 		quantityColumn.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asString());
@@ -97,10 +90,14 @@ public class AddMovementControl extends ScreenControl{
         
         movementsTable.setItems(tempData); 
         
-        titleBox.setItems(titles);
-        autoComplete = new AutoCompleteComboBoxListener<String>(titleBox);
-        
-        isbnBox.setItems(isbns);
+        titleBox.setItems(FXCollections.observableArrayList(movementsController.getTitlesString()));
+        autoCompleteFactory = new AutoCompleteComboBoxListener<String>(titleBox);
+        isbnBox.setItems(FXCollections.observableArrayList(movementsController.getIsbnsString()));
+        autoCompleteFactory = new AutoCompleteComboBoxListener<String>(isbnBox);
+        senderBox.setItems(FXCollections.observableArrayList(movementsController.getCanSendTransferrersString()));
+        autoCompleteFactory = new AutoCompleteComboBoxListener<String>(senderBox);
+        receiverBox.setItems(FXCollections.observableArrayList(movementsController.getCustomersAndDepotsString()));
+        autoCompleteFactory = new AutoCompleteComboBoxListener<String>(receiverBox);
         
         // Listen for selection changes and enable delete button
         delete.setDisable(true);
