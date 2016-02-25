@@ -13,7 +13,7 @@
 				<Pane HBox.hgrow="ALWAYS" />
 				<Label styleClass="control-label" text="Select the year" />
 				<Pane prefWidth="20" />
-				<ChoiceBox prefHeight="10.0" />
+				<ChoiceBox prefHeight="10.0" fx:id="yearBox"/>
 				<padding>
 					<Insets bottom="5" left="0" right="17.0" top="0" />
 				</padding>
