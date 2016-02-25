@@ -141,16 +141,22 @@ public class TransferImpl implements Transfer, Serializable {
         this.leavingDate = leavingDate;
     }
   
-
     @Override
     public void setBook(StandardBookImpl book) {
         this.book=book;
         
     }
+    
     @Override
     public void setTrackingNumber(String trackingnumber) {
         this.trackingNumber.set(trackingnumber);
     }
+    
+    @Override
+    public void setQuantity(int quantity) {
+        this.quantity.set(quantity);
+    }
+    
     public String toString() {
         return this.leavingDate + "\n" + this.sender + "\n" + this.receiver + "\n" + this.trackingNumber + "\n"
                 + this.getQuantity() + "\n";

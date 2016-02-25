@@ -75,6 +75,11 @@ public interface Transfer {
     public IntegerProperty quantityProperty();
     /**
      * 
+     * @param quantity is the new quantity of books of the transfer
+     */
+    public void setQuantity(int quantity);
+    /**
+     * 
      * @return the total price of the books carried in the transfer
      */
     public int getTotalPrice();
@@ -98,5 +103,6 @@ public interface Transfer {
      * @return a random tracking number
      */
     public String getNewTrackingNumber();
+
 
 }
