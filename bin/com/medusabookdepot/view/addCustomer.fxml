@@ -11,7 +11,7 @@
 			<children>
 				<HBox>
 					<children>
-					    <Label styleClass="card-title" text="Add Customer" />
+					    <Label styleClass="card-title" text="Add Customer/Supplier" />
                    		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />                     
                         <Button mnemonicParsing="false" styleClass="button-flat" text="DELETE" fx:id="delete" onAction="#delete" />
 					</children>
@@ -30,6 +30,7 @@
 				                <ChoiceBox value="Individual" prefWidth="300.0" fx:id="typeChoiceBox">
         							<String fx:value="Library"/>
         							<String fx:value="Person"/>
+        							<String fx:value="Printery"/>
     							</ChoiceBox>
                            		<Pane prefHeight="20.0" />
                            		<HBox>

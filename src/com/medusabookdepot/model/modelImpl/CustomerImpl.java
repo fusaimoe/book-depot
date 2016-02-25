@@ -19,7 +19,7 @@ import javafx.beans.property.StringProperty;
  * @author Marcello_Feroce
  *
  */
-@XmlSeeAlso({PersonImpl.class,LibraryImpl.class})
+@XmlSeeAlso({PersonImpl.class, LibraryImpl.class, PrinterImpl.class})
 public abstract class CustomerImpl extends TransferrerImpl implements Customer, Serializable {// template
                                                                                               // method
 

@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import com.medusabookdepot.model.modelImpl.LibraryImpl;
 import com.medusabookdepot.model.modelImpl.PersonImpl;
+import com.medusabookdepot.model.modelImpl.PrinterImpl;
 import com.medusabookdepot.controller.files.FileManager;
 import com.medusabookdepot.model.modelImpl.CustomerImpl;
 
@@ -163,6 +164,9 @@ public class CustomerController {
 			break;
 		case "person":
 			customers.add(new PersonImpl(name, address, telephoneNumber));
+			break;
+		case "printery":
+			customers.add(new PrinterImpl(name, address, telephoneNumber));
 			break;
 		}
 
