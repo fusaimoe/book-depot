@@ -95,6 +95,9 @@ public class DepotsController {
 	
 	public void editName(DepotImpl depot, String name) {
 
+		if(this.searchDepot(name).count()>=1){
+			throw new IllegalArgumentException("Depot " + name +" is already present!");
+		}
 		depots.get(depots.indexOf(depot)).setName(name);
 		fileManager.saveDataToFile();
 	}
