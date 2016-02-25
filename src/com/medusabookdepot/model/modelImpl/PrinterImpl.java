@@ -18,7 +18,7 @@ import javafx.beans.property.StringProperty;
  * @author Marcello_Feroce
  *
  */
-@XmlRootElement(name="printer")
+@XmlRootElement(name="printery")
 public class PrinterImpl extends CustomerImpl implements Customer, CanSendTransferrer, Serializable {// strategy
 
     /**
@@ -62,6 +62,6 @@ public class PrinterImpl extends CustomerImpl implements Customer, CanSendTransf
     }
     @Override
     public StringProperty getType() {
-        return new SimpleStringProperty("Printer");
+        return new SimpleStringProperty("Printery");
     }
 }

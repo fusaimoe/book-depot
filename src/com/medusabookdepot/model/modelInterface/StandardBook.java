@@ -3,8 +3,6 @@
  */
 package com.medusabookdepot.model.modelInterface;
 
-import com.medusabookdepot.model.modelImpl.StandardBookImpl;
-
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 
