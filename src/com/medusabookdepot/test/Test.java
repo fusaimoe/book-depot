@@ -16,7 +16,6 @@ import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 import com.medusabookdepot.model.modelImpl.TransferImpl;
 import com.medusabookdepot.model.modelInterface.Customer;
 import com.medusabookdepot.model.modelInterface.Depot;
-import com.medusabookdepot.model.modelInterface.StandardBook;
 import com.medusabookdepot.model.modelInterface.Transfer;
 
 public class Test {
@@ -83,10 +82,7 @@ public class Test {
         }
         lis2=lisap2;
         Transfer tr = new TransferImpl(dep2, dep, date, book,13);
-        assertTrue(!tr.isArrived());
         assertTrue(tr.getTotalPrice()==13*book.getPrice());
-        tr.setArrived(true);
-        assertTrue(tr.isArrived());
         this.result=true;
     }
     public boolean getResult(){

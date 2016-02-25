@@ -4,8 +4,6 @@
 package com.medusabookdepot.model.modelInterface;
 
 import java.util.Date;
-import java.util.Map;
-
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
@@ -92,29 +90,13 @@ public interface Transfer {
     public void setTrackingNumber(String trackingnumber);
     /**
      * 
-     * @return true if the transfer is arrived
+     * @return the tracking number
      */
-    public boolean isArrived();
+    public StringProperty trackingNumberProperty();
     /**
      * 
-     * @return true if the transfer is left
+     * @return a random tracking number
      */
-    public boolean isLeft();
-    /**
-     * 
-     * @param arrived is the state(true/false) i want to set about the condition that the transfer is arrived
-     */
-    public void setArrived(boolean arrived);
-    /**
-     * 
-     * @param left is the state(true/false) i want to set about the condition that the transfer is left
-     */
-    public void setLeft(boolean left);
-    /**
-     * 
-     * @param transfer is the transfer i need to compare
-     * @return true if the two transfers have the same values
-     */
-    boolean equals(Transfer transfer);
+    public String getNewTrackingNumber();
 
 }
