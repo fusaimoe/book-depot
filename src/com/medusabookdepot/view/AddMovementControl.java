@@ -4,6 +4,9 @@
 
 package com.medusabookdepot.view;
 
+import java.time.Instant;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Optional;
 
 import com.medusabookdepot.controller.MovementsController;
@@ -27,8 +30,11 @@ public class AddMovementControl extends ScreenControl{
 	
 	private final MovementsController movementsController = MovementsController.getInstanceOf();
 	private final ObservableList<TransferImpl> tempData = FXCollections.observableArrayList();
-	@SuppressWarnings("unused")
+	@SuppressWarnings("unused") //TODO Try something else
 	private AutoCompleteComboBoxListener<String> autoCompleteFactory;
+	
+	// Aler panel to manage exceptions
+    private final Alert alert = new Alert(AlertType.WARNING);
 	
 	@FXML
     private TextField searchField;
@@ -70,6 +76,9 @@ public class AddMovementControl extends ScreenControl{
     
     public AddMovementControl(){
 		super();
+		
+		// CSS style added to the alert panel
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
 	}
 
     /**
@@ -86,12 +95,13 @@ public class AddMovementControl extends ScreenControl{
         senderColumn.setCellValueFactory(cellData -> cellData.getValue().getSender().nameProperty());
         receiverColumn.setCellValueFactory(cellData -> cellData.getValue().getReceiver().nameProperty());
         dateColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getLeavingDate().toString()));
-        trackingColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getTrackingNumber()));
+        trackingColumn.setCellValueFactory(cellData -> cellData.getValue().trackingNumberProperty());
         
         movementsTable.setItems(tempData); 
         
         titleBox.setItems(FXCollections.observableArrayList(movementsController.getTitlesString()));
         autoCompleteFactory = new AutoCompleteComboBoxListener<String>(titleBox);
+        //TODO Filtrare da title
         isbnBox.setItems(FXCollections.observableArrayList(movementsController.getIsbnsString()));
         autoCompleteFactory = new AutoCompleteComboBoxListener<String>(isbnBox);
         senderBox.setItems(FXCollections.observableArrayList(movementsController.getCanSendTransferrersString()));
@@ -112,7 +122,17 @@ public class AddMovementControl extends ScreenControl{
      */
     @FXML
     private void add(){
-    	
+    	try {
+    		Instant instant = Instant.from(dateField.getValue().atStartOfDay(ZoneId.systemDefault()));
+    		Date date = Date.from(instant);
+    		//System.out.println(localDate + "\n" + instant + "\n" + date);
+    		movementsController.addMovements(senderBox.getValue(), receiverBox.getValue(), date, isbnBox.getValue(), quantityField.getText(), trackingField.getText());
+         } catch (Exception e) {
+             alert.setTitle("Pay Attention");
+             alert.setHeaderText("Error!");
+             alert.setContentText(e.getMessage());
+             alert.showAndWait();
+         }
     }
     
     /**

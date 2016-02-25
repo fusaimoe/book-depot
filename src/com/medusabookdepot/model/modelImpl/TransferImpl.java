@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
@@ -42,15 +43,10 @@ public class TransferImpl implements Transfer, Serializable {
     private IntegerProperty quantity;
 
     public TransferImpl() {
-        this.sender=null;
-        this.receiver=null;
-        this.leavingDate=null;
-        this.trackingNumber=null;
-        this.book=null;
-        this.quantity=null;
+        this(null,null,null,null,null,0);
     }
     
-    public TransferImpl(CanSendTransferrer sender, Transferrer receiver, Date leavingDate,
+    /*public TransferImpl(CanSendTransferrer sender, Transferrer receiver, Date leavingDate,
             StandardBookImpl book, int quantity) {
         this.sender = sender;
         this.receiver = receiver;
@@ -59,7 +55,7 @@ public class TransferImpl implements Transfer, Serializable {
         this.book=book;
         this.quantity=new SimpleIntegerProperty(quantity);
 
-    }
+    }*/
     public TransferImpl(CanSendTransferrer sender, Transferrer receiver, Date leavingDate,
             StandardBookImpl book, String trackingNumber, int quantity) {
         this.sender = sender;
@@ -86,7 +82,7 @@ public class TransferImpl implements Transfer, Serializable {
     }
     @Override
     public StringProperty trackingNumberProperty() {
-        return new SimpleStringProperty(this.getTrackingNumber());//copia difensiva
+        return trackingNumber;
     }
     @Override
     public Transferrer getReceiver() {
@@ -99,7 +95,6 @@ public class TransferImpl implements Transfer, Serializable {
         }
         return this.receiver;
     }
-
 
     @Override
     public Date getLeavingDate() {
@@ -162,8 +157,7 @@ public class TransferImpl implements Transfer, Serializable {
     }
     @Override
     public IntegerProperty quantityProperty() {
-        Integer i=new Integer(getQuantity());//copia difensiva
-        return new SimpleIntegerProperty(i);
+        return quantity;
     }
     @Override
     public IntegerProperty totalPriceProperty() {

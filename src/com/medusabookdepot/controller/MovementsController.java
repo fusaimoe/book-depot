@@ -17,9 +17,10 @@ import javafx.collections.ObservableList;
 public class MovementsController {
 
 	private final ObservableList<TransferImpl> movements = FXCollections.observableArrayList();
+	private final ObservableList<DepotImpl> depots = FXCollections.observableArrayList();
 	private static MovementsController singMovements;
 	
-	// Fields for file load and save, and for converting to PDF
+	// Fields for file load and save, and for converting to PDF for Transfers
 	private final static String NAME = "transfers";
 	private String directoryPath = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot"
 			+ System.getProperty("file.separator");
@@ -28,7 +29,7 @@ public class MovementsController {
 	private String pdfPath = directoryPath + NAME + new SimpleDateFormat("yyyyMMdd-HHmm-").format(new Date());
 	private FileManager<TransferImpl> fileManager = new FileManager<>(movements, xmlPath, TransferImpl.class, NAME);
 
-	private final ObservableList<DepotImpl> depots = FXCollections.observableArrayList();
+	// Fields for file load and save, and for converting to PDF for Depots
 	private final static String DEPOTS_NAME = "depots";
 	private String depotsDirectoryPath = System.getProperty("user.home") + System.getProperty("file.separator")
 			+ "book-depot" + System.getProperty("file.separator");
@@ -52,9 +53,9 @@ public class MovementsController {
 		// aggiornamenti sia per i movimenti sia per i depots dato il possibile
 		// cambiamento di quantità di libri se almeno uno dei soggetti coinvolti
 		// è un depot
+		
 		movements.add(transfer);
 		fileManager.saveDataToFile();
-		depotsFileManager.saveDataToFile();
 	}
 
 	/*
@@ -93,7 +94,7 @@ public class MovementsController {
 					// Ora che so che è un depot e l'ho trovato rimpiazzo il
 					// libro nella lista in modo da aggiornare la sua quantità
 					senderObj = d;
-					d.getBooks().put(bookObj, d.getQuantityFromStandardBook(bookObj) - Integer.parseInt(quantity));
+					d.setQuantityFromBook(bookObj, d.getQuantityFromStandardBook(bookObj) - Integer.parseInt(quantity));
 				}
 			}
 		} else {
@@ -101,23 +102,25 @@ public class MovementsController {
 			senderObj.setName(sender);
 		}
 
-		// Faccio la stessa cosa con il ricevente
+		// Faccio la stessa cosa con il ricevente ma aggiungo
 		if (this.isADepot(receiver)) {
 			for (DepotImpl d : depots) {
 				if (d.getName().equals(receiver)) {
 
 					receiverObj = d;
-					d.getBooks().put(bookObj, d.getQuantityFromStandardBook(bookObj) - Integer.parseInt(quantity));
+					//d.getBooks().put(bookObj, d.getQuantityFromStandardBook(bookObj) + Integer.parseInt(quantity));
+					d.setQuantityFromBook(bookObj, d.getQuantityFromStandardBook(bookObj) + Integer.parseInt(quantity));
 				}
 			}
 		} else {
 			receiverObj.setName(receiver);
 		}
 
+		depotsFileManager.saveDataToFile();
+		
 		// A questo punto non ci resta che creare l'oggetto Transfer e con
 		// addMovements scrivere su file i vari cambiamenti
-		this.addMovements(new TransferImpl(senderObj, receiverObj, leavingDate, bookObj, trackingNumber,
-				Integer.parseInt(quantity)));
+		this.addMovements(new TransferImpl(senderObj, receiverObj, leavingDate, bookObj, trackingNumber, Integer.parseInt(quantity)));
 	}
 
 	/**
@@ -227,7 +230,7 @@ public class MovementsController {
 		if (!bookFound) {
 			throw new IllegalArgumentException("Book not found!");
 		}
-		if (c.getTime().after(leavingDate)) {
+		if (leavingDate.after(c.getTime())) {
 			throw new IllegalArgumentException("Invalid leaving date!");
 		}
 

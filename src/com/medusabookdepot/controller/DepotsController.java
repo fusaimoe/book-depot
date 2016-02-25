@@ -104,7 +104,7 @@ public class DepotsController {
 		Map<StandardBookImpl,Integer> tmpMap = new HashMap<>();
 		int oldQnt = depot.getQuantityFromStandardBook(book);
 		if((oldQnt - value) < 0){
-			throw new IllegalArgumentException("Not enaught books in depot");
+			throw new IllegalArgumentException("Not enough books in depot");
 		}
 		tmpMap.put(book, oldQnt);
 		depots.get(depots.indexOf(depot)).removeBooks(tmpMap);
