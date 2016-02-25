@@ -113,8 +113,11 @@ public class BooksController {
 	}
 
 	/**
-	 * Search a string in ALL fields of book object and add it to results if it is contains in field
-	 * @param String to search
+	 * Search a string in ALL fields of book object and add it to results if it
+	 * is contains in field
+	 * 
+	 * @param String
+	 *            to search
 	 * @return <b>List</b> of all books found
 	 */
 	public List<StandardBookImpl> searchBook(String value) {
@@ -122,9 +125,11 @@ public class BooksController {
 
 		this.books.stream().forEach(e -> {
 
-			if (e.getIsbn().contains(value) || e.getTitle().contains(value)
+			if (e.getIsbn().contains(value) || e.getTitle().toLowerCase().contains(value.toLowerCase())
 					|| Integer.toString(e.getYear()).contains(value) || Integer.toString(e.getPages()).contains(value)
-					|| e.getSerie().contains(value) || e.getGenre().contains(value) || e.getAuthor().contains(value)
+					|| e.getSerie().toLowerCase().contains(value.toLowerCase())
+					|| e.getGenre().toLowerCase().contains(value.toLowerCase())
+					|| e.getAuthor().toLowerCase().contains(value.toLowerCase())
 					|| Integer.toString(e.getPrice()).contains(value)) {
 				result.add(e);
 			}
@@ -157,7 +162,7 @@ public class BooksController {
 			result = result.filter(e -> e.getIsbn().contains(isbn.get()));
 		}
 		if (name.isPresent()) {
-			result = result.filter(e -> e.getTitle().contains(name.get()));
+			result = result.filter(e -> e.getTitle().toLowerCase().contains(name.get().toLowerCase()));
 		}
 		if (year.isPresent()) {
 			result = result.filter(e -> Integer.toString(e.getYear()).contains(year.get()));
@@ -166,13 +171,13 @@ public class BooksController {
 			result = result.filter(e -> Integer.toString(e.getPages()).contains(pages.get()));
 		}
 		if (serie.isPresent()) {
-			result = result.filter(e -> e.getSerie().contains(serie.get()));
+			result = result.filter(e -> e.getSerie().toLowerCase().contains(serie.get().toLowerCase()));
 		}
 		if (genre.isPresent()) {
-			result = result.filter(e -> e.getGenre().contains(genre.get()));
+			result = result.filter(e -> e.getGenre().toLowerCase().contains(genre.get().toLowerCase()));
 		}
 		if (author.isPresent()) {
-			result = result.filter(e -> e.getAuthor().contains(author.get()));
+			result = result.filter(e -> e.getAuthor().toLowerCase().contains(author.get().toLowerCase()));
 		}
 		if (depot.isPresent()) {
 
@@ -277,9 +282,14 @@ public class BooksController {
 	 * 
 	 * @param Book
 	 * @param isbn
+	 * @throws IllegalArgumentException
 	 */
 	public void editISBN(StandardBook book, String isbn) {
 
+		if (!this.isInputValid(isbn, Integer.toString(book.getYear()), Integer.toString(book.getPages()),
+				book.getSerie(), book.getGenre(), book.getAuthor())) {
+			throw new IllegalArgumentException("ISBN is not valid!");
+		}
 		books.get(books.indexOf(book)).setIsbn(isbn);
 		fileManager.saveDataToFile();
 	}
@@ -289,9 +299,14 @@ public class BooksController {
 	 * 
 	 * @param Book
 	 * @param Name
+	 * @throws IllegalArgumentException
+	 *             if the argument passed is empty
 	 */
 	public void editTitle(StandardBook book, String title) {
 
+		if (title.equals("")) {
+			throw new IllegalArgumentException("The argument must be not empty!");
+		}
 		books.get(books.indexOf(book)).setTitle(title);
 		fileManager.saveDataToFile();
 	}
@@ -301,10 +316,15 @@ public class BooksController {
 	 * 
 	 * @param Book
 	 * @param Year
+	 * @throws IllegalArgumentException
 	 */
-	public void editYear(StandardBook book, int year) {
+	public void editYear(StandardBook book, String year) {
 
-		books.get(books.indexOf(book)).setYear(year);
+		if (!this.isInputValid(book.getIsbn(), year, Integer.toString(book.getPages()), book.getSerie(),
+				book.getGenre(), book.getAuthor())) {
+			throw new IllegalArgumentException("Year is not valid!");
+		}
+		books.get(books.indexOf(book)).setYear(Integer.parseInt(year));
 		fileManager.saveDataToFile();
 	}
 
@@ -313,10 +333,15 @@ public class BooksController {
 	 * 
 	 * @param Book
 	 * @param Pages
+	 * @throws IllegalArgumentException
 	 */
-	public void editPages(StandardBook book, int pages) {
+	public void editPages(StandardBook book, String pages) {
 
-		books.get(books.indexOf(book)).setPages(pages);
+		if (!this.isInputValid(book.getIsbn(), Integer.toString(book.getYear()), pages, book.getSerie(),
+				book.getGenre(), book.getAuthor())) {
+			throw new IllegalArgumentException("Pages number is not valid!");
+		}
+		books.get(books.indexOf(book)).setPages(Integer.parseInt(pages));
 		fileManager.saveDataToFile();
 	}
 
@@ -325,9 +350,14 @@ public class BooksController {
 	 * 
 	 * @param Book
 	 * @param Serie
+	 * @throws IllegalArgumentException
+	 *             if the argument passed is empty
 	 */
 	public void editSerie(StandardBook book, String serie) {
 
+		if (serie.equals("")) {
+			throw new IllegalArgumentException("The argument must be not empty!");
+		}
 		books.get(books.indexOf(book)).setSerie(serie);
 		fileManager.saveDataToFile();
 	}
@@ -337,9 +367,14 @@ public class BooksController {
 	 * 
 	 * @param Book
 	 * @param Genre
+	 * @throws IllegalArgumentException
+	 *             if the argument passed is empty
 	 */
 	public void editGenre(StandardBook book, String genre) {
 
+		if (genre.equals("")) {
+			throw new IllegalArgumentException("The argument must be not empty!");
+		}
 		books.get(books.indexOf(book)).setGenre(genre);
 		fileManager.saveDataToFile();
 	}
@@ -349,9 +384,14 @@ public class BooksController {
 	 * 
 	 * @param Book
 	 * @param Author
+	 * @throws IllegalArgumentException
+	 *             if the argument passed is empty
 	 */
 	public void editAuthor(StandardBook book, String author) {
 
+		if (author.equals("")) {
+			throw new IllegalArgumentException("The argument must be not empty!");
+		}
 		books.get(books.indexOf(book)).setAuthor(author);
 		fileManager.saveDataToFile();
 	}
@@ -362,12 +402,12 @@ public class BooksController {
 	 * @param Book
 	 * @param Price
 	 */
-	public void editPrice(StandardBook book, int price) {
+	public void editPrice(StandardBook book, String price) {
 
-		books.get(books.indexOf(book)).setPrice(price);
+		books.get(books.indexOf(book)).setPrice(this.convertPrice(price));
 		fileManager.saveDataToFile();
 	}
-	
+
 	/**
 	 * @return The list of saved books
 	 */

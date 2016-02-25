@@ -74,7 +74,7 @@ public class DepotsController {
 	public Stream<DepotImpl> searchDepot(String name) {
 
 		Stream<DepotImpl> result = this.depots.stream();
-		result = result.filter(e -> e.getName().contains(name));
+		result = result.filter(e -> e.getName().toLowerCase().contains(name.toLowerCase()));
 		return result;
 	}
 
