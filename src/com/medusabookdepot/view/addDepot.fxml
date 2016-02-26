@@ -11,14 +11,14 @@
 			<children>
 				<HBox>
 					<children>
-					    <Label styleClass="card-title" text="Add Depot" />
+					    <Label styleClass="card-title" text="Add Depot"/>
                    		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />                     
                         <Button fx:id="delete" mnemonicParsing="false" styleClass="button-flat" text="DELETE" onAction="#delete"/>
 					</children>
 				</HBox>
 				<HBox VBox.vgrow="ALWAYS">
 					<children>
-						<VBox prefWidth="300.0">
+						<VBox prefWidth="300.0" fx:id="vBoxFields">
 							<children> 
 					        	<Label styleClass="control-label" text="Name" />
 				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="nameField"/>

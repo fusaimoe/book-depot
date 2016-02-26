@@ -135,10 +135,10 @@ public class CustomersControl extends ScreenControl{
      * Called when the user add a new customer
      */
 	@FXML
-    private void add() throws NumberFormatException {
+    private void add() {
         try {
-           customersController.addCustomer(nameField.getText(), addressField.getText(), phoneField.getText(),
-        		   typeChoiceBox.getValue());
+           customersController.addCustomer(nameField.getText(), addressField.getText(), phoneField.getText(), typeChoiceBox.getValue());
+           this.clear();
         } catch (Exception e) {
             alert.setTitle("Pay Attention");
             alert.setHeaderText("Error!");

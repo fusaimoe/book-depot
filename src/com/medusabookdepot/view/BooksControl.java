@@ -144,6 +144,10 @@ public class BooksControl extends ScreenControl {
     private void edit() {
 
         stdBooksTable.setEditable(true);
+        
+        /*for(TableColumn<StandardBookImpl, String> column : stdBooksTable.getColumns()){
+        	column.setCellFactory(TextFieldTableCell.forTableColumn());
+        }*/
 
         // isbnColumn
         isbnColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -157,19 +161,6 @@ public class BooksControl extends ScreenControl {
                 alert.showAndWait();
             }
         });
-
-        /**
-         * Same piece of code but without the lambda, a bit more understandable
-         * maybe **
-         * 
-         * isbnColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-         * isbnColumn.setOnEditCommit( new
-         * EventHandler<CellEditEvent<StandardBook, String>>() { public void
-         * handle(CellEditEvent<StandardBook, String> t) { ((StandardBook)
-         * t.getTableView().getItems().get(t.getTablePosition().getRow())).
-         * setIsbn(t.getNewValue()); } } );
-         *
-         **/
 
         // titleColumn
         nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -276,11 +267,12 @@ public class BooksControl extends ScreenControl {
      * Called when the user add a new book
      */
     @FXML
-    private void add() throws NumberFormatException {
+    private void add() {
         try {
            booksController.addBook(isbnField.getText(), titleField.getText(), yearField.getText(),
                     pagesField.getText(), serieField.getText(), genreField.getText(),
                     authorField.getText(), priceField.getText());
+           this.clear();
         } catch (IndexOutOfBoundsException e){
             alert.setTitle("Pay Attention");
             alert.setHeaderText("Error!");
@@ -325,7 +317,6 @@ public class BooksControl extends ScreenControl {
     
     /**
 	 * Method to disable/enable the delete button 
-	 * 
 	 */
     private void update(){
     	// Listen for selection changes and enable delete button

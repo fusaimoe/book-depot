@@ -16,6 +16,7 @@ import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -23,6 +24,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 
@@ -74,6 +76,9 @@ public class AddMovementControl extends ScreenControl{
     @FXML
     private Button delete;
     
+    @FXML
+    private HBox hBoxFields;
+    
     public AddMovementControl(){
 		super();
 		
@@ -117,8 +122,8 @@ public class AddMovementControl extends ScreenControl{
     	try {
     		Instant instant = Instant.from(dateField.getValue().atStartOfDay(ZoneId.systemDefault()));
     		Date date = Date.from(instant);
-    		//System.out.println(localDate + "\n" + instant + "\n" + date);
     		movementsController.addMovement(senderBox.getValue(), receiverBox.getValue(), date, isbnBox.getValue(), quantityField.getText(), trackingField.getText());
+    		this.clear();
          } catch (Exception e) {
              alert.setTitle("Pay Attention");
              alert.setHeaderText("Error!");
@@ -152,7 +157,6 @@ public class AddMovementControl extends ScreenControl{
     
     /**
 	 * Method to disable/enable the delete button 
-	 * 
 	 */
 	private void update(){
 		// Listen for selection changes and enable delete button
@@ -174,4 +178,21 @@ public class AddMovementControl extends ScreenControl{
         });
         
 	}
+	
+	@SuppressWarnings("rawtypes")
+	@Override
+	/**
+	 * Method to clear only the Quantity, Title and ISBN fields.
+	 * Overrides clear method from ScreenControl because when the user is adding movements, most of time he's keeping the same sender, receiver and tracking number but just changing book and quantity 
+	 */
+	public void clear(){
+    	for(Node node: hBoxFields.getChildren()){
+    		if (node instanceof TextField) {
+    	        ((TextField)node).clear();
+    	    }
+    		if (node instanceof ComboBox) {
+    	        ((ComboBox)node).getSelectionModel().clearSelection();
+    	    }
+    	}
+    }
 }

@@ -49,7 +49,7 @@
 							        	<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
 							        </columnResizePolicy>
 								</TableView>
-								<HBox spacing="20">
+								<HBox spacing="20" fx:id="hBoxFields">
 									<children>
 							        	<TextField prefHeight="42.0" promptText="Quantity" styleClass="control-label" HBox.hgrow="ALWAYS" fx:id="quantityField" />
 							        	<ComboBox prefHeight="42.0" promptText="Title" HBox.hgrow="ALWAYS" fx:id="titleBox" />

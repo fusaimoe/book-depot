@@ -18,7 +18,7 @@
 				</HBox>
 				<HBox VBox.vgrow="ALWAYS">
 					<children>
-						<VBox prefWidth="300.0">
+						<VBox prefWidth="300.0" fx:id="vBoxFields">
 							<children> 
 					        	<Label styleClass="control-label" text="ISBN" />
 				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="isbnField"/>
