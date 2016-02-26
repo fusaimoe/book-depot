@@ -45,7 +45,7 @@ public class TransferImpl implements Transfer, Serializable {
         this(null,null,null,null,null,0);
     }
     
-    /*public TransferImpl(CanSendTransferrer sender, Transferrer receiver, Date leavingDate,
+    public TransferImpl(CanSendTransferrer sender, Transferrer receiver, Date leavingDate,
             StandardBookImpl book, int quantity) {
         this.sender = sender;
         this.receiver = receiver;
@@ -54,7 +54,7 @@ public class TransferImpl implements Transfer, Serializable {
         this.book=book;
         this.quantity=new SimpleIntegerProperty(quantity);
 
-    }*/
+    }
     public TransferImpl(CanSendTransferrer sender, Transferrer receiver, Date leavingDate,
             StandardBookImpl book, String trackingNumber, int quantity) {
         this.sender = sender;

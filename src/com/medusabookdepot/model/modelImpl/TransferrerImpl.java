@@ -48,5 +48,6 @@ public abstract class TransferrerImpl implements Transferrer, Serializable {// t
         return name;
     }
     abstract public String toString();
+    @Override
     abstract public boolean isADepot();
 }

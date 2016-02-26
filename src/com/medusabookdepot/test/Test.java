@@ -53,6 +53,7 @@ public class Test {
         assertTrue(dep.getBooks().size() == 1);
 
         Depot dep2 = new DepotImpl("Shell", mm);
+        assertTrue(dep2.getName().equals("Shell"));
         List<Pair<String, Integer>> lisap=new ArrayList<>();
         List<Pair<String, Integer>> lis = dep2.getBookIsbnsAsListOfPair();
         for(Pair<String, Integer> pa:lis) {
@@ -81,8 +82,8 @@ public class Test {
             }
         }
         lis2=lisap2;
-        //Transfer tr = new TransferImpl(dep2, dep, date, book,13);
-        //assertTrue(tr.getTotalPrice()==13*book.getPrice());
+        Transfer tr = new TransferImpl(dep2, dep, date, book,13);
+        assertTrue(tr.getTotalPrice()==13*book.getPrice());
         this.result=true;
     }
     public boolean getResult(){
