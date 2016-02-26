@@ -5,7 +5,6 @@
 package com.medusabookdepot.view;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
@@ -309,8 +308,7 @@ public class BooksControl extends ScreenControl {
     private void search(){
     	searchField.textProperty().addListener((observable, oldValue, newValue) -> {
         	if (!newValue.isEmpty()){
-		        ObservableList<StandardBookImpl> ob = FXCollections.observableArrayList(booksController.searchBook(newValue));
-		        stdBooksTable.setItems(ob);
+		        stdBooksTable.setItems(FXCollections.observableArrayList(booksController.searchBook(newValue)));
         	}else stdBooksTable.setItems(booksController.getBooks());
         });
     }

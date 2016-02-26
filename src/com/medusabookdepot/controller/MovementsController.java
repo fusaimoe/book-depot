@@ -214,8 +214,8 @@ public class MovementsController {
 	 * @param Value
 	 * @return A list of results
 	 */
-	public List<Transfer> searchMovements(String value) {
-		List<Transfer> result = new ArrayList<>();
+	public List<TransferImpl> searchMovements(String value) {
+		List<TransferImpl> result = new ArrayList<>();
 
 		this.movements.stream().forEach(e -> {
 
@@ -224,7 +224,7 @@ public class MovementsController {
 					|| Integer.toString(e.getQuantity()).contains(value)
 					|| e.getReceiver().toString().toLowerCase().contains(value.toLowerCase())
 					|| e.getSender().toString().toLowerCase().contains(value.toLowerCase())
-					|| Integer.toString(e.getTotalPrice()).contains(value) || e.getTrackingNumber().contains(value)) {
+					|| Integer.toString(e.getTotalPrice()).contains(value) || e.getTrackingNumber().toLowerCase().contains(value)) {
 				result.add(e);
 			}
 		});
@@ -419,14 +419,14 @@ public class MovementsController {
 	/**
 	 * @return An OservableList contains all years that have movements
 	 */
-	public ObservableList<Integer> getYearsWithMovements(){
-		ObservableList<Integer> years = FXCollections.observableArrayList();
+	public ObservableList<String> getYearsWithMovements(){
+		ObservableList<String> years = FXCollections.observableArrayList();
 		
 		movements.stream().forEach(e->{
 			
 			LocalDate date = e.getLeavingDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         	if(!years.contains(date.getYear())){
-	            years.add(date.getYear());
+	            years.add(Integer.toString(date.getYear()));
         	}
 		});
 		return years;

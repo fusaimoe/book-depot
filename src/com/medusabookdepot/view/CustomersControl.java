@@ -10,7 +10,6 @@ import com.medusabookdepot.controller.CustomersController;
 import com.medusabookdepot.model.modelImpl.CustomerImpl;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -193,8 +192,7 @@ public class CustomersControl extends ScreenControl{
     private void search(){
     	searchField.textProperty().addListener((observable, oldValue, newValue) -> {
         	if (!newValue.isEmpty()){
-		        ObservableList<CustomerImpl> ob = FXCollections.observableArrayList(customersController.searchCustomer(newValue));
-		        customersTable.setItems(ob);
+		        customersTable.setItems(FXCollections.observableArrayList(customersController.searchCustomer(newValue)));
         	}else customersTable.setItems(customersController.getCustomers());
         });
     }

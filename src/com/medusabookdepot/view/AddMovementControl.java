@@ -14,7 +14,6 @@ import com.medusabookdepot.model.modelImpl.TransferImpl;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
