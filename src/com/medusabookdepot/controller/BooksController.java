@@ -28,6 +28,9 @@ public class BooksController {
 		super();
 	}
 
+	/**
+	 * Load the BooksController object or create a new if it doesn't exists
+	 */
 	public static BooksController getInstanceOf() {
 
 		return (BooksController.singBook == null ? new BooksController() : BooksController.singBook);
@@ -72,7 +75,7 @@ public class BooksController {
 	 * @param <b>Price</b>
 	 *            in string format
 	 * @throws IllegalArgumentException
-	 *             if isbn already exists
+	 *             if ISBN already exists
 	 */
 	public void addBook(String isbn, String name, String year, String pages, String serie, String genre, String author,
 			String price) throws IllegalArgumentException, IndexOutOfBoundsException {
@@ -104,7 +107,7 @@ public class BooksController {
 
 	/**
 	 * Search a string in ALL fields of book object and add it to results if it
-	 * is contains in field
+	 * is contained in field
 	 * 
 	 * @param String
 	 *            to search

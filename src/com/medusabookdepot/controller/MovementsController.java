@@ -33,13 +33,20 @@ public class MovementsController {
 		super();
 	}
 
+	/**
+	 * Load the MovementsController object or create a new if it doesn't exists
+	 */
 	public static MovementsController getInstanceOf() {
 
 		return (MovementsController.singMovements == null ? new MovementsController()
 				: MovementsController.singMovements);
 	}
 
-	public void addMovements(TransferImpl transfer) {
+	/**
+	 * Add a movement from Tranfer object and save it in file
+	 * @param Movement
+	 */
+	public void addMovement(TransferImpl transfer) {
 
 		// Aggiungo alla lista il movimento di libri e scrivo su file gli
 		// aggiornamenti sia per i movimenti sia per i depots dato il possibile
@@ -55,7 +62,17 @@ public class MovementsController {
 	 * questo metodo (fino a prossime istruzioni) creerà un movimento con una
 	 * mappa (chiesta da Model) contenente un solo elemento preso in input.
 	 */
-	public void addMovements(String sender, String receiver, Date leavingDate, String book, String quantity,
+	
+	/**
+	 * 
+	 * @param sender
+	 * @param receiver
+	 * @param leavingDate
+	 * @param book
+	 * @param quantity
+	 * @param trackingNumber
+	 */
+	public void addMovement(String sender, String receiver, Date leavingDate, String book, String quantity,
 			String trackingNumber) {
 
 		DepotImpl senderObj = new DepotImpl();
@@ -115,7 +132,7 @@ public class MovementsController {
 
 		// A questo punto non ci resta che creare l'oggetto Transfer e con
 		// addMovements scrivere su file i vari cambiamenti
-		this.addMovements(new TransferImpl(senderObj, receiverObj, leavingDate, bookObj, trackingNumber,
+		this.addMovement(new TransferImpl(senderObj, receiverObj, leavingDate, bookObj, trackingNumber,
 				Integer.parseInt(quantity)));
 	}
 
@@ -180,6 +197,12 @@ public class MovementsController {
 		return null;
 	}
 
+	/**
+	 * Search a string in ALL fields of movement object and add it to results if it
+	 * is contained in field
+	 * @param Value
+	 * @return A list of results
+	 */
 	public List<Transfer> searchMovements(String value) {
 		List<Transfer> result = new ArrayList<>();
 
@@ -191,7 +214,7 @@ public class MovementsController {
 					|| e.getReceiver().toString().toLowerCase().contains(value.toLowerCase())
 					|| e.getSender().toString().toLowerCase().contains(value.toLowerCase())
 					|| Integer.toString(e.getTotalPrice()).contains(value)
-					|| e.getNewTrackingNumber().contains(value)) {
+					|| e.getTrackingNumber().contains(value)) {
 				result.add(e);
 			}
 		});
@@ -232,14 +255,14 @@ public class MovementsController {
 	}
 
 	/**
-	 * Check if arguments passed are good
+	 * Check if arguments passed are valid
 	 * 
-	 * @param sender
-	 * @param receiver
-	 * @param leavingDate
-	 * @param book
-	 * @param quantity
-	 * @return
+	 * @param Sender
+	 * @param Receiver
+	 * @param Leaving date
+	 * @param Book
+	 * @param Quantity
+	 * @return <b>True</b> if the arguments passed are valid
 	 */
 	public boolean isMovementValid(String sender, String receiver, Date leavingDate, String book, String quantity) {
 		try {
@@ -283,8 +306,8 @@ public class MovementsController {
 	/**
 	 * Check if the string passed is a depot name
 	 * 
-	 * @param name
-	 * @return
+	 * @param Name
+	 * @return <b>True</b> if really it is, else <b>False</b>
 	 */
 	public boolean isADepot(String name) {
 		name = name.toLowerCase();
@@ -321,7 +344,7 @@ public class MovementsController {
 	}
 
 	/**
-	 * @return A ObservableList of all books isbns
+	 * @return A ObservableList of all books ISBNs
 	 */
 	public ObservableList<String> getIsbnsString() {
 
@@ -338,7 +361,7 @@ public class MovementsController {
 	public ObservableList<String> getCanSendTransferrersString() {
 
 		ObservableList<String> canSendTransferrersString = FXCollections.observableArrayList();
-		CustomerController.getInstanceOf().getCustomers().stream().forEach(e -> {
+		CustomersController.getInstanceOf().getCustomers().stream().forEach(e -> {
 			if (e.isALibrary() || e.isAPrinter()) {
 				canSendTransferrersString.add(e.getName());
 			}
@@ -355,7 +378,7 @@ public class MovementsController {
 	public ObservableList<String> getCustomersAndDepotsString() {
 
 		ObservableList<String> customersAndDepotsString = FXCollections.observableArrayList();
-		CustomerController.getInstanceOf().getCustomers().stream().forEach(e -> {
+		CustomersController.getInstanceOf().getCustomers().stream().forEach(e -> {
 			customersAndDepotsString.add(e.getName());
 		});
 		DepotsController.getInstanceOf().getDepots().stream().forEach(e -> {
