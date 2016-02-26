@@ -328,8 +328,6 @@ public class MovementsController {
 	public boolean isADepot(String name) {
 		name = name.toLowerCase();
 		for (DepotImpl d : depots) {
-			System.out.println("Name: " + name);
-			System.out.println("GetName: " + d.getName());
 			if (d.getName().toLowerCase().equals(name)) {
 				return true;
 			}
@@ -425,7 +423,8 @@ public class MovementsController {
 		movements.stream().forEach(e->{
 			
 			LocalDate date = e.getLeavingDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        	if(!years.contains(date.getYear())){
+			// Adding year to the list avoiding copies of the same year (an observableHashSet doesn't exist in FXCollections)
+        	if(!years.contains(Integer.toString(date.getYear()))){
 	            years.add(Integer.toString(date.getYear()));
         	}
 		});
