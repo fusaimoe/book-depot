@@ -11,6 +11,7 @@ import com.medusabookdepot.controller.MovementsController;
 import com.medusabookdepot.model.modelImpl.TransferImpl;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -73,6 +74,7 @@ public class MovementsControl extends ScreenControl{
         movementsTable.setItems(movementsController.getMovements()); 
         
         this.update();
+        this.search();
     }
     
     /**
@@ -109,4 +111,15 @@ public class MovementsControl extends ScreenControl{
         	delete.setDisable(false);
         } );
 	}
+	
+	/**
+     * Called when the user enter something in the search field
+     */
+    private void search(){
+    	searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+        	if (!newValue.isEmpty()){
+		        movementsTable.setItems(FXCollections.observableArrayList(movementsController.searchMovements(newValue)));
+        	}else movementsTable.setItems(movementsController.getMovements());
+        });
+    }
 }

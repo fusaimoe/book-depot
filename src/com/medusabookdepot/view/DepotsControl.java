@@ -105,6 +105,7 @@ public class DepotsControl extends ScreenControl {
 		
         // Method which handle the selection of a depot
         this.filter();
+        this.search();
         
         // Selecting the first depot of the list for the first time the user opens the screen
         if(!buttonsList.isEmpty()) buttonsList.get(0).setSelected(true);
@@ -149,4 +150,14 @@ public class DepotsControl extends ScreenControl {
 			}
 		});
 	}
+	/**
+     * Called when the user enter something in the search field
+     */
+    private void search(){
+    	searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+        	if (!newValue.isEmpty()){
+		      //depotsTable.setItems(FXCollections.observableArrayList(depotsController.searchDepot(newValue)));
+        	}else depotsTable.setItems(data);
+        });
+    }
 }
