@@ -55,7 +55,7 @@ public class CustomersController {
 	 */
 	public void addCustomer(String name, String address, String telephoneNumber, String type) {
 
-		if (this.isCustomerValid(name, address, telephoneNumber, type)) {
+		if (!this.isCustomerValid(name, address, telephoneNumber, type)) {
 			throw new IllegalArgumentException(
 					"FAIL: " + address + " and/or " + telephoneNumber + "are/is already present/s");
 		}
@@ -146,9 +146,6 @@ public class CustomersController {
 		
 		if(name.equals("") || address.equals("") || telephoneNumber.equals("") || type.equals("")){
 			throw new IllegalArgumentException("The arguments must be not empty!");
-		}
-		if(this.customerIsPresent(address, telephoneNumber)){
-			throw new IllegalArgumentException("The customer is already present!");
 		}
 		
 		return true;
