@@ -31,7 +31,6 @@ import javafx.scene.control.Button;
 public class AddMovementControl extends ScreenControl{
 	
 	private final MovementsController movementsController = MovementsController.getInstanceOf();
-	private final ObservableList<TransferImpl> tempData = FXCollections.observableArrayList();
 	@SuppressWarnings("unused") //TODO Try something else
 	private AutoCompleteComboBoxListener<String> autoCompleteFactory;
 	
@@ -102,7 +101,7 @@ public class AddMovementControl extends ScreenControl{
         dateColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getLeavingDate().toString()));
         trackingColumn.setCellValueFactory(cellData -> cellData.getValue().trackingNumberProperty());
         
-        movementsTable.setItems(tempData);
+        movementsTable.setItems(movementsController.getTempData());
         
         titleBox.setItems(FXCollections.observableArrayList(movementsController.getTitlesString()));
         autoCompleteFactory = new AutoCompleteComboBoxListener<String>(titleBox);
