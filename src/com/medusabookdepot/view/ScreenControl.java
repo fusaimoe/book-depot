@@ -10,10 +10,15 @@ import java.net.URL;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 
 /**
  * Note that we load the panes with the FXMLLoader
@@ -43,12 +48,12 @@ public class ScreenControl {
 	private Button addBook;
 	@FXML
 	private Button addDepot;
-	//private Button search;
-	//private Button stats;
-	//private Button more;
+	
+	@FXML
+	private VBox vBoxFields;
 
 	@FXML
-	void switchScreen(ActionEvent event) {
+	public void switchScreen(ActionEvent event) {
 		try {
 			
 			URL paneMovementsUrl = getClass().getResource(((Control)event.getSource()).getId()+".fxml"); //*((Control)event.getSource()).getId()* get button name
@@ -61,4 +66,22 @@ public class ScreenControl {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Method to clear all the textFields after add button has been pressed
+	 */
+    @SuppressWarnings("rawtypes")
+	public void clear(){
+    	for(Node node: vBoxFields.getChildren()){
+    		if (node instanceof TextField) {
+    	        ((TextField)node).clear();
+    	    }
+    		if (node instanceof ChoiceBox) {
+    	        ((ChoiceBox)node).getSelectionModel().clearSelection();
+    	    }
+    		if (node instanceof ComboBox) {
+    	        ((ComboBox)node).getSelectionModel().clearSelection();
+    	    }
+    	}
+    }
 }

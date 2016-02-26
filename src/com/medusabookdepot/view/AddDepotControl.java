@@ -70,6 +70,7 @@ public class AddDepotControl extends ScreenControl{
     private void add() {
         try {
            depotsController.addDepot(nameField.getText());
+           this.clear();
         } catch (Exception e) {
             alert.setTitle("Pay Attention");
             alert.setHeaderText("Error!");
