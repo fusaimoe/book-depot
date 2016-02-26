@@ -410,7 +410,7 @@ public class MovementsController {
 	public ObservableList<String> getAllIsbnFromTitle(String title){
 		
 		ObservableList<String> titles = FXCollections.observableArrayList();
-		BooksController.getInstanceOf().searchBook(Optional.empty(), Optional.empty(), Optional.of(title), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()).forEach(e->{
+		BooksController.getInstanceOf().searchBook(Optional.empty(), Optional.empty(), Optional.ofNullable(title), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()).forEach(e->{
 			titles.add(e.getIsbn());
 		});
 		return titles;

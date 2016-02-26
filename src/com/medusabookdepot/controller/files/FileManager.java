@@ -135,7 +135,7 @@ public class FileManager<A> {
 	
 	public void convertXML2PDF() throws IOException {
 		
-		String pdfPath = directoryPath + name + new SimpleDateFormat("yyyyMMdd-HHmm-").format(new Date());
+		String pdfPath = directoryPath + name + new SimpleDateFormat("yyyyMMdd-HHmm").format(new Date());
 		String foPath = FileManager.class.getClassLoader().getResource(name + ".fo").toString();
 		
 		try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(pdfPath))){
