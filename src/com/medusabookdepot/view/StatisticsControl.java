@@ -12,8 +12,6 @@ import java.util.*;
 import com.medusabookdepot.controller.MovementsController;
 import com.medusabookdepot.model.modelImpl.TransferImpl;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.*;
 
 import javafx.fxml.FXML;

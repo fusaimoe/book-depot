@@ -29,6 +29,7 @@
 	                            <TableColumn text="Sender" fx:id="senderColumn"/>
 	                          	<TableColumn text="Receiver" fx:id="receiverColumn"/>
 	           					<TableColumn text="Date" fx:id="dateColumn"/>
+	           					<TableColumn text="Total Price" fx:id="totalPriceColumn"/>
 	           					<TableColumn text="Tracking#" fx:id="trackingColumn"/>
 	                          </columns>
                            <columnResizePolicy>

@@ -109,12 +109,7 @@ public class AddMovementControl extends ScreenControl{
         receiverBox.setItems(FXCollections.observableArrayList(movementsController.getCustomersAndDepotsString()));
         autoCompleteFactory = new AutoCompleteComboBoxListener<String>(receiverBox);
         
-        // Listen for selection changes and enable delete button
-        delete.setDisable(true);
-        movementsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-        	delete.setDisable(false);
-        } );
-        
+        this.update();
     }
     
     /**
@@ -158,4 +153,15 @@ public class AddMovementControl extends ScreenControl{
         }
     }
     
+    /**
+	 * Method to disable/enable the delete button 
+	 * 
+	 */
+	private void update(){
+		// Listen for selection changes and enable delete button
+        delete.setDisable(true);
+        movementsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        	delete.setDisable(false);
+        } );
+	}
 }

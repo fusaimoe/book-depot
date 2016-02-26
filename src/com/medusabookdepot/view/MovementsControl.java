@@ -41,6 +41,8 @@ public class MovementsControl extends ScreenControl{
     @FXML
     private TableColumn<TransferImpl, String> dateColumn;
     @FXML
+    private TableColumn<TransferImpl, String> totalPriceColumn;
+    @FXML
     private TableColumn<TransferImpl, String> trackingColumn;
     
     @FXML
@@ -65,15 +67,11 @@ public class MovementsControl extends ScreenControl{
         receiverColumn.setCellValueFactory(cellData -> cellData.getValue().getReceiver().nameProperty());
         dateColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getLeavingDate().toString()));
         trackingColumn.setCellValueFactory(cellData -> cellData.getValue().trackingNumberProperty());
+        totalPriceColumn.setCellValueFactory(cellData -> cellData.getValue().totalPriceProperty().asString());
 	
         movementsTable.setItems(movementsController.getMovements()); 
         
-        // Listen for selection changes and enable delete button
-        delete.setDisable(true);
-        movementsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-        	delete.setDisable(false);
-        } );
-        
+        this.update();
     }
     
     /**
@@ -99,4 +97,15 @@ public class MovementsControl extends ScreenControl{
         }
     }
     
+    /**
+	 * Method to disable/enable the delete button
+	 * 
+	 */
+	private void update(){
+		// Listen for selection changes and enable delete button
+        delete.setDisable(true);
+        movementsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        	delete.setDisable(false);
+        } );
+	}
 }

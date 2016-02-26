@@ -53,8 +53,14 @@ public class AddDepotControl extends ScreenControl{
         // Add observable list data to the table
         depotsTable.setItems(depotsController.getDepots());
         
+        // Make the table columns editable by double clicking
         this.edit();
+        
+        // Use a 'searchField' to search for books in the tableView
         this.search();
+        
+        // Listen for selection changes and enable delete button
+        this.update();
     }
     
     /**
@@ -146,4 +152,16 @@ public class AddDepotControl extends ScreenControl{
         // 5. Add sorted (and filtered) data to the table.
         depotsTable.setItems(sortedData);
     }
+    
+    /**
+	 * Method to disable/enable the delete button
+	 * 
+	 */
+	private void update(){
+		// Listen for selection changes and enable delete button
+        delete.setDisable(true);
+        depotsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        	delete.setDisable(false);
+        } );
+	}
 }
