@@ -266,18 +266,6 @@ public class BooksController {
 	}
 
 	/**
-	 * Return a ObservableList with all ISBNs relative a title (A title may  to more than one ISBN, like "Introduction in Java") 
-	 * @param Title
-	 */
-	public ObservableList<String> getAllIsbnFromTitle(String title){
-		
-		ObservableList<String> titles = FXCollections.observableArrayList();
-		this.searchBook(Optional.empty(), Optional.empty(), Optional.of(title), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()).forEach(e->{
-			titles.add(e.getIsbn());
-		});
-		return titles;
-	}
-	/**
 	 * Edit isbn number
 	 * 
 	 * @param Book
