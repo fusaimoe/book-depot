@@ -4,6 +4,7 @@
 
 package com.medusabookdepot.view;
 
+import java.time.ZoneId;
 import java.util.Optional;
 
 import com.medusabookdepot.controller.MovementsController;
@@ -65,7 +66,7 @@ public class MovementsControl extends ScreenControl{
         titleColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().titleProperty());
         senderColumn.setCellValueFactory(cellData -> cellData.getValue().getSender().nameProperty());
         receiverColumn.setCellValueFactory(cellData -> cellData.getValue().getReceiver().nameProperty());
-        dateColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getLeavingDate().toString()));
+        dateColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getLeavingDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString()));
         trackingColumn.setCellValueFactory(cellData -> cellData.getValue().trackingNumberProperty());
         totalPriceColumn.setCellValueFactory(cellData -> cellData.getValue().totalPriceProperty().asString());
 	
