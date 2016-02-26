@@ -7,8 +7,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
-
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
@@ -46,16 +44,6 @@ public class TransferImpl implements Transfer, Serializable {
     }
     
     public TransferImpl(CanSendTransferrer sender, Transferrer receiver, Date leavingDate,
-            StandardBookImpl book, int quantity) {
-        this.sender = sender;
-        this.receiver = receiver;
-        this.leavingDate = leavingDate;
-        this.trackingNumber = new SimpleStringProperty(this.getNewTrackingNumber());
-        this.book=book;
-        this.quantity=new SimpleIntegerProperty(quantity);
-
-    }
-    public TransferImpl(CanSendTransferrer sender, Transferrer receiver, Date leavingDate,
             StandardBookImpl book, String trackingNumber, int quantity) {
         this.sender = sender;
         this.receiver = receiver;
@@ -63,10 +51,6 @@ public class TransferImpl implements Transfer, Serializable {
         this.book = book;
         this.trackingNumber = new SimpleStringProperty(trackingNumber);
         this.quantity=new SimpleIntegerProperty(quantity);
-    }
-    @Override
-    public String getNewTrackingNumber() {
-        return String.valueOf(new Random().nextInt(1000000));
     }
     @Override
     public CanSendTransferrer getSender() {

@@ -98,11 +98,6 @@ public interface Transfer {
      * @return the tracking number
      */
     public StringProperty trackingNumberProperty();
-    /**
-     * 
-     * @return a random tracking number
-     */
-    public String getNewTrackingNumber();
 
 
 }
