@@ -6,7 +6,7 @@ package com.medusabookdepot.view;
 import java.io.IOException;
 import java.util.Optional;
 
-import com.medusabookdepot.controller.CustomerController;
+import com.medusabookdepot.controller.CustomersController;
 import com.medusabookdepot.model.modelImpl.CustomerImpl;
 
 import javafx.collections.FXCollections;
@@ -25,7 +25,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 public class CustomersControl extends ScreenControl{
 	
 	// Reference to the controller
-	private CustomerController customersController = CustomerController.getInstanceOf();
+	private CustomersController customersController = CustomersController.getInstanceOf();
 	
 	// Aler panel to manage exceptions
 	private final Alert alert = new Alert(AlertType.WARNING);

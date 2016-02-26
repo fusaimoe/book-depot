@@ -71,7 +71,7 @@ public class StatisticsControl extends ScreenControl{
     public void setMovementsData(List<TransferImpl> movements) {
     	
         // Count the number of movements in a specific month.
-    	yearBox.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue)->{
+    	yearBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)->{
     		// Create a monthCounter for each month. Add his values to the series.
     		final int[] monthCounter = new int[12];
     		// Clear the barChart and the monthCounter before changing year	
@@ -82,7 +82,7 @@ public class StatisticsControl extends ScreenControl{
 	        	// Convert the util.Date to LocalDate
 	        	LocalDate date = movement.getLeavingDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         		// Filter movements by year
-	        	if(date.getYear()==Integer.parseInt(yearNames.get(newValue.intValue()))){
+	        	if(date.getYear()==Integer.parseInt(newValue)){
 		            int month = date.getMonthValue() - 1; 
 		            monthCounter[month]++; // Increment the month according to the number of movements
 	        	}

@@ -97,13 +97,10 @@ public class AddMovementControl extends ScreenControl{
         dateColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getLeavingDate().toString()));
         trackingColumn.setCellValueFactory(cellData -> cellData.getValue().trackingNumberProperty());
         
-        movementsTable.setItems(tempData); 
+        movementsTable.setItems(tempData);
         
         titleBox.setItems(FXCollections.observableArrayList(movementsController.getTitlesString()));
         autoCompleteFactory = new AutoCompleteComboBoxListener<String>(titleBox);
-        //TODO Filtrare da title
-        isbnBox.setItems(FXCollections.observableArrayList(movementsController.getIsbnsString()));
-        autoCompleteFactory = new AutoCompleteComboBoxListener<String>(isbnBox);
         senderBox.setItems(FXCollections.observableArrayList(movementsController.getCanSendTransferrersString()));
         autoCompleteFactory = new AutoCompleteComboBoxListener<String>(senderBox);
         receiverBox.setItems(FXCollections.observableArrayList(movementsController.getCustomersAndDepotsString()));
@@ -121,7 +118,7 @@ public class AddMovementControl extends ScreenControl{
     		Instant instant = Instant.from(dateField.getValue().atStartOfDay(ZoneId.systemDefault()));
     		Date date = Date.from(instant);
     		//System.out.println(localDate + "\n" + instant + "\n" + date);
-    		movementsController.addMovements(senderBox.getValue(), receiverBox.getValue(), date, isbnBox.getValue(), quantityField.getText(), trackingField.getText());
+    		movementsController.addMovement(senderBox.getValue(), receiverBox.getValue(), date, isbnBox.getValue(), quantityField.getText(), trackingField.getText());
          } catch (Exception e) {
              alert.setTitle("Pay Attention");
              alert.setHeaderText("Error!");
@@ -162,6 +159,19 @@ public class AddMovementControl extends ScreenControl{
         delete.setDisable(true);
         movementsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
         	delete.setDisable(false);
-        } );
+        });
+        
+        isbnBox.setDisable(true);
+        titleBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        	isbnBox.setDisable(false);
+        	//TODO Filter by title
+        	isbnBox.setItems(FXCollections.observableArrayList(movementsController.getIsbnsString()));
+        	autoCompleteFactory = new AutoCompleteComboBoxListener<String>(isbnBox);
+        	
+            if(titleBox.getSelectionModel().isEmpty()){
+            	isbnBox.setDisable(true);     	
+            }
+        });
+        
 	}
 }
