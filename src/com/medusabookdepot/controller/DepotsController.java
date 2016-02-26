@@ -102,18 +102,31 @@ public class DepotsController {
 		fileManager.saveDataToFile();
 	}
 	
-	public void editBookQuantity(DepotImpl depot, StandardBookImpl book, int value){
+	/**
+	 * Replace book quantity with new passed value, if passed value is 0, revove the book from depot 
+	 * @param Depot
+	 * @param Book
+	 * @param Value
+	 */
+	public void editBookQuantity(DepotImpl depot, StandardBookImpl book, String value){
 		
-		Map<StandardBookImpl,Integer> tmpMap = new HashMap<>();
-		int oldQnt = depot.getQuantityFromStandardBook(book);
-		if((oldQnt - value) < 0){
+		try {
+			Integer.parseInt(value);
+		} catch (Exception e) {
+			throw new IllegalArgumentException("Value must be an integer!");
+		}
+		if(Integer.parseInt(value) < 0){
 			throw new IllegalArgumentException("Not enough books in depot");
 		}
-		tmpMap.put(book, oldQnt);
-		depots.get(depots.indexOf(depot)).removeBooks(tmpMap);
-		tmpMap.clear();
-		tmpMap.put(book, oldQnt - value);
-		depots.get(depots.indexOf(depot)).addBooks(tmpMap);
+		if(Integer.parseInt(value) == 0){
+			
+			Map<StandardBookImpl,Integer> booksToRemove= new HashMap<>();
+			booksToRemove.put(book, depot.getQuantityFromStandardBook(book));
+			depot.removeBooks(booksToRemove);
+		}else{
+			depot.setQuantityFromBook(book, Integer.parseInt(value));
+		}
+		
 		fileManager.saveDataToFile();
 	}
 	

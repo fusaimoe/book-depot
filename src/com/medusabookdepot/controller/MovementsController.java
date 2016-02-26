@@ -1,8 +1,10 @@
 package com.medusabookdepot.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import com.medusabookdepot.controller.files.FileManager;
@@ -100,7 +102,7 @@ public class MovementsController {
 					d.setQuantityFromBook(bookObj, d.getQuantityFromStandardBook(bookObj) - Integer.parseInt(quantity));
 					if (d.getQuantityFromStandardBook(bookObj) == 0) {
 						// Rimuovo il libro se è arrivato a quantità zero
-						BooksController.getInstanceOf().removeBook(bookObj);
+						DepotsController.getInstanceOf().editBookQuantity(d, bookObj, "0");
 					}
 				}
 			}
@@ -115,9 +117,6 @@ public class MovementsController {
 				if (d.getName().equals(receiver)) {
 
 					receiverObj = d;
-					// d.getBooks().put(bookObj,
-					// d.getQuantityFromStandardBook(bookObj) +
-					// Integer.parseInt(quantity));
 					d.setQuantityFromBook(bookObj, d.getQuantityFromStandardBook(bookObj) + Integer.parseInt(quantity));
 				}
 			}
@@ -144,16 +143,16 @@ public class MovementsController {
 	public void removeMovement(TransferImpl t) throws NoSuchElementException {
 
 		try {
-
-			if (this.isADepot(t.getSender().toString())) {
+			if (this.isADepot(t.getSender().getName())) {
 				for (DepotImpl d : depots) {
-					if (d.getName().equals(t.getSender().toString())) {
-						if (d.getQuantityFromStandardBook(t.getBook()) == 0) {
+					if (d.getName().equals(t.getSender().getName())) {
+						System.out.println("Sender:" + t.getSender() + "\nBook:" + t.getBook() + "\nQnt:"
+								+ d.getQuantityFromStandardBook(t.getBook()));
+						d.setQuantityFromBook(t.getBook(),
+								d.getQuantityFromStandardBook(t.getBook()) + t.getQuantity());
+						System.out.println("Sender:" + t.getSender() + "\nBook:" + t.getBook() + "\nQnt:"
+								+ d.getQuantityFromStandardBook(t.getBook()));
 
-							d.addBook(new Pair<StandardBookImpl, Integer>(t.getBook(), t.getQuantity()));
-						} else {
-							d.setQuantityFromBook(t.getBook(), d.getQuantityFromStandardBook(t.getBook()) + t.getQuantity());
-						}
 					}
 				}
 			}
@@ -162,18 +161,15 @@ public class MovementsController {
 				for (DepotImpl d : depots) {
 					if (d.getName().equals(t.getReceiver().toString())) {
 
-						if (d.getQuantityFromStandardBook(t.getBook()) == 0) {
-
-							d.addBook(new Pair<StandardBookImpl, Integer>(t.getBook(), t.getQuantity()));
-						} else {
-							d.setQuantityFromBook(t.getBook(), d.getQuantityFromStandardBook(t.getBook()) + t.getQuantity());
-						}
+						d.setQuantityFromBook(t.getBook(),
+								d.getQuantityFromStandardBook(t.getBook()) - t.getQuantity());
 					}
 				}
 			}
 
 			movements.remove(t);
 			fileManager.saveDataToFile();
+			depotsFileManager.saveDataToFile();
 
 		} catch (Exception e) {
 			throw new NoSuchElementException("No such element in list!");
@@ -195,6 +191,24 @@ public class MovementsController {
 			}
 		}
 		return null;
+	}
+
+	public List<Transfer> searchMovements(String value) {
+		List<Transfer> result = new ArrayList<>();
+
+		this.movements.stream().forEach(e -> {
+
+			if (e.getBook().getTitle().toLowerCase().contains(value.toLowerCase())
+					|| e.getLeavingDate().toString().toLowerCase().contains(value.toLowerCase())
+					|| Integer.toString(e.getQuantity()).contains(value)
+					|| e.getReceiver().toString().toLowerCase().contains(value.toLowerCase())
+					|| e.getSender().toString().toLowerCase().contains(value.toLowerCase())
+					|| Integer.toString(e.getTotalPrice()).contains(value)
+					|| e.getNewTrackingNumber().contains(value)) {
+				result.add(e);
+			}
+		});
+		return result;
 	}
 
 	/**
@@ -288,6 +302,8 @@ public class MovementsController {
 	public boolean isADepot(String name) {
 		name = name.toLowerCase();
 		for (DepotImpl d : depots) {
+			System.out.println("Name: " + name);
+			System.out.println("GetName: " + d.getName());
 			if (d.getName().toLowerCase().equals(name)) {
 				return true;
 			}
