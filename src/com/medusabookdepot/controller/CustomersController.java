@@ -1,6 +1,5 @@
 package com.medusabookdepot.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -16,26 +15,29 @@ import com.medusabookdepot.model.modelImpl.CustomerImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class CustomerController {
+public class CustomersController {
 
 	/**
 	 * The list that contains all saved customers
 	 */
 	private final ObservableList<CustomerImpl> customers = FXCollections.observableArrayList();
 
-	private static CustomerController singCustomers;
+	private static CustomersController singCustomers;
 	
 	// Fields for file load and save, and for converting to PDF
 	private final static String NAME = "customers";
 	private FileManager<CustomerImpl> fileManager = new FileManager<>(customers, CustomerImpl.class, NAME);
 
-	private CustomerController(){
+	private CustomersController(){
 		super();
 	}
 	
-	public static CustomerController getInstanceOf() {
+	/**
+	 * Load the CustomersController object or create a new if it doesn't exists
+	 */
+	public static CustomersController getInstanceOf() {
 
-		return (CustomerController.singCustomers == null ? new CustomerController() : CustomerController.singCustomers);
+		return (CustomersController.singCustomers == null ? new CustomersController() : CustomersController.singCustomers);
 	}
 
 	/**
@@ -220,16 +222,5 @@ public class CustomerController {
 	public ObservableList<CustomerImpl> getCustomers() {
 
 		return customers;
-	}
-	
-	/**
-	 * Convert the XML file to PDF
-	 * 
-	 * @throws IOException
-	 */
-	public void convert() throws IOException {
-
-		fileManager.convertXML2PDF();
-
 	}
 }

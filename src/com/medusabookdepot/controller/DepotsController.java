@@ -1,6 +1,5 @@
 package com.medusabookdepot.controller;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -27,6 +26,9 @@ public class DepotsController {
 		super();
 	}
 	
+	/**
+	 * Load the DepotsController object or create a new if it doesn't exists
+	 */
 	public static DepotsController getInstanceOf() {
 
 		return (DepotsController.singDepots == null ? new DepotsController() : DepotsController.singDepots);
@@ -131,16 +133,5 @@ public class DepotsController {
 	public ObservableList<DepotImpl> getDepots() {
 
 		return depots;
-	}
-	
-	/**
-	 * Convert the XML file to PDF
-	 * 
-	 * @throws IOException
-	 */
-	public void convert() throws IOException {
-
-		fileManager.convertXML2PDF();
-
 	}
 }
