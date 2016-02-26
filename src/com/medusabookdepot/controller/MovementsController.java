@@ -1,6 +1,5 @@
 package com.medusabookdepot.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -9,10 +8,8 @@ import java.util.NoSuchElementException;
 
 import com.medusabookdepot.controller.files.FileManager;
 import com.medusabookdepot.model.modelImpl.DepotImpl;
-import com.medusabookdepot.model.modelImpl.Pair;
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 import com.medusabookdepot.model.modelImpl.TransferImpl;
-import com.medusabookdepot.model.modelInterface.StandardBook;
 import com.medusabookdepot.model.modelInterface.Transfer;
 
 import javafx.collections.FXCollections;
@@ -26,21 +23,11 @@ public class MovementsController {
 
 	// Fields for file load and save, and for converting to PDF for Transfers
 	private final static String NAME = "movements";
-	private String directoryPath = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot"
-			+ System.getProperty("file.separator");
-	private String xmlPath = directoryPath + ".xml" + System.getProperty("file.separator") + NAME + ".xml";
-	private String xslPath = directoryPath + ".xsl" + System.getProperty("file.separator") + NAME + ".xsl";
-	private String pdfPath = directoryPath + NAME + new SimpleDateFormat("yyyyMMdd-HHmm-").format(new Date());
-	private FileManager<TransferImpl> fileManager = new FileManager<>(movements, xmlPath, TransferImpl.class, NAME);
+	private FileManager<TransferImpl> fileManager = new FileManager<>(movements, TransferImpl.class, NAME);
 
 	// Fields for file load and save, and for converting to PDF for Depots
 	private final static String DEPOTS_NAME = "depots";
-	private String depotsDirectoryPath = System.getProperty("user.home") + System.getProperty("file.separator")
-			+ "book-depot" + System.getProperty("file.separator");
-	private String depotsXmlPath = depotsDirectoryPath + ".xml" + System.getProperty("file.separator") + DEPOTS_NAME
-			+ ".xml";
-	private FileManager<DepotImpl> depotsFileManager = new FileManager<>(depots, depotsXmlPath, DepotImpl.class,
-			DEPOTS_NAME);
+	private FileManager<DepotImpl> depotsFileManager = new FileManager<>(depots, DepotImpl.class, DEPOTS_NAME);
 
 	private MovementsController() {
 		super();

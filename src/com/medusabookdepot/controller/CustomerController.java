@@ -1,8 +1,6 @@
 package com.medusabookdepot.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -24,15 +22,11 @@ public class CustomerController {
 	 */
 	private final ObservableList<CustomerImpl> customers = FXCollections.observableArrayList();
 
+	private static CustomerController singCustomers;
+	
 	// Fields for file load and save, and for converting to PDF
 	private final static String NAME = "customers";
-	private static CustomerController singCustomers;
-	private String directoryPath = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot"
-			+ System.getProperty("file.separator");
-	private String xmlPath = directoryPath + ".xml" + System.getProperty("file.separator") + NAME + ".xml";
-	private String xslPath = directoryPath + ".xsl" + System.getProperty("file.separator") + NAME + ".xsl";
-	private String pdfPath = directoryPath + NAME + new SimpleDateFormat("yyyyMMdd-HHmm-").format(new Date());
-	private FileManager<CustomerImpl> fileManager = new FileManager<>(customers, xmlPath, CustomerImpl.class, NAME);
+	private FileManager<CustomerImpl> fileManager = new FileManager<>(customers, CustomerImpl.class, NAME);
 
 	private CustomerController(){
 		super();

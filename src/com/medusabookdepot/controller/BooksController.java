@@ -1,16 +1,12 @@
 package com.medusabookdepot.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import com.medusabookdepot.controller.files.ConvertXML2PDF;
 import com.medusabookdepot.controller.files.FileManager;
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 import com.medusabookdepot.model.modelInterface.Depot;
@@ -21,18 +17,12 @@ import javafx.collections.ObservableList;
 
 public class BooksController {
 
+	private final static String NAME = "books"; // Name of the file, for the FileManager class
 	private static final int ISBN_LENGTH = 13;
 	private final ObservableList<StandardBookImpl> books = FXCollections.observableArrayList();
 	private static BooksController singBook;
-
-	// Fields for file load and save, and for converting to PDF
-	private final static String NAME = "books";
-	private String directoryPath = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot"
-			+ System.getProperty("file.separator");
-	private String xmlPath = directoryPath + ".xml" + System.getProperty("file.separator") + NAME + ".xml";
-	private String xslPath = directoryPath + ".xsl" + System.getProperty("file.separator") + NAME + ".xsl";
-	private String pdfPath = directoryPath + NAME + new SimpleDateFormat("yyyyMMdd-HHmm-").format(new Date());
-	private FileManager<StandardBookImpl> fileManager = new FileManager<>(books, xmlPath, StandardBookImpl.class, NAME);
+	
+	private FileManager<StandardBookImpl> fileManager = new FileManager<>(books, StandardBookImpl.class, NAME);
 
 	private BooksController() {
 		super();
@@ -261,20 +251,14 @@ public class BooksController {
 	}
 
 	/**
-	 * Convert the xml file in a PDF
+	 * Convert the XML file to PDF
 	 * 
 	 * @throws IOException
 	 */
 	public void convert() throws IOException {
 
-		if (!new File(xslPath).exists())
-			throw new IOException("XSL Template doesn't exist");
-		if (!new File(xmlPath).exists())
-			throw new IllegalArgumentException("XML File doesn't exist");
+		fileManager.convertXML2PDF();
 
-		ConvertXML2PDF converter = new ConvertXML2PDF(xmlPath, xslPath, pdfPath);
-
-		converter.open();
 	}
 
 	/**
