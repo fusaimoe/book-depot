@@ -44,6 +44,7 @@ public class MovementsController {
 
 	/**
 	 * Add a movement from Tranfer object and save it in file
+	 * 
 	 * @param Movement
 	 */
 	public void addMovement(TransferImpl transfer) {
@@ -62,7 +63,7 @@ public class MovementsController {
 	 * questo metodo (fino a prossime istruzioni) creerà un movimento con una
 	 * mappa (chiesta da Model) contenente un solo elemento preso in input.
 	 */
-	
+
 	/**
 	 * 
 	 * @param sender
@@ -150,21 +151,15 @@ public class MovementsController {
 			if (this.isADepot(t.getSender().getName())) {
 				for (DepotImpl d : depots) {
 					if (d.getName().equals(t.getSender().getName())) {
-						System.out.println("Sender:" + t.getSender() + "\nBook:" + t.getBook() + "\nQnt:"
-								+ d.getQuantityFromStandardBook(t.getBook()));
 						d.setQuantityFromBook(t.getBook(),
 								d.getQuantityFromStandardBook(t.getBook()) + t.getQuantity());
-						System.out.println("Sender:" + t.getSender() + "\nBook:" + t.getBook() + "\nQnt:"
-								+ d.getQuantityFromStandardBook(t.getBook()));
-
 					}
 				}
 			}
 
-			if (this.isADepot(t.getReceiver().toString())) {
+			if (this.isADepot(t.getReceiver().getName())) {
 				for (DepotImpl d : depots) {
-					if (d.getName().equals(t.getReceiver().toString())) {
-
+					if (d.getName().equals(t.getReceiver().getName())) {
 						d.setQuantityFromBook(t.getBook(),
 								d.getQuantityFromStandardBook(t.getBook()) - t.getQuantity());
 					}
@@ -198,8 +193,9 @@ public class MovementsController {
 	}
 
 	/**
-	 * Search a string in ALL fields of movement object and add it to results if it
-	 * is contained in field
+	 * Search a string in ALL fields of movement object and add it to results if
+	 * it is contained in field
+	 * 
 	 * @param Value
 	 * @return A list of results
 	 */
@@ -213,8 +209,7 @@ public class MovementsController {
 					|| Integer.toString(e.getQuantity()).contains(value)
 					|| e.getReceiver().toString().toLowerCase().contains(value.toLowerCase())
 					|| e.getSender().toString().toLowerCase().contains(value.toLowerCase())
-					|| Integer.toString(e.getTotalPrice()).contains(value)
-					|| e.getTrackingNumber().contains(value)) {
+					|| Integer.toString(e.getTotalPrice()).contains(value) || e.getTrackingNumber().contains(value)) {
 				result.add(e);
 			}
 		});
@@ -259,7 +254,8 @@ public class MovementsController {
 	 * 
 	 * @param Sender
 	 * @param Receiver
-	 * @param Leaving date
+	 * @param Leaving
+	 *            date
 	 * @param Book
 	 * @param Quantity
 	 * @return <b>True</b> if the arguments passed are valid
