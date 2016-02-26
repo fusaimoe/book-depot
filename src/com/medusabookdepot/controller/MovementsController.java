@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import com.medusabookdepot.controller.files.FileManager;
 import com.medusabookdepot.model.modelImpl.DepotImpl;
@@ -20,7 +21,7 @@ import javafx.collections.ObservableList;
 public class MovementsController {
 
 	private final ObservableList<TransferImpl> movements = FXCollections.observableArrayList();
-	private final ObservableList<TransferImpl> tmpData = FXCollections.observableArrayList();
+	private final ObservableList<TransferImpl> tempData = FXCollections.observableArrayList();
 	private final ObservableList<DepotImpl> depots = FXCollections.observableArrayList();
 	private static MovementsController singMovements;
 
@@ -45,9 +46,9 @@ public class MovementsController {
 				: MovementsController.singMovements);
 	}
 	
-	public ObservableList<TransferImpl> getTmpData(){
+	public ObservableList<TransferImpl> getTempData(){
 		
-		return tmpData;
+		return tempData;
 	}
 
 	/**
@@ -62,7 +63,7 @@ public class MovementsController {
 		// cambiamento di quantità di libri se almeno uno dei soggetti coinvolti
 		// è un depot
 
-		tmpData.add(transfer);
+		tempData.add(transfer);
 		movements.add(transfer);
 		fileManager.saveDataToFile();
 	}
@@ -400,6 +401,19 @@ public class MovementsController {
 			customersAndDepotsString.add(e.getName());
 		});
 		return customersAndDepotsString;
+	}
+	
+	/**
+	 * Return a ObservableList with all ISBNs relative a title (A title may  to more than one ISBN, like "Introduction in Java") 
+	 * @param Title
+	 */
+	public ObservableList<String> getAllIsbnFromTitle(String title){
+		
+		ObservableList<String> titles = FXCollections.observableArrayList();
+		BooksController.getInstanceOf().searchBook(Optional.empty(), Optional.empty(), Optional.of(title), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()).forEach(e->{
+			titles.add(e.getIsbn());
+		});
+		return titles;
 	}
 	
 	/**
