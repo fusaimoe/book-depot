@@ -157,20 +157,25 @@ public class AddMovementControl extends ScreenControl{
 	 * Method to disable/enable the delete button 
 	 */
 	private void update(){
-		// Listen for selection changes and enable delete button
+		// Listen for selection changes of the table and enable delete button
         delete.setDisable(true);
         movementsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
         	delete.setDisable(false);
         });
         
+        // Listen for selection changes of titleBox and enable and filter, isbnBox 
         isbnBox.setDisable(true);
         titleBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        	// Enable button if the title ComboBox has a newValue
         	isbnBox.setDisable(false);
-        	//TODO Filter by title
-        	isbnBox.setItems(FXCollections.observableArrayList(movementsController.getIsbnsString()));
-        	autoCompleteFactory = new AutoCompleteComboBoxListener<String>(isbnBox);
-        	
-            if(titleBox.getSelectionModel().isEmpty()){
+        	// Set the items of the isbn ComboBox from a list of all the values possible from the selected title
+        	isbnBox.setItems(FXCollections.observableArrayList(movementsController.getAllIsbnFromTitle(newValue)));
+        	// If there is only one isbn possible value, select it
+        	if(movementsController.getAllIsbnFromTitle(newValue).size()==1){
+        		isbnBox.getSelectionModel().select(0);
+	        }
+        	// If the list of all possible values is empty, or the title ComboBox is still empty, disable the isbn ComboBox 
+            if(titleBox.getSelectionModel().isEmpty() || movementsController.getAllIsbnFromTitle(newValue).isEmpty()){
             	isbnBox.setDisable(true);     	
             }
         });
