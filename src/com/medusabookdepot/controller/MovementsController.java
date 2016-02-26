@@ -7,8 +7,10 @@ import java.util.NoSuchElementException;
 
 import com.medusabookdepot.controller.files.FileManager;
 import com.medusabookdepot.model.modelImpl.DepotImpl;
+import com.medusabookdepot.model.modelImpl.Pair;
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 import com.medusabookdepot.model.modelImpl.TransferImpl;
+import com.medusabookdepot.model.modelInterface.StandardBook;
 import com.medusabookdepot.model.modelInterface.Transfer;
 
 import javafx.collections.FXCollections;
@@ -132,7 +134,7 @@ public class MovementsController {
 	}
 
 	/**
-	 * Remove one ore more movements from list
+	 * Remove one ore more movements from list and adjust the books in depots
 	 * 
 	 * @param One
 	 *            ore more movements
@@ -140,10 +142,36 @@ public class MovementsController {
 	 *             if you are trying to remove a movement that not exists
 	 */
 	public void removeMovement(TransferImpl t) throws NoSuchElementException {
-		
+
 		try {
-			//Sostanzialmente inverte i ruoli di sender e receiver
-			this.addMovements(t.getReceiver().getName(), t.getSender().getName(), t.getLeavingDate(), t.getBook().getTitle(), Integer.toString(t.getQuantity()), t.getTrackingNumber());
+
+			if (this.isADepot(t.getSender().toString())) {
+				for (DepotImpl d : depots) {
+					if (d.getName().equals(t.getSender().toString())) {
+						if (d.getQuantityFromStandardBook(t.getBook()) == 0) {
+
+							d.addBook(new Pair<StandardBookImpl, Integer>(t.getBook(), t.getQuantity()));
+						} else {
+							d.setQuantityFromBook(t.getBook(), d.getQuantityFromStandardBook(t.getBook()) + t.getQuantity());
+						}
+					}
+				}
+			}
+
+			if (this.isADepot(t.getReceiver().toString())) {
+				for (DepotImpl d : depots) {
+					if (d.getName().equals(t.getReceiver().toString())) {
+
+						if (d.getQuantityFromStandardBook(t.getBook()) == 0) {
+
+							d.addBook(new Pair<StandardBookImpl, Integer>(t.getBook(), t.getQuantity()));
+						} else {
+							d.setQuantityFromBook(t.getBook(), d.getQuantityFromStandardBook(t.getBook()) + t.getQuantity());
+						}
+					}
+				}
+			}
+
 			movements.remove(t);
 			fileManager.saveDataToFile();
 
