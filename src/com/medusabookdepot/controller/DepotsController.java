@@ -52,10 +52,13 @@ public class DepotsController {
 	/**
 	 * Add a empty depot from name
 	 * @param <b>Name of new depot</b>
-	 * @throws IllegalArgumentException if another depot is registered with the same name
+	 * @throws IllegalArgumentException if another depot is registered with the same name or it's empty
 	 */
 	public void addDepot(String name) throws IllegalArgumentException{
 		
+		if(name.equals("")){
+			throw new IllegalArgumentException("The name must be not empty!");
+		}
 		if(this.searchDepot(name).count()>=1){
 			throw new IllegalArgumentException("Depot " + name +" is already present!");
 		}

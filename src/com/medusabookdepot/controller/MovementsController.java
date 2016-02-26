@@ -1,5 +1,7 @@
 package com.medusabookdepot.controller;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -18,6 +20,7 @@ import javafx.collections.ObservableList;
 public class MovementsController {
 
 	private final ObservableList<TransferImpl> movements = FXCollections.observableArrayList();
+	private final ObservableList<TransferImpl> tmpData = FXCollections.observableArrayList();
 	private final ObservableList<DepotImpl> depots = FXCollections.observableArrayList();
 	private static MovementsController singMovements;
 
@@ -41,6 +44,11 @@ public class MovementsController {
 		return (MovementsController.singMovements == null ? new MovementsController()
 				: MovementsController.singMovements);
 	}
+	
+	public ObservableList<TransferImpl> getTmpData(){
+		
+		return tmpData;
+	}
 
 	/**
 	 * Add a movement from Tranfer object and save it in file
@@ -54,6 +62,7 @@ public class MovementsController {
 		// cambiamento di quantità di libri se almeno uno dei soggetti coinvolti
 		// è un depot
 
+		tmpData.add(transfer);
 		movements.add(transfer);
 		fileManager.saveDataToFile();
 	}
@@ -80,6 +89,11 @@ public class MovementsController {
 		DepotImpl receiverObj = new DepotImpl();
 		StandardBookImpl bookObj = new StandardBookImpl();
 
+		//Uno dei due deve essere un depot
+		if(!this.isADepot(sender) && !this.isADepot(receiver)){
+			throw new IllegalArgumentException("Receiver or sender must be a depot!");
+		}
+		
 		// Controllo se il movimento ha tutti i presupposti per essere eseguito
 		if (!this.isMovementValid(sender, receiver, leavingDate, book, quantity)) {
 			throw new IllegalArgumentException();
@@ -146,7 +160,7 @@ public class MovementsController {
 	 *             if you are trying to remove a movement that not exists
 	 */
 	public void removeMovement(TransferImpl t) throws NoSuchElementException {
-
+		
 		try {
 			if (this.isADepot(t.getSender().getName())) {
 				for (DepotImpl d : depots) {
@@ -261,6 +275,11 @@ public class MovementsController {
 	 * @return <b>True</b> if the arguments passed are valid
 	 */
 	public boolean isMovementValid(String sender, String receiver, Date leavingDate, String book, String quantity) {
+		
+		if(sender.equals("") || receiver.equals("") || book.equals("") || quantity.equals("")){
+			throw new IllegalArgumentException("The arguments must be not empty!");
+		}
+		
 		try {
 			Integer.parseInt(quantity);
 		} catch (Exception e) {
@@ -381,6 +400,22 @@ public class MovementsController {
 			customersAndDepotsString.add(e.getName());
 		});
 		return customersAndDepotsString;
+	}
+	
+	/**
+	 * @return An OservableList contains all years that have movements
+	 */
+	public ObservableList<Integer> getYearsWithMovements(){
+		ObservableList<Integer> years = FXCollections.observableArrayList();
+		
+		movements.stream().forEach(e->{
+			
+			LocalDate date = e.getLeavingDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        	if(!years.contains(date.getYear())){
+	            years.add(date.getYear());
+        	}
+		});
+		return years;
 	}
 
 }

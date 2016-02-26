@@ -226,16 +226,17 @@ public class BooksController {
 	public boolean isInputValid(String isbn, String year, String pages, String serie, String genre, String author)
 			throws IllegalArgumentException {
 
+		if (isbn.equals("") || year.equals("") || pages.equals("") || serie.equals("") || genre.equals("")
+				|| author.equals("")) {
+
+			throw new IllegalArgumentException("The fields mustn't be empty!");
+		}
+		
 		try {
 			Integer.parseInt(year);
 			Integer.parseInt(pages);
 		} catch (Exception e) {
 			throw new IllegalArgumentException("Year and pages must be integers!");
-		}
-		if (isbn.equals("") || year.equals("") || pages.equals("") || serie.equals("") || genre.equals("")
-				|| author.equals("")) {
-
-			throw new IllegalArgumentException("The fields mustn't be empty!");
 		}
 		if (this.searchBook(Optional.empty(), Optional.of(isbn), Optional.empty(), Optional.empty(), Optional.empty(),
 				Optional.empty(), Optional.empty(), Optional.empty()).count() >= 1) {
@@ -264,6 +265,18 @@ public class BooksController {
 
 	}
 
+	/**
+	 * Return a ObservableList with all ISBNs relative a title (A title may  to more than one ISBN, like "Introduction in Java") 
+	 * @param Title
+	 */
+	public ObservableList<String> getAllIsbnFromTitle(String title){
+		
+		ObservableList<String> titles = FXCollections.observableArrayList();
+		this.searchBook(Optional.empty(), Optional.empty(), Optional.of(title), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()).forEach(e->{
+			titles.add(e.getIsbn());
+		});
+		return titles;
+	}
 	/**
 	 * Edit isbn number
 	 * 
