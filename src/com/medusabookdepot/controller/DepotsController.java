@@ -1,7 +1,5 @@
 package com.medusabookdepot.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -21,11 +19,7 @@ public class DepotsController {
 	
 	// Fields for file load and save, and for converting to PDF
 	private final static String NAME = "depots";
-	private String directoryPath = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot" + System.getProperty("file.separator");
-	private String xmlPath = directoryPath + ".xml" + System.getProperty("file.separator") + NAME + ".xml";
-	private String xslPath = directoryPath + ".xsl" + System.getProperty("file.separator") + NAME + ".xsl";
-	private String pdfPath = directoryPath + NAME + new SimpleDateFormat("yyyyMMdd-HHmm-").format(new Date());
-	private FileManager<DepotImpl> fileManager = new FileManager<>(depots, xmlPath, DepotImpl.class, NAME);
+	private FileManager<DepotImpl> fileManager = new FileManager<>(depots, DepotImpl.class, NAME);
 	
 	
 	private DepotsController() {
