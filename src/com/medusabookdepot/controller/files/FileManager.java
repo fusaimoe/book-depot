@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -136,9 +137,7 @@ public class FileManager<A> {
 	public void convertXML2PDF() throws IOException {
 		
 		String pdfPath = directoryPath + name + new SimpleDateFormat("yyyyMMdd-HHmm-").format(new Date());
-		String foPath = directoryPath + ".fo" + System.getProperty("file.separator") + name + ".fo";
-		
-		if (!new File(foPath).exists()) throw new IOException("FO Template doesn't exist");
+		String foPath = FileManager.class.getClassLoader().getResource(name + ".fo").toString();
 		
 		try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(pdfPath))){
 			// Configure fopFactory and foUserAgent

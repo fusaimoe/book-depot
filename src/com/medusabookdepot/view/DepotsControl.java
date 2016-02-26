@@ -1,5 +1,6 @@
 package com.medusabookdepot.view;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
@@ -111,6 +112,23 @@ public class DepotsControl extends ScreenControl {
         // Putting data into the table
         depotsTable.setItems(data);
 	}
+	
+	/**
+     * Called when the user wants to convert the TableView to a PDF file
+     */
+    @FXML
+    private void convert() {
+        try {
+            depotsController.convert();
+        } catch (IOException e) {
+            alert.setTitle("Template not found");
+            alert.setHeaderText("Could not load a conversion template for "
+                    + this.getClass().getName().substring(25, new String(this.getClass().getName()).length() - 7));
+            alert.setContentText(
+                    "If it's not there, make it yourself. It's so time consuming and I have more important things to do atm. Sorry :(");
+            alert.showAndWait();
+        }
+    }
 
 	/**
 	 * Called when the user selects a toggle-button, it filters depots so in the table there are only the books from the selected depot

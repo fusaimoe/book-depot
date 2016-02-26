@@ -140,7 +140,7 @@ public class AddMovementControl extends ScreenControl{
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText("Do you really want to delete the following element?");
-        alert.setContentText("Tracking Number: " + movementsTable.getSelectionModel().getSelectedItem().getNewTrackingNumber() 
+        alert.setContentText("Tracking Number: " + movementsTable.getSelectionModel().getSelectedItem().getTrackingNumber()
         		+ "\nBook: " + movementsTable.getSelectionModel().getSelectedItem().getBook().getIsbn());
         alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
 

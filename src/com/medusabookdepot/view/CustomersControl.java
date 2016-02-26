@@ -3,6 +3,7 @@
  */
 
 package com.medusabookdepot.view;
+import java.io.IOException;
 import java.util.Optional;
 
 import com.medusabookdepot.controller.CustomerController;
@@ -166,6 +167,23 @@ public class CustomersControl extends ScreenControl{
         if (result.get() == ButtonType.OK) {
             int selectedIndex = customersTable.getSelectionModel().getSelectedIndex();
             customersController.removeCustomer(customersTable.getItems().get(selectedIndex));
+        }
+    }
+    
+    /**
+     * Called when the user wants to convert the TableView to a PDF file
+     */
+    @FXML
+    private void convert() {
+        try {
+            customersController.convert();
+        } catch (IOException e) {
+            alert.setTitle("Template not found");
+            alert.setHeaderText("Could not load a conversion template for "
+                    + this.getClass().getName().substring(25, new String(this.getClass().getName()).length() - 7));
+            alert.setContentText(
+                    "If it's not there, make it yourself. It's so time consuming and I have more important things to do atm. Sorry :(");
+            alert.showAndWait();
         }
     }
     
