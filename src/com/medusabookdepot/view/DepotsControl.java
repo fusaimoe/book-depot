@@ -22,7 +22,6 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
 public class DepotsControl extends ScreenControl {
@@ -82,9 +81,6 @@ public class DepotsControl extends ScreenControl {
 	private TextField nameField;
 	@FXML
 	private TextField searchField;
-	
-	@FXML
-	private Button delete;
 
 	public void initialize() {
 		
@@ -132,21 +128,7 @@ public class DepotsControl extends ScreenControl {
 					// Data is added to the table, relatively to the toggle button selected
 					data.addAll(depotsController.searchDepot((String)buttonsGroup.getSelectedToggle().getUserData()).findFirst().get().getBooks().entrySet());
 				}
-				update();
 			}
 		});
-	}
-	
-	/**
-	 * This method need to be called every time the user opens one of the depots 
-	 * page to disable/enable the delete button 
-	 * 
-	 */
-	private void update(){
-		// Listen for selection changes and enable delete button
-        delete.setDisable(true);
-        depotsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-        	delete.setDisable(false);
-        } );
 	}
 }

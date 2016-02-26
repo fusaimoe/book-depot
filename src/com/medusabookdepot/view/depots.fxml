@@ -16,7 +16,6 @@
 	            		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
                    		<Button fx:id="addDepot" mnemonicParsing="false" styleClass="button-flat" text="ADD NEW" onAction="#switchScreen" />
                    		<Button fx:id="convert" mnemonicParsing="false" styleClass="button-flat" text="CONVERT" />                          
-                        <Button fx:id="delete" mnemonicParsing="false" styleClass="button-flat" text="DELETE" />
                     </children>
                 </HBox>
 	            <HBox VBox.vgrow="ALWAYS">
