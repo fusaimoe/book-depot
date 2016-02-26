@@ -14,7 +14,8 @@
                    		<Label styleClass="card-title" text="Customers/Suppliers" />
                    		<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
                    		<Button fx:id="addCustomer" mnemonicParsing="false" styleClass="button-flat" text="ADD NEW" onAction="#switchScreen" />                         
-                        <Button mnemonicParsing="false" styleClass="button-flat" text="DELETE" fx:id="delete"/>
+                        <Button mnemonicParsing="false" styleClass="button-flat" text="CONVERT" onAction="#convert" />
+                        <Button mnemonicParsing="false" styleClass="button-flat" text="DELETE" fx:id="delete" />
                     </children>
                 </HBox>
 	            <HBox VBox.vgrow="ALWAYS">

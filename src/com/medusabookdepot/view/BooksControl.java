@@ -308,15 +308,7 @@ public class BooksControl extends ScreenControl {
             alert.setContentText(
                     "If it's not there, make it yourself. It's so time consuming and I have more important things to do atm. Sorry :(");
             alert.showAndWait();
-        } catch (IllegalArgumentException e) {
-            alert.setTitle("No data to export");
-            alert.setHeaderText("Could not load data from xml file");
-            alert.setContentText("Probably there is no data to export. Make sure to save before exporting");
-            alert.showAndWait();
         }
-
-        // TODO if xsl doesn't exist, it's not possible to convert without
-        // templates!
     }
     
     /**

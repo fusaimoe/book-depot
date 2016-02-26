@@ -1,5 +1,6 @@
 package com.medusabookdepot.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -219,5 +220,16 @@ public class CustomerController {
 	public ObservableList<CustomerImpl> getCustomers() {
 
 		return customers;
+	}
+	
+	/**
+	 * Convert the XML file to PDF
+	 * 
+	 * @throws IOException
+	 */
+	public void convert() throws IOException {
+
+		fileManager.convertXML2PDF();
+
 	}
 }
