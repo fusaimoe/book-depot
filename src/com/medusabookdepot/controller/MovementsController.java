@@ -23,7 +23,7 @@ public class MovementsController {
 	private static MovementsController singMovements;
 
 	// Fields for file load and save, and for converting to PDF for Transfers
-	private final static String NAME = "transfers";
+	private final static String NAME = "movements";
 	private String directoryPath = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot"
 			+ System.getProperty("file.separator");
 	private String xmlPath = directoryPath + ".xml" + System.getProperty("file.separator") + NAME + ".xml";

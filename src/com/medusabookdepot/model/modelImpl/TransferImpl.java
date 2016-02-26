@@ -26,7 +26,7 @@ import javafx.beans.property.StringProperty;
  * @author Marcello_Feroce
  *
  */
-@XmlRootElement(name = "transfer")
+@XmlRootElement(name = "movement")
 @XmlSeeAlso({DepotImpl.class,CustomerImpl.class, TransferrerImpl.class})
 public class TransferImpl implements Transfer, Serializable {
 
