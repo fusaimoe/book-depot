@@ -41,27 +41,11 @@ public class AddMovementControl extends ScreenControl{
 	
 	@FXML
     private TableView<TransferImpl> movementsTable;
-    @FXML
-    private TableColumn<TransferImpl, String> quantityColumn;
-    @FXML
-    private TableColumn<TransferImpl, String> isbnColumn;
-    @FXML
-    private TableColumn<TransferImpl, String> titleColumn;
-    @FXML
-    private TableColumn<TransferImpl, String> senderColumn;
-    @FXML
-    private TableColumn<TransferImpl, String> receiverColumn;
-    @FXML
-    private TableColumn<TransferImpl, String> dateColumn;
-    @FXML
-    private TableColumn<TransferImpl, String> trackingColumn;
+	
+	@FXML
+    private TableColumn<TransferImpl, String> quantityColumn, isbnColumn, titleColumn, 
+    	senderColumn, receiverColumn, dateColumn, trackingColumn;
     
-    @FXML
-    private TextField quantityField;
-    @FXML
-    private ComboBox<String> isbnBox;
-    @FXML
-    private ComboBox<String> titleBox;
     @FXML
     private ComboBox<String> senderBox;
     @FXML
@@ -72,10 +56,16 @@ public class AddMovementControl extends ScreenControl{
     private TextField trackingField;
     
     @FXML
-    private Button delete;
-    
+    private TextField quantityField;
+    @FXML
+    private ComboBox<String> isbnBox;
+    @FXML
+    private ComboBox<String> titleBox;
+
     @FXML
     private HBox hBoxFields;
+    @FXML
+    private Button delete;
     
     public AddMovementControl(){
 		super();
@@ -90,7 +80,7 @@ public class AddMovementControl extends ScreenControl{
      */
     @FXML
     private void initialize() {
-    	
+
     	// Initialize the table
 		quantityColumn.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asString());
         isbnColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().isbnProperty());
@@ -99,7 +89,7 @@ public class AddMovementControl extends ScreenControl{
         receiverColumn.setCellValueFactory(cellData -> cellData.getValue().getReceiver().nameProperty());
         dateColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getLeavingDate().toString()));
         trackingColumn.setCellValueFactory(cellData -> cellData.getValue().trackingNumberProperty());
-        
+
         movementsTable.setItems(movementsController.getTempData());
         
         titleBox.setItems(FXCollections.observableArrayList(movementsController.getTitlesString()));

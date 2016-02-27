@@ -33,21 +33,7 @@ import javafx.scene.layout.VBox;
 public class ScreenControl {
 	
 	@FXML
-	private Button movements;
-	@FXML
-	private Button addMovement;
-	@FXML
-	private Button depots;
-	@FXML
-	private Button books;
-	@FXML
-	private Button customers;
-	@FXML
-	private Button addCustomer;
-	@FXML
-	private Button addBook;
-	@FXML
-	private Button addDepot;
+	private Button movements, addMovement, depots, books, customers, addCustomer, addBook, addDepot;
 	
 	@FXML
 	private VBox vBoxFields;

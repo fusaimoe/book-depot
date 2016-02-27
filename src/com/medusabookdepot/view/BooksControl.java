@@ -35,38 +35,11 @@ public class BooksControl extends ScreenControl {
     private TableView<StandardBookImpl> stdBooksTable;
     
     @FXML
-    private TableColumn<StandardBookImpl, String> isbnColumn;
-    @FXML
-    private TableColumn<StandardBookImpl, String> nameColumn;
-    @FXML
-    private TableColumn<StandardBookImpl, String> yearColumn;
-    @FXML
-    private TableColumn<StandardBookImpl, String> pagesColumn;
-    @FXML
-    private TableColumn<StandardBookImpl, String> serieColumn;
-    @FXML
-    private TableColumn<StandardBookImpl, String> genreColumn;
-    @FXML
-    private TableColumn<StandardBookImpl, String> authorColumn;
-    @FXML
-    private TableColumn<StandardBookImpl, String> priceColumn;
+    private TableColumn<StandardBookImpl, String> isbnColumn, nameColumn, yearColumn, pagesColumn, 
+    	serieColumn, genreColumn, authorColumn, priceColumn;
 
     @FXML
-    private TextField isbnField;
-    @FXML
-    private TextField titleField;
-    @FXML
-    private TextField yearField;
-    @FXML
-    private TextField pagesField;
-    @FXML
-    private TextField serieField;
-    @FXML
-    private TextField genreField;
-    @FXML
-    private TextField authorField;
-    @FXML
-    private TextField priceField;
+    private TextField isbnField, titleField, yearField, pagesField, serieField, genreField, authorField, priceField;
 
     @FXML
     private Button delete;
@@ -140,16 +113,19 @@ public class BooksControl extends ScreenControl {
      * method processes editing and assigns the updated value to the
      * corresponding table cell.
      */
-    private void edit() {
-
-        stdBooksTable.setEditable(true);
+    @SuppressWarnings("unchecked")
+	private void edit() {
         
-        /*for(TableColumn<StandardBookImpl, String> column : stdBooksTable.getColumns()){
-        	column.setCellFactory(TextFieldTableCell.forTableColumn());
-        }*/
-
+    	stdBooksTable.setEditable(true);
+    	
+        //Set all the columns as editable directly from the tableView
+        for(TableColumn<StandardBookImpl, ?> n: stdBooksTable.getColumns()){
+			if(n instanceof TableColumn){
+				((TableColumn<StandardBookImpl, String>)n).setCellFactory(TextFieldTableCell.forTableColumn());
+			}
+		}
+		
         // isbnColumn
-        isbnColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         isbnColumn.setOnEditCommit(t -> {
         	try{
         		booksController.editISBN(t.getTableView().getItems().get(t.getTablePosition().getRow()), t.getNewValue()); 
@@ -162,7 +138,6 @@ public class BooksControl extends ScreenControl {
         });
 
         // titleColumn
-        nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         nameColumn.setOnEditCommit(t -> {
         	try{
 	            booksController.editTitle(t.getTableView().getItems().get(t.getTablePosition().getRow()),
@@ -176,7 +151,6 @@ public class BooksControl extends ScreenControl {
         });
 
         // yearColumn
-        yearColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         yearColumn.setOnEditCommit(t -> {
         	try{
 	        	booksController.editYear(t.getTableView().getItems().get(t.getTablePosition().getRow()), 
@@ -191,7 +165,6 @@ public class BooksControl extends ScreenControl {
         });
 
         // pagesColumn
-        pagesColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         pagesColumn.setOnEditCommit(t -> {
         	try{
 	        	booksController.editPages(t.getTableView().getItems().get(t.getTablePosition().getRow()), 
@@ -206,7 +179,6 @@ public class BooksControl extends ScreenControl {
         });
 
         // serieColumn
-        serieColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         serieColumn.setOnEditCommit(t -> {
         	try{
         		booksController.editSerie(t.getTableView().getItems().get(t.getTablePosition().getRow()), t.getNewValue());
@@ -220,7 +192,6 @@ public class BooksControl extends ScreenControl {
         });
 
         // genreColumn
-        genreColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         genreColumn.setOnEditCommit(t -> {
         	try{
         		booksController.editGenre(t.getTableView().getItems().get(t.getTablePosition().getRow()), t.getNewValue());
@@ -233,7 +204,6 @@ public class BooksControl extends ScreenControl {
             
         });
         // authorColumn
-        authorColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         authorColumn.setOnEditCommit(t -> {
         	try{
         		booksController.editAuthor(t.getTableView().getItems().get(t.getTablePosition().getRow()), t.getNewValue());
@@ -247,7 +217,6 @@ public class BooksControl extends ScreenControl {
         });
 
         // priceColumn
-        priceColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         priceColumn.setOnEditCommit(t -> {
         	try{
 	        	booksController.editPrice(t.getTableView().getItems().get(t.getTablePosition().getRow()), 

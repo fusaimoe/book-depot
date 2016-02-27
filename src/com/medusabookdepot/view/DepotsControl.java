@@ -59,27 +59,10 @@ public class DepotsControl extends ScreenControl {
 	private HBox hBox;
 	@FXML
 	private TableView<Entry<StandardBookImpl,Integer>> depotsTable;
-
 	@FXML
-	private TableColumn<Entry<StandardBookImpl,Integer>, String> quantityColumn;
-	@FXML
-	private TableColumn<Entry<StandardBookImpl,Integer>, String> isbnColumn;
-	@FXML
-	private TableColumn<Entry<StandardBookImpl,Integer>, String> titleColumn;
-	@FXML
-	private TableColumn<Entry<StandardBookImpl,Integer>, String> yearColumn;
-	@FXML
-	private TableColumn<Entry<StandardBookImpl,Integer>, String> pagesColumn;
-	@FXML
-	private TableColumn<Entry<StandardBookImpl,Integer>, String> serieColumn;
-	@FXML
-	private TableColumn<Entry<StandardBookImpl,Integer>, String> genreColumn;
-	@FXML
-	private TableColumn<Entry<StandardBookImpl,Integer>, String> authorColumn;
-	@FXML
-	private TableColumn<Entry<StandardBookImpl,Integer>, String> priceColumn;
-	@FXML
-	private TextField nameField;
+	private TableColumn<Entry<StandardBookImpl,Integer>, String> quantityColumn, isbnColumn, titleColumn, yearColumn,
+		pagesColumn, serieColumn, genreColumn, authorColumn, priceColumn;
+	
 	@FXML
 	private TextField searchField;
 

@@ -38,20 +38,10 @@ public class CustomersControl extends ScreenControl{
 	@FXML
 	private TableView<CustomerImpl> customersTable;
 	@FXML
-	private TableColumn<CustomerImpl, String> nameColumn;
-	@FXML
-	private TableColumn<CustomerImpl, String> addressColumn;
-	@FXML
-	private TableColumn<CustomerImpl, String> phoneColumn;
-	@FXML
-	private TableColumn<CustomerImpl, String> typeColumn;
+	private TableColumn<CustomerImpl, String> nameColumn, addressColumn, phoneColumn, typeColumn;
 	
 	@FXML
-    private TextField nameField;
-    @FXML
-    private TextField addressField;
-    @FXML
-    private TextField phoneField;	
+    private TextField nameField, addressField, phoneField;	
     @FXML
 	private ChoiceBox<String> typeChoiceBox;
     

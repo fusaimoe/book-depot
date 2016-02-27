@@ -26,30 +26,16 @@ public class MovementsControl extends ScreenControl{
 	private final MovementsController movementsController = MovementsController.getInstanceOf();
 	
 	@FXML
-    private TextField searchField;
-	
-	@FXML
     private TableView<TransferImpl> movementsTable;
     @FXML
-    private TableColumn<TransferImpl, String> quantityColumn;
-    @FXML
-    private TableColumn<TransferImpl, String> isbnColumn;
-    @FXML
-    private TableColumn<TransferImpl, String> titleColumn;
-    @FXML
-    private TableColumn<TransferImpl, String> senderColumn;
-    @FXML
-    private TableColumn<TransferImpl, String> receiverColumn;
-    @FXML
-    private TableColumn<TransferImpl, String> dateColumn;
-    @FXML
-    private TableColumn<TransferImpl, String> totalPriceColumn;
-    @FXML
-    private TableColumn<TransferImpl, String> trackingColumn;
+    private TableColumn<TransferImpl, String> quantityColumn, isbnColumn, titleColumn, senderColumn, 
+		receiverColumn, dateColumn, totalPriceColumn, trackingColumn;
     
     @FXML
     private Button delete;
-    
+	@FXML
+    private TextField searchField;
+	
 	public MovementsControl(){
 		super();
 	}
