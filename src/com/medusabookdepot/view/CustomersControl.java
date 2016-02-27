@@ -1,5 +1,5 @@
 /**
- * 'customers.fxml' Controller Class
+ * 'customers.fxml' Control Class
  */
 
 package com.medusabookdepot.view;
@@ -8,17 +8,17 @@ import java.util.Optional;
 
 import com.medusabookdepot.controller.CustomersController;
 import com.medusabookdepot.model.modelImpl.CustomerImpl;
+import com.medusabookdepot.view.alert.AlertTypes;
+import com.medusabookdepot.view.alert.AlertTypesImpl;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.TextFieldTableCell;
 
 public class CustomersControl extends ScreenControl{
@@ -27,12 +27,10 @@ public class CustomersControl extends ScreenControl{
 	private CustomersController customersController = CustomersController.getInstanceOf();
 	
 	// Aler panel to manage exceptions
-	private final Alert alert = new Alert(AlertType.WARNING);
+	private final AlertTypes alert = new AlertTypesImpl();
 	
 	public CustomersControl(){
 		super();
-		//Added CSS Style to the alert panel
-		alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
 	}
 	
 	@FXML
@@ -76,46 +74,44 @@ public class CustomersControl extends ScreenControl{
         this.search();
 	}
 
+	/**
+     * Called when the user selects and double click a cell of the table. 
+     * To stop editing the user need to press enter.
+     */
+	@SuppressWarnings("unchecked")
 	private void edit() {
 
-        customersTable.setEditable(true);
+	       //Set all the columns as editable directly from the tableView
+        for(TableColumn<CustomerImpl, ?> column: customersTable.getColumns()){
+			if(column instanceof TableColumn){
+				((TableColumn<CustomerImpl, String>)column).setCellFactory(TextFieldTableCell.forTableColumn());
+			}
+		}
 
         // nameColumn
-        nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         nameColumn.setOnEditCommit(t -> {
 	        try{
 	        	customersController.editName(t.getTableView().getItems().get(t.getTablePosition().getRow()), t.getNewValue()); 
 	        }catch(Exception e){
-	        	alert.setTitle("Pay Attention");
-	        	alert.setHeaderText("Error!");
-	        	alert.setContentText(e.getMessage());
-	        	alert.showAndWait();
+	        	alert.showWarning(e);
 	        }
         });
         
         // addressColumn
-        addressColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         addressColumn.setOnEditCommit(t -> {
 	        try{
 	        	customersController.editAddress(t.getTableView().getItems().get(t.getTablePosition().getRow()), t.getNewValue()); 
 	        }catch(Exception e){
-	        	alert.setTitle("Pay Attention");
-	        	alert.setHeaderText("Error!");
-	        	alert.setContentText(e.getMessage());
-	        	alert.showAndWait();
+	        	alert.showWarning(e);
 	        }
         });
         
         // phoneColumn
-        phoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         phoneColumn.setOnEditCommit(t -> {
 	        try{
 	        	customersController.editPhone(t.getTableView().getItems().get(t.getTablePosition().getRow()), t.getNewValue()); 
 	        }catch(Exception e){
-	        	alert.setTitle("Pay Attention");
-	        	alert.setHeaderText("Error!");
-	        	alert.setContentText(e.getMessage());
-	        	alert.showAndWait();
+	        	alert.showWarning(e);
 	        }
         });
 	}
@@ -129,29 +125,17 @@ public class CustomersControl extends ScreenControl{
            customersController.addCustomer(nameField.getText(), addressField.getText(), phoneField.getText(), typeChoiceBox.getValue());
            this.clear();
         } catch (Exception e) {
-            alert.setTitle("Pay Attention");
-            alert.setHeaderText("Error!");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
+        	alert.showWarning(e);
         }
     }
 	
-	 /**
-     * Called when the user clicks on the delete button.
+	/**
+     * On delete button press, opens a confirmation dialog asking if you 
+     * really want to delete the element is passed 
      */
     @FXML
     private void delete() {
-
-        // On delete button press, opens a confirmation dialog asking if you
-        // really want to delete
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Do you really want to delete the following element?");
-        alert.setContentText(customersTable.getSelectionModel().getSelectedItem().getName());
-        alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
-
-        Optional<ButtonType> result = alert.showAndWait();
-
+    	Optional<ButtonType> result = alert.showConfirmation(customersTable.getSelectionModel().getSelectedItem().getName());
         // When the user clicks ok, the selection gets deleted
         if (result.get() == ButtonType.OK) {
             int selectedIndex = customersTable.getSelectionModel().getSelectedIndex();
@@ -167,12 +151,7 @@ public class CustomersControl extends ScreenControl{
         try {
             customersController.convert();
         } catch (IOException e) {
-            alert.setTitle("Template not found");
-            alert.setHeaderText("Could not load a conversion template for "
-                    + this.getClass().getName().substring(25, new String(this.getClass().getName()).length() - 7));
-            alert.setContentText(
-                    "If it's not there, make it yourself. It's so time consuming and I have more important things to do atm. Sorry :(");
-            alert.showAndWait();
+        	alert.showConvertError(e);
         }
     }
     
@@ -189,7 +168,6 @@ public class CustomersControl extends ScreenControl{
     
     /**
 	 * Method to disable/enable the delete button 
-	 * 
 	 */
     private void update(){
     	delete.setDisable(true);
