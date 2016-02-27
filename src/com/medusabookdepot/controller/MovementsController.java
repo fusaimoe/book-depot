@@ -52,7 +52,7 @@ public class MovementsController {
 	}
 
 	/**
-	 * Add a movement from Tranfer object and save it in file
+	 * Add a movement from Transfer object and save it in file
 	 * 
 	 * @param Movement
 	 */
@@ -75,13 +75,13 @@ public class MovementsController {
 	 */
 
 	/**
-	 * 
-	 * @param sender
-	 * @param receiver
-	 * @param leavingDate
-	 * @param book
-	 * @param quantity
-	 * @param trackingNumber
+	 * Add a new transfer starting by passed strings
+	 * @param Sender
+	 * @param Receiver
+	 * @param Leaving date
+	 * @param Book
+	 * @param Quantity
+	 * @param Tracking number
 	 */
 	public void addMovement(String sender, String receiver, Date leavingDate, String book, String quantity,
 			String trackingNumber) {
@@ -153,7 +153,7 @@ public class MovementsController {
 	}
 
 	/**
-	 * Remove one ore more movements from list and adjust the books in depots
+	 * Remove one movement from list and adjust the books in depots
 	 * 
 	 * @param One
 	 *            ore more movements
