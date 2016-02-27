@@ -180,7 +180,12 @@ public class CustomersController {
 		if(!isCustomerValid(name, customer.getAddress(), customer.getTelephoneNumber(), customer.getType().toString())){
 			throw new IllegalArgumentException("Arguments are not right!");
 		}
-		customers.get(customers.indexOf(customer)).setName(name);
+		try {
+			customers.get(customers.indexOf(customer)).setName(name);
+		} catch (Exception e) {
+			throw new IllegalArgumentException("Customer not found");
+		}
+		
 		fileManager.saveDataToFile();
 	}
 
@@ -195,7 +200,12 @@ public class CustomersController {
 		if(!isCustomerValid(customer.getName(), address, customer.getTelephoneNumber(), customer.getType().toString())){
 			throw new IllegalArgumentException("Arguments are not right!");
 		}
-		customers.get(customers.indexOf(customer)).setAddress(address);
+		try {
+			customers.get(customers.indexOf(customer)).setAddress(address);
+		} catch (Exception e) {
+			throw new IllegalArgumentException("Customer not found");
+		}
+		
 		fileManager.saveDataToFile();
 	}
 
@@ -210,7 +220,11 @@ public class CustomersController {
 		if(!isCustomerValid(customer.getName(), customer.getAddress(), phone, customer.getType().toString())){
 			throw new IllegalArgumentException("Arguments are not right!");
 		}
-		customers.get(customers.indexOf(customer)).setTelephoneNumber(phone);
+		try {
+			customers.get(customers.indexOf(customer)).setTelephoneNumber(phone);
+		} catch (Exception e) {
+			throw new IllegalArgumentException("Customer not found");
+		}
 		fileManager.saveDataToFile();
 	}
 	

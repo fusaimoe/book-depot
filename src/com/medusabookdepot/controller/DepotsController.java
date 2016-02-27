@@ -99,7 +99,12 @@ public class DepotsController {
 		if(this.searchDepot(name).count()>=1){
 			throw new IllegalArgumentException("Depot " + name +" is already present!");
 		}
-		depots.get(depots.indexOf(depot)).setName(name);
+		try {
+			depots.get(depots.indexOf(depot)).setName(name);
+		} catch (Exception e) {
+			throw new IllegalArgumentException("Depot not found");
+		}
+		
 		fileManager.saveDataToFile();
 	}
 	
