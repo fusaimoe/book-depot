@@ -45,9 +45,9 @@ public class MovementsController {
 		return (MovementsController.singMovements == null ? new MovementsController()
 				: MovementsController.singMovements);
 	}
-	
-	public ObservableList<TransferImpl> getTempData(){
-		
+
+	public ObservableList<TransferImpl> getTempData() {
+
 		return tempData;
 	}
 
@@ -76,12 +76,15 @@ public class MovementsController {
 
 	/**
 	 * Add a new transfer starting by passed strings
+	 * 
 	 * @param Sender
 	 * @param Receiver
-	 * @param Leaving date
+	 * @param Leaving
+	 *            date
 	 * @param Book
 	 * @param Quantity
-	 * @param Tracking number
+	 * @param Tracking
+	 *            number
 	 */
 	public void addMovement(String sender, String receiver, Date leavingDate, String book, String quantity,
 			String trackingNumber) {
@@ -90,15 +93,17 @@ public class MovementsController {
 		DepotImpl receiverObj = new DepotImpl();
 		StandardBookImpl bookObj = new StandardBookImpl();
 
-		//Uno dei due deve essere un depot
-		if(!this.isADepot(sender) && !this.isADepot(receiver)){
-			throw new IllegalArgumentException("Receiver or sender must be a depot!");
-		}
-		
+		System.out.println("ss");
 		// Controllo se il movimento ha tutti i presupposti per essere eseguito
 		if (!this.isMovementValid(sender, receiver, leavingDate, book, quantity)) {
 			throw new IllegalArgumentException();
 		}
+
+		// Uno dei due deve essere un depot
+		if (!this.isADepot(sender) && !this.isADepot(receiver)) {
+			throw new IllegalArgumentException("Receiver or sender must be a depot!");
+		}
+
 		// Una volta arrivati qui si tenga presente che si da per scontato il
 		// fatto che tutto può essere fatto senza ulteriori controlli!
 
@@ -161,7 +166,7 @@ public class MovementsController {
 	 *             if you are trying to remove a movement that not exists
 	 */
 	public void removeMovement(TransferImpl t) throws NoSuchElementException {
-		
+
 		try {
 			if (this.isADepot(t.getSender().getName())) {
 				for (DepotImpl d : depots) {
@@ -224,7 +229,8 @@ public class MovementsController {
 					|| Integer.toString(e.getQuantity()).contains(value)
 					|| e.getReceiver().toString().toLowerCase().contains(value.toLowerCase())
 					|| e.getSender().toString().toLowerCase().contains(value.toLowerCase())
-					|| Integer.toString(e.getTotalPrice()).contains(value) || e.getTrackingNumber().toLowerCase().contains(value)) {
+					|| Integer.toString(e.getTotalPrice()).contains(value)
+					|| e.getTrackingNumber().toLowerCase().contains(value)) {
 				result.add(e);
 			}
 		});
@@ -276,11 +282,11 @@ public class MovementsController {
 	 * @return <b>True</b> if the arguments passed are valid
 	 */
 	public boolean isMovementValid(String sender, String receiver, Date leavingDate, String book, String quantity) {
-		
-		if(sender.equals("") || receiver.equals("") || book.equals("") || quantity.equals("")){
+
+		if (sender.equals("") || receiver.equals("") || book.equals("") || quantity.equals("")) {
 			throw new IllegalArgumentException("The arguments must be not empty!");
 		}
-		
+
 		try {
 			Integer.parseInt(quantity);
 		} catch (Exception e) {
@@ -400,34 +406,40 @@ public class MovementsController {
 		});
 		return customersAndDepotsString;
 	}
-	
+
 	/**
-	 * Return a ObservableList with all ISBNs relative a title (A title may  to more than one ISBN, like "Introduction in Java") 
+	 * Return a ObservableList with all ISBNs relative a title (A title may to
+	 * more than one ISBN, like "Introduction in Java")
+	 * 
 	 * @param Title
 	 */
-	public ObservableList<String> getAllIsbnFromTitle(String title){
-		
+	public ObservableList<String> getAllIsbnFromTitle(String title) {
+
 		ObservableList<String> titles = FXCollections.observableArrayList();
-		BooksController.getInstanceOf().searchBook(Optional.empty(), Optional.empty(), Optional.ofNullable(title), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()).forEach(e->{
-			titles.add(e.getIsbn());
-		});
+		BooksController
+				.getInstanceOf().searchBook(Optional.empty(), Optional.empty(), Optional.ofNullable(title),
+						Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty())
+				.forEach(e -> {
+					titles.add(e.getIsbn());
+				});
 		return titles;
 	}
-	
+
 	/**
 	 * @return An OservableList contains all years that have movements
 	 */
-	public ObservableList<String> getYearsWithMovements(){
+	public ObservableList<String> getYearsWithMovements() {
 		ObservableList<String> years = FXCollections.observableArrayList();
-		
-		movements.stream().forEach(e->{
-			
+
+		movements.stream().forEach(e -> {
+
 			LocalDate date = e.getLeavingDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-			// Adding year to the list avoiding copies of the same year (an observableHashSet doesn't exist in FXCollections)
-        	
-			if(!years.stream().anyMatch(f-> f.equals(Integer.toString(date.getYear())))){
-	            years.add(Integer.toString(date.getYear()));
-        	}
+			// Adding year to the list avoiding copies of the same year (an
+			// observableHashSet doesn't exist in FXCollections)
+
+			if (!years.stream().anyMatch(f -> f.equals(Integer.toString(date.getYear())))) {
+				years.add(Integer.toString(date.getYear()));
+			}
 		});
 		return years;
 	}

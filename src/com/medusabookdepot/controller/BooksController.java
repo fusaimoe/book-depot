@@ -295,7 +295,13 @@ public class BooksController {
 		if (title.equals("")) {
 			throw new IllegalArgumentException("The argument must be not empty!");
 		}
-		books.get(books.indexOf(book)).setTitle(title);
+		
+		try {
+			books.get(books.indexOf(book)).setTitle(title);
+		} catch (Exception e) {
+			throw new IllegalArgumentException("Book not found!");
+		}
+		
 		fileManager.saveDataToFile();
 	}
 
@@ -346,7 +352,12 @@ public class BooksController {
 		if (serie.equals("")) {
 			throw new IllegalArgumentException("The argument must be not empty!");
 		}
-		books.get(books.indexOf(book)).setSerie(serie);
+		try {
+			books.get(books.indexOf(book)).setSerie(serie);
+		} catch (Exception e) {
+			throw new IllegalArgumentException("Book not found!");
+		}
+		
 		fileManager.saveDataToFile();
 	}
 
@@ -363,7 +374,12 @@ public class BooksController {
 		if (genre.equals("")) {
 			throw new IllegalArgumentException("The argument must be not empty!");
 		}
-		books.get(books.indexOf(book)).setGenre(genre);
+		try {
+			books.get(books.indexOf(book)).setGenre(genre);
+		} catch (Exception e) {
+			throw new IllegalArgumentException("Book not found!");
+		}
+		
 		fileManager.saveDataToFile();
 	}
 
@@ -380,7 +396,12 @@ public class BooksController {
 		if (author.equals("")) {
 			throw new IllegalArgumentException("The argument must be not empty!");
 		}
-		books.get(books.indexOf(book)).setAuthor(author);
+		try {
+			books.get(books.indexOf(book)).setAuthor(author);
+		} catch (Exception e) {
+			throw new IllegalArgumentException("Book not found!");
+		}
+		
 		fileManager.saveDataToFile();
 	}
 
@@ -392,7 +413,12 @@ public class BooksController {
 	 */
 	public void editPrice(StandardBook book, String price) {
 
-		books.get(books.indexOf(book)).setPrice(this.convertPrice(price));
+		try {
+			books.get(books.indexOf(book)).setPrice(this.convertPrice(price));
+		} catch (Exception e) {
+			throw new IllegalArgumentException("Book not found!");
+		}
+		
 		fileManager.saveDataToFile();
 	}
 
