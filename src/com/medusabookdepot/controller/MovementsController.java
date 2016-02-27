@@ -424,7 +424,8 @@ public class MovementsController {
 			
 			LocalDate date = e.getLeavingDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 			// Adding year to the list avoiding copies of the same year (an observableHashSet doesn't exist in FXCollections)
-        	if(!years.contains(Integer.toString(date.getYear()))){
+        	
+			if(!years.stream().anyMatch(f-> f.equals(Integer.toString(date.getYear())))){
 	            years.add(Integer.toString(date.getYear()));
         	}
 		});
