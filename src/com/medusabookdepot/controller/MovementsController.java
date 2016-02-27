@@ -444,4 +444,31 @@ public class MovementsController {
 		return years;
 	}
 
+	public ObservableList<String> getReceiversFromSender(String sender) {
+		ObservableList<String> receivers = FXCollections.observableArrayList();
+
+		CustomersController.getInstanceOf().getCustomers().stream().forEach(e -> {
+			if (e.getName().equals(sender)) {
+
+				if (e.isADepot()) {
+					CustomersController.getInstanceOf().getCustomers().stream().forEach(f -> {
+						if (!f.getName().equals(sender) && !f.isAPrinter()) {
+							receivers.add(f.getName());
+						}
+					});
+				}
+
+				if (e.isALibrary() || e.isAPrinter()) {
+					CustomersController.getInstanceOf().getCustomers().stream().forEach(f -> {
+						if (!f.getName().equals(sender) && f.isADepot()) {
+							receivers.add(f.getName());
+						}
+					});
+				}
+			}
+		});
+
+		return receivers;
+	}
+
 }
