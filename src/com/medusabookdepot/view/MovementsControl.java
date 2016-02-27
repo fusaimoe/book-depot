@@ -9,21 +9,22 @@ import java.util.Optional;
 
 import com.medusabookdepot.controller.MovementsController;
 import com.medusabookdepot.model.modelImpl.TransferImpl;
+import com.medusabookdepot.view.alert.AlertTypes;
+import com.medusabookdepot.view.alert.AlertTypesImpl;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 
 public class MovementsControl extends ScreenControl{
 	
 	private final MovementsController movementsController = MovementsController.getInstanceOf();
+	private final AlertTypes alert = new AlertTypesImpl();
 	
 	@FXML
     private TableView<TransferImpl> movementsTable;
@@ -62,22 +63,16 @@ public class MovementsControl extends ScreenControl{
         this.update();
         this.search();
     }
+ 
     
     /**
-     * Called when the user add a new book
+     * On delete button press, opens a confirmation dialog asking if you 
+     * really want to delete the element is passed 
      */
     @FXML
     private void delete(){
-    	 // On delete button press, opens a confirmation dialog asking if you
-        // really want to delete
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Do you really want to delete the following element?");
-        alert.setContentText("Tracking Number: " + movementsTable.getSelectionModel().getSelectedItem().getTrackingNumber() 
+        Optional<ButtonType> result = alert.showConfirmation("Tracking Number: " + movementsTable.getSelectionModel().getSelectedItem().getTrackingNumber()
         		+ "\nBook: " + movementsTable.getSelectionModel().getSelectedItem().getBook().getIsbn());
-        alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
-
-        Optional<ButtonType> result = alert.showAndWait();
 
         // When the user clicks ok, the selection gets deleted
         if (result.get() == ButtonType.OK) {

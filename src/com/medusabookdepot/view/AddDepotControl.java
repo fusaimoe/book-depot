@@ -4,29 +4,28 @@ import java.util.Optional;
 
 import com.medusabookdepot.controller.DepotsController;
 import com.medusabookdepot.model.modelImpl.DepotImpl;
+import com.medusabookdepot.view.alert.AlertTypes;
+import com.medusabookdepot.view.alert.AlertTypesImpl;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.TextFieldTableCell;
 
 public class AddDepotControl extends ScreenControl{
 	
 	private final DepotsController depotsController = DepotsController.getInstanceOf();
-    private final Alert alert = new Alert(AlertType.WARNING);
+    private final AlertTypes alert = new AlertTypesImpl();
     
 	public AddDepotControl(){
 		super();
-		alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
 	}
 	
 	@FXML
@@ -72,10 +71,7 @@ public class AddDepotControl extends ScreenControl{
            depotsController.addDepot(nameField.getText());
            this.clear();
         } catch (Exception e) {
-            alert.setTitle("Pay Attention");
-            alert.setHeaderText("Error!");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
+            alert.showWarning(e);
         }
     }
 	
@@ -83,38 +79,25 @@ public class AddDepotControl extends ScreenControl{
      * Called when the user edit a depot name
      */
 	private void edit() {
-
-        depotsTable.setEditable(true);
-
+		
         // nameColumn
         nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         nameColumn.setOnEditCommit(t -> {
 	        try{
 	        	depotsController.editName(t.getTableView().getItems().get(t.getTablePosition().getRow()), t.getNewValue()); 
 	        }catch(Exception e){
-	        	alert.setTitle("Pay Attention");
-	        	alert.setHeaderText("Error!");
-	        	alert.setContentText(e.getMessage());
-	        	alert.showAndWait();
+	        	alert.showWarning(e);
 	        }
         });
 	}
 	
 	/**
-     * Called when the user clicks on the delete button.
+     * On delete button press, opens a confirmation dialog asking if you 
+     * really want to delete the element is passed 
      */
     @FXML
     private void delete() {
-
-        // On delete button press, opens a confirmation dialog asking if you
-        // really want to delete
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Do you really want to delete the following element?");
-        alert.setContentText(depotsTable.getSelectionModel().getSelectedItem().getName());
-        alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
-
-        Optional<ButtonType> result = alert.showAndWait();
+        Optional<ButtonType> result = alert.showConfirmation(depotsTable.getSelectionModel().getSelectedItem().getName());
 
         // When the user clicks ok, the selection gets deleted
         if (result.get() == ButtonType.OK) {

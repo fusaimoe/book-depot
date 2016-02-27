@@ -7,34 +7,32 @@ package com.medusabookdepot.view;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.Optional;
 
 import com.medusabookdepot.controller.MovementsController;
 import com.medusabookdepot.model.modelImpl.TransferImpl;
+import com.medusabookdepot.view.alert.AlertTypes;
+import com.medusabookdepot.view.alert.AlertTypesImpl;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 
 public class AddMovementControl extends ScreenControl{
 	
 	private final MovementsController movementsController = MovementsController.getInstanceOf();
-	@SuppressWarnings("unused") //TODO Try something else
+	
+	@SuppressWarnings("unused")
 	private AutoCompleteComboBoxListener<String> autoCompleteFactory;
 	
 	// Aler panel to manage exceptions
-    private final Alert alert = new Alert(AlertType.WARNING);
+    private final AlertTypes alert = new AlertTypesImpl();
 	
 	@FXML
     private TextField searchField;
@@ -64,14 +62,9 @@ public class AddMovementControl extends ScreenControl{
 
     @FXML
     private HBox hBoxFields;
-    @FXML
-    private Button delete;
-    
+  
     public AddMovementControl(){
 		super();
-		
-		// CSS style added to the alert panel
-        alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
 	}
 
     /**
@@ -113,46 +106,14 @@ public class AddMovementControl extends ScreenControl{
     		movementsController.addMovement(senderBox.getValue(), receiverBox.getValue(), date, isbnBox.getValue(), quantityField.getText(), trackingField.getText());
     		this.clear();
          } catch (Exception e) {
-             alert.setTitle("Pay Attention");
-             alert.setHeaderText("Error!");
-             alert.setContentText(e.getMessage());
-             alert.showAndWait();
+             alert.showWarning(e);
          }
     }
-    
-    /**
-     * Called when the user add a new book
-     */
-    @FXML
-    private void delete(){
-    	 // On delete button press, opens a confirmation dialog asking if you
-        // really want to delete
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Do you really want to delete the following element?");
-        alert.setContentText("Tracking Number: " + movementsTable.getSelectionModel().getSelectedItem().getTrackingNumber()
-        		+ "\nBook: " + movementsTable.getSelectionModel().getSelectedItem().getBook().getIsbn());
-        alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
 
-        Optional<ButtonType> result = alert.showAndWait();
-
-        // When the user clicks ok, the selection gets deleted
-        if (result.get() == ButtonType.OK) {
-            int selectedIndex = movementsTable.getSelectionModel().getSelectedIndex();
-            movementsController.removeMovement(movementsTable.getItems().get(selectedIndex));
-        }
-    }
-    
     /**
 	 * Method to disable/enable the delete button 
 	 */
 	private void update(){
-		// Listen for selection changes of the table and enable delete button
-        delete.setDisable(true);
-        movementsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-        	delete.setDisable(false);
-        });
-        
         // Listen for selection changes of titleBox and enable and filter, isbnBox 
         isbnBox.setDisable(true);
         titleBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -161,15 +122,14 @@ public class AddMovementControl extends ScreenControl{
         	// Set the items of the isbn ComboBox from a list of all the values possible from the selected title
         	isbnBox.setItems(FXCollections.observableArrayList(movementsController.getAllIsbnFromTitle(newValue)));
         	// If there is only one isbn possible value, select it
-        	if(movementsController.getAllIsbnFromTitle(newValue).size()==1){
+        	if(movementsController.getAllIsbnFromTitle(newValue).size()==1) {
         		isbnBox.getSelectionModel().select(0);
 	        }
         	// If the list of all possible values is empty, or the title ComboBox is still empty, disable the isbn ComboBox 
-            if(titleBox.getSelectionModel().isEmpty() || movementsController.getAllIsbnFromTitle(newValue).isEmpty()){
+            if(titleBox.getSelectionModel().isEmpty() || movementsController.getAllIsbnFromTitle(newValue).isEmpty()) {
             	isbnBox.setDisable(true);     	
             }
-        });
-        
+        }); 
 	}
 	
 	@SuppressWarnings("rawtypes")

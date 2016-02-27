@@ -8,6 +8,8 @@ import java.util.Map.Entry;
 import com.medusabookdepot.controller.DepotsController;
 import com.medusabookdepot.model.modelImpl.DepotImpl;
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
+import com.medusabookdepot.view.alert.AlertTypes;
+import com.medusabookdepot.view.alert.AlertTypesImpl;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.value.ChangeListener;
@@ -15,14 +17,12 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 
 public class DepotsControl extends ScreenControl {
@@ -31,7 +31,7 @@ public class DepotsControl extends ScreenControl {
 	private final DepotsController depotsController = DepotsController.getInstanceOf();
 	
 	// Aler panel to manage exceptions
-    private final Alert alert = new Alert(AlertType.WARNING);
+    private final AlertTypes alert = new AlertTypesImpl();
     
     // List of books & quantity to view in the table
     private final ObservableList<Entry<StandardBookImpl,Integer>> data = FXCollections.observableArrayList();
@@ -50,9 +50,6 @@ public class DepotsControl extends ScreenControl {
 			buttonsList.add(button);
 			button.setUserData(depot.getName());
 		}
-		
-		// Adding CSS to the Alert panel
-		alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
 	}
 	
 	@FXML
@@ -105,12 +102,7 @@ public class DepotsControl extends ScreenControl {
         try {
             depotsController.convert();
         } catch (IOException e) {
-            alert.setTitle("Template not found");
-            alert.setHeaderText("Could not load a conversion template for "
-                    + this.getClass().getName().substring(25, new String(this.getClass().getName()).length() - 7));
-            alert.setContentText(
-                    "If it's not there, make it yourself. It's so time consuming and I have more important things to do atm. Sorry :(");
-            alert.showAndWait();
+           alert.showConvertError(e);
         }
     }
 

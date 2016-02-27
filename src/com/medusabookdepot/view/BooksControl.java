@@ -7,10 +7,11 @@ package com.medusabookdepot.view;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.TextFieldTableCell;
 
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
+import com.medusabookdepot.view.alert.AlertTypes;
+import com.medusabookdepot.view.alert.AlertTypesImpl;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -23,12 +24,10 @@ public class BooksControl extends ScreenControl {
     private BooksController booksController = BooksController.getInstanceOf();
     
     // Aler panel to manage exceptions
-    private final Alert alert = new Alert(AlertType.WARNING);
+    private final AlertTypes alert = new AlertTypesImpl();
     
     public BooksControl() {
     	super();
-        //Added CSS Style to the alert panel
-        alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
     }
 
     @FXML
@@ -79,20 +78,13 @@ public class BooksControl extends ScreenControl {
     }
 
     /**
-     * Called when the user clicks on the delete button.
+     * On delete button press, opens a confirmation dialog asking if you 
+     * really want to delete the element is passed 
      */
     @FXML
     private void delete() {
 
-        // On delete button press, opens a confirmation dialog asking if you
-        // really want to delete
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Do you really want to delete the following element?");
-        alert.setContentText(stdBooksTable.getSelectionModel().getSelectedItem().getTitle());
-        alert.getDialogPane().getStylesheets().add(getClass().getResource("materialDesign.css").toExternalForm());
-
-        Optional<ButtonType> result = alert.showAndWait();
+        Optional<ButtonType> result = alert.showConfirmation(stdBooksTable.getSelectionModel().getSelectedItem().getTitle());
 
         // When the user clicks ok, the selection gets deleted
         if (result.get() == ButtonType.OK) {
@@ -102,21 +94,11 @@ public class BooksControl extends ScreenControl {
     }
 
     /**
-     * Called when the user selects and double click a cell of the table. To
-     * stop editing the user need to press enter.
-     * 
-     * Check https://docs.oracle.com/javafx/2/ui_controls/table-view.htm to add
-     * functionality: - stop editing simply by changing focus
-     * 
-     * Use the setCellFactory method to reimplement the table cell as a text
-     * field with the help of the TextFieldTableCell class. The setOnEditCommit
-     * method processes editing and assigns the updated value to the
-     * corresponding table cell.
+     * Called when the user selects and double click a cell of the table. 
+     * To stop editing the user need to press enter.
      */
     @SuppressWarnings("unchecked")
 	private void edit() {
-        
-    	stdBooksTable.setEditable(true);
     	
         //Set all the columns as editable directly from the tableView
         for(TableColumn<StandardBookImpl, ?> n: stdBooksTable.getColumns()){
@@ -130,10 +112,7 @@ public class BooksControl extends ScreenControl {
         	try{
         		booksController.editISBN(t.getTableView().getItems().get(t.getTablePosition().getRow()), t.getNewValue()); 
         	}catch(Exception e){
-                alert.setTitle("Pay Attention");
-                alert.setHeaderText("Error!");
-                alert.setContentText(e.getMessage());
-                alert.showAndWait();
+                alert.showWarning(e);
             }
         });
 
@@ -143,10 +122,7 @@ public class BooksControl extends ScreenControl {
 	            booksController.editTitle(t.getTableView().getItems().get(t.getTablePosition().getRow()),
 	            		t.getNewValue());
         	}catch(Exception e){
-                alert.setTitle("Pay Attention");
-                alert.setHeaderText("Error!");
-                alert.setContentText(e.getMessage());
-                alert.showAndWait();
+        		 alert.showWarning(e);
             }
         });
 
@@ -156,10 +132,7 @@ public class BooksControl extends ScreenControl {
 	        	booksController.editYear(t.getTableView().getItems().get(t.getTablePosition().getRow()), 
 	        			t.getNewValue());
         	}catch(Exception e){
-                alert.setTitle("Pay Attention");
-                alert.setHeaderText("Error!");
-                alert.setContentText(e.getMessage());
-                alert.showAndWait();
+        		 alert.showWarning(e);
             }
         
         });
@@ -170,10 +143,7 @@ public class BooksControl extends ScreenControl {
 	        	booksController.editPages(t.getTableView().getItems().get(t.getTablePosition().getRow()), 
 	        			t.getNewValue());
         	}catch(Exception e){
-                alert.setTitle("Pay Attention");
-                alert.setHeaderText("Error!");
-                alert.setContentText(e.getMessage());
-                alert.showAndWait();
+        		 alert.showWarning(e);
             }
             
         });
@@ -183,10 +153,7 @@ public class BooksControl extends ScreenControl {
         	try{
         		booksController.editSerie(t.getTableView().getItems().get(t.getTablePosition().getRow()), t.getNewValue());
         	}catch(Exception e){
-                alert.setTitle("Pay Attention");
-                alert.setHeaderText("Error!");
-                alert.setContentText(e.getMessage());
-                alert.showAndWait();
+        		 alert.showWarning(e);
             }
             
         });
@@ -196,10 +163,7 @@ public class BooksControl extends ScreenControl {
         	try{
         		booksController.editGenre(t.getTableView().getItems().get(t.getTablePosition().getRow()), t.getNewValue());
         	}catch(Exception e){
-                alert.setTitle("Pay Attention");
-                alert.setHeaderText("Error!");
-                alert.setContentText(e.getMessage());
-                alert.showAndWait();
+        		 alert.showWarning(e);
             }
             
         });
@@ -208,10 +172,7 @@ public class BooksControl extends ScreenControl {
         	try{
         		booksController.editAuthor(t.getTableView().getItems().get(t.getTablePosition().getRow()), t.getNewValue());
         	}catch(Exception e){
-                alert.setTitle("Pay Attention");
-                alert.setHeaderText("Error!");
-                alert.setContentText(e.getMessage());
-                alert.showAndWait();
+        		 alert.showWarning(e);
             }
             
         });
@@ -221,12 +182,9 @@ public class BooksControl extends ScreenControl {
         	try{
 	        	booksController.editPrice(t.getTableView().getItems().get(t.getTablePosition().getRow()), 
 	        			t.getNewValue());
-        	}catch(Exception e){
-                alert.setTitle("Pay Attention");
-                alert.setHeaderText("Error!");
-                alert.setContentText(e.getMessage());
-                alert.showAndWait();
-            }
+        	}catch(Exception e){ 
+        		alert.showWarning(e);
+        	}
             
         });
     }
@@ -242,15 +200,9 @@ public class BooksControl extends ScreenControl {
                     authorField.getText(), priceField.getText());
            this.clear();
         } catch (IndexOutOfBoundsException e){
-            alert.setTitle("Pay Attention");
-            alert.setHeaderText("Error!");
-            alert.setContentText("Price format not valid! (IE 12.50)");
-            alert.showAndWait();
+        	alert.priceError(e);
         } catch (Exception e) {
-            alert.setTitle("Pay Attention");
-            alert.setHeaderText("Error!");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
+        	alert.showWarning(e);
         }
     }
     
@@ -262,12 +214,7 @@ public class BooksControl extends ScreenControl {
         try {
             booksController.convert();
         } catch (IOException e) {
-            alert.setTitle("Template not found");
-            alert.setHeaderText("Could not load a conversion template for "
-                    + this.getClass().getName().substring(25, new String(this.getClass().getName()).length() - 7));
-            alert.setContentText(
-                    "If it's not there, make it yourself. It's so time consuming and I have more important things to do atm. Sorry :(");
-            alert.showAndWait();
+            alert.showConvertError(e);
         }
     }
     
