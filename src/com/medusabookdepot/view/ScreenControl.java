@@ -24,7 +24,7 @@ import javafx.scene.layout.VBox;
 public class ScreenControl extends GUI{
 	
 	@FXML
-	private Button movements, addMovement, depots, books, customers, addCustomer, addBook, addDepot;
+	private Button movements, addMovement, depots, books, customers, addCustomer, addBook, addDepot, statistics, email;
 	
 	@FXML
 	private VBox vBoxFields;
