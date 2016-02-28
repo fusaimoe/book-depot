@@ -1,3 +1,7 @@
+/**
+ * 'depots.fxml' Control Class
+ */
+
 package com.medusabookdepot.view;
 
 import java.io.IOException;
@@ -53,16 +57,22 @@ public class DepotsControl extends ScreenControl {
 	}
 	
 	@FXML
-	private HBox hBox;
-	@FXML
 	private TableView<Entry<StandardBookImpl,Integer>> depotsTable;
+	
 	@FXML
 	private TableColumn<Entry<StandardBookImpl,Integer>, String> quantityColumn, isbnColumn, titleColumn, yearColumn,
 		pagesColumn, serieColumn, genreColumn, authorColumn, priceColumn;
 	
 	@FXML
+	private HBox hBox;
+	
+	@FXML
 	private TextField searchField;
 
+	/**
+     * Called after the fxml file has been loaded.
+     * Method to initializes the control class. 
+     */
 	public void initialize() {
 		
 		// Adding the buttons created in the constructor to the hBox, after the title
@@ -85,6 +95,8 @@ public class DepotsControl extends ScreenControl {
 		
         // Method which handle the selection of a depot
         this.filter();
+        
+        // Use a 'searchField' to search for books in the tableView
         this.search();
         
         // Selecting the first depot of the list for the first time the user opens the screen
@@ -95,19 +107,8 @@ public class DepotsControl extends ScreenControl {
 	}
 	
 	/**
-     * Called when the user wants to convert the TableView to a PDF file
-     */
-    @FXML
-    private void convert() {
-        try {
-            depotsController.convert();
-        } catch (IOException e) {
-           alert.showConvertError(e);
-        }
-    }
-
-	/**
-	 * Called when the user selects a toggle-button, it filters depots so in the table there are only the books from the selected depot
+	 * Called when the user selects a toggle-button 
+	 * Method to filter depots so in the table there are only the books from the selected depot
 	 */
 	private void filter(){
 		
@@ -125,6 +126,7 @@ public class DepotsControl extends ScreenControl {
 			}
 		});
 	}
+	
 	/**
      * Called when the user enter something in the search field
      */
@@ -134,5 +136,17 @@ public class DepotsControl extends ScreenControl {
 		      //depotsTable.setItems(FXCollections.observableArrayList(depotsController.searchDepot(newValue)));
         	}else depotsTable.setItems(data);
         });
+    }
+    
+    /**
+     * Called when the user wants to convert the TableView to a PDF file
+     */
+    @FXML
+    private void convert() {
+        try {
+            depotsController.convert();
+        } catch (IOException e) {
+           alert.showConvertError(e);
+        }
     }
 }

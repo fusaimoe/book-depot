@@ -1,5 +1,5 @@
 /**
- * 'movements.fxml' Controller Class
+ * 'addMovement.fxml' Control Class
  */
 
 package com.medusabookdepot.view;
@@ -26,17 +26,16 @@ import javafx.scene.layout.HBox;
 
 public class AddMovementControl extends ScreenControl{
 	
+	// Reference to the controller
 	private final MovementsController movementsController = MovementsController.getInstanceOf();
-	
-	@SuppressWarnings("unused")
-	private AutoCompleteComboBoxListener<String> autoCompleteFactory;
 	
 	// Aler panel to manage exceptions
     private final AlertTypes alert = new AlertTypesImpl();
 	
-	@FXML
-    private TextField searchField;
-	
+	public AddMovementControl(){
+		super();
+	}
+    
 	@FXML
     private TableView<TransferImpl> movementsTable;
 	
@@ -59,17 +58,16 @@ public class AddMovementControl extends ScreenControl{
     private ComboBox<String> isbnBox;
     @FXML
     private ComboBox<String> titleBox;
+    
+    @SuppressWarnings("unused")
+	private AutoCompleteComboBoxListener<String> autoCompleteFactory;
 
     @FXML
     private HBox hBoxFields;
-  
-    public AddMovementControl(){
-		super();
-	}
-
+	
     /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
+     * Called after the fxml file has been loaded.
+     * Method to initializes the control class. 
      */
     @FXML
     private void initialize() {
@@ -92,11 +90,14 @@ public class AddMovementControl extends ScreenControl{
         receiverBox.setItems(FXCollections.observableArrayList(movementsController.getCustomersAndDepotsString()));
         autoCompleteFactory = new AutoCompleteComboBoxListener<String>(receiverBox);
         
+        // Listen for selection changes and enable delete button or filter the comboBoxes
         this.update();
     }
     
     /**
-     * Called when the user add a new book
+     * Called when the user press the 'add' button 
+     * Method to add a new movement to the controller ObservableList
+     * Method to add a new movement to a temporary ObservableList shown in the TableView
      */
     @FXML
     private void add(){
@@ -111,7 +112,8 @@ public class AddMovementControl extends ScreenControl{
     }
 
     /**
-	 * Method to disable/enable the delete button 
+	 * Method to disable/enable the delete button when something has been selected from the user
+	 * Method to filter the comboBox according to the 'sender' choice
 	 */
 	private void update(){
         // Listen for selection changes of titleBox and enable and filter, isbnBox 

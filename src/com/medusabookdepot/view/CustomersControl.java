@@ -1,5 +1,5 @@
 /**
- * 'customers.fxml' Control Class
+ * 'customers.fxml' and 'addCustomer.fxml' Control Class
  */
 
 package com.medusabookdepot.view;
@@ -35,6 +35,7 @@ public class CustomersControl extends ScreenControl{
 	
 	@FXML
 	private TableView<CustomerImpl> customersTable;
+	
 	@FXML
 	private TableColumn<CustomerImpl, String> nameColumn, addressColumn, phoneColumn, typeColumn;
 	
@@ -49,9 +50,9 @@ public class CustomersControl extends ScreenControl{
     private TextField searchField;
 
     /**
-	 * Initializes the controller class. This method is automatically called
-	 * after the fxml file has been loaded.
-	 */
+     * Called after the fxml file has been loaded.
+     * Method to initializes the control class. 
+     */
 	@FXML
     private void initialize() {
 		
@@ -73,10 +74,24 @@ public class CustomersControl extends ScreenControl{
         // Use a 'searchField' to search for books in the tableView
         this.search();
 	}
-
+	
 	/**
-     * Called when the user selects and double click a cell of the table. 
-     * To stop editing the user need to press enter.
+     * Called when the user press the 'add' button 
+     * Method to add a new customer/supplier to the controller ObservableList of customers
+     */
+	@FXML
+    private void add() {
+        try {
+           customersController.addCustomer(nameField.getText(), addressField.getText(), phoneField.getText(), typeChoiceBox.getValue());
+           this.clear();
+        } catch (Exception e) {
+        	alert.showWarning(e);
+        }
+    }
+	
+	/**
+     * Called when the user edit a customer field directly from the tableColumn
+     * Method to edit the selected field in the observableList of customers
      */
 	@SuppressWarnings("unchecked")
 	private void edit() {
@@ -115,23 +130,11 @@ public class CustomersControl extends ScreenControl{
 	        }
         });
 	}
-	
-	/**
-     * Called when the user add a new customer
-     */
-	@FXML
-    private void add() {
-        try {
-           customersController.addCustomer(nameField.getText(), addressField.getText(), phoneField.getText(), typeChoiceBox.getValue());
-           this.clear();
-        } catch (Exception e) {
-        	alert.showWarning(e);
-        }
-    }
-	
+
 	/**
      * On delete button press, opens a confirmation dialog asking if you 
-     * really want to delete the element is passed 
+     * really want to delete the element
+     * Method to delete the selected element from the observableList of customers
      */
     @FXML
     private void delete() {
@@ -140,18 +143,6 @@ public class CustomersControl extends ScreenControl{
         if (result.get() == ButtonType.OK) {
             int selectedIndex = customersTable.getSelectionModel().getSelectedIndex();
             customersController.removeCustomer(customersTable.getItems().get(selectedIndex));
-        }
-    }
-    
-    /**
-     * Called when the user wants to convert the TableView to a PDF file
-     */
-    @FXML
-    private void convert() {
-        try {
-            customersController.convert();
-        } catch (IOException e) {
-        	alert.showConvertError(e);
         }
     }
     
@@ -167,7 +158,19 @@ public class CustomersControl extends ScreenControl{
     }
     
     /**
-	 * Method to disable/enable the delete button 
+     * Called when the user wants to convert the TableView to a PDF file
+     */
+    @FXML
+    private void convert() {
+        try {
+            customersController.convert();
+        } catch (IOException e) {
+        	alert.showConvertError(e);
+        }
+    }
+    
+    /**
+	 * Method to disable/enable the delete button when something has been selected from the user
 	 */
     private void update(){
     	delete.setDisable(true);

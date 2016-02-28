@@ -17,36 +17,26 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 /**
- * Note that we load the panes with the FXMLLoader
- * on every use. This allows us to manipulate the
- * CSS between loads and have it take affect. 
- * 
- * Also, the panes should not save state internally.
- * Reloading the FXML forces better programming
- * design, because it is impossible to get lazy
- * and expect the panes to save their own state.
  */
-public class ScreenControl {
+public class ScreenControl extends GUI{
 	
 	@FXML
 	private Button movements, addMovement, depots, books, customers, addCustomer, addBook, addDepot;
 	
 	@FXML
 	private VBox vBoxFields;
-
+	
 	@FXML
 	public void switchScreen(ActionEvent event) {
 		try {
 			
 			URL paneMovementsUrl = getClass().getResource(((Control)event.getSource()).getId()+".fxml"); //*((Control)event.getSource()).getId()* get button name
 			ScrollPane paneMovements = FXMLLoader.load( paneMovementsUrl );
-      
-			BorderPane border = Menu.getRoot();
-			border.setCenter(paneMovements);
+
+			this.getMainPane().setCenter(paneMovements);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
