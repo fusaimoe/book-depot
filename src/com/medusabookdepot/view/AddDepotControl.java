@@ -12,8 +12,7 @@ import com.medusabookdepot.view.alert.AlertTypes;
 import com.medusabookdepot.view.alert.AlertTypesImpl;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
+import javafx.collections.FXCollections;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -121,31 +120,11 @@ public class AddDepotControl extends ScreenControl {
      * Called when the user enter something in the search field
      */
     private void search(){
-    	
-        FilteredList<DepotImpl> filteredData = new FilteredList<>(depotsController.getDepots(), p -> true);
- 
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(depot -> {
-            	
-                // If filter text is empty, display all the items.
-                if (newValue == null || newValue.isEmpty()) return true;
-
-                // Compare all the items with filter text.
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                if (depot.getName().toLowerCase().contains(lowerCaseFilter)) return true; 
-                return false; // Does not match.
-            });
+    	searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+        	if (!newValue.isEmpty()){
+		        depotsTable.setItems(FXCollections.observableArrayList(depotsController.searchDepot(newValue)));
+        	}else depotsTable.setItems(depotsController.getDepots());
         });
-
-        // 3. Wrap the FilteredList in a SortedList. 
-        SortedList<DepotImpl> sortedData = new SortedList<>(filteredData);
-
-        // 4. Bind the SortedList comparator to the TableView comparator.
-        sortedData.comparatorProperty().bind(depotsTable.comparatorProperty());
-
-        // 5. Add sorted (and filtered) data to the table.
-        depotsTable.setItems(sortedData);
     }
     
     /**

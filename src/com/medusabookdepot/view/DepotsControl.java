@@ -87,7 +87,7 @@ public class DepotsControl extends ScreenControl {
         isbnColumn.setCellValueFactory(cellData -> cellData.getValue().getKey().isbnProperty());
         titleColumn.setCellValueFactory(cellData -> cellData.getValue().getKey().titleProperty());
         yearColumn.setCellValueFactory(cellData -> cellData.getValue().getKey().yearProperty().asString());
-        pagesColumn.setCellValueFactory(cellData -> cellData.getValue().getKey().yearProperty().asString());
+        pagesColumn.setCellValueFactory(cellData -> cellData.getValue().getKey().pagesProperty().asString());
         serieColumn.setCellValueFactory(cellData -> cellData.getValue().getKey().serieProperty());
         genreColumn.setCellValueFactory(cellData -> cellData.getValue().getKey().genreProperty());
         authorColumn.setCellValueFactory(cellData -> cellData.getValue().getKey().authorProperty());
@@ -121,7 +121,7 @@ public class DepotsControl extends ScreenControl {
 					// The table is cleaned
 					data.clear();
 					// Data is added to the table, relatively to the toggle button selected
-					data.addAll(depotsController.searchDepot((String)buttonsGroup.getSelectedToggle().getUserData()).findFirst().get().getBooks().entrySet());
+					data.addAll(depotsController.filterDepot((String)buttonsGroup.getSelectedToggle().getUserData()).findFirst().get().getBooks().entrySet());
 				}
 			}
 		});
@@ -133,7 +133,7 @@ public class DepotsControl extends ScreenControl {
     private void search(){
     	searchField.textProperty().addListener((observable, oldValue, newValue) -> {
         	if (!newValue.isEmpty()){
-		      //depotsTable.setItems(FXCollections.observableArrayList(depotsController.searchDepot(newValue)));
+		      depotsTable.setItems(FXCollections.observableArrayList(depotsController.searchDepot(data, newValue)));
         	}else depotsTable.setItems(data);
         });
     }
