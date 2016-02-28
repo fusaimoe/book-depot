@@ -200,6 +200,10 @@
 	-fx-border-color: -swatch-500;
 }
 
+.combo-box:editable, .choice-box:editable {
+	-fx-border-width: 0;
+}
+
 .combo-box-base>.label, .choice-box>.label {
 	-fx-padding: 0.7em 0.7em 0.7em 0em;
 }
@@ -426,6 +430,12 @@
 
 .label:show-mnemonics>.mnemonic-underline {
 	-fx-stroke: -fx-text-base-color;
+}
+
+.icon-label {
+	-fx-font-family: 'Material-Design-Iconic-Font';
+	-fx-font-size: 24px;
+	-fx-padding: 6px;
 }
 
 /*******************************************************************************
