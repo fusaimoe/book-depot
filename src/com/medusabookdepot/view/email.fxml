@@ -5,8 +5,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@materialDesign.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.medusabookdepot.view.EmailControl">
 	<content>
 		<VBox styleClass="card">
 			<children>
@@ -27,7 +28,6 @@
 				                <HBox>
 	                           		<children>
 	                           			<TextField prefHeight="42.0" prefWidth="300.0" fx:id="attachedField" />
-	                           			<Button cacheShape="false" centerShape="false" contentDisplay="TEXT_ONLY" mnemonicParsing="false" scaleShape="false" styleClass="icon-button" text="" />
 									</children> 
 						   		</HBox>
 						   		<Pane prefHeight="7.0" />
@@ -37,7 +37,7 @@
                            		<HBox>
 	                           		<children>
 	                           			<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
-								        <Button defaultButton="true" mnemonicParsing="false" text="SEND" HBox.hgrow="ALWAYS"/>
+								        <Button defaultButton="true" mnemonicParsing="false" text="SEND" HBox.hgrow="ALWAYS" onAction="#send"/>
 									</children> 
 						   		</HBox>
 							</children>
@@ -48,6 +48,12 @@
 						<VBox HBox.hgrow="ALWAYS">
 							<children>
 								<ListView fx:id="listView"/>
+								<HBox>
+									<children>
+										<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
+										<Button cacheShape="false" centerShape="false" contentDisplay="TEXT_ONLY" mnemonicParsing="false" scaleShape="false" styleClass="icon-button" text="" onAction="#addAttachment"/>
+									</children>
+								</HBox>
 							</children>
 						</VBox>
 					</children>
