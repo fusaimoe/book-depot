@@ -10,6 +10,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import com.medusabookdepot.controller.files.FileManager;
+import com.medusabookdepot.model.modelImpl.CustomerImpl;
 import com.medusabookdepot.model.modelImpl.DepotImpl;
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 import com.medusabookdepot.model.modelImpl.TransferImpl;
@@ -87,55 +88,41 @@ public class MovementsController {
 	 *            number
 	 */
 	public void addMovement(String sender, String receiver, Date leavingDate, String book, String quantity,
-			String trackingNumber, String type) {
+			String trackingNumber) {
 
 		DepotImpl senderObj = new DepotImpl();
 		DepotImpl receiverObj = new DepotImpl();
 		StandardBookImpl bookObj = new StandardBookImpl();
 
-		// Controllo se il movimento ha tutti i presupposti per essere eseguito
-		if (!this.isMovementValid(sender, receiver, leavingDate, book, quantity, type)) {
+		if (!this.isMovementValid(sender, receiver, leavingDate, book, quantity)) {
 			throw new IllegalArgumentException();
 		}
 
-		// Uno dei due deve essere un depot
 		if (!this.isADepot(sender) && !this.isADepot(receiver)) {
 			throw new IllegalArgumentException("Receiver or sender must be a depot!");
 		}
 
-		// Una volta arrivati qui si tenga presente che si da per scontato il
-		// fatto che tutto può essere fatto senza ulteriori controlli!
-
-		// Cerco il libro corrispondente alla stringa passatami
 		for (StandardBookImpl b : BooksController.getInstanceOf().getBooks()) {
 			if (b.getIsbn().equals(book)) {
 				bookObj = b;
 			}
 		}
 
-		// Controllo se è un depot oppure no, per sapere se togliere i libri da
-		// un eventuale magazzino di partenza oppure solo settare il nome del
-		// sender
 		if (this.isADepot(sender)) {
 			for (DepotImpl d : depots) {
 				if (d.getName().equals(sender)) {
 
-					// Ora che so che è un depot e l'ho trovato rimpiazzo il
-					// libro nella lista in modo da aggiornare la sua quantità
 					senderObj = d;
 					d.setQuantityFromBook(bookObj, d.getQuantityFromStandardBook(bookObj) - Integer.parseInt(quantity));
 					if (d.getQuantityFromStandardBook(bookObj) == 0) {
-						// Rimuovo il libro se è arrivato a quantità zero
 						DepotsController.getInstanceOf().editBookQuantity(d, bookObj, "0");
 					}
 				}
 			}
 		} else {
-			// Se non è un depot setto solamente il nome del mittente (sender)
 			senderObj.setName(sender);
 		}
 
-		// Faccio la stessa cosa con il ricevente ma aggiungo
 		if (this.isADepot(receiver)) {
 			for (DepotImpl d : depots) {
 				if (d.getName().equals(receiver)) {
@@ -150,10 +137,8 @@ public class MovementsController {
 
 		depotsFileManager.saveDataToFile();
 
-		// A questo punto non ci resta che creare l'oggetto Transfer e con
-		// addMovements scrivere su file i vari cambiamenti
 		this.addMovement(new TransferImpl(senderObj, receiverObj, leavingDate, bookObj, trackingNumber,
-				Integer.parseInt(quantity), type));
+				Integer.parseInt(quantity), this.getMovementType(sender, receiver)));
 	}
 
 	/**
@@ -192,6 +177,26 @@ public class MovementsController {
 		} catch (Exception e) {
 			throw new NoSuchElementException("No such element in list!");
 		}
+	}
+
+	public String getMovementType(String sender, String receiver) {
+		if (this.isADepot(sender) && this.isADepot(receiver)) {
+			return "Resupply";
+		}
+		for (CustomerImpl c : CustomersController.getInstanceOf().getCustomers()) {
+			if (c.getName().equals(sender)) {
+				if (c.isAPrinter() && this.isADepot(receiver)) {
+					return "Resupply";
+				}
+				if (c.isALibrary() && this.isADepot(receiver)) {
+					return "Return";
+				}
+				if (this.isADepot(sender) && !this.isADepot(sender)) {
+					return "Sold";
+				}
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -280,9 +285,9 @@ public class MovementsController {
 	 * @param Quantity
 	 * @return <b>True</b> if the arguments passed are valid
 	 */
-	public boolean isMovementValid(String sender, String receiver, Date leavingDate, String book, String quantity, String type) {
+	public boolean isMovementValid(String sender, String receiver, Date leavingDate, String book, String quantity) {
 
-		if (sender.equals("") || receiver.equals("") || book.equals("") || quantity.equals("") || type.equals("")) {
+		if (sender.equals("") || receiver.equals("") || book.equals("") || quantity.equals("")) {
 			throw new IllegalArgumentException("The arguments must be not empty!");
 		}
 
@@ -443,25 +448,32 @@ public class MovementsController {
 		return years;
 	}
 
+	/**
+	 * In base of sender return a list of possible receivers
+	 * 
+	 * @param Sender
+	 *            name
+	 * @return ObservableList with all possible receivers
+	 */
 	public ObservableList<String> getReceiversFromSender(String sender) {
 		ObservableList<String> receivers = FXCollections.observableArrayList();
 
-		DepotsController.getInstanceOf().getDepots().stream().forEach(e->{
-			if(e.getName().equals(sender)){
+		DepotsController.getInstanceOf().getDepots().stream().forEach(e -> {
+			if (e.getName().equals(sender)) {
 				CustomersController.getInstanceOf().getCustomers().stream().forEach(f -> {
 					if (!f.getName().equals(sender) && !f.isAPrinter()) {
 						receivers.add(f.getName());
 					}
 				});
-				DepotsController.getInstanceOf().getDepots().stream().forEach(g->{
-					if(!g.getName().equals(sender)){
+				DepotsController.getInstanceOf().getDepots().stream().forEach(g -> {
+					if (!g.getName().equals(sender)) {
 						receivers.add(g.getName());
 					}
 				});
 			}
 		});
 		CustomersController.getInstanceOf().getCustomers().stream().forEach(e -> {
-			
+
 			if (e.getName().equals(sender)) {
 				if (e.isADepot()) {
 					CustomersController.getInstanceOf().getCustomers().stream().forEach(f -> {
@@ -477,8 +489,8 @@ public class MovementsController {
 							receivers.add(f.getName());
 						}
 					});
-					DepotsController.getInstanceOf().getDepots().stream().forEach(g->{
-						if(!receivers.contains(sender)){
+					DepotsController.getInstanceOf().getDepots().stream().forEach(g -> {
+						if (!receivers.contains(sender)) {
 							receivers.add(g.getName());
 						}
 					});
@@ -487,6 +499,38 @@ public class MovementsController {
 		});
 
 		return receivers;
+	}
+
+	/**
+	 * Takes a transferrer name and if it's a depot put in list all books inside
+	 * its, if it's a library put in list all book titles
+	 * 
+	 * @param Transferrer
+	 *            name
+	 * @return A ObservableList of titles
+	 */
+	public ObservableList<String> getTitleFromTransferrer(String transferrer) {
+		ObservableList<String> titles = FXCollections.observableArrayList();
+
+		if (this.isADepot(transferrer)) {
+			DepotsController.getInstanceOf().getDepots().stream().forEach(e -> {
+				if (e.getName().equals(transferrer)) {
+					e.getBooks().entrySet().stream().forEach(f -> {
+						titles.add(f.getKey().getTitle());
+					});
+				}
+			});
+		} else {
+			CustomersController.getInstanceOf().getCustomers().stream().forEach(e -> {
+				if (e.getName().equals(transferrer) && e.isALibrary()) {
+					BooksController.getInstanceOf().getBooks().stream().forEach(f -> {
+						titles.add(f.getTitle());
+					});
+				}
+			});
+		}
+
+		return titles;
 	}
 
 }
