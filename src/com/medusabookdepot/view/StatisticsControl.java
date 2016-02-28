@@ -1,5 +1,5 @@
 /**
- * 'statistics.fxml' Controller Class
+ * 'statistics.fxml' Control Class
  */
 
 package com.medusabookdepot.view;
@@ -25,16 +25,18 @@ public class StatisticsControl extends ScreenControl{
 
     //ObservableList of movements
     private final MovementsController movementsController = MovementsController.getInstanceOf();
+    
     //ObservableList of months
     private final ObservableList<String> monthNames = FXCollections.observableArrayList(
     		Arrays.asList(DateFormatSymbols.getInstance(Locale.ENGLISH).getMonths()));
+    
     //ObservableList of years
     private final ObservableList<String> yearNames = movementsController.getYearsWithMovements();
+    
     // Create a monthCounter for each month. Add his values to the series.
 	private final int[] monthCounter = new int[12];
-
     
-	public StatisticsControl(){
+	public StatisticsControl() {
 		super();
 	}
 	
@@ -47,9 +49,9 @@ public class StatisticsControl extends ScreenControl{
     @FXML
     private ChoiceBox<String> yearBox;
     
-	 /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
+    /**
+     * Called after the fxml file has been loaded.
+     * Method to initializes the control class. 
      */
     @FXML
     private void initialize() {
@@ -63,8 +65,6 @@ public class StatisticsControl extends ScreenControl{
     
     /**
      * Sets the statistics graph according to the number of movements in a specific month.
-     * 
-     * @param movements
      */
     public void setMovementsData() {
 

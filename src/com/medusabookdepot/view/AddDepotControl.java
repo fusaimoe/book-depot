@@ -1,3 +1,7 @@
+/**
+ * 'addDepot.fxml' Control Class
+ */
+
 package com.medusabookdepot.view;
 
 import java.util.Optional;
@@ -19,9 +23,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldTableCell;
 
-public class AddDepotControl extends ScreenControl{
+public class AddDepotControl extends ScreenControl {
 	
+	// Reference to the controller
 	private final DepotsController depotsController = DepotsController.getInstanceOf();
+	
+	// Aler panel to manage exceptions
     private final AlertTypes alert = new AlertTypesImpl();
     
 	public AddDepotControl(){
@@ -30,6 +37,7 @@ public class AddDepotControl extends ScreenControl{
 	
 	@FXML
 	private TableView<DepotImpl> depotsTable;
+	
 	@FXML
 	private TableColumn<DepotImpl, String> nameColumn;
 	
@@ -41,8 +49,8 @@ public class AddDepotControl extends ScreenControl{
     private TextField searchField;
     
     /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
+     * Called after the fxml file has been loaded.
+     * Method to initializes the control class. 
      */
     public void initialize() {
     	
@@ -63,7 +71,8 @@ public class AddDepotControl extends ScreenControl{
     }
     
     /**
-     * Called when the user add a new depot
+     * Called when the user press the 'add' button 
+     * Method to add a new depot to the controller ObservableList of depots
      */
 	@FXML
     private void add() {
@@ -76,7 +85,8 @@ public class AddDepotControl extends ScreenControl{
     }
 	
 	/**
-     * Called when the user edit a depot name
+     * Called when the user edit a depot name directly from the tableColumn
+     * Method to edit the selected field in the observableList of depots
      */
 	private void edit() {
 		
@@ -93,7 +103,8 @@ public class AddDepotControl extends ScreenControl{
 	
 	/**
      * On delete button press, opens a confirmation dialog asking if you 
-     * really want to delete the element is passed 
+     * really want to delete the element
+     * Method to delete the selected element from the observableList
      */
     @FXML
     private void delete() {
@@ -138,8 +149,7 @@ public class AddDepotControl extends ScreenControl{
     }
     
     /**
-	 * Method to disable/enable the delete button
-	 * 
+	 * Method to disable/enable the delete button when something has been selected from the user
 	 */
 	private void update(){
 		// Listen for selection changes and enable delete button

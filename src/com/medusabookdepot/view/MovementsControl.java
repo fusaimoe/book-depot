@@ -1,5 +1,5 @@
 /**
- * 'movements.fxml' Controller Class
+ * 'movements.fxml' Control Class
  */
 
 package com.medusabookdepot.view;
@@ -23,11 +23,19 @@ import javafx.scene.control.Button;
 
 public class MovementsControl extends ScreenControl{
 	
+	// Reference to the controller
 	private final MovementsController movementsController = MovementsController.getInstanceOf();
+	
+	// Aler panel to manage exceptions
 	private final AlertTypes alert = new AlertTypesImpl();
+	
+	public MovementsControl(){
+		super();
+	}
 	
 	@FXML
     private TableView<TransferImpl> movementsTable;
+	
     @FXML
     private TableColumn<TransferImpl, String> quantityColumn, isbnColumn, titleColumn, senderColumn, 
 		receiverColumn, dateColumn, totalPriceColumn, trackingColumn;
@@ -37,13 +45,9 @@ public class MovementsControl extends ScreenControl{
 	@FXML
     private TextField searchField;
 	
-	public MovementsControl(){
-		super();
-	}
-
-    /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
+	/**
+     * Called after the fxml file has been loaded.
+     * Method to initializes the control class. 
      */
     @FXML
     private void initialize() {
@@ -60,7 +64,10 @@ public class MovementsControl extends ScreenControl{
 	
         movementsTable.setItems(movementsController.getMovements()); 
         
+        // Listen for selection changes and enable delete button
         this.update();
+        
+        // Use a 'searchField' to search for books in the tableView
         this.search();
     }
  
@@ -70,7 +77,7 @@ public class MovementsControl extends ScreenControl{
      * really want to delete the element is passed 
      */
     @FXML
-    private void delete(){
+    private void delete() {
         Optional<ButtonType> result = alert.showConfirmation("Tracking Number: " + movementsTable.getSelectionModel().getSelectedItem().getTrackingNumber()
         		+ "\nBook: " + movementsTable.getSelectionModel().getSelectedItem().getBook().getIsbn());
 
@@ -82,10 +89,9 @@ public class MovementsControl extends ScreenControl{
     }
     
     /**
-	 * Method to disable/enable the delete button
-	 * 
+	 * Method to disable/enable the delete button when something has been selected from the user
 	 */
-	private void update(){
+	private void update() {
 		// Listen for selection changes and enable delete button
         delete.setDisable(true);
         movementsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {

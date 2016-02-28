@@ -1,5 +1,5 @@
 /**
- * 'books.fxml' Controller Class
+ * 'books.fxml' and 'addBook.fxml' Control Class
  */
 
 package com.medusabookdepot.view;
@@ -48,8 +48,8 @@ public class BooksControl extends ScreenControl {
     private TextField searchField;
 
     /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
+     * Called after the fxml file has been loaded.
+     * Method to initializes the control class. 
      */
     @FXML
     private void initialize() {
@@ -76,26 +76,28 @@ public class BooksControl extends ScreenControl {
         // Use a 'searchField' to search for books in the tableView
         this.search();
     }
-
+    
     /**
-     * On delete button press, opens a confirmation dialog asking if you 
-     * really want to delete the element is passed 
+     * Called when the user press the 'add' button 
+     * Method to add a new book to the controller ObservableList of books
      */
     @FXML
-    private void delete() {
-
-        Optional<ButtonType> result = alert.showConfirmation(stdBooksTable.getSelectionModel().getSelectedItem().getTitle());
-
-        // When the user clicks ok, the selection gets deleted
-        if (result.get() == ButtonType.OK) {
-            int selectedIndex = stdBooksTable.getSelectionModel().getSelectedIndex();
-            booksController.removeBook(stdBooksTable.getItems().get(selectedIndex));
+    private void add() {
+        try {
+           booksController.addBook(isbnField.getText(), titleField.getText(), yearField.getText(),
+                    pagesField.getText(), serieField.getText(), genreField.getText(),
+                    authorField.getText(), priceField.getText());
+           this.clear();
+        } catch (IndexOutOfBoundsException e){
+        	alert.priceError(e);
+        } catch (Exception e) {
+        	alert.showWarning(e);
         }
     }
-
+    
     /**
-     * Called when the user selects and double click a cell of the table. 
-     * To stop editing the user need to press enter.
+     * Called when the user edit a book field directly from the tableColumn
+     * Method to edit the selected field in the observableList of books
      */
     @SuppressWarnings("unchecked")
 	private void edit() {
@@ -188,22 +190,33 @@ public class BooksControl extends ScreenControl {
             
         });
     }
-
+    
     /**
-     * Called when the user add a new book
+     * On delete button press, opens a confirmation dialog asking if you 
+     * really want to delete the element
+     * Method to delete the selected element from the observableList of books
      */
     @FXML
-    private void add() {
-        try {
-           booksController.addBook(isbnField.getText(), titleField.getText(), yearField.getText(),
-                    pagesField.getText(), serieField.getText(), genreField.getText(),
-                    authorField.getText(), priceField.getText());
-           this.clear();
-        } catch (IndexOutOfBoundsException e){
-        	alert.priceError(e);
-        } catch (Exception e) {
-        	alert.showWarning(e);
+    private void delete() {
+
+        Optional<ButtonType> result = alert.showConfirmation(stdBooksTable.getSelectionModel().getSelectedItem().getTitle());
+
+        // When the user clicks ok, the selection gets deleted
+        if (result.get() == ButtonType.OK) {
+            int selectedIndex = stdBooksTable.getSelectionModel().getSelectedIndex();
+            booksController.removeBook(stdBooksTable.getItems().get(selectedIndex));
         }
+    }
+
+    /**
+     * Called when the user enter something in the search field
+     */
+    private void search(){
+    	searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+        	if (!newValue.isEmpty()){
+		        stdBooksTable.setItems(FXCollections.observableArrayList(booksController.searchBook(newValue)));
+        	}else stdBooksTable.setItems(booksController.getBooks());
+        });
     }
     
     /**
@@ -219,18 +232,7 @@ public class BooksControl extends ScreenControl {
     }
     
     /**
-     * Called when the user enter something in the search field
-     */
-    private void search(){
-    	searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-        	if (!newValue.isEmpty()){
-		        stdBooksTable.setItems(FXCollections.observableArrayList(booksController.searchBook(newValue)));
-        	}else stdBooksTable.setItems(booksController.getBooks());
-        });
-    }
-    
-    /**
-	 * Method to disable/enable the delete button 
+	 * Method to disable/enable the delete button when something has been selected from the user
 	 */
     private void update(){
     	// Listen for selection changes and enable delete button

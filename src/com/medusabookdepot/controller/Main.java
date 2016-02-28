@@ -5,11 +5,11 @@ import com.medusabookdepot.view.*;
 
 public class Main {
 
-    private final Menu firstFrame;
+    private final GUI firstFrame;
 
     public Main() {
-            this.firstFrame = new Menu();
-            this.firstFrame.mainGui(new String[]{""});
+            this.firstFrame = new GUI();
+            this.firstFrame.showPanel(new String[]{""});
     }
     
     public static void main(String[] args) throws Exception {
