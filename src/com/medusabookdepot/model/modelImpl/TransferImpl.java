@@ -38,19 +38,33 @@ public class TransferImpl implements Transfer, Serializable {
     private StringProperty trackingNumber;
     private StandardBookImpl book;
     private IntegerProperty quantity;
+    private StringProperty type;
 
     public TransferImpl() {
-        this(null,null,null,null,null,0);
+        this(null,null,null,null,null,0,null);
     }
     
     public TransferImpl(CanSendTransferrer sender, Transferrer receiver, Date leavingDate,
-            StandardBookImpl book, String trackingNumber, int quantity) {
+            StandardBookImpl book, String trackingNumber, int quantity,String type) {
         this.sender = sender;
         this.receiver = receiver;
         this.leavingDate = leavingDate;
         this.book = book;
         this.trackingNumber = new SimpleStringProperty(trackingNumber);
         this.quantity=new SimpleIntegerProperty(quantity);
+        this.type=new SimpleStringProperty(type);
+    }
+    @Override
+    public String getType() {
+    	return new String(this.type.get());
+    }
+    @Override
+    public StringProperty typeProperty() {
+    	return new SimpleStringProperty(this.getType());
+    }
+    @Override
+    public void setType(String type) {
+    	this.type.set(type);
     }
     @Override
     public CanSendTransferrer getSender() {
