@@ -87,8 +87,8 @@ public class AddMovementControl extends ScreenControl{
         autoCompleteFactory = new AutoCompleteComboBoxListener<String>(titleBox);
         senderBox.setItems(FXCollections.observableArrayList(movementsController.getCanSendTransferrersString()));
         autoCompleteFactory = new AutoCompleteComboBoxListener<String>(senderBox);
-        receiverBox.setItems(FXCollections.observableArrayList(movementsController.getCustomersAndDepotsString()));
-        autoCompleteFactory = new AutoCompleteComboBoxListener<String>(receiverBox);
+        //receiverBox.setItems(FXCollections.observableArrayList(movementsController.getCustomersAndDepotsString()));
+        //autoCompleteFactory = new AutoCompleteComboBoxListener<String>(receiverBox);
         
         // Listen for selection changes and enable delete button or filter the comboBoxes
         this.update();
@@ -116,7 +116,9 @@ public class AddMovementControl extends ScreenControl{
 	 * Method to filter the comboBox according to the 'sender' choice
 	 */
 	private void update(){
-        // Listen for selection changes of titleBox and enable and filter, isbnBox 
+		//TODO Refactor code
+		
+        // Listen for selection changes of titleBox and enable and filter isbnBox 
         isbnBox.setDisable(true);
         titleBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
         	// Enable button if the title ComboBox has a newValue
@@ -131,7 +133,42 @@ public class AddMovementControl extends ScreenControl{
             if(titleBox.getSelectionModel().isEmpty() || movementsController.getAllIsbnFromTitle(newValue).isEmpty()) {
             	isbnBox.setDisable(true);     	
             }
-        }); 
+        });
+        
+        // Listen for selection changes of senderBox and enable and filter receiverBox 
+        receiverBox.setDisable(true);
+        senderBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        	// Enable button if the title ComboBox has a newValue
+        	receiverBox.setDisable(false);
+        	// Set the items of the isbn ComboBox from a list of all the values possible from the selected title
+        	receiverBox.setItems(FXCollections.observableArrayList(movementsController.getReceiversFromSender(newValue)));
+        	autoCompleteFactory = new AutoCompleteComboBoxListener<String>(receiverBox);
+        	// If there is only one receiver possible value, select it
+        	if(movementsController.getAllIsbnFromTitle(newValue).size()==1) {
+        		receiverBox.getSelectionModel().select(0);
+	        }
+        	// If the list of all possible values is empty, or the sender ComboBox is still empty, disable the receiver ComboBox 
+            if(senderBox.getSelectionModel().isEmpty() || movementsController.getReceiversFromSender(newValue).isEmpty()) {
+            	receiverBox.setDisable(true);     	
+            }
+        });
+        
+        // Listen for selection changes of senderBox and enable and filter titleBox 
+        /*receiverBox.setDisable(true);
+        senderBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        	// Enable button if the title ComboBox has a newValue
+        	receiverBox.setDisable(false);
+        	// Set the items of the isbn ComboBox from a list of all the values possible from the selected title
+        	receiverBox.setItems(FXCollections.observableArrayList(movementsController.getReceiversFromSender(newValue)));
+        	// If there is only one receiver possible value, select it
+        	if(movementsController.getAllIsbnFromTitle(newValue).size()==1) {
+        		receiverBox.getSelectionModel().select(0);
+	        }
+        	// If the list of all possible values is empty, or the sender ComboBox is still empty, disable the receiver ComboBox 
+            if(senderBox.getSelectionModel().isEmpty() || movementsController.getReceiversFromSender(newValue).isEmpty()) {
+            	receiverBox.setDisable(true);     	
+            }
+        });*/
 	}
 	
 	@SuppressWarnings("rawtypes")
