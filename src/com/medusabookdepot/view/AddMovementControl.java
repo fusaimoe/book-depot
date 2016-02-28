@@ -17,6 +17,7 @@ import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
@@ -92,7 +93,9 @@ public class AddMovementControl extends ScreenControl{
      */
     @FXML
     private void add(){
+
     	try {
+    		this.checkIfEmpty();
     		Instant instant = Instant.from(dateField.getValue().atStartOfDay(ZoneId.systemDefault()));
     		Date date = Date.from(instant);
     		movementsController.addMovement(senderBox.getValue(), receiverBox.getValue(), date, isbnBox.getValue(), quantityField.getText(), trackingField.getText());
@@ -175,6 +178,24 @@ public class AddMovementControl extends ScreenControl{
     	    }
     		if (node instanceof ComboBox) {
     	        ((ComboBox)node).getSelectionModel().clearSelection();
+    	    }
+    	}
+    }
+	
+	@SuppressWarnings("rawtypes")
+	public void checkIfEmpty(){
+
+		if(dateField.getValue()==null) throw new IllegalArgumentException("One or more field are empty");
+		
+    	for(Node node: hBoxFields.getChildren()){
+    		if (node instanceof TextField) {
+    	        if(((TextField)node).getText().isEmpty()) throw new NullPointerException("One or more field are empty");
+    	    }
+    		if (node instanceof ChoiceBox) {
+    			if(((ChoiceBox)node).getSelectionModel().isEmpty()) throw new NullPointerException("One or more field are empty");
+    	    }
+    		if (node instanceof ComboBox) {
+    			if(((ComboBox)node).getSelectionModel().isEmpty()) throw new NullPointerException("One or more field are empty");
     	    }
     	}
     }
