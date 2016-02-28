@@ -28,11 +28,7 @@ public class MovementsControl extends ScreenControl{
 	
 	// Aler panel to manage exceptions
 	private final AlertTypes alert = new AlertTypesImpl();
-	
-	public MovementsControl(){
-		super();
-	}
-	
+
 	@FXML
     private TableView<TransferImpl> movementsTable;
 	
@@ -45,6 +41,10 @@ public class MovementsControl extends ScreenControl{
 	@FXML
     private TextField searchField;
 	
+	public MovementsControl(){
+		super();
+	}
+		
 	/**
      * Called after the fxml file has been loaded.
      * Method to initializes the control class. 

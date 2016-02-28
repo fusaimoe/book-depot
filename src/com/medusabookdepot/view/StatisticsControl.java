@@ -35,11 +35,7 @@ public class StatisticsControl extends ScreenControl{
     
     // Create a monthCounter for each month. Add his values to the series.
 	private final int[] monthCounter = new int[12];
-    
-	public StatisticsControl() {
-		super();
-	}
-	
+
 	@FXML
 	private Button statistics;
 	@FXML
@@ -47,8 +43,12 @@ public class StatisticsControl extends ScreenControl{
     @FXML
     private CategoryAxis xAxis;
     @FXML
-    private ChoiceBox<String> yearBox;
-    
+    private ChoiceBox<String> yearBox;    
+	
+    public StatisticsControl() {
+		super();
+	}
+	
     /**
      * Called after the fxml file has been loaded.
      * Method to initializes the control class. 

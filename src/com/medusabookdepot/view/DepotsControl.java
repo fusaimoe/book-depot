@@ -43,6 +43,19 @@ public class DepotsControl extends ScreenControl {
     // ToggleGroup to have just one toggleButton selected at a time
     private final ToggleGroup buttonsGroup = new ToggleGroup();
     private final List<ToggleButton> buttonsList = new ArrayList<>();
+
+	@FXML
+	private TableView<Entry<StandardBookImpl,Integer>> depotsTable;
+	
+	@FXML
+	private TableColumn<Entry<StandardBookImpl,Integer>, String> quantityColumn, isbnColumn, titleColumn, yearColumn,
+		pagesColumn, serieColumn, genreColumn, authorColumn, priceColumn;
+	
+	@FXML
+	private HBox hBox;
+	
+	@FXML
+	private TextField searchField;
     
 	public DepotsControl(){
 		super();
@@ -56,19 +69,6 @@ public class DepotsControl extends ScreenControl {
 		}
 	}
 	
-	@FXML
-	private TableView<Entry<StandardBookImpl,Integer>> depotsTable;
-	
-	@FXML
-	private TableColumn<Entry<StandardBookImpl,Integer>, String> quantityColumn, isbnColumn, titleColumn, yearColumn,
-		pagesColumn, serieColumn, genreColumn, authorColumn, priceColumn;
-	
-	@FXML
-	private HBox hBox;
-	
-	@FXML
-	private TextField searchField;
-
 	/**
      * Called after the fxml file has been loaded.
      * Method to initializes the control class. 
@@ -145,6 +145,7 @@ public class DepotsControl extends ScreenControl {
     private void convert() {
         try {
             depotsController.convert();
+            alert.showOpenPDFConfirmation();
         } catch (IOException e) {
            alert.showConvertError(e);
         }

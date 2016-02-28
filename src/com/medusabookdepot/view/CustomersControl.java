@@ -28,11 +28,7 @@ public class CustomersControl extends ScreenControl{
 	
 	// Aler panel to manage exceptions
 	private final AlertTypes alert = new AlertTypesImpl();
-	
-	public CustomersControl(){
-		super();
-	}
-	
+
 	@FXML
 	private TableView<CustomerImpl> customersTable;
 	
@@ -48,7 +44,11 @@ public class CustomersControl extends ScreenControl{
 	private Button delete;
     @FXML
     private TextField searchField;
-
+	
+	public CustomersControl(){
+		super();
+	}
+	
     /**
      * Called after the fxml file has been loaded.
      * Method to initializes the control class. 
@@ -155,6 +155,7 @@ public class CustomersControl extends ScreenControl{
     private void convert() {
         try {
             customersController.convert();
+            alert.showOpenPDFConfirmation();
         } catch (IOException e) {
         	alert.showConvertError(e);
         }
