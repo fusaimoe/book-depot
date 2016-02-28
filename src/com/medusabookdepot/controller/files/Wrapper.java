@@ -5,7 +5,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAnyElement;
 
 /**
- * Helper class to wrap a list of eleemtns. This is used for saving the list of elements to an XML file. 
+ * Helper class to wrap a list of elements. This is used for saving the list of elements to an XML file. 
  **/
 public class Wrapper<A> {
 

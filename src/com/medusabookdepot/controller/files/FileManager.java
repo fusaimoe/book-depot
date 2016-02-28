@@ -133,6 +133,11 @@ public class FileManager<A> {
 	    }
 	}
 	
+	/**
+	 * Converts the XML file relative to this FileManager to a PDF file, using a FO file as a template
+	 *
+	 * @throws IOException if the FO template file is not present, since it needs to done on purpose
+	 */
 	public void convertXML2PDF() throws IOException {
 		
 		String pdfPath = directoryPath + name + new SimpleDateFormat("yyyyMMdd-HHmm").format(new Date());
