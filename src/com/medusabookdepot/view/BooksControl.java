@@ -4,6 +4,7 @@
 
 package com.medusabookdepot.view;
 
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -62,7 +63,8 @@ public class BooksControl extends ScreenControl {
         serieColumn.setCellValueFactory(cellData -> cellData.getValue().serieProperty());
         genreColumn.setCellValueFactory(cellData -> cellData.getValue().genreProperty());
         authorColumn.setCellValueFactory(cellData -> cellData.getValue().authorProperty());
-        priceColumn.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asString());
+        priceColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(booksController.convertPriceToString
+        		(cellData.getValue().getPrice())));
 
         // Add observable list data to the table
         stdBooksTable.setItems(booksController.getBooks());
