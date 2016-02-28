@@ -447,9 +447,18 @@ public class MovementsController {
 	public ObservableList<String> getReceiversFromSender(String sender) {
 		ObservableList<String> receivers = FXCollections.observableArrayList();
 
+		DepotsController.getInstanceOf().getDepots().stream().forEach(e->{
+			if(e.getName().equals(sender)){
+				CustomersController.getInstanceOf().getCustomers().stream().forEach(f -> {
+					if (!f.getName().equals(sender) && !f.isAPrinter()) {
+						receivers.add(f.getName());
+					}
+				});
+			}
+		});
 		CustomersController.getInstanceOf().getCustomers().stream().forEach(e -> {
+			
 			if (e.getName().equals(sender)) {
-
 				if (e.isADepot()) {
 					CustomersController.getInstanceOf().getCustomers().stream().forEach(f -> {
 						if (!f.getName().equals(sender) && !f.isAPrinter()) {
@@ -462,6 +471,11 @@ public class MovementsController {
 					CustomersController.getInstanceOf().getCustomers().stream().forEach(f -> {
 						if (!f.getName().equals(sender) && f.isADepot()) {
 							receivers.add(f.getName());
+						}
+					});
+					DepotsController.getInstanceOf().getDepots().stream().forEach(g->{
+						if(!receivers.contains(sender)){
+							receivers.add(g.getName());
 						}
 					});
 				}
