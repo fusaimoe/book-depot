@@ -31,7 +31,6 @@ public class AlertTypesImpl implements AlertTypes{
 		confirmation.setTitle("File converted successfully");
 		confirmation.setHeaderText("Do you want to open the PDF?");
 		confirmation.setContentText("Choose OK to open the file");
-		confirmation.showAndWait();
 		
 		return confirmation.showAndWait();
 	}

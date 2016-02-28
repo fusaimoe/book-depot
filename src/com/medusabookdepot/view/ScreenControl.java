@@ -10,21 +10,26 @@ import java.net.URL;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Bounds;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Popup;
 
 /**
  */
 public class ScreenControl extends GUI{
 	
 	@FXML
-	private Button movements, addMovement, depots, books, customers, addCustomer, addBook, addDepot, statistics, email;
+	private Button movements, addMovement, depots, books, customers, addCustomer, addBook, addDepot, statistics, email, credits;
 	
 	@FXML
 	private VBox vBoxFields;
@@ -59,5 +64,26 @@ public class ScreenControl extends GUI{
     	        ((ComboBox)node).getSelectionModel().clearSelection();
     	    }
     	}
+    }
+    
+    @FXML
+    public void openPopup(ActionEvent event){
+    	
+    	final Popup popup = new Popup();
+		popup.setAutoHide(true);
+		popup.setAutoFix(true);
+		
+		// Calculate popup placement coordinates.
+		Node eventSource = (Node) event.getSource();
+		Bounds sourceNodeBounds = eventSource.localToScreen(eventSource.getBoundsInLocal());
+		popup.setX(sourceNodeBounds.getMinX() - 150.0);
+		popup.setY(sourceNodeBounds.getMaxY() + 5.0);
+		
+		Label credits = new Label ("Authors:\n\nCecchetti Giulia\n\nColombo Andrea\n\nCroccolino Lorenzo\n\nFeroce Marcello");
+		credits.setTextAlignment(TextAlignment.CENTER);
+		credits.setPadding(new Insets(32, 38, 32, 38));
+		
+		popup.getContent().add(credits);
+		popup.show(this.getMainPane().getScene().getWindow());
     }
 }

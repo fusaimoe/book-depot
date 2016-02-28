@@ -1,5 +1,6 @@
 package com.medusabookdepot.controller.files;
 
+import java.awt.Desktop;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -36,6 +37,9 @@ public class FileManager<A> {
 	private String name;
 	private String xmlPath;
 	private QName qName;
+	
+	// Path of the last saved PDF file to open
+	private String lastPdf;
 	
 	// Minimum number of character of a full XML file, if the file contains less than MIN_CHARS characters, it is empty
 	private static final int MIN_CHARS = 80;
@@ -139,7 +143,8 @@ public class FileManager<A> {
 	 */
 	public void convertXML2PDF() throws IOException {
 		
-		String pdfPath = PATH + new SimpleDateFormat("yyyyMMdd-HHmm-").format(new Date()) + name;
+		String pdfPath = PATH + new SimpleDateFormat("yyyyMMdd-HHmm-").format(new Date()) + name +".pdf";
+		this.lastPdf = pdfPath;
 		String foPath = FileManager.class.getClassLoader().getResource(name + ".fo").toString();
 		
 		try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(pdfPath))){
@@ -169,8 +174,13 @@ public class FileManager<A> {
 			e.printStackTrace();
 		}
 	}
+	
+	public void openPDF() throws IOException{
+		Desktop.getDesktop().open(new File(lastPdf));
+	}
 
 	public static String getDirectoryPath() {
 		return PATH;
 	}
+	
 }

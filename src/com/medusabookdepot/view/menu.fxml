@@ -13,12 +13,11 @@
 				<Button fx:id="books" mnemonicParsing="false" styleClass="button-flat" text="BOOKS" onAction="#switchScreen" />
 				<Button fx:id="customers" mnemonicParsing="false" styleClass="button-flat" text="CUSTOMERS" onAction="#switchScreen" />
 				<Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-				<HBox maxWidth="1.7976931348623157E308" prefHeight="44.0" prefWidth="157.0">
+				<HBox maxWidth="1.7976931348623157E308" prefHeight="44.0" prefWidth="120">
 					<children>
 						<Button cacheShape="false" centerShape="false" contentDisplay="TEXT_ONLY" mnemonicParsing="false" scaleShape="false" styleClass="icon-button" text="" fx:id="statistics" onAction="#switchScreen" />
-						<Button cacheShape="false" centerShape="false" contentDisplay="TEXT_ONLY" mnemonicParsing="false" scaleShape="false" styleClass="icon-button" text="" />
 						<Button cacheShape="false" centerShape="false" contentDisplay="TEXT_ONLY" mnemonicParsing="false" scaleShape="false" styleClass="icon-button" text="" fx:id="email" onAction="#switchScreen"/>
-						<Button cacheShape="false" centerShape="false" contentDisplay="TEXT_ONLY" mnemonicParsing="false" scaleShape="false" styleClass="icon-button" text="" />
+						<Button cacheShape="false" centerShape="false" contentDisplay="TEXT_ONLY" mnemonicParsing="false" scaleShape="false" styleClass="icon-button" text="" fx:id="credits" onAction="#openPopup"/>
 					</children>
 				</HBox>
 			</items>

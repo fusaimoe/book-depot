@@ -246,4 +246,14 @@ public class CustomersController {
 		fileManager.convertXML2PDF();
 
 	}
+	/**
+	 * Convert the XML file to PDF
+	 * 
+	 * @throws IOException
+	 */
+	public void openPDF() throws IOException {
+
+		fileManager.openPDF();
+
+	}
 }
