@@ -15,26 +15,10 @@
 				<Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
 				<HBox maxWidth="1.7976931348623157E308" prefHeight="44.0" prefWidth="157.0">
 					<children>
-						<Button cacheShape="false" centerShape="false" contentDisplay="TEXT_ONLY" mnemonicParsing="false" scaleShape="false" styleClass="icon-button" text="">
-							<font>
-								<Font name="Material-Design-Iconic-Font" size="18.0" />
-							</font>
-						</Button>
-						<Button cacheShape="false" centerShape="false" contentDisplay="TEXT_ONLY" mnemonicParsing="false" scaleShape="false" styleClass="icon-button" text="" fx:id="statistics" onAction="#switchScreen">
-							<font>
-								<Font name="Material-Design-Iconic-Font" size="18.0" />
-							</font>
-						</Button>
-						<Button cacheShape="false" centerShape="false" contentDisplay="TEXT_ONLY" mnemonicParsing="false" scaleShape="false" styleClass="icon-button" text="">
-							<font>
-								<Font name="Material-Design-Iconic-Font" size="18.0" />
-							</font>
-						</Button>
-						<Button cacheShape="false" centerShape="false" contentDisplay="TEXT_ONLY" mnemonicParsing="false" scaleShape="false" styleClass="icon-button" text="">
-							<font>
-								<Font name="Material-Design-Iconic-Font" size="18.0" />
-							</font>
-						</Button>
+						<Button cacheShape="false" centerShape="false" contentDisplay="TEXT_ONLY" mnemonicParsing="false" scaleShape="false" styleClass="icon-button" text="" fx:id="statistics" onAction="#switchScreen" />
+						<Button cacheShape="false" centerShape="false" contentDisplay="TEXT_ONLY" mnemonicParsing="false" scaleShape="false" styleClass="icon-button" text="" />
+						<Button cacheShape="false" centerShape="false" contentDisplay="TEXT_ONLY" mnemonicParsing="false" scaleShape="false" styleClass="icon-button" text="" />
+						<Button cacheShape="false" centerShape="false" contentDisplay="TEXT_ONLY" mnemonicParsing="false" scaleShape="false" styleClass="icon-button" text="" />
 					</children>
 				</HBox>
 			</items>
