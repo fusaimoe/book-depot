@@ -87,15 +87,14 @@ public class MovementsController {
 	 *            number
 	 */
 	public void addMovement(String sender, String receiver, Date leavingDate, String book, String quantity,
-			String trackingNumber) {
+			String trackingNumber, String type) {
 
 		DepotImpl senderObj = new DepotImpl();
 		DepotImpl receiverObj = new DepotImpl();
 		StandardBookImpl bookObj = new StandardBookImpl();
 
-		System.out.println("ss");
 		// Controllo se il movimento ha tutti i presupposti per essere eseguito
-		if (!this.isMovementValid(sender, receiver, leavingDate, book, quantity)) {
+		if (!this.isMovementValid(sender, receiver, leavingDate, book, quantity, type)) {
 			throw new IllegalArgumentException();
 		}
 
@@ -154,7 +153,7 @@ public class MovementsController {
 		// A questo punto non ci resta che creare l'oggetto Transfer e con
 		// addMovements scrivere su file i vari cambiamenti
 		this.addMovement(new TransferImpl(senderObj, receiverObj, leavingDate, bookObj, trackingNumber,
-				Integer.parseInt(quantity)));
+				Integer.parseInt(quantity), type));
 	}
 
 	/**
@@ -281,9 +280,9 @@ public class MovementsController {
 	 * @param Quantity
 	 * @return <b>True</b> if the arguments passed are valid
 	 */
-	public boolean isMovementValid(String sender, String receiver, Date leavingDate, String book, String quantity) {
+	public boolean isMovementValid(String sender, String receiver, Date leavingDate, String book, String quantity, String type) {
 
-		if (sender.equals("") || receiver.equals("") || book.equals("") || quantity.equals("")) {
+		if (sender.equals("") || receiver.equals("") || book.equals("") || quantity.equals("") || type.equals("")) {
 			throw new IllegalArgumentException("The arguments must be not empty!");
 		}
 
