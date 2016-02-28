@@ -96,39 +96,30 @@ public class CustomersControl extends ScreenControl{
 	@SuppressWarnings("unchecked")
 	private void edit() {
 
-	       //Set all the columns as editable directly from the tableView
-        for(TableColumn<CustomerImpl, ?> column: customersTable.getColumns()){
-			if(column instanceof TableColumn){
-				((TableColumn<CustomerImpl, String>)column).setCellFactory(TextFieldTableCell.forTableColumn());
-			}
-		}
-
-        // nameColumn
-        nameColumn.setOnEditCommit(t -> {
-	        try{
-	        	customersController.editName(t.getTableView().getItems().get(t.getTablePosition().getRow()), t.getNewValue()); 
-	        }catch(Exception e){
-	        	alert.showWarning(e);
-	        }
-        });
-        
-        // addressColumn
-        addressColumn.setOnEditCommit(t -> {
-	        try{
-	        	customersController.editAddress(t.getTableView().getItems().get(t.getTablePosition().getRow()), t.getNewValue()); 
-	        }catch(Exception e){
-	        	alert.showWarning(e);
-	        }
-        });
-        
-        // phoneColumn
-        phoneColumn.setOnEditCommit(t -> {
-	        try{
-	        	customersController.editPhone(t.getTableView().getItems().get(t.getTablePosition().getRow()), t.getNewValue()); 
-	        }catch(Exception e){
-	        	alert.showWarning(e);
-	        }
-        });
+		 for(TableColumn<CustomerImpl, ?> column: customersTable.getColumns()){
+			 if(column instanceof TableColumn){
+					//Set all the columns as editable directly from the tableView
+				 ((TableColumn<CustomerImpl, String>)column).setCellFactory(TextFieldTableCell.forTableColumn());
+					
+					((TableColumn<CustomerImpl, String>)column).setOnEditCommit(t -> {
+			        	try{
+			        		String newValue = t.getNewValue();
+			        		CustomerImpl book = t.getTableView().getItems().get(t.getTablePosition().getRow());
+			        		
+			        		if(((TableColumn<CustomerImpl, String>)column).getText().equals("Name")) 
+			        				customersController.editName(book, newValue);
+			        		
+			        		else if(((TableColumn<CustomerImpl, String>)column).getText().equals("Address")) 
+			        			customersController.editAddress(book, newValue); 
+			        		
+			        		else if(((TableColumn<CustomerImpl, String>)column).getText().equals("Telephone")) 
+			        			customersController.editPhone(book, newValue); 
+				        }catch(Exception e){
+				        	alert.showWarning(e);
+				        }
+					});
+			 }
+		 }
 	}
 
 	/**

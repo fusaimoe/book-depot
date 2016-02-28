@@ -25,7 +25,7 @@
 	                        <TableView editable="true" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS" fx:id="stdBooksTable" >
 	                          <columns>
 	                          	<TableColumn text="ISBN" fx:id="isbnColumn" />
-	                          	<TableColumn text="Title" fx:id="nameColumn" />
+	                          	<TableColumn text="Title" fx:id="titleColumn" />
 	                            <TableColumn text="Year" fx:id="yearColumn" />
 	                            <TableColumn text="Pages" fx:id="pagesColumn" />
 	                            <TableColumn text="Serie" fx:id="serieColumn" />
