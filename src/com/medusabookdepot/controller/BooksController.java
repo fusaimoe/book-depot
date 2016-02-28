@@ -61,6 +61,13 @@ public class BooksController {
 
 		return Integer.parseInt(new StringBuilder(price).deleteCharAt(price.length() - 3).toString());
 	}
+	
+	public String convertPriceToString(int price){
+		
+		String priceInt = Integer.toString(price).substring(0, Integer.toString(price).length() - 2);
+		String priceCent = Integer.toString(price).substring(Integer.toString(price).length() - 2);
+		return (priceInt + "." + priceCent);
+	}
 
 	/**
 	 * Add a new book in the list
