@@ -98,6 +98,21 @@ public interface Transfer {
      * @return the tracking number
      */
     public StringProperty trackingNumberProperty();
+	/**
+	 * 
+	 * @return type of the transfer
+	 */
+	public String getType();
+	/**
+	 * 
+	 * @return type of the transfer
+	 */
+	public StringProperty typeProperty();
+	/**
+	 * 
+	 * @param type is the new type of the transfer
+	 */
+	public void setType(String type);
 
 
 }
