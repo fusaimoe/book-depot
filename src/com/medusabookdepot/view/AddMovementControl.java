@@ -31,11 +31,7 @@ public class AddMovementControl extends ScreenControl{
 	
 	// Aler panel to manage exceptions
     private final AlertTypes alert = new AlertTypesImpl();
-	
-	public AddMovementControl(){
-		super();
-	}
-    
+
 	@FXML
     private TableView<TransferImpl> movementsTable;
 	
@@ -44,20 +40,11 @@ public class AddMovementControl extends ScreenControl{
     	senderColumn, receiverColumn, dateColumn, trackingColumn;
     
     @FXML
-    private ComboBox<String> senderBox;
-    @FXML
-    private ComboBox<String> receiverBox;
+    private ComboBox<String> senderBox, receiverBox, isbnBox, titleBox;;
     @FXML
     private DatePicker dateField;
     @FXML
-    private TextField trackingField;
-    
-    @FXML
-    private TextField quantityField;
-    @FXML
-    private ComboBox<String> isbnBox;
-    @FXML
-    private ComboBox<String> titleBox;
+    private TextField trackingField, quantityField;
     
     @SuppressWarnings("unused")
 	private AutoCompleteComboBoxListener<String> autoCompleteFactory;
@@ -65,6 +52,10 @@ public class AddMovementControl extends ScreenControl{
     @FXML
     private HBox hBoxFields;
 	
+	public AddMovementControl(){
+		super();
+	}
+    
     /**
      * Called after the fxml file has been loaded.
      * Method to initializes the control class. 
@@ -152,7 +143,7 @@ public class AddMovementControl extends ScreenControl{
             	receiverBox.setDisable(true);     	
             }
         });
-        
+  
         // Listen for selection changes of senderBox and enable and filter titleBox 
         /*receiverBox.setDisable(true);
         senderBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {

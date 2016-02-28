@@ -29,11 +29,7 @@ public class AddDepotControl extends ScreenControl {
 	
 	// Aler panel to manage exceptions
     private final AlertTypes alert = new AlertTypesImpl();
-    
-	public AddDepotControl(){
-		super();
-	}
-	
+
 	@FXML
 	private TableView<DepotImpl> depotsTable;
 	
@@ -47,6 +43,10 @@ public class AddDepotControl extends ScreenControl {
     @FXML
     private TextField searchField;
     
+	public AddDepotControl(){
+		super();
+	}
+	    
     /**
      * Called after the fxml file has been loaded.
      * Method to initializes the control class. 

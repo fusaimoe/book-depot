@@ -11,6 +11,8 @@ public interface AlertTypes {
 
 	public Optional<ButtonType> showConfirmation(String element);
 	
+	public Optional<ButtonType> showOpenPDFConfirmation();
+	
 	public void showError(Exception e);
 	
 	public void showWarning(Exception e);
@@ -21,6 +23,5 @@ public interface AlertTypes {
 	
 	public void emailNotSentError(MessagingException e);
 	
-	public void emailSentSuccessfully();
-	
+	public void emailSentSuccessfully();	
 }

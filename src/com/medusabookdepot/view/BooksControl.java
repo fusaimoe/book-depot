@@ -26,10 +26,6 @@ public class BooksControl extends ScreenControl {
     
     // Aler panel to manage exceptions
     private final AlertTypes alert = new AlertTypesImpl();
-    
-    public BooksControl() {
-    	super();
-    }
 
     @FXML
     private TableView<StandardBookImpl> stdBooksTable;
@@ -47,6 +43,10 @@ public class BooksControl extends ScreenControl {
     private Button convert;
     @FXML
     private TextField searchField;
+    
+    public BooksControl() {
+    	super();
+    }
 
     /**
      * Called after the fxml file has been loaded.
@@ -181,6 +181,7 @@ public class BooksControl extends ScreenControl {
     private void convert() {
         try {
             booksController.convert();
+            alert.showOpenPDFConfirmation();
         } catch (IOException e) {
             alert.showConvertError(e);
         }

@@ -24,6 +24,17 @@ public class AlertTypesImpl implements AlertTypes{
 		warning.getDialogPane().getStylesheets().add(getClass().getResource("../materialDesign.css").toExternalForm());
 		information.getDialogPane().getStylesheets().add(getClass().getResource("../materialDesign.css").toExternalForm());
 	}
+
+	
+	@Override
+	public Optional<ButtonType> showOpenPDFConfirmation() {
+		confirmation.setTitle("File converted successfully");
+		confirmation.setHeaderText("Do you want to open the PDF?");
+		confirmation.setContentText("Choose OK to open the file");
+		confirmation.showAndWait();
+		
+		return confirmation.showAndWait();
+	}
 	
 	@Override
 	public Optional<ButtonType> showConfirmation(String element) {
