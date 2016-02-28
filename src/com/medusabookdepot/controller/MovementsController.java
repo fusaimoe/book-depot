@@ -454,6 +454,11 @@ public class MovementsController {
 						receivers.add(f.getName());
 					}
 				});
+				DepotsController.getInstanceOf().getDepots().stream().forEach(g->{
+					if(!g.getName().equals(sender)){
+						receivers.add(g.getName());
+					}
+				});
 			}
 		});
 		CustomersController.getInstanceOf().getCustomers().stream().forEach(e -> {
