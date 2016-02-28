@@ -39,9 +39,8 @@ public class FileManager<A> {
 	
 	// Minimum number of character of a full XML file, if the file contains less than MIN_CHARS characters, it is empty
 	private static final int MIN_CHARS = 80;
-	
-	// Fields relative to paths
-	private String directoryPath = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot" + System.getProperty("file.separator");
+	// Path to the book-depot directory, located into the home of the user
+	private static final String PATH = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot" + System.getProperty("file.separator");
 	
 	/**
 	 * Constructor
@@ -66,7 +65,7 @@ public class FileManager<A> {
 		this.classType = classType;
 		
 		this.name = name;
-		this.xmlPath = directoryPath + ".xml" + System.getProperty("file.separator") + name + ".xml";
+		this.xmlPath = PATH + ".xml" + System.getProperty("file.separator") + name + ".xml";
 		
 		this.qName= new QName(name);
 		
@@ -140,7 +139,7 @@ public class FileManager<A> {
 	 */
 	public void convertXML2PDF() throws IOException {
 		
-		String pdfPath = directoryPath + name + new SimpleDateFormat("yyyyMMdd-HHmm").format(new Date());
+		String pdfPath = PATH + new SimpleDateFormat("yyyyMMdd-HHmm-").format(new Date()) + name;
 		String foPath = FileManager.class.getClassLoader().getResource(name + ".fo").toString();
 		
 		try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(pdfPath))){
@@ -169,5 +168,9 @@ public class FileManager<A> {
         } catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static String getDirectoryPath() {
+		return PATH;
 	}
 }
