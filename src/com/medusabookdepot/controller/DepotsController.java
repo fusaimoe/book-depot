@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.NoSuchElementException;
+import java.util.stream.Stream;
 
 import com.medusabookdepot.controller.files.FileManager;
 import com.medusabookdepot.model.modelImpl.DepotImpl;
@@ -68,7 +69,17 @@ public class DepotsController {
 		depots.add(new DepotImpl(name, new HashMap<>()));
 		fileManager.saveDataToFile();
 	}
-
+	
+	/**
+	 * Filter depots list with name
+	 * @param Name
+	 * @return Stream of depots that name contains the string passed
+	 */
+	public Stream<DepotImpl>filterDepot(String name){
+		
+		return this.getDepots().stream().filter(e->e.getName().toLowerCase().contains(name.toLowerCase()));
+	}
+	
 	/**
 	 * Search a depot in the list
 	 * 
