@@ -313,12 +313,15 @@ public class BooksController {
 	 * @throws IllegalArgumentException
 	 */
 	public void editYear(StandardBook book, String year) {
-
-		if (!this.isInputValid(book.getIsbn(), year, Integer.toString(book.getPages()), book.getSerie(),
-				book.getGenre(), book.getAuthor())) {
-			throw new IllegalArgumentException("Year is not valid!");
+		
+		try {
+			books.get(books.indexOf(book)).setYear(Integer.parseInt(year));
+		} catch (NumberFormatException nf) {
+			throw new IllegalArgumentException("Year must be an integer!");
+		} catch ( Exception e){
+			throw new IllegalArgumentException("Book not found!");
 		}
-		books.get(books.indexOf(book)).setYear(Integer.parseInt(year));
+		
 		fileManager.saveDataToFile();
 	}
 
@@ -331,11 +334,14 @@ public class BooksController {
 	 */
 	public void editPages(StandardBook book, String pages) {
 
-		if (!this.isInputValid(book.getIsbn(), Integer.toString(book.getYear()), pages, book.getSerie(),
-				book.getGenre(), book.getAuthor())) {
-			throw new IllegalArgumentException("Pages number is not valid!");
+		try {
+			books.get(books.indexOf(book)).setPages(Integer.parseInt(pages));
+		} catch (NumberFormatException nf) {
+			throw new IllegalArgumentException("Pages number must be an integer!");
+		} catch ( Exception e){
+			throw new IllegalArgumentException("Book not found!");
 		}
-		books.get(books.indexOf(book)).setPages(Integer.parseInt(pages));
+		
 		fileManager.saveDataToFile();
 	}
 

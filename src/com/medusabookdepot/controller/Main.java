@@ -19,6 +19,10 @@ public class Main {
     	System.out.println("JUnit test result: " + (prova.getResult()?"SUCCESS!":"FAIL!"));
     	System.out.println("Loading UI ..");
         new Main();
+        
+        MovementsController.getInstanceOf().getReceiversFromSender("Medusa").stream().forEach(e->{
+        	System.out.println(e);
+        });
     }
 
 }
