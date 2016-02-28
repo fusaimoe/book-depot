@@ -34,7 +34,7 @@ public class BooksControl extends ScreenControl {
     private TableView<StandardBookImpl> stdBooksTable;
     
     @FXML
-    private TableColumn<StandardBookImpl, String> isbnColumn, nameColumn, yearColumn, pagesColumn, 
+    private TableColumn<StandardBookImpl, String> isbnColumn, titleColumn, yearColumn, pagesColumn, 
     	serieColumn, genreColumn, authorColumn, priceColumn;
 
     @FXML
@@ -56,7 +56,7 @@ public class BooksControl extends ScreenControl {
 	
         // Initialize the table
         isbnColumn.setCellValueFactory(cellData -> cellData.getValue().isbnProperty());
-        nameColumn.setCellValueFactory(cellData -> cellData.getValue().titleProperty());
+        titleColumn.setCellValueFactory(cellData -> cellData.getValue().titleProperty());
         yearColumn.setCellValueFactory(cellData -> cellData.getValue().yearProperty().asString());
         pagesColumn.setCellValueFactory(cellData -> cellData.getValue().pagesProperty().asString());
         serieColumn.setCellValueFactory(cellData -> cellData.getValue().serieProperty());
@@ -101,94 +101,47 @@ public class BooksControl extends ScreenControl {
      */
     @SuppressWarnings("unchecked")
 	private void edit() {
-    	
-        //Set all the columns as editable directly from the tableView
+    	    
         for(TableColumn<StandardBookImpl, ?> n: stdBooksTable.getColumns()){
 			if(n instanceof TableColumn){
+				//Set all the columns as editable directly from the tableView
 				((TableColumn<StandardBookImpl, String>)n).setCellFactory(TextFieldTableCell.forTableColumn());
+				
+				((TableColumn<StandardBookImpl, String>)n).setOnEditCommit(t -> {
+		        	try{
+		        		String newValue = t.getNewValue();
+		        		StandardBookImpl book = t.getTableView().getItems().get(t.getTablePosition().getRow());
+		        		
+		        		if(((TableColumn<StandardBookImpl, String>)n).getText().equals("ISBN")) 
+		        				booksController.editISBN(book, newValue);
+		        		
+		        		else if(((TableColumn<StandardBookImpl, String>)n).getText().equals("Title")) 
+	        				booksController.editTitle(book, newValue); 
+		        		
+		        		else if(((TableColumn<StandardBookImpl, String>)n).getText().equals("Year")) 
+	        				booksController.editYear(book, newValue);
+		        		
+		        		else if(((TableColumn<StandardBookImpl, String>)n).getText().equals("Pages")) 
+	        				booksController.editPages(book, newValue);
+		        		
+		        		else if(((TableColumn<StandardBookImpl, String>)n).getText().equals("Serie")) 
+	        				booksController.editSerie(book, newValue);
+		        		
+		        		else if(((TableColumn<StandardBookImpl, String>)n).getText().equals("Genre")) 
+	        				booksController.editGenre(book, newValue);
+		        		
+		        		else if(((TableColumn<StandardBookImpl, String>)n).getText().equals("Author")) 
+	        				booksController.editAuthor(book, newValue);
+		        		
+		        		else if(((TableColumn<StandardBookImpl, String>)n).getText().equals("Price")) 
+	        				booksController.editPrice(book, newValue);
+		        		
+		        	}catch(Exception e){
+		                alert.showWarning(e);
+		            }
+		        });
 			}
 		}
-		
-        // isbnColumn
-        isbnColumn.setOnEditCommit(t -> {
-        	try{
-        		booksController.editISBN(t.getTableView().getItems().get(t.getTablePosition().getRow()), t.getNewValue()); 
-        	}catch(Exception e){
-                alert.showWarning(e);
-            }
-        });
-
-        // titleColumn
-        nameColumn.setOnEditCommit(t -> {
-        	try{
-	            booksController.editTitle(t.getTableView().getItems().get(t.getTablePosition().getRow()),
-	            		t.getNewValue());
-        	}catch(Exception e){
-        		 alert.showWarning(e);
-            }
-        });
-
-        // yearColumn
-        yearColumn.setOnEditCommit(t -> {
-        	try{
-	        	booksController.editYear(t.getTableView().getItems().get(t.getTablePosition().getRow()), 
-	        			t.getNewValue());
-        	}catch(Exception e){
-        		 alert.showWarning(e);
-            }
-        
-        });
-
-        // pagesColumn
-        pagesColumn.setOnEditCommit(t -> {
-        	try{
-	        	booksController.editPages(t.getTableView().getItems().get(t.getTablePosition().getRow()), 
-	        			t.getNewValue());
-        	}catch(Exception e){
-        		 alert.showWarning(e);
-            }
-            
-        });
-
-        // serieColumn
-        serieColumn.setOnEditCommit(t -> {
-        	try{
-        		booksController.editSerie(t.getTableView().getItems().get(t.getTablePosition().getRow()), t.getNewValue());
-        	}catch(Exception e){
-        		 alert.showWarning(e);
-            }
-            
-        });
-
-        // genreColumn
-        genreColumn.setOnEditCommit(t -> {
-        	try{
-        		booksController.editGenre(t.getTableView().getItems().get(t.getTablePosition().getRow()), t.getNewValue());
-        	}catch(Exception e){
-        		 alert.showWarning(e);
-            }
-            
-        });
-        // authorColumn
-        authorColumn.setOnEditCommit(t -> {
-        	try{
-        		booksController.editAuthor(t.getTableView().getItems().get(t.getTablePosition().getRow()), t.getNewValue());
-        	}catch(Exception e){
-        		 alert.showWarning(e);
-            }
-            
-        });
-
-        // priceColumn
-        priceColumn.setOnEditCommit(t -> {
-        	try{
-	        	booksController.editPrice(t.getTableView().getItems().get(t.getTablePosition().getRow()), 
-	        			t.getNewValue());
-        	}catch(Exception e){ 
-        		alert.showWarning(e);
-        	}
-            
-        });
     }
     
     /**
