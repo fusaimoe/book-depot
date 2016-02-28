@@ -23,8 +23,10 @@ public class EmailSender {
         send(receiver, subject, body, attachment);
     }//*/
 
-    private static void send(String receiver, String subject, String body, String attachment) throws MessagingException {
+    public void send(String receiver, String subject, String body, String attachment) throws MessagingException {
+    	
         Properties props = System.getProperties();
+        
         String host = "smtp.gmail.com";
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", host);
@@ -36,43 +38,29 @@ public class EmailSender {
         Session session = Session.getInstance(props, null);
 
         MimeMessage message = new MimeMessage(session);
-
         message.setFrom(new InternetAddress(USERNAME+"@gmail.com"));
-
         message.setRecipients(Message.RecipientType.TO, receiver);
-
         message.setSubject(subject);
 
         BodyPart messageBodyPart = new MimeBodyPart();
-
         messageBodyPart.setText(body);
 
         Multipart multipart = new MimeMultipart();
-
         multipart.addBodyPart(messageBodyPart);
-
         messageBodyPart = new MimeBodyPart();
 
         DataSource source = new FileDataSource(FileManager.getDirectoryPath()+attachment);
-
         messageBodyPart.setDataHandler(new DataHandler(source));
-
         messageBodyPart.setFileName(attachment);
-
         multipart.addBodyPart(messageBodyPart);
-
         message.setContent(multipart);
 
-        try {
-            Transport tr = session.getTransport("smtps");
-            tr.connect(host, USERNAME, PASSWORD);
-            tr.sendMessage(message, message.getAllRecipients());
-            System.out.println("Mail Sent Successfully");
-            tr.close();
+        
+        Transport tr = session.getTransport("smtps");
+        tr.connect(host, USERNAME, PASSWORD);
+        tr.sendMessage(message, message.getAllRecipients());
+        System.out.println("Mail Sent Successfully");
+        tr.close();
 
-        } catch (SendFailedException sfe) {
-
-            System.out.println(sfe);
-        }
     }
 }

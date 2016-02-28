@@ -153,11 +153,20 @@ public class CustomersControl extends ScreenControl{
      */
     @FXML
     private void convert() {
-        try {
-            customersController.convert();
-            alert.showOpenPDFConfirmation();
-        } catch (IOException e) {
-        	alert.showConvertError(e);
+    	try {
+			customersController.convert();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
+    	Optional<ButtonType> result = alert.showOpenPDFConfirmation();
+        // When the user clicks ok, the file opens with the default editor
+        if (result.get() == ButtonType.OK) {
+            try {
+				customersController.openPDF();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
         }
     }
     
