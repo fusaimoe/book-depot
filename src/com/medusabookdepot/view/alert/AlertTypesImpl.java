@@ -3,8 +3,6 @@ package com.medusabookdepot.view.alert;
 import java.io.IOException;
 import java.util.Optional;
 
-import javax.mail.MessagingException;
-
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
@@ -76,10 +74,10 @@ public class AlertTypesImpl implements AlertTypes{
 	}
 
 	@Override
-	public void emailNotSentError(MessagingException e) {
+	public void emailNotSentError() {
 		error.setTitle("Error");
         error.setHeaderText("Something went wrong!");
-        error.setContentText("Mail not sent");
+        error.setContentText("The email has not been sent");
         error.showAndWait();
 	}
 	
