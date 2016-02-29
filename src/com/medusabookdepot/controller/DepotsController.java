@@ -10,11 +10,12 @@ import java.util.stream.Stream;
 import com.medusabookdepot.controller.files.FileManager;
 import com.medusabookdepot.model.modelImpl.DepotImpl;
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
+import com.medusabookdepot.view.observer.DepotsViewObserver;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class DepotsController {
+public class DepotsController  implements DepotsViewObserver{
 
 	private final ObservableList<DepotImpl> depots = FXCollections.observableArrayList();
 	private static DepotsController singDepots;

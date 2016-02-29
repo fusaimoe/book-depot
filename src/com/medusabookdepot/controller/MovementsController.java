@@ -15,11 +15,12 @@ import com.medusabookdepot.model.modelImpl.DepotImpl;
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 import com.medusabookdepot.model.modelImpl.TransferImpl;
 import com.medusabookdepot.model.modelInterface.Transfer;
+import com.medusabookdepot.view.observer.MovementsViewObserver;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class MovementsController extends PriceManagementController{
+public class MovementsController extends PriceManagementController implements MovementsViewObserver{
 
 	private final ObservableList<TransferImpl> movements = FXCollections.observableArrayList();
 	private final ObservableList<TransferImpl> tempData = FXCollections.observableArrayList();
