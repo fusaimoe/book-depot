@@ -18,8 +18,6 @@ import com.medusabookdepot.model.modelInterface.Depot;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 /**
  * @author Marcello_Feroce
@@ -141,11 +139,6 @@ public class DepotImpl extends TransferrerImpl implements Depot, CanSendTransfer
     @Override
     public IntegerProperty quantityFromYearProperty(int year) {
         return new SimpleIntegerProperty(this.getQuantityFromYear(year));
-    }
-
-    @Override
-    public StringProperty booksAsACoolStringProperty() {
-        return new SimpleStringProperty(this.getBooksAsACoolString());
     }
     @Override
     public boolean containsBooks(Map<StandardBookImpl, Integer> books) {
