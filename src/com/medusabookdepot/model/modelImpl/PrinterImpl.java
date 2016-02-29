@@ -61,7 +61,7 @@ public class PrinterImpl extends CustomerImpl implements Customer, CanSendTransf
         return false;
     }
     @Override
-    public StringProperty getType() {
+    public StringProperty typeProperty() {
         return new SimpleStringProperty("Printery");
     }
 }

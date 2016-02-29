@@ -62,7 +62,7 @@ public class LibraryImpl extends CustomerImpl implements Customer, CanSendTransf
         return true;
     }
     @Override
-    public StringProperty getType() {
+    public StringProperty typeProperty() {
         return new SimpleStringProperty("Library");
     }
 

@@ -56,8 +56,9 @@ public class PersonImpl extends CustomerImpl implements Customer, Serializable {
         return false;
     }
     @Override
-    public StringProperty getType() {
+    public StringProperty typeProperty() {
         return new SimpleStringProperty("Person");
     }
+    
 
 }

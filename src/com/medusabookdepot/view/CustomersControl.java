@@ -60,7 +60,7 @@ public class CustomersControl extends ScreenControl{
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         addressColumn.setCellValueFactory(cellData -> cellData.getValue().addressProperty());
         phoneColumn.setCellValueFactory(cellData -> cellData.getValue().telephoneNumberProperty());
-        typeColumn.setCellValueFactory(cellData -> cellData.getValue().getType());
+        typeColumn.setCellValueFactory(cellData -> cellData.getValue().typeProperty());
        
         // Add observable list data to the table
         customersTable.setItems(customersController.getCustomers());
