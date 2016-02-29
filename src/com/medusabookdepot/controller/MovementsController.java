@@ -19,7 +19,7 @@ import com.medusabookdepot.model.modelInterface.Transfer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class MovementsController {
+public class MovementsController extends PriceManagementController{
 
 	private final ObservableList<TransferImpl> movements = FXCollections.observableArrayList();
 	private final ObservableList<TransferImpl> tempData = FXCollections.observableArrayList();
@@ -522,7 +522,7 @@ public class MovementsController {
 			});
 		} else {
 			CustomersController.getInstanceOf().getCustomers().stream().forEach(e -> {
-				if (e.getName().equals(transferrer) && e.isALibrary()) {
+				if (e.getName().equals(transferrer) && (e.isALibrary() || e.isAPrinter())) {
 					BooksController.getInstanceOf().getBooks().stream().forEach(f -> {
 						titles.add(f.getTitle());
 					});
@@ -532,5 +532,4 @@ public class MovementsController {
 
 		return titles;
 	}
-
 }
