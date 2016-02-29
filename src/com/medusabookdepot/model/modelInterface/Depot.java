@@ -95,11 +95,6 @@ public interface Depot extends CanSendTransferrer {
     public String getBooksAsACoolString();
     /**
      * 
-     * @return a String of the books contained in Depot
-     */
-    public StringProperty booksAsACoolStringProperty();
-    /**
-     * 
      * @param isbns is a list of isbns(as Strings)
      * @return a map of StandardBook, Integer matching with all isbns in input
      */
