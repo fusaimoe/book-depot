@@ -11,11 +11,12 @@ import com.medusabookdepot.controller.files.FileManager;
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 import com.medusabookdepot.model.modelInterface.Depot;
 import com.medusabookdepot.model.modelInterface.StandardBook;
+import com.medusabookdepot.view.observer.BooksViewObserver;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class BooksController extends PriceManagementController {
+public class BooksController extends PriceManagementController implements BooksViewObserver {
 
 	private final static String NAME = "books"; // Name of the file, for the FileManager class
 	private static final int ISBN_LENGTH = 13;

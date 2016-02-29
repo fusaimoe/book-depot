@@ -10,13 +10,14 @@ import java.util.stream.Stream;
 import com.medusabookdepot.model.modelImpl.LibraryImpl;
 import com.medusabookdepot.model.modelImpl.PersonImpl;
 import com.medusabookdepot.model.modelImpl.PrinterImpl;
+import com.medusabookdepot.view.observer.CustomersViewObserver;
 import com.medusabookdepot.controller.files.FileManager;
 import com.medusabookdepot.model.modelImpl.CustomerImpl;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class CustomersController {
+public class CustomersController implements CustomersViewObserver {
 
 	/**
 	 * The list that contains all saved customers
