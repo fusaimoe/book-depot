@@ -23,7 +23,10 @@ public class EmailSender {
         send(receiver, subject, body, attachment);
     }//*/
 
-    public void send(String receiver, String subject, String body, String attachment) throws MessagingException {
+    public void send(String receiver, String subject, String body, String attachment) throws MessagingException, IllegalArgumentException {
+    	
+    	if(receiver.isEmpty() || subject.isEmpty() || body.isEmpty() || attachment.isEmpty()) throw new IllegalArgumentException("Please fill all the blank fields");
+    	
     	
         Properties props = System.getProperties();
         
@@ -55,7 +58,6 @@ public class EmailSender {
         multipart.addBodyPart(messageBodyPart);
         message.setContent(multipart);
 
-        
         Transport tr = session.getTransport("smtps");
         tr.connect(host, USERNAME, PASSWORD);
         tr.sendMessage(message, message.getAllRecipients());

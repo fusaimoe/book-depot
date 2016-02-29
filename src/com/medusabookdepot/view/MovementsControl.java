@@ -60,7 +60,8 @@ public class MovementsControl extends ScreenControl{
         receiverColumn.setCellValueFactory(cellData -> cellData.getValue().getReceiver().nameProperty());
         dateColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getLeavingDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString()));
         trackingColumn.setCellValueFactory(cellData -> cellData.getValue().trackingNumberProperty());
-        totalPriceColumn.setCellValueFactory(cellData -> cellData.getValue().totalPriceProperty().asString());
+        totalPriceColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(movementsController.convertPriceToString
+        		(cellData.getValue().getTotalPrice())));
 	
         movementsTable.setItems(movementsController.getMovements()); 
         

@@ -38,7 +38,7 @@ public class AddMovementControl extends ScreenControl{
 	
 	@FXML
     private TableColumn<TransferImpl, String> quantityColumn, isbnColumn, titleColumn, 
-    	senderColumn, receiverColumn, dateColumn, trackingColumn;
+    	senderColumn, receiverColumn, dateColumn, trackingColumn, totalPriceColumn;
     
     @FXML
     private ComboBox<String> senderBox, receiverBox, isbnBox, titleBox;;
@@ -72,7 +72,9 @@ public class AddMovementControl extends ScreenControl{
         receiverColumn.setCellValueFactory(cellData -> cellData.getValue().getReceiver().nameProperty());
         dateColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getLeavingDate().toString()));
         trackingColumn.setCellValueFactory(cellData -> cellData.getValue().trackingNumberProperty());
-
+        totalPriceColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(movementsController.convertPriceToString
+        		(cellData.getValue().getTotalPrice())));
+        
         movementsTable.setItems(movementsController.getTempData());
         
         titleBox.setItems(FXCollections.observableArrayList(movementsController.getTitlesString()));
