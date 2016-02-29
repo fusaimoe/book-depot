@@ -145,7 +145,7 @@ public class DepotsControl extends ScreenControl {
     private void convert() {
         try {
             depotsController.convert();
-            alert.showOpenPDFConfirmation();
+            alert.showConverted();
         } catch (IOException e) {
            alert.showConvertError(e);
         }

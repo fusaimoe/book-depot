@@ -155,19 +155,10 @@ public class CustomersControl extends ScreenControl{
     private void convert() {
     	try {
 			customersController.convert();
+			alert.showConverted();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	
-    	Optional<ButtonType> result = alert.showOpenPDFConfirmation();
-        // When the user clicks ok, the file opens with the default editor
-        if (result.get() == ButtonType.OK) {
-            try {
-				customersController.openPDF();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-        }
     }
     
     /**

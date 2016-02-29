@@ -183,6 +183,9 @@ public class MovementsController extends PriceManagementController{
 		if (this.isADepot(sender) && this.isADepot(receiver)) {
 			return "Resupply";
 		}
+		if (this.isADepot(sender) && !this.isADepot(receiver)) {
+			return "Sold";
+		}
 		for (CustomerImpl c : CustomersController.getInstanceOf().getCustomers()) {
 			if (c.getName().equals(sender)) {
 				if (c.isAPrinter() && this.isADepot(receiver)) {
@@ -191,12 +194,9 @@ public class MovementsController extends PriceManagementController{
 				if (c.isALibrary() && this.isADepot(receiver)) {
 					return "Return";
 				}
-				if (this.isADepot(sender) && !this.isADepot(sender)) {
-					return "Sold";
-				}
 			}
 		}
-		return null;
+		throw new IllegalArgumentException("Movement type not supported");
 	}
 
 	/**

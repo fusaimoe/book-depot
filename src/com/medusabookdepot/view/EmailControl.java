@@ -72,9 +72,9 @@ public class EmailControl extends ScreenControl{
 		public void send() {			
 			try {
 				emailSender.send(toField.getText(), subjectField.getText(), messageArea.getText(), attachedField.getText());
-				alert.emailSentSuccessfully();
+				alert.showEmailSentSuccessfully();
 			} catch (MessagingException e) {
-				alert.emailNotSentError();
+				alert.showEmailNotSentError();
 			} catch (IllegalArgumentException e){
 				alert.showError(e);
 			}

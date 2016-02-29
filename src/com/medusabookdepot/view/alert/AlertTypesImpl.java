@@ -25,12 +25,11 @@ public class AlertTypesImpl implements AlertTypes{
 
 	
 	@Override
-	public Optional<ButtonType> showOpenPDFConfirmation() {
-		confirmation.setTitle("File converted successfully");
-		confirmation.setHeaderText("Do you want to open the PDF?");
-		confirmation.setContentText("Choose OK to open the file");
-		
-		return confirmation.showAndWait();
+	public void showConverted() {
+		information.setTitle("Thanks");
+		information.setHeaderText("Data has been converted succesfully!");
+		information.setContentText("");
+		information.showAndWait();
 	}
 	
 	@Override
@@ -66,7 +65,7 @@ public class AlertTypesImpl implements AlertTypes{
 	}
 	
 	@Override
-	public void priceError(IndexOutOfBoundsException e) {
+	public void showPriceError() {
 		error.setTitle("Pay Attention");
         error.setHeaderText("Error!");
         error.setContentText("Price format not valid! (IE 12.50)");
@@ -74,7 +73,7 @@ public class AlertTypesImpl implements AlertTypes{
 	}
 
 	@Override
-	public void emailNotSentError() {
+	public void showEmailNotSentError() {
 		error.setTitle("Error");
         error.setHeaderText("Something went wrong!");
         error.setContentText("The email has not been sent");
@@ -82,7 +81,7 @@ public class AlertTypesImpl implements AlertTypes{
 	}
 	
 	@Override
-	public void emailSentSuccessfully() {
+	public void showEmailSentSuccessfully() {
 		information.setTitle("Congratulation");
 		information.setHeaderText("Email sent successfully!");
 		information.setContentText("");

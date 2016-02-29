@@ -91,7 +91,7 @@ public class BooksControl extends ScreenControl {
                     authorField.getText(), priceField.getText());
            this.clear();
         } catch (IndexOutOfBoundsException e){
-        	alert.priceError(e);
+        	alert.showPriceError();
         } catch (Exception e) {
         	alert.showWarning(e);
         }
@@ -181,7 +181,7 @@ public class BooksControl extends ScreenControl {
     private void convert() {
         try {
             booksController.convert();
-            alert.showOpenPDFConfirmation();
+            alert.showConverted();
         } catch (IOException e) {
             alert.showConvertError(e);
         }
