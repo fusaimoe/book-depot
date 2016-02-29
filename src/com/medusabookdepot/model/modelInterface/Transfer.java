@@ -50,7 +50,7 @@ public interface Transfer {
     public void setReceiver(Transferrer receiver);
     /**
      * 
-     * @param books is the new map of StandardBook, Integer i want to set as whole of books to be transferred
+     * @param book is the new map of StandardBook, Integer i want to set as whole of books to be transferred
      */
     public void setBook(StandardBookImpl book);
     /**
