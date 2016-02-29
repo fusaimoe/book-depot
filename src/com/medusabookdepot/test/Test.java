@@ -20,15 +20,13 @@ import com.medusabookdepot.model.modelInterface.Transfer;
 
 public class Test {
 
-    private boolean result;
-
     @org.junit.Test
     public void test() {
         Map<StandardBookImpl, Integer> mm = new HashMap<>();
         Map<StandardBookImpl, Integer> ma = new HashMap<>();
-        StandardBookImpl b = new StandardBookImpl("iiiinb", "il fantasma", 2010, 43, "la casa degli spettri", "orrore", "stephen King", 23);
-        StandardBookImpl b1 = new StandardBookImpl("iiiinb", "il fantasma", 2010, 43, "la casa degli spettri", "orrore", "stephen King", 23);
-        StandardBookImpl b2 = new StandardBookImpl("iiiissnb", "l'orso nella casa blu", 2010, 32, "bimbi cattivi", "infanzia rovinata", "quel mattachione dell'orso bear", 40);
+        StandardBookImpl b = new StandardBookImpl("01234567890124", "il fantasma", 2010, 43, "la casa degli spettri", "orrore", "stephen King", 23);
+        StandardBookImpl b1 = new StandardBookImpl("01234567890124", "il fantasma", 2010, 43, "la casa degli spettri", "orrore", "stephen King", 23);
+        StandardBookImpl b2 = new StandardBookImpl("01234567890123", "l'orso nella casa blu", 2010, 32, "bimbi cattivi", "infanzia rovinata", "quel mattachione dell'orso bear", 40);
         
         // Test equals StandardBookImpl
         ma.put(b, Integer.valueOf(5));
@@ -57,7 +55,7 @@ public class Test {
         List<Pair<String, Integer>> lisap=new ArrayList<>();
         List<Pair<String, Integer>> lis = dep2.getBookIsbnsAsListOfPair();
         for(Pair<String, Integer> pa:lis) {
-            if(pa.getFirst().equals("iiiissnb")) {
+            if(pa.getFirst().equals("01234567890123")) {
                 Pair<String, Integer> p=new Pair<String, Integer>(pa.getFirst(), 11);
                 lisap.add(p);
             }
@@ -82,11 +80,7 @@ public class Test {
             }
         }
         lis2=lisap2;
-        Transfer tr2=new TransferImpl(dep2, dep, date, book, "affk22", 14, "fromprint");
+        Transfer tr2=new TransferImpl(dep2, dep, date, book, "AJ456TF", 14, "Resupply");
         assertTrue(tr2.getTotalPrice()==14*book.getPrice());
-        this.result=true;
-    }
-    public boolean getResult(){
-        return this.result;
     }
 }
