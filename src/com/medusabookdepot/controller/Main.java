@@ -13,13 +13,7 @@ public class Main {
 	}
 
 	public static void main(String[] args) throws Exception {
-
-		Test prova = new Test();
-		prova.test();
-		System.out.println("JUnit test result: " + (prova.getResult() ? "SUCCESS!" : "FAIL!"));
-		System.out.println("Loading UI ..");
 		new Main();
-
 	}
 
 }

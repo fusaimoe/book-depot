@@ -56,6 +56,7 @@ public class TransferImpl implements Transfer, Serializable {
     }
     @Override
     public String getType() {
+        if(this.type==null)return null;
     	return new String(this.type.get());
     }
     @Override
