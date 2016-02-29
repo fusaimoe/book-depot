@@ -177,7 +177,7 @@ public class CustomersController {
 	 */
 	public void editName(CustomerImpl customer, String name) {
 
-		if(!isCustomerValid(name, customer.getAddress(), customer.getTelephoneNumber(), customer.getType().toString())){
+		if(!isCustomerValid(name, customer.getAddress(), customer.getTelephoneNumber(), customer.typeProperty().toString())){
 			throw new IllegalArgumentException("Arguments are not right!");
 		}
 		try {
@@ -197,7 +197,7 @@ public class CustomersController {
 	 */
 	public void editAddress(CustomerImpl customer, String address) {
 		
-		if(!isCustomerValid(customer.getName(), address, customer.getTelephoneNumber(), customer.getType().toString())){
+		if(!isCustomerValid(customer.getName(), address, customer.getTelephoneNumber(), customer.typeProperty().toString())){
 			throw new IllegalArgumentException("Arguments are not right!");
 		}
 		try {
@@ -217,7 +217,7 @@ public class CustomersController {
 	 */
 	public void editPhone(CustomerImpl customer, String phone) {
 
-		if(!isCustomerValid(customer.getName(), customer.getAddress(), phone, customer.getType().toString())){
+		if(!isCustomerValid(customer.getName(), customer.getAddress(), phone, customer.typeProperty().toString())){
 			throw new IllegalArgumentException("Arguments are not right!");
 		}
 		try {

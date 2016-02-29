@@ -65,6 +65,7 @@ public interface Customer extends Transferrer {
      * 
      * @return the type of Customer, e.g. "Library"
      */
-    public StringProperty getType();
+    public StringProperty typeProperty();
+    
 
 }

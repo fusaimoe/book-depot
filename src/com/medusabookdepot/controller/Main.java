@@ -1,6 +1,5 @@
 package com.medusabookdepot.controller;
 
-import com.medusabookdepot.test.Test;
 import com.medusabookdepot.view.*;
 
 public class Main {
@@ -14,6 +13,7 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		new Main();
+
 	}
 
 }
