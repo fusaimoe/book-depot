@@ -31,6 +31,7 @@
 	           					<TableColumn text="Date" fx:id="dateColumn"/>
 	           					<TableColumn text="Total Price" fx:id="totalPriceColumn"/>
 	           					<TableColumn text="Tracking#" fx:id="trackingColumn"/>
+	           					<TableColumn text="Type" fx:id="typeColumn"/>
 	                          </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

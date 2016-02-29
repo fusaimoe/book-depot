@@ -34,7 +34,7 @@ public class MovementsControl extends ScreenControl{
 	
     @FXML
     private TableColumn<TransferImpl, String> quantityColumn, isbnColumn, titleColumn, senderColumn, 
-		receiverColumn, dateColumn, totalPriceColumn, trackingColumn;
+		receiverColumn, dateColumn, totalPriceColumn, trackingColumn, typeColumn;
     
     @FXML
     private Button delete;
@@ -62,6 +62,7 @@ public class MovementsControl extends ScreenControl{
         trackingColumn.setCellValueFactory(cellData -> cellData.getValue().trackingNumberProperty());
         totalPriceColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(movementsController.convertPriceToString
         		(cellData.getValue().getTotalPrice())));
+        typeColumn.setCellValueFactory(cellData -> cellData.getValue().typeProperty());
 	
         movementsTable.setItems(movementsController.getMovements()); 
         
