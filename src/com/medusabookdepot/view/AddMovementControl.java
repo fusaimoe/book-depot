@@ -148,21 +148,21 @@ public class AddMovementControl extends ScreenControl{
         });
   
         // Listen for selection changes of senderBox and enable and filter titleBox 
-        /*receiverBox.setDisable(true);
+        titleBox.setDisable(true);
         senderBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
         	// Enable button if the title ComboBox has a newValue
-        	receiverBox.setDisable(false);
+        	titleBox.setDisable(false);
         	// Set the items of the isbn ComboBox from a list of all the values possible from the selected title
-        	receiverBox.setItems(FXCollections.observableArrayList(movementsController.getReceiversFromSender(newValue)));
+        	titleBox.setItems(FXCollections.observableArrayList(movementsController.getTitleFromTransferrer(newValue)));
         	// If there is only one receiver possible value, select it
-        	if(movementsController.getAllIsbnFromTitle(newValue).size()==1) {
+        	if(movementsController.getTitleFromTransferrer(newValue).size()==1) {
         		receiverBox.getSelectionModel().select(0);
 	        }
         	// If the list of all possible values is empty, or the sender ComboBox is still empty, disable the receiver ComboBox 
-            if(senderBox.getSelectionModel().isEmpty() || movementsController.getReceiversFromSender(newValue).isEmpty()) {
-            	receiverBox.setDisable(true);     	
+            if(senderBox.getSelectionModel().isEmpty() || movementsController.getTitleFromTransferrer(newValue).isEmpty()) {
+            	titleBox.setDisable(true);     	
             }
-        });*/
+        });
 	}
 	
 	@SuppressWarnings("rawtypes")
