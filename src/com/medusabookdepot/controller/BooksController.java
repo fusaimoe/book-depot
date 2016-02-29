@@ -15,7 +15,7 @@ import com.medusabookdepot.model.modelInterface.StandardBook;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class BooksController {
+public class BooksController extends PriceManagementController {
 
 	private final static String NAME = "books"; // Name of the file, for the FileManager class
 	private static final int ISBN_LENGTH = 13;
@@ -34,39 +34,6 @@ public class BooksController {
 	public static BooksController getInstanceOf() {
 
 		return (BooksController.singBook == null ? new BooksController() : BooksController.singBook);
-	}
-
-	/**
-	 * Convert price from string to integer
-	 * 
-	 * @param <b>Book
-	 *            price</b> in string format
-	 * @return Price in integet format
-	 * @throws IllegalArgumentException
-	 *             and IndexOutOfBoundsException
-	 */
-	public int convertPrice(String price) throws IllegalArgumentException, IndexOutOfBoundsException {
-
-		if (price.equals(""))
-			throw new IllegalArgumentException("The price field mustn't be empty!");
-
-		if (!price.contains(".") && !price.contains(",")) {
-			price += ".00";
-		} else if (price.charAt(price.length() - 2) == '.' || price.charAt(price.length() - 2) == ',') {
-			price += "0";
-		} else if (price.charAt(price.length() - 3) == '.' || price.charAt(price.length() - 3) == ',') {
-			// Correct input, nothing to do
-		} else
-			throw new IllegalArgumentException("Price format not valid! (IE 12.50)");
-
-		return Integer.parseInt(new StringBuilder(price).deleteCharAt(price.length() - 3).toString());
-	}
-	
-	public String convertPriceToString(int price){
-		
-		String priceInt = Integer.toString(price).substring(0, Integer.toString(price).length() - 2);
-		String priceCent = Integer.toString(price).substring(Integer.toString(price).length() - 2);
-		return (priceInt + "." + priceCent);
 	}
 
 	/**
