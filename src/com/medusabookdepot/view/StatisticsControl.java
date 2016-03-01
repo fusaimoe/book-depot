@@ -5,12 +5,10 @@
 package com.medusabookdepot.view;
 
 import java.text.DateFormatSymbols;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.*;
 
 import com.medusabookdepot.controller.MovementsController;
-import com.medusabookdepot.model.modelImpl.TransferImpl;
+import com.medusabookdepot.controller.StatisticsController;
 
 import javafx.collections.*;
 
@@ -18,8 +16,9 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.*;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.HBox;
 
 public class StatisticsControl extends ScreenControl{
 
@@ -29,21 +28,31 @@ public class StatisticsControl extends ScreenControl{
     //ObservableList of months
     private final ObservableList<String> monthNames = FXCollections.observableArrayList(
     		Arrays.asList(DateFormatSymbols.getInstance(Locale.ENGLISH).getMonths()));
+    private static final int MONTHS = 12;
     
     //ObservableList of years
     private final ObservableList<String> yearNames = movementsController.getYearsWithMovements();
     
-    // Create a monthCounter for each month. Add his values to the series.
-	private final int[] monthCounter = new int[12];
-
 	@FXML
-	private Button statistics;
+	private ToggleButton earningStats;
+	@FXML
+	private ToggleButton movStats;
+	
 	@FXML
     private BarChart<String, Integer> barChart;
+	@FXML
+    private LineChart<String, Double> lineChart;
+	
     @FXML
-    private CategoryAxis xAxis;
+    private CategoryAxis xMovAxis;
     @FXML
-    private ChoiceBox<String> yearBox;    
+    private CategoryAxis xPriceAxis;
+    
+    @FXML
+    private ChoiceBox<String> yearBox;
+    
+    @FXML
+    private HBox hBox;
 	
     public StatisticsControl() {
 		super();
@@ -55,11 +64,9 @@ public class StatisticsControl extends ScreenControl{
      */
     @FXML
     private void initialize() {
-
+    	movStats.setSelected(true);
+    	this.uploadMovStats();
         yearBox.setItems(yearNames);
-        // Assign the month names as categories for the horizontal axis.
-        xAxis.setCategories(monthNames);
-        
         this.setMovementsData();
     }
     
@@ -67,31 +74,48 @@ public class StatisticsControl extends ScreenControl{
      * Sets the statistics graph according to the number of movements in a specific month.
      */
     public void setMovementsData() {
-
+       
+    	// Assign the month names as categories for the horizontal axis.
+        xMovAxis.setCategories(monthNames);
+        xPriceAxis.setCategories(monthNames);
+        
+        barChart.setLegendVisible(false);
+        lineChart.setLegendVisible(false);
+        
         // Count the number of movements in a specific month.
     	yearBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)->{
+    	    barChart.getData().clear();
+    	    lineChart.getData().clear();
 
-    		// Clear the barChart and the monthCounter before changing year	
-	        for (int i = 0; i < monthCounter.length; i++) monthCounter[i]=0;
-	        barChart.getData().clear(); 
-		        
-	        for (TransferImpl movement : movementsController.getMovements()) {
-	        	// Convert the util.Date to LocalDate
-	        	LocalDate date = movement.getLeavingDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        		// Filter movements by year
-	        	if(date.getYear()==Integer.parseInt(newValue)){
-		            int month = date.getMonthValue() - 1; 
-		            monthCounter[month]++; // Increment the month according to the number of movements
-	        	}
-	        }
-
-	    	Series<String, Integer> series = new Series<>();
+	    	Series<String, Integer> movSeries = new Series<>();
+	    	Series<String, Double> priceSeries = new Series<>();
+	    	
 	        // Create a XYChart. Data object for each month. Add it to the series.
-	        for (int i = 0; i < monthCounter.length; i++) {
-	            series.getData().add(new Data<>(monthNames.get(i), monthCounter[i]));
+	        for (int i = 0; i < MONTHS; i++) {
+	            movSeries.getData().add(new Data<>(monthNames.get(i), StatisticsController.getInstanceOf().getMovStats(newValue)[i]));
+	            priceSeries.getData().add(new Data<>(monthNames.get(i), StatisticsController.getInstanceOf().getPriceStats(newValue)[i]));
 	        }
 
-		    barChart.getData().add(series);		        
+		    barChart.getData().add(movSeries);
+		    lineChart.getData().add(priceSeries);	
     	});
+    }
+    
+    /**
+     * Method to upload the movements statistics graph
+     * Called when the movStats button is pressed
+     */
+    public void uploadPriceStats(){
+    	hBox.getChildren().clear();
+    	hBox.getChildren().add(lineChart);
+    }
+
+    /**
+     * Method to upload the earnings statistics graph
+     * Called when the priceStats button is pressed
+     */
+    public void uploadMovStats(){
+    	hBox.getChildren().clear();
+    	hBox.getChildren().add(barChart);
     }
 }
