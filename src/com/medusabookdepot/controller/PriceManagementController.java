@@ -21,6 +21,9 @@ public class PriceManagementController implements PriceManagementInterface{
 
 	public String convertPriceToString(int price) {
 
+		if(price == 0){
+			return "0.00";
+		}
 		String priceInt = Integer.toString(price).substring(0, Integer.toString(price).length() - 2);
 		String priceCent = Integer.toString(price).substring(Integer.toString(price).length() - 2);
 		return (priceInt + "." + priceCent);
