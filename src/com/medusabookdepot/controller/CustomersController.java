@@ -19,9 +19,6 @@ import javafx.collections.ObservableList;
 
 public class CustomersController implements CustomersViewObserver {
 
-	/**
-	 * The list that contains all saved customers
-	 */
 	private final ObservableList<CustomerImpl> customers = FXCollections.observableArrayList();
 
 	private static CustomersController singCustomers;
@@ -33,27 +30,12 @@ public class CustomersController implements CustomersViewObserver {
 	private CustomersController(){
 		super();
 	}
-	
-	/**
-	 * Load the CustomersController object or create a new if it doesn't exists
-	 */
+
 	public static CustomersController getInstanceOf() {
 
 		return (CustomersController.singCustomers == null ? new CustomersController() : CustomersController.singCustomers);
 	}
 
-	/**
-	 * Add a new customer to the list of all customers
-	 * 
-	 * @param Name
-	 *            of new customer
-	 * @param Address
-	 *            of new customer
-	 * @param Telephone
-	 *            number of new customer
-	 * @param Type
-	 *            of customer: 1) Library 2) Person
-	 */
 	public void addCustomer(String name, String address, String telephoneNumber, String type) {
 
 		if (!this.isCustomerValid(name, address, telephoneNumber, type)) {
@@ -78,11 +60,6 @@ public class CustomersController implements CustomersViewObserver {
 		fileManager.saveDataToFile();
 	}
 	
-	/**
-	 * Search a string in all field of customer properties
-	 * @param Value to search
-	 * @return List of customers that contains the value
-	 */
 	public List<CustomerImpl> searchCustomer(String value){
 		List<CustomerImpl> result = new ArrayList<>();
 		value.toLowerCase();
@@ -95,17 +72,6 @@ public class CustomersController implements CustomersViewObserver {
 		return result;
 	}
 	
-	/**
-	 * Search a customer in his list
-	 * 
-	 * @param Name
-	 *            of customer
-	 * @param Address
-	 *            of customer
-	 * @param Telephone
-	 *            number of customer
-	 * @return None elements if it doesn't find the element(s)
-	 */
 	public Stream<CustomerImpl> searchCustomer(Optional<String> name, Optional<String> address,
 			Optional<String> telephoneNumber) {
 
@@ -124,25 +90,11 @@ public class CustomersController implements CustomersViewObserver {
 		return result;
 	}
 
-	/**
-	 * Check if a customer is already present in list
-	 * @param Address
-	 * @param Telephone number
-	 * @return <b>True</b> if he's already present, else <b>False</b>
-	 */
 	public boolean customerIsPresent(String address, String telephoneNumber) {
 		
 		return (this.searchCustomer(Optional.empty(), Optional.of(address), Optional.of(telephoneNumber)).count() >= 1);
 	}
 	
-	/**
-	 * Verify the correct input for new customers
-	 * @param Name
-	 * @param Address
-	 * @param Telephone number
-	 * @param Type
-	 * @return True if arguments are correct
-	 */
 	public boolean isCustomerValid(String name, String address, String telephoneNumber, String type){
 		
 		if(name.equals("") || address.equals("") || telephoneNumber.equals("") || type.equals("")){
@@ -152,13 +104,6 @@ public class CustomersController implements CustomersViewObserver {
 		return true;
 	}
 
-	/**
-	 * Remove a customer from the list
-	 * 
-	 * @param Customer
-	 * @throws NoSuchElementException
-	 *             if it doesn't find the customer
-	 */
 	public void removeCustomer(CustomerImpl customer) throws NoSuchElementException {
 
 		try {
@@ -170,12 +115,6 @@ public class CustomersController implements CustomersViewObserver {
 		fileManager.saveDataToFile();
 	}
 	
-	/**
-	 * Edit a customer name
-	 * 
-	 * @param Customer
-	 * @param Name
-	 */
 	public void editName(CustomerImpl customer, String name) {
 
 		if(!isCustomerValid(name, customer.getAddress(), customer.getTelephoneNumber(), customer.typeProperty().toString())){
@@ -190,12 +129,6 @@ public class CustomersController implements CustomersViewObserver {
 		fileManager.saveDataToFile();
 	}
 
-	/**
-	 * Edit a customer address
-	 * 
-	 * @param Customer
-	 * @param Address
-	 */
 	public void editAddress(CustomerImpl customer, String address) {
 		
 		if(!isCustomerValid(customer.getName(), address, customer.getTelephoneNumber(), customer.typeProperty().toString())){
@@ -210,12 +143,6 @@ public class CustomersController implements CustomersViewObserver {
 		fileManager.saveDataToFile();
 	}
 
-	/**
-	 * Edit a customer telephone number
-	 * 
-	 * @param Customer
-	 * @param Telephone
-	 */
 	public void editPhone(CustomerImpl customer, String phone) {
 
 		if(!isCustomerValid(customer.getName(), customer.getAddress(), phone, customer.typeProperty().toString())){
@@ -229,29 +156,17 @@ public class CustomersController implements CustomersViewObserver {
 		fileManager.saveDataToFile();
 	}
 	
-	/**
-	 * @return The list of saved books
-	 */
 	public ObservableList<CustomerImpl> getCustomers() {
 
 		return customers;
 	}
 	
-	/**
-	 * Convert the XML file to PDF
-	 * 
-	 * @throws IOException
-	 */
 	public void convert() throws IOException {
 
 		fileManager.convertXML2PDF();
 
 	}
-	/**
-	 * Convert the XML file to PDF
-	 * 
-	 * @throws IOException
-	 */
+
 	public void openPDF() throws IOException {
 
 		fileManager.openPDF();
