@@ -7,7 +7,6 @@ import javafx.stage.Stage;
 
 /**
  * Represent the initialization of the GUI
- * @author Andrea Colombo, Giulia Cecchetti
  */
 public interface GuiInterface {
 	
