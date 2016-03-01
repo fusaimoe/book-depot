@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 
 import com.medusabookdepot.model.modelImpl.TransferImpl;
+import com.medusabookdepot.view.observer.StatisticsViewObserver;
 
 public class StatisticsController extends ConvertController implements StatisticsViewObserver{
 

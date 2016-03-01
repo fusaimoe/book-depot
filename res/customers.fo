@@ -74,7 +74,7 @@
         <fo:block></fo:block>        </fo:table-cell>
         <fo:table-cell    number-columns-spanned="1">
       <!-- 6650eff9cc4249a89b1842c18c6ac02d -->
-      <fo:block     margin-left="0.0cm" margin-right="23.46cm"  margin-top="0.0cm"  font-size="16pt"  font-family="SansSerif"  color="#ffffff"   text-align="left">Customers/Suppliers</fo:block>
+      <fo:block     margin-left="0.0cm" margin-right="13.46cm"  margin-top="0.0cm"  font-size="16pt"  font-family="SansSerif"  color="#ffffff"   text-align="left">Customers/Suppliers</fo:block>
         </fo:table-cell>
     </fo:table-row>
     </fo:table-body>
