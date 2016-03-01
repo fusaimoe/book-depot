@@ -9,7 +9,7 @@ import javafx.scene.control.Alert.AlertType;
 
 public class AlertTypesImpl implements AlertTypes{
 
-	//private static final String CSSPATH = getClass().getResource("../materialDesign.css").toExternalForm();
+	//private static final String CSSPATH = getClass().getResource("/materialDesign.css").toExternalForm();
 	private final Alert warning = new Alert(AlertType.WARNING);
 	private final Alert error = new Alert(AlertType.ERROR);
 	private final Alert confirmation = new Alert(AlertType.CONFIRMATION);
@@ -17,10 +17,10 @@ public class AlertTypesImpl implements AlertTypes{
 	
 	public AlertTypesImpl(){
 		//Added CSS Style to the alert panels
-		confirmation.getDialogPane().getStylesheets().add(getClass().getResource("../materialDesign.css").toExternalForm());
-		error.getDialogPane().getStylesheets().add(getClass().getResource("../materialDesign.css").toExternalForm());
-		warning.getDialogPane().getStylesheets().add(getClass().getResource("../materialDesign.css").toExternalForm());
-		information.getDialogPane().getStylesheets().add(getClass().getResource("../materialDesign.css").toExternalForm());
+		confirmation.getDialogPane().getStylesheets().add(getClass().getResource("/materialDesign.css").toExternalForm());
+		error.getDialogPane().getStylesheets().add(getClass().getResource("/materialDesign.css").toExternalForm());
+		warning.getDialogPane().getStylesheets().add(getClass().getResource("/materialDesign.css").toExternalForm());
+		information.getDialogPane().getStylesheets().add(getClass().getResource("/materialDesign.css").toExternalForm());
 	}
 
 	
