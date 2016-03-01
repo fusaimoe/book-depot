@@ -232,10 +232,11 @@ public class MovementsController extends PriceManagementController implements Mo
 			if (e.getBook().getTitle().toLowerCase().contains(value.toLowerCase())
 					|| e.getLeavingDate().toString().toLowerCase().contains(value.toLowerCase())
 					|| Integer.toString(e.getQuantity()).contains(value)
-					|| e.getReceiver().toString().toLowerCase().contains(value.toLowerCase())
-					|| e.getSender().toString().toLowerCase().contains(value.toLowerCase())
+					|| e.getReceiver().getName().toLowerCase().contains(value.toLowerCase())
+					|| e.getSender().getName().toLowerCase().contains(value.toLowerCase())
 					|| Integer.toString(e.getTotalPrice()).contains(value)
-					|| e.getTrackingNumber().toLowerCase().contains(value)) {
+					|| e.getTrackingNumber().toLowerCase().contains(value.toLowerCase())
+					|| e.getType().toLowerCase().contains(value.toLowerCase())) {
 				result.add(e);
 			}
 		});
