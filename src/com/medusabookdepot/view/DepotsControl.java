@@ -14,6 +14,7 @@ import com.medusabookdepot.model.modelImpl.DepotImpl;
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 import com.medusabookdepot.view.alert.AlertTypes;
 import com.medusabookdepot.view.alert.AlertTypesImpl;
+import com.medusabookdepot.view.util.PersistentButtonToggleGroup;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.value.ChangeListener;
@@ -41,7 +42,7 @@ public class DepotsControl extends ScreenControl {
     private final ObservableList<Entry<StandardBookImpl,Integer>> data = FXCollections.observableArrayList();
     
     // ToggleGroup to have just one toggleButton selected at a time
-    private final ToggleGroup buttonsGroup = new ToggleGroup();
+    private final ToggleGroup buttonsGroup = new PersistentButtonToggleGroup();
     private final List<ToggleButton> buttonsList = new ArrayList<>();
 
 	@FXML

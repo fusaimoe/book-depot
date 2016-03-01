@@ -21,23 +21,23 @@
 						<VBox fx:id="vBoxFields">
 							<children> 
 					        	<Label styleClass="control-label" text="To:" />
-				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="toField"/>
+				                <TextField fx:id="toField" prefHeight="43.0" prefWidth="300.0" />
 				                <Label styleClass="control-label" text="Subject:" />
-				                <TextField prefHeight="43.0" prefWidth="300.0" fx:id="subjectField"/>
-				                <Label styleClass="control-label" text="Attachments:"/>
+				                <TextField fx:id="subjectField" prefHeight="43.0" prefWidth="300.0" />
+				                <Label styleClass="control-label" text="Attachments:" />
 				                <HBox>
 	                           		<children>
-	                           			<TextField prefHeight="42.0" prefWidth="300.0" fx:id="attachedField" />
+	                           			<TextField fx:id="attachedField" prefHeight="42.0" prefWidth="300.0" />
 									</children> 
 						   		</HBox>
 						   		<Pane prefHeight="7.0" />
 						   		<Label styleClass="control-label" text="Message:" />
-						   		<TextArea prefHeight="150.0" prefWidth="300.0" fx:id="messageArea"/>
+						   		<TextArea fx:id="messageArea" prefHeight="150.0" prefWidth="300.0" />
 						   		<Pane prefHeight="20.0" />
                            		<HBox>
 	                           		<children>
 	                           			<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
-								        <Button defaultButton="true" mnemonicParsing="false" text="SEND" HBox.hgrow="ALWAYS" onAction="#send"/>
+								        <Button defaultButton="true" mnemonicParsing="false" onAction="#send" text="SEND" HBox.hgrow="ALWAYS" />
 									</children> 
 						   		</HBox>
 							</children>
@@ -47,11 +47,15 @@
 						</VBox>
 						<VBox HBox.hgrow="ALWAYS">
 							<children>
-								<ListView fx:id="listView"/>
+								<ListView fx:id="listView" VBox.vgrow="ALWAYS" />
 								<HBox>
 									<children>
 										<Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
-										<Button cacheShape="false" centerShape="false" contentDisplay="TEXT_ONLY" mnemonicParsing="false" scaleShape="false" styleClass="icon-button" text="" onAction="#addAttachment"/>
+										<Button cacheShape="false" centerShape="false" contentDisplay="TEXT_ONLY" mnemonicParsing="false" onAction="#addAttachment" scaleShape="false" styleClass="icon-button" text="">
+		                                	<HBox.margin>
+												<Insets top="8.0" />
+											</HBox.margin>
+										</Button>
 									</children>
 								</HBox>
 							</children>

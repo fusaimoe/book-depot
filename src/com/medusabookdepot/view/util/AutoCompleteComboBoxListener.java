@@ -1,4 +1,4 @@
-package com.medusabookdepot.view;
+package com.medusabookdepot.view.util;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
