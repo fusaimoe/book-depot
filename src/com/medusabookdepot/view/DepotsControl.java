@@ -71,8 +71,8 @@ public class DepotsControl extends ScreenControl {
 	}
 	
 	/**
-     * Called after the fxml file has been loaded.
-     * Method to initializes the control class. 
+     * Called after the fxml file has been loaded; this method initializes 
+     * the fxml control class. 
      */
 	public void initialize() {
 		
@@ -129,7 +129,8 @@ public class DepotsControl extends ScreenControl {
 	}
 	
 	/**
-     * Called when the user enter something in the search field
+     * Called when the user enter something in the search field;
+     * It search the entered string in all the depots fields
      */
     private void search(){
     	searchField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -141,6 +142,8 @@ public class DepotsControl extends ScreenControl {
     
     /**
      * Called when the user wants to convert the TableView to a PDF file
+     * After converting the file it opens an information dialog to notify
+     * the success
      */
     @FXML
     private void convert() {

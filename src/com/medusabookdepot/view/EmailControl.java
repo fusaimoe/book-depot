@@ -1,11 +1,12 @@
-package com.medusabookdepot.view;
+/**
+ * 'email.fxml' Control Class
+*/
 
-import java.io.File;
+package com.medusabookdepot.view;
 
 import javax.mail.MessagingException;
 
 import com.medusabookdepot.controller.files.EmailSender;
-import com.medusabookdepot.controller.files.FileManager;
 import com.medusabookdepot.view.alert.AlertTypes;
 import com.medusabookdepot.view.alert.AlertTypesImpl;
 
@@ -33,19 +34,19 @@ public class EmailControl extends ScreenControl{
 		@FXML
 		private TextArea messageArea;
 		
-		private final ObservableList<String> paths = FXCollections.observableArrayList();
+		private ObservableList<String> paths = FXCollections.observableArrayList();
 		
 		@FXML
 		private ListView<String> listView;
 
 		public EmailControl(){
 			super();
-			this.setPaths();
+			paths = emailSender.setPaths();
 		}
-	    
-	    /**
-	     * Called after the fxml file has been loaded.
-	     * Method to initializes the control class. 
+		
+		/**
+	     * Called after the fxml file has been loaded; this method initializes 
+	     * the fxml control class. 
 	     */
 	    public void initialize() {
 	    	attachedField.setEditable(false);
@@ -54,8 +55,8 @@ public class EmailControl extends ScreenControl{
 	    }
 	    
 	    /**
-	     * Called when the user press the 'addAttachment' button 
-	     * Method to set the attachment field
+	     * Called when the user press the 'addAttachment' button;
+	     * This method sets the attachment field
 	     */
 		@FXML
 	    private void addAttachment() {
@@ -68,7 +69,7 @@ public class EmailControl extends ScreenControl{
 		
 		/**
 	     * Called when the user press the send button
-	     * Method to send the email
+	     * This method sends the email to one or more receivers
 	     */
 		public void send() {			
 			try {
@@ -78,19 +79,6 @@ public class EmailControl extends ScreenControl{
 				alert.showEmailNotSentError(e);
 			} catch (IllegalArgumentException e){
 				alert.showError(e);
-			}
-		}
-		
-		/**
-	     * Method to set the paths list
-	     */
-		private void setPaths(){
-			File directory = new File(FileManager.getDirectoryPath());
-			File[] filesArray = directory.listFiles();
-			for(int i=0; i<filesArray.length; i++){
-				if(filesArray[i].isFile()){
-			        paths.add(filesArray[i].getName());
-			    }
 			}
 		}
 }

@@ -1,5 +1,6 @@
 package com.medusabookdepot.controller.files;
 
+import java.io.File;
 import java.util.*;
 
 import javax.activation.DataHandler;
@@ -9,6 +10,9 @@ import javax.mail.*;
 import javax.mail.internet.*;
 
 import com.medusabookdepot.view.observer.EmailViewObserver;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * This class is a simple email sender, with an hard-coded Gmail username and password as static fields.
@@ -23,6 +27,8 @@ public class EmailSender implements EmailViewObserver {
 	// Gmail username and password
     private static final String USERNAME = "oop15bookdepot";
     private static final String PASSWORD = "noteasytoguess";
+    
+    private final ObservableList<String> paths = FXCollections.observableArrayList();
     
     /* MAIN METHOD ONLY FOR TESTING PURPOSE
         public static void main(String[] args) throws MessagingException {
@@ -85,4 +91,18 @@ public class EmailSender implements EmailViewObserver {
         tr.close();
 
     }
+    
+    /**
+     * This method populates the paths list with all the possible attachments
+     */
+	public ObservableList<String> setPaths(){
+		File directory = new File(FileManager.getDirectoryPath());
+		File[] filesArray = directory.listFiles();
+		for(int i=0; i<filesArray.length; i++){
+			if(filesArray[i].isFile()){
+		        paths.add(filesArray[i].getName());
+		    }
+		}
+		return paths;
+	}
 }

@@ -58,9 +58,9 @@ public class AddMovementControl extends ScreenControl{
 		super();
 	}
     
-    /**
-     * Called after the fxml file has been loaded.
-     * Method to initializes the control class. 
+	/**
+     * Called after the fxml file has been loaded; this method initializes 
+     * the fxml control class. 
      */
     @FXML
     private void initialize() {
@@ -89,7 +89,7 @@ public class AddMovementControl extends ScreenControl{
     }
     
     /**
-     * Called when the user press the 'add' button 
+     * Called when the user press the 'add' button;
      * Method to add a new movement to the controller ObservableList
      * Method to add a new movement to a temporary ObservableList shown in the TableView
      */
@@ -108,8 +108,9 @@ public class AddMovementControl extends ScreenControl{
     }
 
     /**
-	 * Method to disable/enable the delete button when something has been selected from the user
-	 * Method to filter the comboBox according to the 'sender' choice
+	 * It listen for selection changes to disable/enable the delete button 
+	 * when the user selects something in the table
+	 * This method filters the comboBox according to the 'sender' choice
 	 */
 	private void update(){
 		//TODO Refactor code
@@ -174,8 +175,10 @@ public class AddMovementControl extends ScreenControl{
 	@SuppressWarnings("rawtypes")
 	@Override
 	/**
-	 * Method to clear only the Quantity, Title and ISBN fields.
-	 * Overrides clear method from ScreenControl because when the user is adding movements, most of time he's keeping the same sender, receiver and tracking number but just changing book and quantity 
+	 * Method to clear only the Quantity, Title and ISBN fields;
+	 * Overrides clear method from ScreenControl because when the user is adding movements, 
+	 * most of time he's keeping the same sender, receiver and tracking number but just changing 
+	 * book and quantity 
 	 */
 	public void clear(){
     	for(Node node: hBoxFields.getChildren()){
@@ -188,6 +191,10 @@ public class AddMovementControl extends ScreenControl{
     	}
     }
 	
+	/**
+	 * This method checks if textBoxes or choiceBoxes are empty 
+	 * before calling controller methods
+	 */
 	@SuppressWarnings("rawtypes")
 	public void checkIfEmpty(){
 

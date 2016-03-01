@@ -34,6 +34,10 @@ public class ScreenControl extends GUI{
 	@FXML
 	private VBox vBoxFields;
 	
+	/**
+	 * Method to switch screen. It loads the xml files according to the id
+	 * of the button that the user has pressed
+	 */
 	@FXML
 	public void switchScreen(ActionEvent event) {
 		try {

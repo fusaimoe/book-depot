@@ -49,8 +49,8 @@ public class BooksControl extends ScreenControl {
     }
 
     /**
-     * Called after the fxml file has been loaded.
-     * Method to initializes the control class. 
+     * Called after the fxml file has been loaded; this method initializes 
+     * the fxml control class. 
      */
     @FXML
     private void initialize() {
@@ -80,8 +80,8 @@ public class BooksControl extends ScreenControl {
     }
     
     /**
-     * Called when the user press the 'add' button 
-     * Method to add a new book to the controller ObservableList of books
+     * Called when the user press the 'add' button;
+     * This method adds a new book to the controller ObservableList of books
      */
     @FXML
     private void add() {
@@ -98,8 +98,9 @@ public class BooksControl extends ScreenControl {
     }
     
     /**
-     * Called when the user edit a book field directly from the tableColumn
-     * Method to edit the selected field in the observableList of books
+     * Called when the user edit a book field directly from the table;
+     * This method edits the selected field in the observableList of books and 
+     * makes all the fields editable directly from the table
      */
     @SuppressWarnings("unchecked")
 	private void edit() {
@@ -156,7 +157,6 @@ public class BooksControl extends ScreenControl {
 
         Optional<ButtonType> result = alert.showConfirmation(stdBooksTable.getSelectionModel().getSelectedItem().getTitle());
 
-        // When the user clicks ok, the selection gets deleted
         if (result.get() == ButtonType.OK) {
             int selectedIndex = stdBooksTable.getSelectionModel().getSelectedIndex();
             booksController.removeBook(stdBooksTable.getItems().get(selectedIndex));
@@ -164,7 +164,8 @@ public class BooksControl extends ScreenControl {
     }
 
     /**
-     * Called when the user enter something in the search field
+     * Called when the user enter something in the search field;
+     * It search the entered string in all the books fields(title, ISBN, etc..)
      */
     private void search(){
     	searchField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -176,6 +177,8 @@ public class BooksControl extends ScreenControl {
     
     /**
      * Called when the user wants to convert the TableView to a PDF file
+     * After converting the file it opens an information dialog to notify
+     * the success
      */
     @FXML
     private void convert() {
@@ -188,10 +191,10 @@ public class BooksControl extends ScreenControl {
     }
     
     /**
-	 * Method to disable/enable the delete button when something has been selected from the user
+	 * It listen for selection changes to disable/enable the delete button 
+	 * when the user selects something in the table
 	 */
     private void update(){
-    	// Listen for selection changes and enable delete button
     	delete.setDisable(true);
         stdBooksTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             delete.setDisable(false);

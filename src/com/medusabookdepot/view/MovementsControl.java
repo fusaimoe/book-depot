@@ -45,8 +45,8 @@ public class MovementsControl extends ScreenControl{
 	}
 		
 	/**
-     * Called after the fxml file has been loaded.
-     * Method to initializes the control class. 
+     * Called after the fxml file has been loaded; this method initializes 
+     * the fxml control class. 
      */
     @FXML
     private void initialize() {
@@ -75,7 +75,8 @@ public class MovementsControl extends ScreenControl{
     
     /**
      * On delete button press, opens a confirmation dialog asking if you 
-     * really want to delete the element is passed 
+     * really want to delete the element
+     * Method to delete the selected element from the observableList of movements
      */
     @FXML
     private void delete() {
@@ -90,7 +91,8 @@ public class MovementsControl extends ScreenControl{
     }
     
     /**
-	 * Method to disable/enable the delete button when something has been selected from the user
+	 * It listen for selection changes to disable/enable the delete button 
+	 * when the user selects something in the table
 	 */
 	private void update() {
 		// Listen for selection changes and enable delete button
@@ -101,7 +103,8 @@ public class MovementsControl extends ScreenControl{
 	}
 	
 	/**
-     * Called when the user enter something in the search field
+     * Called when the user enter something in the search field;
+     * It search the entered string in all the movements fields(title, sender, receiver..)
      */
     private void search(){
     	searchField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -113,6 +116,8 @@ public class MovementsControl extends ScreenControl{
     
     /**
      * Called when the user wants to convert the TableView to a PDF file
+     * After converting the file it opens an information dialog to notify
+     * the success
      */
     @FXML
     private void convert() {
