@@ -102,17 +102,17 @@ public class StatisticsControl extends ScreenControl{
     }
     
     /**
-     * Method to upload the movements statistics graph
-     * Called when the movStats button is pressed
+     * Method to upload the earnings statistics graph
+     * Called when the earningStats button is pressed
      */
-    public void uploadPriceStats(){
+    public void uploadEarningsStats(){
     	hBox.getChildren().clear();
     	hBox.getChildren().add(lineChart);
     }
 
     /**
-     * Method to upload the earnings statistics graph
-     * Called when the priceStats button is pressed
+     * Method to upload the movements statistics graph
+     * Called when the movStats button is pressed
      */
     public void uploadMovStats(){
     	hBox.getChildren().clear();
