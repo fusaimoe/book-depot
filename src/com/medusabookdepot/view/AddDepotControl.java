@@ -48,8 +48,8 @@ public class AddDepotControl extends ScreenControl {
 	}
 	    
     /**
-     * Called after the fxml file has been loaded.
-     * Method to initializes the control class. 
+     * Called after the fxml file has been loaded; this method initializes 
+     * the fxml control class. 
      */
     public void initialize() {
     	
@@ -70,8 +70,8 @@ public class AddDepotControl extends ScreenControl {
     }
     
     /**
-     * Called when the user press the 'add' button 
-     * Method to add a new depot to the controller ObservableList of depots
+     * Called when the user press the 'add' button; this method adds
+     * a new depot to the controller ObservableList of depots
      */
 	@FXML
     private void add() {
@@ -84,8 +84,9 @@ public class AddDepotControl extends ScreenControl {
     }
 	
 	/**
-     * Called when the user edit a depot name directly from the tableColumn
-     * Method to edit the selected field in the observableList of depots
+     * Called when the user edit a depot name directly from the tableColumn;
+     * This method edits the selected field in the observableList of depots and 
+     * makes fields editable directly from the table
      */
 	private void edit() {
 		
@@ -101,15 +102,14 @@ public class AddDepotControl extends ScreenControl {
 	}
 	
 	/**
-     * On delete button press, opens a confirmation dialog asking if you 
-     * really want to delete the element
-     * Method to delete the selected element from the observableList
+     * Called on delete button press, opens a confirmation dialog asking if you 
+     * really want to delete the element; this method is called 
+     * to delete the selected element from the observableList
      */
     @FXML
     private void delete() {
         Optional<ButtonType> result = alert.showConfirmation(depotsTable.getSelectionModel().getSelectedItem().getName());
 
-        // When the user clicks ok, the selection gets deleted
         if (result.get() == ButtonType.OK) {
             int selectedIndex = depotsTable.getSelectionModel().getSelectedIndex();
             depotsController.removeDepot(depotsTable.getItems().get(selectedIndex));
@@ -117,7 +117,8 @@ public class AddDepotControl extends ScreenControl {
     }
     
     /**
-     * Called when the user enter something in the search field
+     * Called when the user enter something in the search field;
+     * It search name of the depot
      */
     private void search(){
     	searchField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -128,10 +129,10 @@ public class AddDepotControl extends ScreenControl {
     }
     
     /**
-	 * Method to disable/enable the delete button when something has been selected from the user
+	 * It listen for selection changes to disable/enable the delete button 
+	 * when the user selects something in the table
 	 */
 	private void update(){
-		// Listen for selection changes and enable delete button
         delete.setDisable(true);
         depotsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
         	delete.setDisable(false);

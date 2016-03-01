@@ -49,9 +49,9 @@ public class CustomersControl extends ScreenControl{
 		super();
 	}
 	
-    /**
-     * Called after the fxml file has been loaded.
-     * Method to initializes the control class. 
+	/**
+     * Called after the fxml file has been loaded; this method initializes 
+     * the fxml control class. 
      */
 	@FXML
     private void initialize() {
@@ -77,7 +77,8 @@ public class CustomersControl extends ScreenControl{
 	
 	/**
      * Called when the user press the 'add' button 
-     * Method to add a new customer/supplier to the controller ObservableList of customers
+     * This method adds a new customer/supplier to the controller ObservableList 
+     * of customers
      */
 	@FXML
     private void add() {
@@ -90,15 +91,16 @@ public class CustomersControl extends ScreenControl{
     }
 	
 	/**
-     * Called when the user edit a customer field directly from the tableColumn
-     * Method to edit the selected field in the observableList of customers
+     * Called when the user edit a customer field directly from the table;
+     * This method edits the selected field in the observableList of customers and 
+     * makes all the fields editable directly from the table
      */
 	@SuppressWarnings("unchecked")
 	private void edit() {
 
 		 for(TableColumn<CustomerImpl, ?> column: customersTable.getColumns()){
 			 if(column instanceof TableColumn){
-					//Set all the columns as editable directly from the tableView
+				//Set all the columns as editable directly from the tableView
 				 ((TableColumn<CustomerImpl, String>)column).setCellFactory(TextFieldTableCell.forTableColumn());
 					
 					((TableColumn<CustomerImpl, String>)column).setOnEditCommit(t -> {
@@ -125,12 +127,12 @@ public class CustomersControl extends ScreenControl{
 	/**
      * On delete button press, opens a confirmation dialog asking if you 
      * really want to delete the element
-     * Method to delete the selected element from the observableList of customers
+     * this method deletes the selected element from the observableList of customers
      */
     @FXML
     private void delete() {
     	Optional<ButtonType> result = alert.showConfirmation(customersTable.getSelectionModel().getSelectedItem().getName());
-        // When the user clicks ok, the selection gets deleted
+
         if (result.get() == ButtonType.OK) {
             int selectedIndex = customersTable.getSelectionModel().getSelectedIndex();
             customersController.removeCustomer(customersTable.getItems().get(selectedIndex));
@@ -138,7 +140,8 @@ public class CustomersControl extends ScreenControl{
     }
     
     /**
-     * Called when the user enter something in the search field
+     * Called when the user enter something in the search field;
+     * It search the entered string in all the customers fields(name, address, phone number)
      */
     private void search(){
     	searchField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -150,6 +153,8 @@ public class CustomersControl extends ScreenControl{
     
     /**
      * Called when the user wants to convert the TableView to a PDF file
+     * After converting the file it opens an information dialog to notify
+     * the success
      */
     @FXML
     private void convert() {
@@ -162,7 +167,8 @@ public class CustomersControl extends ScreenControl{
     }
     
     /**
-	 * Method to disable/enable the delete button when something has been selected from the user
+	 * It listen for selection changes to disable/enable the delete button 
+	 * when the user selects something in the table
 	 */
     private void update(){
     	delete.setDisable(true);
