@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<movements>
+    <movement>
+        <book>
+            <author>Giulia Cecchetti</author>
+            <genre>Comico</genre>
+            <isbn>2222222222222</isbn>
+            <pages>45</pages>
+            <price>1200</price>
+            <serie>Limitata</serie>
+            <title>Giangianni e le belle storie</title>
+            <year>2000</year>
+        </book>
+        <leavingDate>2016-02-24T00:00:00+01:00</leavingDate>
+        <quantity>2</quantity>
+        <receiver xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="depotImpl">
+            <name>Libreria Mondadori</name>
+            <books/>
+        </receiver>
+        <sender xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="depotImpl">
+            <name>Pde</name>
+            <books>
+                <entry>
+                    <key>
+                        <author>Giulia Cecchetti</author>
+                        <genre>Comico</genre>
+                        <isbn>2222222222222</isbn>
+                        <pages>45</pages>
+                        <price>1200</price>
+                        <serie>Limitata</serie>
+                        <title>Giangianni e le belle storie</title>
+                        <year>2000</year>
+                    </key>
+                    <value>66</value>
+                </entry>
+            </books>
+        </sender>
+        <trackingNumber>hgkt</trackingNumber>
+        <type>Sold</type>
+    </movement>
+    <movement>
+        <book>
+            <author>Giulia Cecchetti</author>
+            <genre>Comico</genre>
+            <isbn>2222222222222</isbn>
+            <pages>45</pages>
+            <price>1200</price>
+            <serie>Limitata</serie>
+            <title>Giangianni e le belle storie</title>
+            <year>2000</year>
+        </book>
+        <leavingDate>2016-02-17T00:00:00+01:00</leavingDate>
+        <quantity>2</quantity>
+        <receiver xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="depotImpl">
+            <name>Pde</name>
+            <books>
+                <entry>
+                    <key>
+                        <author>Giulia Cecchetti</author>
+                        <genre>Comico</genre>
+                        <isbn>2222222222222</isbn>
+                        <pages>45</pages>
+                        <price>1200</price>
+                        <serie>Limitata</serie>
+                        <title>Giangianni e le belle storie</title>
+                        <year>2000</year>
+                    </key>
+                    <value>68</value>
+                </entry>
+            </books>
+        </receiver>
+        <sender xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="depotImpl">
+            <name>Medusa</name>
+            <books>
+                <entry>
+                    <key>
+                        <author>Giulia Cecchetti</author>
+                        <genre>18</genre>
+                        <isbn>1234567891011</isbn>
+                        <pages>12</pages>
+                        <price>500</price>
+                        <serie>15</serie>
+                        <title>Disinformata</title>
+                        <year>2016</year>
+                    </key>
+                    <value>1</value>
+                </entry>
+                <entry>
+                    <key>
+                        <author>Andrea Colombo</author>
+                        <genre>Fantas</genre>
+                        <isbn>1111111111111</isbn>
+                        <pages>7</pages>
+                        <price>2500</price>
+                        <serie>HP</serie>
+                        <title>Harry Potter</title>
+                        <year>1980</year>
+                    </key>
+                    <value>2</value>
+                </entry>
+                <entry>
+                    <key>
+                        <author>Giulia Cecchetti</author>
+                        <genre>Comico</genre>
+                        <isbn>2222222222222</isbn>
+                        <pages>45</pages>
+                        <price>1200</price>
+                        <serie>Limitata</serie>
+                        <title>Giangianni e le belle storie</title>
+                        <year>2000</year>
+                    </key>
+                    <value>16</value>
+                </entry>
+            </books>
+        </sender>
+        <trackingNumber>jgfjd</trackingNumber>
+        <type>Resupply</type>
+    </movement>
+    <movement>
+        <book>
+            <author>Giulia Cecchetti</author>
+            <genre>18</genre>
+            <isbn>1234567891011</isbn>
+            <pages>12</pages>
+            <price>500</price>
+            <serie>15</serie>
+            <title>Disinformata</title>
+            <year>2016</year>
+        </book>
+        <leavingDate>2016-02-05T00:00:00+01:00</leavingDate>
+        <quantity>10</quantity>
+        <receiver xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="depotImpl">
+            <name>Pde</name>
+            <books>
+                <entry>
+                    <key>
+                        <author>Giulia Cecchetti</author>
+                        <genre>18</genre>
+                        <isbn>1234567891011</isbn>
+                        <pages>12</pages>
+                        <price>500</price>
+                        <serie>15</serie>
+                        <title>Disinformata</title>
+                        <year>2016</year>
+                    </key>
+                    <value>10</value>
+                </entry>
+                <entry>
+                    <key>
+                        <author>Giulia Cecchetti</author>
+                        <genre>Comico</genre>
+                        <isbn>2222222222222</isbn>
+                        <pages>45</pages>
+                        <price>1200</price>
+                        <serie>Limitata</serie>
+                        <title>Giangianni e le belle storie</title>
+                        <year>2000</year>
+                    </key>
+                    <value>68</value>
+                </entry>
+            </books>
+        </receiver>
+        <sender xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="depotImpl">
+            <name>Libreria Mondadori</name>
+            <books/>
+        </sender>
+        <trackingNumber>kasls</trackingNumber>
+        <type>Return</type>
+    </movement>
+    <movement>
+        <book>
+            <author>Giulia Cecchetti</author>
+            <genre>Comico</genre>
+            <isbn>2222222222222</isbn>
+            <pages>45</pages>
+            <price>1200</price>
+            <serie>Limitata</serie>
+            <title>Giangianni e le belle storie</title>
+            <year>2000</year>
+        </book>
+        <leavingDate>2016-02-10T00:00:00+01:00</leavingDate>
+        <quantity>2</quantity>
+        <receiver xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="depotImpl">
+            <name>Andrea</name>
+            <books/>
+        </receiver>
+        <sender xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="depotImpl">
+            <name>Medusa</name>
+            <books>
+                <entry>
+                    <key>
+                        <author>Giulia Cecchetti</author>
+                        <genre>18</genre>
+                        <isbn>1234567891011</isbn>
+                        <pages>12</pages>
+                        <price>500</price>
+                        <serie>15</serie>
+                        <title>Disinformata</title>
+                        <year>2016</year>
+                    </key>
+                    <value>1</value>
+                </entry>
+                <entry>
+                    <key>
+                        <author>Andrea Colombo</author>
+                        <genre>Fantas</genre>
+                        <isbn>1111111111111</isbn>
+                        <pages>7</pages>
+                        <price>2500</price>
+                        <serie>HP</serie>
+                        <title>Harry Potter</title>
+                        <year>1980</year>
+                    </key>
+                    <value>2</value>
+                </entry>
+                <entry>
+                    <key>
+                        <author>Giulia Cecchetti</author>
+                        <genre>Comico</genre>
+                        <isbn>2222222222222</isbn>
+                        <pages>45</pages>
+                        <price>1200</price>
+                        <serie>Limitata</serie>
+                        <title>Giangianni e le belle storie</title>
+                        <year>2000</year>
+                    </key>
+                    <value>14</value>
+                </entry>
+            </books>
+        </sender>
+        <trackingNumber>dslksdl</trackingNumber>
+        <type>Sold</type>
+    </movement>
+    <movement>
+        <book>
+            <author>Giulia e gli elfi</author>
+            <genre>Avventura</genre>
+            <isbn>3333333333333</isbn>
+            <pages>55</pages>
+            <price>1300</price>
+            <serie>Divertenti</serie>
+            <title>La maga mabu</title>
+            <year>2010</year>
+        </book>
+        <leavingDate>2016-02-18T00:00:00+01:00</leavingDate>
+        <quantity>2</quantity>
+        <receiver xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="depotImpl">
+            <name>Medusa</name>
+            <books>
+                <entry>
+                    <key>
+                        <author>Giulia Cecchetti</author>
+                        <genre>18</genre>
+                        <isbn>1234567891011</isbn>
+                        <pages>12</pages>
+                        <price>500</price>
+                        <serie>15</serie>
+                        <title>Disinformata</title>
+                        <year>2016</year>
+                    </key>
+                    <value>1</value>
+                </entry>
+                <entry>
+                    <key>
+                        <author>Giulia e gli elfi</author>
+                        <genre>Avventura</genre>
+                        <isbn>3333333333333</isbn>
+                        <pages>55</pages>
+                        <price>1300</price>
+                        <serie>Divertenti</serie>
+                        <title>La maga mabu</title>
+                        <year>2010</year>
+                    </key>
+                    <value>2</value>
+                </entry>
+                <entry>
+                    <key>
+                        <author>Andrea Colombo</author>
+                        <genre>Fantas</genre>
+                        <isbn>1111111111111</isbn>
+                        <pages>7</pages>
+                        <price>2500</price>
+                        <serie>HP</serie>
+                        <title>Harry Potter</title>
+                        <year>1980</year>
+                    </key>
+                    <value>2</value>
+                </entry>
+                <entry>
+                    <key>
+                        <author>Giulia Cecchetti</author>
+                        <genre>Comico</genre>
+                        <isbn>2222222222222</isbn>
+                        <pages>45</pages>
+                        <price>1200</price>
+                        <serie>Limitata</serie>
+                        <title>Giangianni e le belle storie</title>
+                        <year>2000</year>
+                    </key>
+                    <value>14</value>
+                </entry>
+            </books>
+        </receiver>
+        <sender xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="depotImpl">
+            <name>Centro Stampa Digital Print</name>
+            <books/>
+        </sender>
+        <trackingNumber>jfkdl</trackingNumber>
+        <type>Resupply</type>
+    </movement>
+    <movement>
+        <book>
+            <author>Giulia Cecchetti</author>
+            <genre>18</genre>
+            <isbn>1234567891011</isbn>
+            <pages>12</pages>
+            <price>500</price>
+            <serie>15</serie>
+            <title>Disinformata</title>
+            <year>2016</year>
+        </book>
+        <leavingDate>2016-02-10T00:00:00+01:00</leavingDate>
+        <quantity>2</quantity>
+        <receiver xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="depotImpl">
+            <name>Pde</name>
+            <books>
+                <entry>
+                    <key>
+                        <author>Giulia Cecchetti</author>
+                        <genre>18</genre>
+                        <isbn>1234567891011</isbn>
+                        <pages>12</pages>
+                        <price>500</price>
+                        <serie>15</serie>
+                        <title>Disinformata</title>
+                        <year>2016</year>
+                    </key>
+                    <value>12</value>
+                </entry>
+                <entry>
+                    <key>
+                        <author>Giulia Cecchetti</author>
+                        <genre>Comico</genre>
+                        <isbn>2222222222222</isbn>
+                        <pages>45</pages>
+                        <price>1200</price>
+                        <serie>Limitata</serie>
+                        <title>Giangianni e le belle storie</title>
+                        <year>2000</year>
+                    </key>
+                    <value>68</value>
+                </entry>
+            </books>
+        </receiver>
+        <sender xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="depotImpl">
+            <name>Libreria Mondadori</name>
+            <books/>
+        </sender>
+        <trackingNumber>tihd</trackingNumber>
+        <type>Return</type>
+    </movement>
+</movements>

@@ -74,7 +74,7 @@ public class FileManager<A> {
 		this.classType = classType;
 		
 		this.name = name;
-		this.xmlPath = PATH + ".xml" + System.getProperty("file.separator") + name + ".xml";
+		this.xmlPath = PATH + System.getProperty("file.separator") + name + ".xml";
 		
 		this.qName= new QName(name);
 		

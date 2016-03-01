@@ -100,7 +100,8 @@ public class EmailSender implements EmailViewObserver {
 		File[] filesArray = directory.listFiles();
 		for(int i=0; i<filesArray.length; i++){
 			if(filesArray[i].isFile()){
-		        paths.add(filesArray[i].getName());
+				if(!filesArray[i].getName().endsWith("xml"))
+					paths.add(filesArray[i].getName());
 		    }
 		}
 		return paths;
