@@ -9,7 +9,7 @@ import javafx.scene.control.Alert.AlertType;
 
 public class AlertTypesImpl implements AlertTypes{
 
-	//private static final String CSSPATH = getClass().getResource("/materialDesign.css").toExternalForm();
+	private final String cssPath = getClass().getResource("/materialDesign.css").toExternalForm();
 	private final Alert warning = new Alert(AlertType.WARNING);
 	private final Alert error = new Alert(AlertType.ERROR);
 	private final Alert confirmation = new Alert(AlertType.CONFIRMATION);
@@ -17,10 +17,10 @@ public class AlertTypesImpl implements AlertTypes{
 	
 	public AlertTypesImpl(){
 		//Added CSS Style to the alert panels
-		confirmation.getDialogPane().getStylesheets().add(getClass().getResource("/materialDesign.css").toExternalForm());
-		error.getDialogPane().getStylesheets().add(getClass().getResource("/materialDesign.css").toExternalForm());
-		warning.getDialogPane().getStylesheets().add(getClass().getResource("/materialDesign.css").toExternalForm());
-		information.getDialogPane().getStylesheets().add(getClass().getResource("/materialDesign.css").toExternalForm());
+		confirmation.getDialogPane().getStylesheets().add(cssPath);
+		error.getDialogPane().getStylesheets().add(cssPath);
+		warning.getDialogPane().getStylesheets().add(cssPath);
+		information.getDialogPane().getStylesheets().add(cssPath);
 	}
 
 	
@@ -73,16 +73,16 @@ public class AlertTypesImpl implements AlertTypes{
 	}
 
 	@Override
-	public void showEmailNotSentError() {
-		error.setTitle("Error");
-        error.setHeaderText("Something went wrong!");
-        error.setContentText("The email has not been sent");
+	public void showEmailNotSentError(Exception e) {
+		error.setTitle("Something went wrong!");
+        error.setHeaderText("The email has not been sent");
+        error.setContentText(e.getMessage());
         error.showAndWait();
 	}
 	
 	@Override
 	public void showEmailSentSuccessfully() {
-		information.setTitle("Congratulation");
+		information.setTitle("Congratulations");
 		information.setHeaderText("Email sent successfully!");
 		information.setContentText("");
 		information.showAndWait();

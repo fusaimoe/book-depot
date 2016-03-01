@@ -50,6 +50,7 @@ public class EmailControl extends ScreenControl{
 	    public void initialize() {
 	    	attachedField.setEditable(false);
 	    	listView.setItems(paths);
+	    	if(paths.isEmpty()) alert.showWarning(new NullPointerException("There are no converted files in the folder."));
 	    }
 	    
 	    /**
@@ -74,7 +75,7 @@ public class EmailControl extends ScreenControl{
 				emailSender.send(toField.getText(), subjectField.getText(), messageArea.getText(), attachedField.getText());
 				alert.showEmailSentSuccessfully();
 			} catch (MessagingException e) {
-				alert.showEmailNotSentError();
+				alert.showEmailNotSentError(e);
 			} catch (IllegalArgumentException e){
 				alert.showError(e);
 			}

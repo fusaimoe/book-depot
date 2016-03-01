@@ -46,7 +46,7 @@ public interface AlertTypes {
 	/**
 	 * Error Dialog after sending an email
 	 */
-	public void showEmailNotSentError();
+	public void showEmailNotSentError(Exception e);
 	
 	/**
 	 * Information Dialog after the email has been sent successfully

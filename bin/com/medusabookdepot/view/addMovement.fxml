@@ -17,7 +17,7 @@
 				</HBox>
 				<HBox VBox.vgrow="ALWAYS">
 					<children>
-						<VBox prefWidth="300.0">
+						<VBox prefWidth="300.0" minWidth="200.0">
 							<children> 
 					        	<Label styleClass="control-label" text="Sender" />
 				                <ComboBox prefHeight="43.0" prefWidth="300.0" fx:id="senderBox" />
@@ -52,10 +52,10 @@
 								</TableView>
 								<HBox spacing="20" fx:id="hBoxFields">
 									<children>
-							        	<TextField prefHeight="42.0" promptText="Quantity" styleClass="control-label" HBox.hgrow="ALWAYS" fx:id="quantityField" />
-							        	<ComboBox prefHeight="42.0" promptText="Title" HBox.hgrow="ALWAYS" fx:id="titleBox" />
-							        	<ComboBox prefHeight="42.0" promptText="ISBN" HBox.hgrow="ALWAYS" fx:id="isbnBox" />
-							        	<Button defaultButton="true" mnemonicParsing="false" text="ADD" HBox.hgrow="ALWAYS" onAction="#add"/>
+							        	<TextField prefHeight="42.0" promptText="Quantity" HBox.hgrow="ALWAYS" styleClass="control-label" fx:id="quantityField" />
+							        	<ComboBox prefHeight="42.0" HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308" promptText="Title" fx:id="titleBox" />
+							        	<ComboBox prefHeight="42.0" HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308" promptText="ISBN" fx:id="isbnBox" />
+							        	<Button defaultButton="true" mnemonicParsing="false" text="ADD" onAction="#add"/>
 									</children> 
 								</HBox>
 							</children>

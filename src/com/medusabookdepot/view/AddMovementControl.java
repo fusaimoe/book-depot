@@ -12,6 +12,7 @@ import com.medusabookdepot.controller.MovementsController;
 import com.medusabookdepot.model.modelImpl.TransferImpl;
 import com.medusabookdepot.view.alert.AlertTypes;
 import com.medusabookdepot.view.alert.AlertTypesImpl;
+import com.medusabookdepot.view.util.AutoCompleteComboBoxListener;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;

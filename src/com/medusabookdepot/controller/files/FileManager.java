@@ -29,8 +29,19 @@ import org.apache.fop.apps.MimeConstants;
 
 import javafx.collections.ObservableList;
 
+/**
+ * Class which permits to save on XML java objects, and to convert an XML to PDF, and eventually open it
+ *
+ * @param <A> A is type of object to save in the file
+ */
 public class FileManager<A> {
 
+	// Minimum number of character of a full XML file, if the file contains less than MIN_CHARS characters, it is empty
+	private static final int MIN_CHARS = 80;
+	// Path to the book-depot directory, located into the home of the user
+	private static final String PATH = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot" + System.getProperty("file.separator");
+		
+	
 	private List<A> list;
 	private final Class<A> classType;
 	private File file;
@@ -41,24 +52,18 @@ public class FileManager<A> {
 	// Path of the last saved PDF file to open
 	private String lastPdf;
 	
-	// Minimum number of character of a full XML file, if the file contains less than MIN_CHARS characters, it is empty
-	private static final int MIN_CHARS = 80;
-	// Path to the book-depot directory, located into the home of the user
-	private static final String PATH = System.getProperty("user.home") + System.getProperty("file.separator") + "book-depot" + System.getProperty("file.separator");
-	
 	/**
-	 * Constructor
-	 * It creates the directory "book-depot" in home,
-	 * load the file, if it exists and if it's not empty
+	 * Constructor for FileManager. It creates the directory "book-depot" in home, loads the file,
+	 * but only if it exists and if it's not empty. Otherwise it will be created later.
 	 * 
 	 * @param list
-	 * List of elements to manage from and to the file 
+	 * - List of elements to manage from and to the file 
 	 * @param filePath
-	 * Xml file to manage
+	 * - Xml file to manage
 	 * @param classType
-	 * Class of the elements of the file to manage
+	 * - Class of the elements of the file to manage
 	 * @param qName
-	 * Name for the list of element in the XML file.
+	 * - Name for the list of element in the XML file.
 	 * IE books (for element book of StandardBookImpl class), customers (for element customer of CustomerImpl class), ecc.
 	 * It's needed only for XML file saving as XML loading accepts any element as root
 	 */
@@ -112,7 +117,7 @@ public class FileManager<A> {
     }
 
 	/**
-	 * Saves the current person data to the file specified in the constructor.
+	 * Saves the current element data to the file specified in the constructor.
 	 */
 	@SuppressWarnings("rawtypes")
 	public void saveDataToFile() {
@@ -139,7 +144,7 @@ public class FileManager<A> {
 	/**
 	 * Converts the XML file relative to this FileManager to a PDF file, using a FO file as a template
 	 *
-	 * @throws IOException if the FO template file is not present, since it needs to done on purpose
+	 * @throws IOException if the FO template file is not present, since it needs to be done on purpose
 	 */
 	public void convertXML2PDF() throws IOException {
 		
@@ -175,10 +180,21 @@ public class FileManager<A> {
 		}
 	}
 	
+	/**
+	 * Opens the last file convert to PDF. Not used in the application at the moment because
+	 * it causes a crash on Linux machines. Tested correctly on Windows machines.
+	 * 
+	 * @throws IOException if the file has not been found
+	 */
 	public void openPDF() throws IOException{
 		Desktop.getDesktop().open(new File(lastPdf));
 	}
 
+	/**
+	 * A getter to have the path of the folder which contains all the user files of the application
+	 * 
+	 * @return the book-depot directory path in the home of the user
+	 */
 	public static String getDirectoryPath() {
 		return PATH;
 	}

@@ -8,6 +8,14 @@ import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+/**
+ * This class is a simple email sender, with an hard-coded Gmail username and password as static fields.
+ * It requires javax.mail.jar library, and it uses SMTP to connect to Gmail.
+ * 
+ * It is basic, just to match the requirements of the app, but it could be easily modified to work 
+ * with any SMTP capable account. To do this, you need to add more parameters to send() method, such
+ * as String username, String password, int smtp, etc.
+ */
 public class EmailSender {
 
 	// Gmail username and password
@@ -21,12 +29,23 @@ public class EmailSender {
         String body = "Check if now it works with the correct name file!";
         String attachment = "prova.jpg";
         send(receiver, subject, body, attachment);
+        System.out.println("Mail Sent Successfully");
     }//*/
 
+    /**
+     * @param receiver
+     * - The email address of the receiver (it works also if you put more than one receiver, separated by a comma)
+     * @param subject
+     * - The subject of the email
+     * @param body
+     * - The text body of the message
+     * @param attachment
+     * - One attachment file
+     */
     public void send(String receiver, String subject, String body, String attachment) throws MessagingException, IllegalArgumentException {
     	
+    	// Checking for blank fields
     	if(receiver.isEmpty() || subject.isEmpty() || body.isEmpty() || attachment.isEmpty()) throw new IllegalArgumentException("Please fill all the blank fields");
-    	
     	
         Properties props = System.getProperties();
         
@@ -61,7 +80,6 @@ public class EmailSender {
         Transport tr = session.getTransport("smtps");
         tr.connect(host, USERNAME, PASSWORD);
         tr.sendMessage(message, message.getAllRecipients());
-        System.out.println("Mail Sent Successfully");
         tr.close();
 
     }
