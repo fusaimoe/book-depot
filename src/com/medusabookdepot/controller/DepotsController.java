@@ -28,20 +28,11 @@ public class DepotsController  implements DepotsViewObserver{
 		super();
 	}
 
-	/**
-	 * Load the DepotsController object or create a new if it doesn't exists
-	 */
 	public static DepotsController getInstanceOf() {
 
 		return (DepotsController.singDepots == null ? new DepotsController() : DepotsController.singDepots);
 	}
 
-	/**
-	 * Add one ore more before created depots in the list
-	 * 
-	 * @param depot
-	 */
-	// non sono convinto della sua utilità...
 	public void addDepot(DepotImpl... depot) {
 
 		for (DepotImpl n : depot) {
@@ -50,15 +41,6 @@ public class DepotsController  implements DepotsViewObserver{
 		}
 	}
 
-	/**
-	 * Add a empty depot from name
-	 * 
-	 * @param <b>Name
-	 *            of new depot</b>
-	 * @throws IllegalArgumentException
-	 *             if another depot is registered with the same name or it's
-	 *             empty
-	 */
 	public void addDepot(String name) throws IllegalArgumentException {
 
 		if (name.equals("")) {
@@ -70,24 +52,12 @@ public class DepotsController  implements DepotsViewObserver{
 		depots.add(new DepotImpl(name, new HashMap<>()));
 		fileManager.saveDataToFile();
 	}
-	
-	/**
-	 * Filter depots list with name
-	 * @param Name
-	 * @return Stream of depots that name contains the string passed
-	 */
+
 	public Stream<DepotImpl>filterDepot(String name){
 		
 		return this.getDepots().stream().filter(e->e.getName().toLowerCase().contains(name.toLowerCase()));
 	}
 	
-	/**
-	 * Search a depot in the list
-	 * 
-	 * @param Depot
-	 *            name
-	 * @return Empty ObservableList if none depot was found, else the depot(s)
-	 */
 	public ObservableList<DepotImpl> searchDepot(String name) {
 		ObservableList<DepotImpl> result = FXCollections.observableArrayList();
 
@@ -121,13 +91,6 @@ public class DepotsController  implements DepotsViewObserver{
 		return result;
 	}
 
-	/**
-	 * Remove a depot from the list
-	 * 
-	 * @param Depot
-	 * @throws <b>NoSuchElementException</b>
-	 *             if you are trying to remove a depot that not exists
-	 */
 	public void removeDepot(DepotImpl depot) throws NoSuchElementException {
 
 		try {
@@ -152,14 +115,6 @@ public class DepotsController  implements DepotsViewObserver{
 		fileManager.saveDataToFile();
 	}
 
-	/**
-	 * Replace book quantity with new passed value, if passed value is 0, revove
-	 * the book from depot
-	 * 
-	 * @param Depot
-	 * @param Book
-	 * @param Value
-	 */
 	public void editBookQuantity(DepotImpl depot, StandardBookImpl book, String value) {
 
 		try {
@@ -182,19 +137,11 @@ public class DepotsController  implements DepotsViewObserver{
 		fileManager.saveDataToFile();
 	}
 
-	/**
-	 * Get the observable list of depots
-	 */
 	public ObservableList<DepotImpl> getDepots() {
 
 		return depots;
 	}
 
-	/**
-	 * Convert the XML file to PDF
-	 * 
-	 * @throws IOException
-	 */
 	public void convert() throws IOException {
 
 		fileManager.convertXML2PDF();

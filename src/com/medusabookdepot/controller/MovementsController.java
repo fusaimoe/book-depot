@@ -20,7 +20,7 @@ import com.medusabookdepot.view.observer.MovementsViewObserver;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class MovementsController extends PriceManagementController implements MovementsViewObserver{
+public class MovementsController extends ConvertController implements MovementsViewObserver{
 
 	private final ObservableList<TransferImpl> movements = FXCollections.observableArrayList();
 	private final ObservableList<TransferImpl> tempData = FXCollections.observableArrayList();
@@ -39,9 +39,6 @@ public class MovementsController extends PriceManagementController implements Mo
 		super();
 	}
 
-	/**
-	 * Load the MovementsController object or create a new if it doesn't exists
-	 */
 	public static MovementsController getInstanceOf() {
 
 		return (MovementsController.singMovements == null ? new MovementsController()
@@ -53,11 +50,6 @@ public class MovementsController extends PriceManagementController implements Mo
 		return tempData;
 	}
 
-	/**
-	 * Add a movement from Transfer object and save it in file
-	 * 
-	 * @param Movement
-	 */
 	public void addMovement(TransferImpl transfer) {
 
 		// Aggiungo alla lista il movimento di libri e scrivo su file gli
@@ -76,18 +68,6 @@ public class MovementsController extends PriceManagementController implements Mo
 	 * mappa (chiesta da Model) contenente un solo elemento preso in input.
 	 */
 
-	/**
-	 * Add a new transfer starting by passed strings
-	 * 
-	 * @param Sender
-	 * @param Receiver
-	 * @param Leaving
-	 *            date
-	 * @param Book
-	 * @param Quantity
-	 * @param Tracking
-	 *            number
-	 */
 	public void addMovement(String sender, String receiver, Date leavingDate, String book, String quantity,
 			String trackingNumber) {
 
@@ -142,14 +122,6 @@ public class MovementsController extends PriceManagementController implements Mo
 				Integer.parseInt(quantity), this.getMovementType(sender, receiver)));
 	}
 
-	/**
-	 * Remove one movement from list and adjust the books in depots
-	 * 
-	 * @param One
-	 *            ore more movements
-	 * @throws <b>NoSuchElementException</b>
-	 *             if you are trying to remove a movement that not exists
-	 */
 	public void removeMovement(TransferImpl t) throws NoSuchElementException {
 
 		try {
@@ -200,13 +172,6 @@ public class MovementsController extends PriceManagementController implements Mo
 		throw new IllegalArgumentException("Movement type not supported");
 	}
 
-	/**
-	 * Search a transfer in list by tracking number
-	 * 
-	 * @param <b>Tracking
-	 *            number</b>
-	 * @return The transfer if it was found, else <b>null</b>
-	 */
 	public Transfer searchTrasferByTrackingNumber(String tracking) {
 
 		for (Transfer t : movements) {
@@ -217,13 +182,6 @@ public class MovementsController extends PriceManagementController implements Mo
 		return null;
 	}
 
-	/**
-	 * Search a string in ALL fields of movement object and add it to results if
-	 * it is contained in field
-	 * 
-	 * @param Value
-	 * @return A list of results
-	 */
 	public List<TransferImpl> searchMovements(String value) {
 		List<TransferImpl> result = new ArrayList<>();
 
@@ -243,17 +201,6 @@ public class MovementsController extends PriceManagementController implements Mo
 		return result;
 	}
 
-	/**
-	 * Assign a passed tracking number at a movement
-	 * 
-	 * @param <b>Tracking
-	 *            number</b> given by courier
-	 * @param <b>The
-	 *            movement</b> to assign it
-	 * @throws <b>IllegalArgumentException</b>
-	 *             if there is a registered movement with the same tracking
-	 *             number
-	 */
 	public void assignTrackingNumber(String tracking, Transfer movement) throws IllegalArgumentException {
 
 		if (this.searchTrasferByTrackingNumber(tracking) != null) {
@@ -262,11 +209,6 @@ public class MovementsController extends PriceManagementController implements Mo
 		movement.setTrackingNumber(tracking);
 	}
 
-	/**
-	 * Search for transfer from StandardBook
-	 * 
-	 * @param StandardBookImpl
-	 */
 	public TransferImpl getTransferFromBook(StandardBookImpl book) {
 		for (TransferImpl transfer : movements) {
 			if (transfer.getBook().getIsbn().equals(book)) {
@@ -276,17 +218,6 @@ public class MovementsController extends PriceManagementController implements Mo
 		return null;
 	}
 
-	/**
-	 * Check if arguments passed are valid
-	 * 
-	 * @param Sender
-	 * @param Receiver
-	 * @param Leaving
-	 *            date
-	 * @param Book
-	 * @param Quantity
-	 * @return <b>True</b> if the arguments passed are valid
-	 */
 	public boolean isMovementValid(String sender, String receiver, Date leavingDate, String book, String quantity) {
 
 		if (sender.equals("") || receiver.equals("") || book.equals("") || quantity.equals("")) {
@@ -331,12 +262,6 @@ public class MovementsController extends PriceManagementController implements Mo
 		return true;
 	}
 
-	/**
-	 * Check if the string passed is a depot name
-	 * 
-	 * @param Name
-	 * @return <b>True</b> if really it is, else <b>False</b>
-	 */
 	public boolean isADepot(String name) {
 		name = name.toLowerCase();
 		for (DepotImpl d : depots) {
@@ -347,19 +272,11 @@ public class MovementsController extends PriceManagementController implements Mo
 		return false;
 	}
 
-	/**
-	 * Return the list of movements
-	 * 
-	 * @return Movements list
-	 */
 	public ObservableList<TransferImpl> getMovements() {
 
 		return movements;
 	}
 
-	/**
-	 * @return A ObservableList of all books titles
-	 */
 	public ObservableList<String> getTitlesString() {
 
 		ObservableList<String> booksString = FXCollections.observableArrayList();
@@ -369,9 +286,6 @@ public class MovementsController extends PriceManagementController implements Mo
 		return booksString;
 	}
 
-	/**
-	 * @return A ObservableList of all books ISBNs
-	 */
 	public ObservableList<String> getIsbnsString() {
 
 		ObservableList<String> booksString = FXCollections.observableArrayList();
@@ -381,9 +295,6 @@ public class MovementsController extends PriceManagementController implements Mo
 		return booksString;
 	}
 
-	/**
-	 * @return A ObservableList of only CanSendTransferrer(s) name
-	 */
 	public ObservableList<String> getCanSendTransferrersString() {
 
 		ObservableList<String> canSendTransferrersString = FXCollections.observableArrayList();
@@ -398,9 +309,6 @@ public class MovementsController extends PriceManagementController implements Mo
 		return canSendTransferrersString;
 	}
 
-	/**
-	 * @return A ObservableList of all customers name
-	 */
 	public ObservableList<String> getCustomersAndDepotsString() {
 
 		ObservableList<String> customersAndDepotsString = FXCollections.observableArrayList();
@@ -413,12 +321,6 @@ public class MovementsController extends PriceManagementController implements Mo
 		return customersAndDepotsString;
 	}
 
-	/**
-	 * Return a ObservableList with all ISBNs relative a title (A title may to
-	 * more than one ISBN, like "Introduction in Java")
-	 * 
-	 * @param Title
-	 */
 	public ObservableList<String> getAllIsbnFromTitle(String title) {
 
 		ObservableList<String> titles = FXCollections.observableArrayList();
@@ -431,9 +333,6 @@ public class MovementsController extends PriceManagementController implements Mo
 		return titles;
 	}
 
-	/**
-	 * @return An OservableList contains all years that have movements
-	 */
 	public ObservableList<String> getYearsWithMovements() {
 		ObservableList<String> years = FXCollections.observableArrayList();
 
@@ -450,13 +349,6 @@ public class MovementsController extends PriceManagementController implements Mo
 		return years;
 	}
 
-	/**
-	 * In base of sender return a list of possible receivers
-	 * 
-	 * @param Sender
-	 *            name
-	 * @return ObservableList with all possible receivers
-	 */
 	public ObservableList<String> getReceiversFromSender(String sender) {
 		ObservableList<String> receivers = FXCollections.observableArrayList();
 
@@ -503,14 +395,6 @@ public class MovementsController extends PriceManagementController implements Mo
 		return receivers;
 	}
 
-	/**
-	 * Takes a transferrer name and if it's a depot put in list all books inside
-	 * its, if it's a library put in list all book titles
-	 * 
-	 * @param Transferrer
-	 *            name
-	 * @return A ObservableList of titles
-	 */
 	public ObservableList<String> getTitleFromTransferrer(String transferrer) {
 		ObservableList<String> titles = FXCollections.observableArrayList();
 
