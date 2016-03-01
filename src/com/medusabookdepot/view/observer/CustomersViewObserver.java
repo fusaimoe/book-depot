@@ -99,10 +99,4 @@ public interface CustomersViewObserver {
 	 * @throws IOException
 	 */
 	public void convert() throws IOException;
-	/**
-	 * Convert the XML file to PDF
-	 * 
-	 * @throws IOException
-	 */
-	public void openPDF() throws IOException;
 }

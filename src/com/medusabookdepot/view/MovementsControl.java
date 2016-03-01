@@ -4,6 +4,7 @@
 
 package com.medusabookdepot.view;
 
+import java.io.IOException;
 import java.time.ZoneId;
 import java.util.Optional;
 
@@ -31,13 +32,11 @@ public class MovementsControl extends ScreenControl{
 
 	@FXML
     private TableView<TransferImpl> movementsTable;
-	
     @FXML
     private TableColumn<TransferImpl, String> quantityColumn, isbnColumn, titleColumn, senderColumn, 
 		receiverColumn, dateColumn, totalPriceColumn, trackingColumn, typeColumn;
-    
     @FXML
-    private Button delete;
+    private Button delete, convert;
 	@FXML
     private TextField searchField;
 	
@@ -110,5 +109,18 @@ public class MovementsControl extends ScreenControl{
 		        movementsTable.setItems(FXCollections.observableArrayList(movementsController.searchMovements(newValue)));
         	}else movementsTable.setItems(movementsController.getMovements());
         });
+    }
+    
+    /**
+     * Called when the user wants to convert the TableView to a PDF file
+     */
+    @FXML
+    private void convert() {
+        try {
+            movementsController.convert();
+            alert.showConverted();
+        } catch (IOException e) {
+           alert.showConvertError(e);
+        }
     }
 }

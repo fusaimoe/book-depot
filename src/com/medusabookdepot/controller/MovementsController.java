@@ -1,5 +1,6 @@
 package com.medusabookdepot.controller;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -399,7 +400,7 @@ public class MovementsController extends ConvertController implements MovementsV
 		ObservableList<String> titles = FXCollections.observableArrayList();
 		
 		if(transferrer == null){
-			throw new NullPointerException("Transfer not valid!");
+			throw new NullPointerException("Don't edit the text if you already chose the sender");
 		}
 		if (this.isADepot(transferrer)) {
 			DepotsController.getInstanceOf().getDepots().stream().forEach(e -> {
@@ -420,5 +421,11 @@ public class MovementsController extends ConvertController implements MovementsV
 		}
 
 		return titles;
+	}
+	
+	public void convert() throws IOException {
+
+		fileManager.convertXML2PDF();
+
 	}
 }

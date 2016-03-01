@@ -166,10 +166,5 @@ public class CustomersController implements CustomersViewObserver {
 		fileManager.convertXML2PDF();
 
 	}
-
-	public void openPDF() throws IOException {
-
-		fileManager.openPDF();
-
-	}
+	
 }

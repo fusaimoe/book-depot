@@ -1,5 +1,6 @@
 package com.medusabookdepot.view.observer;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -167,4 +168,11 @@ public interface MovementsViewObserver {
 	 * @return A ObservableList of titles
 	 */
 	public ObservableList<String> getTitleFromTransferrer(String transferrer);
+	
+	/**
+	 * Convert the XML file to PDF
+	 * 
+	 * @throws IOException
+	 */
+	public void convert() throws IOException;
 }

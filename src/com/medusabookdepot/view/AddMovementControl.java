@@ -83,8 +83,6 @@ public class AddMovementControl extends ScreenControl{
         autoCompleteFactory = new AutoCompleteComboBoxListener<String>(titleBox);
         senderBox.setItems(FXCollections.observableArrayList(movementsController.getCanSendTransferrersString()));
         autoCompleteFactory = new AutoCompleteComboBoxListener<String>(senderBox);
-        //receiverBox.setItems(FXCollections.observableArrayList(movementsController.getCustomersAndDepotsString()));
-        //autoCompleteFactory = new AutoCompleteComboBoxListener<String>(receiverBox);
         
         // Listen for selection changes and enable delete button or filter the comboBoxes
         this.update();
@@ -157,14 +155,18 @@ public class AddMovementControl extends ScreenControl{
         	// Enable button if the title ComboBox has a newValue
         	titleBox.setDisable(false);
         	// Set the items of the isbn ComboBox from a list of all the values possible from the selected title
-        	titleBox.setItems(FXCollections.observableArrayList(movementsController.getTitleFromTransferrer(newValue)));
-        	// If there is only one receiver possible value, select it
-        	if(movementsController.getTitleFromTransferrer(newValue).size()==1) {
-        		receiverBox.getSelectionModel().select(0);
-	        }
-        	// If the list of all possible values is empty, or the sender ComboBox is still empty, disable the receiver ComboBox 
-            if(senderBox.getSelectionModel().isEmpty() || movementsController.getTitleFromTransferrer(newValue).isEmpty()) {
-            	titleBox.setDisable(true);     	
+        	try{
+        		titleBox.setItems(FXCollections.observableArrayList(movementsController.getTitleFromTransferrer(newValue)));
+	        	// If there is only one receiver possible value, select it
+	        	if(movementsController.getTitleFromTransferrer(newValue).size()==1) {
+	        		receiverBox.getSelectionModel().select(0);
+		        }
+	        	// If the list of all possible values is empty, or the sender ComboBox is still empty, disable the receiver ComboBox 
+	            if(senderBox.getSelectionModel().isEmpty() || movementsController.getTitleFromTransferrer(newValue).isEmpty()) {
+	            	titleBox.setDisable(true);     	
+	            }
+        	} catch (Exception e){
+            	alert.showError(e);
             }
         });
 	}
