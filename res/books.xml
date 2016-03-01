@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<books>
+    <book>
+        <author>Andrea Colombo</author>
+        <genre>Fantas</genre>
+        <isbn>1111111111111</isbn>
+        <pages>7</pages>
+        <price>2500</price>
+        <serie>HP</serie>
+        <title>Harry Potter</title>
+        <year>1980</year>
+    </book>
+    <book>
+        <author>Giulia Cecchetti</author>
+        <genre>Comico</genre>
+        <isbn>2222222222222</isbn>
+        <pages>45</pages>
+        <price>1200</price>
+        <serie>Limitata</serie>
+        <title>Giangianni e le belle storie</title>
+        <year>2000</year>
+    </book>
+    <book>
+        <author>Giulia e gli elfi</author>
+        <genre>Avventura</genre>
+        <isbn>3333333333333</isbn>
+        <pages>55</pages>
+        <price>1300</price>
+        <serie>Divertenti</serie>
+        <title>La maga mabu</title>
+        <year>2010</year>
+    </book>
+    <book>
+        <author>Peto</author>
+        <genre>666</genre>
+        <isbn>1234567890123</isbn>
+        <pages>2</pages>
+        <price>12300</price>
+        <serie>Cecchetti</serie>
+        <title>Discalcula</title>
+        <year>2015</year>
+    </book>
+    <book>
+        <author>Giulia Cecchetti</author>
+        <genre>18</genre>
+        <isbn>1234567891011</isbn>
+        <pages>12</pages>
+        <price>500</price>
+        <serie>15</serie>
+        <title>Disinformata</title>
+        <year>2016</year>
+    </book>
+    <book>
+        <author>1</author>
+        <genre>1</genre>
+        <isbn>0123456789123</isbn>
+        <pages>1</pages>
+        <price>100</price>
+        <serie>1</serie>
+        <title>Matematica</title>
+        <year>1993</year>
+    </book>
+    <book>
+        <author>10234</author>
+        <genre>1234</genre>
+        <isbn>2345678912341</isbn>
+        <pages>1234</pages>
+        <price>12300</price>
+        <serie>1234</serie>
+        <title>ammmamt</title>
+        <year>1234</year>
+    </book>
+    <book>
+        <author>123</author>
+        <genre>123</genre>
+        <isbn>1234567890000</isbn>
+        <pages>123</pages>
+        <price>1250</price>
+        <serie>123</serie>
+        <title>peto</title>
+        <year>1234</year>
+    </book>
+    <book>
+        <author>0</author>
+        <genre>1</genre>
+        <isbn>1234567890777</isbn>
+        <pages>5</pages>
+        <price>0</price>
+        <serie>5</serie>
+        <title>0.</title>
+        <year>1234</year>
+    </book>
+</books>

@@ -2,6 +2,8 @@ package com.medusabookdepot.view.observer;
 
 import javax.mail.MessagingException;
 
+import javafx.collections.ObservableList;
+
 /**
  * Send E-mail
  */
@@ -16,4 +18,9 @@ public interface EmailViewObserver {
 	 */
 	public void send(String receiver, String subject, String body, String attachment) throws MessagingException, IllegalArgumentException;
 	
+	/**
+	 * This method populates the paths list with all the possible attachments, without the XML files
+	 * @return the list of attachments, without XML files
+	 */
+	public ObservableList<String> setPaths();
 }
