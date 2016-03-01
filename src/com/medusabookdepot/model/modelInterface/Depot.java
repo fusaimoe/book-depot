@@ -10,8 +10,6 @@ import com.medusabookdepot.model.modelImpl.Pair;
 import com.medusabookdepot.model.modelImpl.StandardBookImpl;
 
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.StringProperty;
-
 /**
  * This interface represents a Depot type of Transferrer, so that does lots of operations on books
  * @author Marcello_Feroce
