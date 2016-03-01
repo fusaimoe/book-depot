@@ -17,7 +17,7 @@
 					<Label styleClass="card-title" text="Statistics" />
 					<Pane prefWidth="15.0"/>
 					<ToggleButton text="Movements per month" onAction="#uploadMovStats" toggleGroup="$group" fx:id="movStats"/>
-					<ToggleButton text="Earnings per month" onAction="#uploadPriceStats" toggleGroup="$group" fx:id="earningStats"/>
+					<ToggleButton text="Earnings per month" onAction="#uploadEarningsStats" toggleGroup="$group" fx:id="earningStats"/>
 					<Pane HBox.hgrow="ALWAYS" />
 					<Label styleClass="control-label" text="Select the year" />
 					<Pane prefWidth="20" />
