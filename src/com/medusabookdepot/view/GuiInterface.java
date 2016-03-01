@@ -24,5 +24,5 @@ public interface GuiInterface {
 	/**
 	 * Show the user interface, called by controller
 	 */
-	public void showPanel(String[] args);
+	public void launcher(String[] args);
 }

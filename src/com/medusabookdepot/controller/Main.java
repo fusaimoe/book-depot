@@ -8,7 +8,7 @@ public class Main {
 
 	public Main() {
 		this.firstFrame = new GUI();
-		this.firstFrame.showPanel(new String[] { "" });
+		this.firstFrame.launcher(new String[] {});
 	}
 
 	public static void main(String[] args) throws Exception {
