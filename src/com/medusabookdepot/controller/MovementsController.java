@@ -395,9 +395,12 @@ public class MovementsController extends ConvertController implements MovementsV
 		return receivers;
 	}
 
-	public ObservableList<String> getTitleFromTransferrer(String transferrer) {
+	public ObservableList<String> getTitleFromTransferrer(String transferrer) throws NullPointerException{
 		ObservableList<String> titles = FXCollections.observableArrayList();
-
+		
+		if(transferrer == null){
+			throw new NullPointerException("Transfer not valid!");
+		}
 		if (this.isADepot(transferrer)) {
 			DepotsController.getInstanceOf().getDepots().stream().forEach(e -> {
 				if (e.getName().equals(transferrer)) {

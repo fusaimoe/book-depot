@@ -5,7 +5,7 @@ import java.time.ZoneId;
 
 import com.medusabookdepot.model.modelImpl.TransferImpl;
 
-public class StatisticsController extends ConvertController{
+public class StatisticsController extends ConvertController implements StatisticsViewObserver{
 
 	private static StatisticsController singStats;
 	
