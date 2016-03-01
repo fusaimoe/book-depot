@@ -23,7 +23,7 @@ import javafx.scene.layout.HBox;
 public class StatisticsControl extends ScreenControl{
 
     //ObservableList of movements
-    private final MovementsController movementsController = MovementsController.getInstanceOf();
+    private final StatisticsController statisticsController = StatisticsController.getInstanceOf();
     
     //ObservableList of months
     private final ObservableList<String> monthNames = FXCollections.observableArrayList(
@@ -31,7 +31,7 @@ public class StatisticsControl extends ScreenControl{
     private static final int MONTHS = 12;
     
     //ObservableList of years
-    private final ObservableList<String> yearNames = movementsController.getYearsWithMovements();
+    private final ObservableList<String> yearNames = MovementsController.getInstanceOf().getYearsWithMovements();
     
 	@FXML
 	private ToggleButton earningStats;
@@ -92,8 +92,8 @@ public class StatisticsControl extends ScreenControl{
 	    	
 	        // Create a XYChart. Data object for each month. Add it to the series.
 	        for (int i = 0; i < MONTHS; i++) {
-	            movSeries.getData().add(new Data<>(monthNames.get(i), StatisticsController.getInstanceOf().getMovStats(newValue)[i]));
-	            priceSeries.getData().add(new Data<>(monthNames.get(i), StatisticsController.getInstanceOf().getPriceStats(newValue)[i]));
+	            movSeries.getData().add(new Data<>(monthNames.get(i), statisticsController.getMovStats(newValue)[i]));
+	            priceSeries.getData().add(new Data<>(monthNames.get(i), statisticsController.getPriceStats(newValue)[i]));
 	        }
 
 		    barChart.getData().add(movSeries);
