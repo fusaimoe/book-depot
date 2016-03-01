@@ -8,6 +8,8 @@ import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+import com.medusabookdepot.view.observer.EmailViewObserver;
+
 /**
  * This class is a simple email sender, with an hard-coded Gmail username and password as static fields.
  * It requires javax.mail.jar library, and it uses SMTP to connect to Gmail.
@@ -16,7 +18,7 @@ import javax.mail.internet.*;
  * with any SMTP capable account. To do this, you need to add more parameters to send() method, such
  * as String username, String password, int smtp, etc.
  */
-public class EmailSender {
+public class EmailSender implements EmailViewObserver {
 
 	// Gmail username and password
     private static final String USERNAME = "oop15bookdepot";
